@@ -7,6 +7,9 @@ Input is to be expected from a file in CSV format.
 ## Expected Output
 Information will be stored into an Oracle database.
 
+## Simple UML
+_Input Class_ --> _Logic Class_ --> _Database Class_
+
 ### Class List
 * _Input Class_ __(TODO: Rename)__
     * _This class will handle getting the input & parsing the information_

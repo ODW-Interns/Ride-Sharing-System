@@ -30,6 +30,7 @@ _Input Class_ --> _Logic Class_ --> _Database Class_
 * Car (Identity Class)
     * Make
     * Model
+    * Color
     * Miles
     * Type (4 door, etc..)
     * Condition
@@ -38,10 +39,13 @@ _Input Class_ --> _Logic Class_ --> _Database Class_
     * Money paid
     * Start Time
     * End Time
-    * Arrival Location
-    * Destination Location
+    * Miles Traveled
+* Customer (Identity Class)
+    * Name
+    * ID (unique)
 * Employee (Identity Class)
     * Name
     * Age
+    * Gender
     * Salary
     * Rating

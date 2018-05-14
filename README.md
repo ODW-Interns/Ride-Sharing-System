@@ -1,5 +1,5 @@
 # Ride-Sharing-Service
-A simple Maven project to collect, parse, process, and store information related to Uber employees.
+A simple Maven project to collect, parse, process, and store information related to a ride-sharing service's employees.
 
 ## Project Members
 * Mark

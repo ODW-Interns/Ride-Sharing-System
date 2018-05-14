@@ -1,6 +1,11 @@
 # Uber-Employee-Tracker
 A simple Maven project to collect, parse, process, and store information related to Uber employees.
 
+## Project Members
+* Mark
+* Wesley
+* Pete
+
 ## Expected Input
 Input is to be expected from a file in CSV format.
 

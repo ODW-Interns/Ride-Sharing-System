@@ -8,15 +8,15 @@ A simple Maven project to collect, parse, process, and store information related
 
 ## Expected Input
 Input is to be expected from a file of the following format:
-'''
+```
 EmployeeInfo|Transaction1Info|...|Transaction2Info
-'''
+```
 
 ## Expected Output
 Information will be be passed off into a file of the following format:
-'''
+```
 EmployeeName|Wage|Average
-'''
+```
 
 ## Simple UML
 _Input Class_ --> _Logic Class_ --> _Database Class_

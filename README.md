@@ -7,45 +7,52 @@ A simple Maven project to collect, parse, process, and store information related
 * Pete
 
 ## Expected Input
-Input is to be expected from a file in CSV format.
+Input is to be expected from a file of the following format:
+'''
+EmployeeInfo|Transaction1Info|...|Transaction2Info
+'''
 
 ## Expected Output
-Information will be stored into an Oracle database.
+Information will be be passed off into a file of the following format:
+'''
+EmployeeName|Wage|Average
+'''
 
 ## Simple UML
 _Input Class_ --> _Logic Class_ --> _Database Class_
 
 ### Class List
-* _Input Class_ __(TODO: Rename)__
-    * _This class will handle getting the input & parsing the information_
-* _Database Class_ __(TODO: Rename)__
-    * _This class will handle all the database-related stuff such as querying_
-* _Logic Class_ __(TODO: Rename)__
-    * _This class will handle all the processing required before sending out to a database_
-    * Example calulations
-      * __TODO__
-* Transaction History (extends ArrayList)
-    * List of Transaction
-    * .getTotal()
-* Car (Identity Class)
-    * Make
-    * Model
-    * Color
-    * Miles
-    * Type (4 door, etc..)
-    * Condition
+* _InputParser_
+    * _This class will handle getting the input & parsing the information._
+    * _The employee part of the input will get passed into an EmployeeList (composed of Employee objects)._
+    * _The transaction part of the input will get passed into an TransactionList (composed of Transaction objects)._
+* _WageCalculator_
+    * _This class will handle processing the wage and average._
+* _EmployeeList_
+    * _This class will hold Employee objects._
+* _TransactionList_
+    * _This class will hold Transaction objects._
 * Transaction (Identity Class)
-    * Transation ID (unique)
-    * Money paid
-    * Start Time
-    * End Time
-    * Miles Traveled
-* Customer (Identity Class)
-    * Name
-    * ID (unique)
+    * Transation ID (unique) [INT]
+    * Money paid [INT]
+    * Start Time [DATE Object(?)]
+    * End Time [DATE Object(?)]
+    * Miles Traveled [INT]
+    * Customer [CUSTOMER Object]
 * Employee (Identity Class)
-    * Name
-    * Age
-    * Gender
-    * Salary
-    * Rating
+    * Employee ID (unique) [INT]
+    * Name [STRING]
+    * Age [INT]
+    * Gender [CHAR (?)]
+    * Salary [INT]
+    * Rating [INT]
+    * Car [CAR Object]
+* Customer (Identity Class)
+    * Name [STRING]
+* Car (Identity Class)
+    * Make [STRING]
+    * Model [STRING]
+    * Color [STRING]
+    * Miles [INT]
+    * Type (4 door, etc..) [ENUM (?)]
+    * Condition [ENUM (?)]

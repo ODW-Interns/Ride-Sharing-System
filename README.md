@@ -1,4 +1,4 @@
-# Uber-Employee-Tracker
+# Ride-Sharing-Service
 A simple Maven project to collect, parse, process, and store information related to Uber employees.
 
 ## Project Members

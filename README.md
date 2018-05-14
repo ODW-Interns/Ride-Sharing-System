@@ -3,7 +3,7 @@ A simple Maven project to collect, parse, process, and store information related
 
 ## Project Members
 * Mark
-* Wesley
+* Wesley Dong
 * Pete
 
 ## Expected Input

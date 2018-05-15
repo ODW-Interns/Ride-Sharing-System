@@ -17,7 +17,15 @@ public class App {
     }
     
     public void run() {
+        if (_logger.isTraceEnabled())
+            _logger.trace("Running trace mode!");
         if (_logger.isDebugEnabled())
-            _logger.debug("Hello World!");
+            _logger.debug("Running debug mode!");
+        if (_logger.isInfoEnabled())
+            _logger.info("Running info mode!");
+        if (_logger.isWarnEnabled())
+            _logger.warn("Running info mode!");
+        if (_logger.isErrorEnabled())
+            _logger.error("Running error mode!");
     }
 }

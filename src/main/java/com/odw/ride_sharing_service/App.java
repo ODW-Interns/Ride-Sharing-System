@@ -8,19 +8,16 @@ import org.slf4j.LoggerFactory;
  *
  */
 public class App {
+    
+    /* Testing slf4j Logger below */
     private Logger _logger;
     
     public App() {
-        _logger= LoggerFactory.getLogger(getClass().getSimpleName());
+        _logger = LoggerFactory.getLogger(getClass().getSimpleName());
     }
     
     public void run() {
         if (_logger.isDebugEnabled())
             _logger.debug("Hello World!");
-    }
-    
-    public static void main(String[] args) {
-        App a = new App();
-        a.run();
     }
 }

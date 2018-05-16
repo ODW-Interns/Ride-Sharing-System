@@ -30,7 +30,7 @@ Proper data-modeling techniques need to be employed. Abstraction b/w people, car
 
 
 ### Drivers
-The company (the ride-sharing service) will ahve a staff of employees (drivers) that it needs to maintain. These employees can cycle on and off (quit and be re-hired) as they see fit.
+The company (the ride-sharing service) will have a staff of employees (drivers) that it needs to maintain. These employees can cycle on and off (quit and be re-hired) as they see fit.
 
 ### Pickups/Rides
 Pickups, or rides, have to have 5 things.
@@ -54,7 +54,7 @@ Events should be, at a minimum:
 
 ```
 Create | TYPE | InfoOfType |  \n
-Modify | TYPE | Field1 | … | … | Field4 | \n
+Modify | TYPE | Field1 | … | … | Fieldn | \n
 Delete | TYPE | Type_Id | \n
 ```
 Note:
@@ -75,6 +75,8 @@ DriverInfo -> FirstName | LastName | Sex | Age | Rating | Status | Car_id
 
 PickupInfo -> Car_id | Driver_id | Origin | Dest | Customer_id
 
+CustomerInfo -> FirstName | LastName | Sex | Age | Rating
+
 - Create(InputType I)
 ```
 Create | CAR | CarInfo | \n
@@ -89,9 +91,9 @@ Modify | PICKUP | pickup_id | PickupInfo | \n
 ```
 - Delete(InputType I)
 ```
-Delete | CAR | car_id
-Delete | DRIVER | driver_id
-Delete | PICKUP | pickup_id
+Delete | CAR | car_id | \n
+Delete | DRIVER | driver_id | \n
+Delete | PICKUP | pickup_id | \n
 ```
 
 Note:

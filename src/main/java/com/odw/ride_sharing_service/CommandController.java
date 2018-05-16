@@ -6,29 +6,43 @@ import org.slf4j.LoggerFactory;
 public class CommandController {
 
     private Logger logger = LoggerFactory.getLogger(getClass().getSimpleName());
-    
+
     CommandController() {
         Driver d = new Driver();
         Car c = new Car();
+        Pickup p = new Pickup();
         create(d);
+        create(c);
+        create(p);
+        modify(d);
         modify(c);
+        modify(p);
+        delete(d);
+        delete(c);
+        delete(p);
     }
 
     public void create(InputType input_) {
         switch (input_.getType()) {
         case CAR:
-            //createCar();
+            // createCar();
+            if (logger.isDebugEnabled())
+                logger.debug("Created Car"); // TODO: toString the car
+            break;
         case DRIVER:
             // createDriver();
-            if (logger.isDebugEnabled()) {
-                logger.debug("Created Driver");
-            }
-            
+            if (logger.isDebugEnabled())
+                logger.debug("Created Driver"); // TODO: toString the driver
+            break;
         case PICKUP:
-            //createPickup();
+            // createPickup();
+            if (logger.isDebugEnabled())
+                logger.debug("Created Pickup"); // TODO: toString the pickup
+            break;
         default:
-            
-        break;
+            if (logger.isErrorEnabled())
+                logger.error("Error invalid InputType for create()");
+            break;
         }
     }
 
@@ -38,12 +52,20 @@ public class CommandController {
             // modifyCar();
             if (logger.isDebugEnabled())
                 logger.debug("Modified Car");
+            break;
         case DRIVER:
             // modifyDriver();
+            if (logger.isDebugEnabled())
+                logger.debug("Modified Driver");
+            break;
         case PICKUP:
             // modifyPickup();
+            if (logger.isDebugEnabled())
+                logger.debug("Modified Pickup");
+            break;
         default:
-            
+            if (logger.isErrorEnabled())
+                logger.error("Error invalid InputType for modify()");
             break;
         }
 
@@ -53,12 +75,23 @@ public class CommandController {
         switch (input_.getType()) {
         case CAR:
             // deleteCar();
+            if (logger.isDebugEnabled())
+                logger.debug("Deleted Car"); // TODO: toString the car
+            break;
         case DRIVER:
             // deleteDriver();
+            // deleteCar();
+            if (logger.isDebugEnabled())
+                logger.debug("Deleted Driver"); // TODO: toString the driver
+            break;
         case PICKUP:
             // deletePickup();
+            if (logger.isDebugEnabled())
+                logger.debug("Deleted Pickup"); // TODO: toString the pickup
+            break;
         default:
-
+            if (logger.isErrorEnabled())
+                logger.error("Error invalid InputType for delete()");
             break;
         }
 

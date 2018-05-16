@@ -26,7 +26,7 @@ Proper data-modeling techniques need to be employed. Abstraction b/w people, car
 
 1. Break the project into the MVC mode
 2. Ensure the model supports both abstract layers, as well as concrete. Ensure the concrete layers ARE NOT IN THE SAME PLACE (PACKAGE) as the abstraction
-3. I should be able (with an event)
+3. I should be able (with an event) to add cars,drivers,customers,pickups,etc.
 
 
 ### Drivers

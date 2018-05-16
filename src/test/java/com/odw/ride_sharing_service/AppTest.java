@@ -32,4 +32,8 @@ public class AppTest extends TestCase {
         App a = new App();
         a.run();
     }
+    
+    public void testController() {
+        CommandController testController = new CommandController();
+    }
 }

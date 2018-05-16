@@ -24,14 +24,6 @@ public class AppTest extends TestCase {
     public static Test suite() {
         return new TestSuite(AppTest.class);
     }
-
-    /**
-     * Rigourous Test :-)
-     */
-    public void testApp() {
-        App a = new App();
-        a.run();
-    }
     
     public void testController() {
         CommandController testController = new CommandController();

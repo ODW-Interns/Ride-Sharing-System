@@ -3,6 +3,10 @@ package com.odw.ride_sharing_service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.odw.ride_sharing_service.POJO.Car;
+import com.odw.ride_sharing_service.POJO.Driver;
+import com.odw.ride_sharing_service.POJO.Pickup;
+
 public class CommandController {
 
     private Logger logger = LoggerFactory.getLogger(getClass().getSimpleName());

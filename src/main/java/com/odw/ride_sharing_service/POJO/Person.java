@@ -12,10 +12,10 @@ public class Person {
     }
     
     public Person(String firstName_, String lastName_, String sex_, int age_) {
-        firstName = firstName_;
-        lastName = lastName_;
-        sex = sex_;
-        age = age_;
+        setFirstName(firstName_);
+        setLastName(lastName_);
+        setSex(sex_);
+        setAge(age_);
     }
     
     /* Setters and Getters */

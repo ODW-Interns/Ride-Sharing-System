@@ -70,26 +70,35 @@ Delete Pickup will not Delete Driver
 
 ### CommandHandler
 CarInfo -> Make | Model | Year | Color | DistanceTraveled
+
 DriverInfo -> FirstName | LastName | Sex | Age | Rating | Status | Car_id
+
+PickupInfo -> Car_id | Driver_id | Origin | Dest | Customer_id
+
 - Create(InputType I)
 ```
 Create | CAR | CarInfo | \n
 Create | DRIVER | DriverInfo | \n
+Create | PICKUP | PickupInfo | \n
 ```
 - Modify(InputType I)
 ```
-Modify | CAR | id | CarInfo | \n
-Modify | DRIVER | id | DriverInfo | \n
+Modify | CAR | car_id | CarInfo | \n
+Modify | DRIVER | driver_id | DriverInfo | \n
+Modify | PICKUP | pickup_id | PickupInfo | \n
 ```
 - Delete(InputType I)
 ```
-Delete | CAR | id
-Delete | DRIVER | id
+Delete | CAR | car_id
+Delete | DRIVER | driver_id
+Delete | PICKUP | pickup_id
 ```
 
 Note:
 ```
-id is automatically assign when creating Car/Driver/Pickup
+car_id, driver_id, and pickup_id is automatically assign when creating Car/Driver/Pickup
 DistanceTraveled -> Total distance traveled while working as a driver
 Car_id maybe null
+Origin -> origin_x|origin_y (double)
+Dest -> destination_x|destination_y (double)
 ```

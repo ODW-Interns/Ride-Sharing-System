@@ -12,7 +12,13 @@ public class CommandController {
         Car c = new Car();
         Pickup p = new Pickup();
         create(d);
+        create(c);
+        create(p);
+        modify(d);
         modify(c);
+        modify(p);
+        delete(d);
+        delete(c);
         delete(p);
     }
 

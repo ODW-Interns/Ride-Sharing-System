@@ -22,7 +22,7 @@ At boot time, the sytem will be empty, and will require seeding. That seeding wi
 
 
 ### Structure
-Proper data-modeling techniques need to be employed. Abstraction b/w people, cars, and rides need to take place. For example, there should be an Interface for car, and a concrete implementation for a 2015 Toyta Corola.
+Proper data-modeling techniques need to be employed. Abstraction b/w people, cars, and rides need to take place. For example, there should be an Interface for car, and a concrete implementation for a car instantiation (with year, make, model, etc).
 
 1. Break the project into the MVC mode
 2. Ensure the model supports both abstract layers, as well as concrete. Ensure the concrete layers ARE NOT IN THE SAME PLACE (PACKAGE) as the abstraction

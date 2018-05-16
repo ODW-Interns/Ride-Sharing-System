@@ -57,10 +57,39 @@ Create | TYPE | InfoOfType |  \n
 Modify | TYPE | Field1 | … | … | Field4 | \n
 Delete | TYPE | Type_Id | \n
 ```
-*TYPE = ENUM
-*Modify = order matters
+Note:
+```
+TYPE -> ENUM
+Modify -> Order matters
+One car per driver
+Multiple pickups is avaliable for driver
+Delete Driver will also Delete Car and Pickup
+Delete Car will not Delete Driver 
+Delete Pickup will not Delete Driver
+```
 
 ### CommandHandler
+CarInfo -> Make | Model | Year | Color | DistanceTraveled
+DriverInfo -> FirstName | LastName | Sex | Age | Rating | Status | Car_id
 - Create(InputType I)
+```
+Create | CAR | CarInfo | \n
+Create | DRIVER | DriverInfo | \n
+```
 - Modify(InputType I)
+```
+Modify | CAR | id | CarInfo | \n
+Modify | DRIVER | id | DriverInfo | \n
+```
 - Delete(InputType I)
+```
+Delete | CAR | id
+Delete | DRIVER | id
+```
+
+Note:
+```
+id is automatically assign when creating Car/Driver/Pickup
+DistanceTraveled -> Total distance traveled while working as a driver
+Car_id maybe null
+```

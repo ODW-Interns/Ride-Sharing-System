@@ -51,3 +51,16 @@ Events should be, at a minimum:
 1. Create/Modify/Delete a car
 2. Create/Modify/Delete a driver
 3. Create/Modify/Delete a scheduled pickup
+
+```
+Create | TYPE | InfoOfType |  \n
+Modify | TYPE | Field1 | … | … | Field4 | \n
+Delete | TYPE | Type_Id | \n
+```
+*TYPE = ENUM
+*Modify = order matters
+
+### CommandHandler
+- Create(InputType I)
+- Modify(InputType I)
+- Delete(InputType I)

@@ -1,0 +1,17 @@
+create|customer|Britney|Spears|Female|36|
+create|customer|Wesley|Dong|Male|23|
+create|car|Toyota|Trueno|1986|White|
+create|driver|Mark|Constantine|Male|21|5|true|0|
+create|pickup|0|0|1|150.11|180.32|180.69|169.69|
+modify|driver|0||||1|false||
+modify|car|Toyota|Trueno|1986|Black|
+delete|driver|0|
+create|car|Nisson|GTR|2008|Yellow|
+create|driver|Pete|Tanthmanatham|Male|35|5|false|1|
+create|pickup|1|1|2|311.12|234.1|123.43|233.3|
+create|pickup|1|1|0|311.12|234.1|123.43|233.3|
+delete|car|1|
+create|pickup|1|1|0|15.54|31.69|54.6|56.7|
+create|car|BMW|Z4|2012|Pink|
+modify|driver|1|||||||2|
+create|pickup|1|2|0|15.25|31.58|56.4|43.3|

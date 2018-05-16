@@ -6,7 +6,7 @@ public class Car extends InputType {
     private String make;
     private String model;
     private int year;
-    private double distanceTraveled;
+    private double distanceTraveled; 
 
     public String getColor() {
         return color;

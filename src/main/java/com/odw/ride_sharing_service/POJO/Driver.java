@@ -9,15 +9,15 @@ public class Driver extends InputType {
     private int driverID;
     private int carID;
     private int rating;
-    private Person person;
+    private Person driver;
     private boolean isAvailable;
     
     public Driver() {
         this(new Person(), -1, false, -1);
     }
     
-    public Driver(Person person_, int rating_, boolean isAvailable_, int carID_) {
-        setPerson(person_);
+    public Driver(Person driver_, int rating_, boolean isAvailable_, int carID_) {
+        setDriver(driver_);
         setRating(rating_);
         setIsAvailable(isAvailable_);
         setCarID(carID_);
@@ -31,11 +31,11 @@ public class Driver extends InputType {
     }
     
     /* Setters and Getters */
-    public Person getPerson() {
-        return person;
+    public Person getDriver() {
+        return driver;
     }
-    public void setPerson(Person person_) {
-        person = person_;
+    public void setDriver(Person driver_) {
+        driver = driver_;
     }
     public int getRating() {
         return rating;

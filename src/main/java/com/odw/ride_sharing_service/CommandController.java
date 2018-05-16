@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import com.odw.ride_sharing_service.POJO.Car;
 import com.odw.ride_sharing_service.POJO.Driver;
+import com.odw.ride_sharing_service.POJO.InputType;
 import com.odw.ride_sharing_service.POJO.Pickup;
 
 public class CommandController {

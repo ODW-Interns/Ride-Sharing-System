@@ -1,7 +1,5 @@
 package com.odw.ride_sharing_service.POJO;
 
-import com.odw.ride_sharing_service.InputType;
-
 public class Driver extends InputType {
 
     private static int nextID = 0;

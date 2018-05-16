@@ -1,7 +1,6 @@
 package com.odw.ride_sharing_service.POJO;
 
-import com.odw.ride_sharing_service.InputType;
-import com.odw.ride_sharing_service.InputType.Type;
+import com.odw.ride_sharing_service.POJO.InputType.Type;
 
 public class Pickup extends InputType {
 

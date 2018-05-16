@@ -71,11 +71,11 @@ Delete Pickup will not Delete Driver
 ### CommandHandler
 CarInfo -> Make | Model | Year | Color | DistanceTraveled
 
-DriverInfo -> FirstName | LastName | Sex | Age | Rating | Status | Car_id
+DriverInfo -> FirstName | LastName | Sex | Age | Rating | Status | Car_id |
 
-PickupInfo -> Car_id | Driver_id | Origin | Dest | Customer_id
+PickupInfo -> Driver_id | Car_id | Customer_id | Origin | Dest |
 
-CustomerInfo -> FirstName | LastName | Sex | Age | Rating
+CustomerInfo -> FirstName | LastName | Sex | Age |
 
 - Create(InputType I)
 ```

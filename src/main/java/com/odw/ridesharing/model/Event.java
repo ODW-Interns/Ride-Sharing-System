@@ -4,6 +4,17 @@ import java.util.ArrayList;
 
 public class Event {
 
+    // Commands
+    public static final String CREATE = "create";
+    public static final String MODIFY = "modify";
+    public static final String DELETE = "delete";
+    
+    // Input Types
+    public static final String CAR = "create";
+    public static final String CUSTOMER = "customer";
+    public static final String DRIVER = "driver";
+    public static final String PICKUP = "pickup";
+    
     private String commandType;
     private String inputType;
     private ArrayList<String> typeValues;

@@ -42,7 +42,7 @@ public class EventParser {
 
         // Storing the command to be executed as a String.
         try {
-            _returnedEvent.setCommand(_tokenizer.nextToken());
+            _returnedEvent.setCommand(_tokenizer.nextToken().toLowerCase());
         } catch (Exception e_) {
             if (logger.isErrorEnabled()) {
                 logger.error(e_.getMessage());
@@ -52,7 +52,7 @@ public class EventParser {
 
         // Storing the type-of-input format as a String.
         try {
-            _returnedEvent.setInputType(_tokenizer.nextToken());
+            _returnedEvent.setInputType(_tokenizer.nextToken().toLowerCase());
         } catch (Exception e_) {
             if (logger.isErrorEnabled()) {
                 logger.error(e_.getMessage());
@@ -63,7 +63,7 @@ public class EventParser {
         // Storing the remaining type information for later object creation.
         try {
             while (_tokenizer.hasMoreTokens()) {
-                _returnedEvent.addTypeValue(_tokenizer.nextToken());
+                _returnedEvent.addTypeValue(_tokenizer.nextToken().toLowerCase());
             }
         } catch (Exception e_) {
             if (logger.isErrorEnabled()) {

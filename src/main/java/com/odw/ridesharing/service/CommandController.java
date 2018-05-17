@@ -1,19 +1,19 @@
-package com.odw.ride_sharing_service;
+package com.odw.ridesharing.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.odw.ride_sharing_service.POJO.Car;
-import com.odw.ride_sharing_service.POJO.Driver;
-import com.odw.ride_sharing_service.POJO.InputType;
-import com.odw.ride_sharing_service.POJO.Pickup;
-import com.odw.ride_sharing_service.POJO.Customer;
+import com.odw.ridesharing.model.Car;
+import com.odw.ridesharing.model.Customer;
+import com.odw.ridesharing.model.Driver;
+import com.odw.ridesharing.model.InputType;
+import com.odw.ridesharing.model.Pickup;
 
 public class CommandController {
 
     private Logger logger = LoggerFactory.getLogger(getClass().getSimpleName());
 
-    CommandController() {
+    public CommandController() {
         Driver d = new Driver();
         Car c = new Car();
         Pickup p = new Pickup();

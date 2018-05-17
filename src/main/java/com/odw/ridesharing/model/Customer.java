@@ -1,6 +1,6 @@
-package com.odw.ride_sharing_service.POJO;
+package com.odw.ridesharing.model;
 
-import com.odw.ride_sharing_service.POJO.InputType.Type;
+import com.odw.ridesharing.model.InputType.Type;
 
 public class Customer extends InputType {
 

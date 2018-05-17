@@ -1,4 +1,6 @@
-package com.odw.ride_sharing_service;
+package com.odw.ridesharing;
+
+import com.odw.ridesharing.service.CommandController;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

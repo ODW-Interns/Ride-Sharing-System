@@ -1,4 +1,4 @@
-package com.odw.ride_sharing_service.POJO;
+package com.odw.ridesharing.model;
 
 public class Person {
 

@@ -14,7 +14,7 @@ public class EventParser {
 
     private Logger logger = LoggerFactory.getLogger(getClass().getSimpleName());
     private BufferedReader inputReader;
-    String delimiter;
+    private String delimiter;
     
     public EventParser(String fileName_, String delimiter_) {
         // TODO: exception if not found
@@ -26,7 +26,7 @@ public class EventParser {
         StringTokenizer _tokenizer = new StringTokenizer(getNextLine(), delimiter);
         Event _returnedEvent = new Event();
         
-        // Getting the commandType. TODO: reword
+        // Storing the command to be executed as a String.
         try {
             _returnedEvent.setCommand(_tokenizer.nextToken());
         }
@@ -36,7 +36,7 @@ public class EventParser {
             return null;
         }
         
-        // Getting the inputType. TODO: reword
+        // Storing the type-of-input format as a String.
         try {
             _returnedEvent.setInputType(_tokenizer.nextToken());
         }
@@ -46,7 +46,7 @@ public class EventParser {
             return null;
         }
         
-        // Getting the typeValues. TODO: reword
+        // Storing the remaining type information for later object creation.
         try {
             while(_tokenizer.hasMoreTokens()) {
                 _returnedEvent.addTypeValue(_tokenizer.nextToken());
@@ -63,12 +63,16 @@ public class EventParser {
             logger.info("---- New event created ----");
             logger.info("Event CommandType: {}", _returnedEvent.getCommand());
             logger.info("Event InputType: {}", _returnedEvent.getInputType());
-            logger.info("Event TypeValues: {}", _returnedEvent.getTypeValues());
+            logger.info("Event TypeValues: {}", _returnedEvent.getTypeValues().toString());
         }
         
         return _returnedEvent;
     }
     
+    /*
+     * Get the next line to process in the specified file.
+     * @return A string of the next line (event) to be parsed.
+     */
     private String getNextLine() throws IOException {
         return inputReader.readLine();
     }

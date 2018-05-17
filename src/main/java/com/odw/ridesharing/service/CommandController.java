@@ -8,11 +8,10 @@ import com.odw.ridesharing.model.Event;
 public class CommandController {
 
     private EventParser eventParser;
-
     private Logger logger = LoggerFactory.getLogger(getClass().getSimpleName());
 
     public CommandController() {
-        eventParser = new EventParser("/input.txt", "l");
+        eventParser = new EventParser("/input.txt", "|");
     }
 
     public void processCommand() {

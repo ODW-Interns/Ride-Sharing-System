@@ -17,7 +17,7 @@ public class EventParser {
     private String fileName;
     private String delimiter;
 
-    /*
+    /**
      * Creates a new Event Parser for the given file.
      * 
      * @param fileName_ The name of the file to access.
@@ -30,7 +30,7 @@ public class EventParser {
         inputReader = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(fileName)));
     }
 
-    /*
+    /**
      * Parses the event information on the current line of the inputReader. Does not
      * check to see if format is correct.
      * 
@@ -82,7 +82,7 @@ public class EventParser {
         return _returnedEvent;
     }
 
-    /*
+    /**
      * Get the next line to process in the specified file.
      * 
      * @return A string of the next line (event) to be parsed.

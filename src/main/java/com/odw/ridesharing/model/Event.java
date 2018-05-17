@@ -8,14 +8,14 @@ public class Event {
     private String inputType;
     private ArrayList<String> typeValues;
 
-    /*
+    /**
      * Initializes an empty Event.
      */
     public Event() {
         this("", "", "");
     }
 
-    /*
+    /**
      * Stores event information parsed from EventParser.
      * 
      * @param commandType_ The type of command to be executed.
@@ -31,7 +31,7 @@ public class Event {
         typeValues = new ArrayList<String>();
     }
 
-    /*
+    /**
      * Add an element to the ArrayList storing to the remaining input values.
      * 
      * @param typeValue_ String to add to the ArrayList
@@ -40,7 +40,7 @@ public class Event {
         typeValues.add(typeValue_);
     }
 
-    /*
+    /**
      * Get the remaining input values from the event. (excluding the command & type)
      * 
      * @return An ArrayList of the remaining input values.
@@ -51,7 +51,7 @@ public class Event {
 
     /* ===== Getters and Setters ===== */
 
-    /*
+    /**
      * Gets the event's command to be executed.
      * 
      * @return The command that will be executed.
@@ -60,7 +60,7 @@ public class Event {
         return commandType;
     }
 
-    /*
+    /**
      * Sets the event's command to be executed.
      * 
      * @param command_ The new command to be set to.
@@ -69,7 +69,7 @@ public class Event {
         commandType = command_;
     }
 
-    /*
+    /**
      * Gets the event's input type of the event. (i.e. the format)
      * 
      * @return The type of the input information.
@@ -78,7 +78,7 @@ public class Event {
         return inputType;
     }
 
-    /*
+    /**
      * Sets the input type of the event. (i.e. the format)
      * 
      * @param inputType_ The new input type to be set to.

@@ -32,8 +32,7 @@ public class AppTest extends TestCase {
     }
     
     public void testController() {
-        //CommandController testController = new CommandController();
-               
+        CommandController testController = new CommandController();       
     }
     
     public void testEventParser() {
@@ -43,7 +42,6 @@ public class AppTest extends TestCase {
             Event secondEvent = eventParser.parseEvent();
             Event thirdEvent = eventParser.parseEvent();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         

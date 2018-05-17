@@ -24,8 +24,8 @@ public class Driver extends InputType {
     }
 
     @Override
-    public Type getType() {
-        return InputType.Type.DRIVER;
+    public Types getType() {
+        return InputType.Types.DRIVER;
     }
     
     /* Setters and Getters */

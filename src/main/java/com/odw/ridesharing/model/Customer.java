@@ -1,7 +1,5 @@
 package com.odw.ridesharing.model;
 
-import com.odw.ridesharing.model.InputType.Type;
-
 public class Customer extends InputType {
 
     private static int nextID = 0;
@@ -20,8 +18,8 @@ public class Customer extends InputType {
     }
     
     @Override
-    public Type getType() {
-        return InputType.Type.CUSTOMER;
+    public Types getType() {
+        return InputType.Types.CUSTOMER;
     }
     
     /* Setters and Getters */

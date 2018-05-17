@@ -39,8 +39,8 @@ public class Car extends InputType {
      * (non-Javadoc)
      */
     @Override
-    public Type getType() {
-        return InputType.Type.CAR;
+    public Types getType() {
+        return InputType.Types.CAR;
     }
 
     /* Setters and Getters */

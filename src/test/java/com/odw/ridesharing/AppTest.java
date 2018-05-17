@@ -1,7 +1,10 @@
 package com.odw.ridesharing;
 
-import com.odw.ridesharing.model.Car;
+import java.io.IOException;
+
+import com.odw.ridesharing.model.Event;
 import com.odw.ridesharing.service.CommandController;
+import com.odw.ridesharing.service.EventParser;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -29,7 +32,21 @@ public class AppTest extends TestCase {
     }
     
     public void testController() {
-        CommandController testController = new CommandController();
+        //CommandController testController = new CommandController();
                
+    }
+    
+    public void testEventParser() {
+        EventParser eventParser = new EventParser("/input.txt", "|");
+        try {
+            Event firstEvent = eventParser.parseEvent();
+            Event secondEvent = eventParser.parseEvent();
+            Event thirdEvent = eventParser.parseEvent();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
+        
     }
 }

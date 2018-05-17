@@ -1,7 +1,5 @@
 package com.odw.ridesharing.model;
 
-import com.odw.ridesharing.model.InputType.Type;
-
 public class Pickup extends InputType {
 
     private static int nextID = 0;
@@ -28,8 +26,8 @@ public class Pickup extends InputType {
     }
     
     @Override
-    public Type getType() {
-        return InputType.Type.PICKUP;
+    public Types getType() {
+        return InputType.Types.PICKUP;
     }
     
     /* Setters and Getters */

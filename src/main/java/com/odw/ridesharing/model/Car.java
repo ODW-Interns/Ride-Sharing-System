@@ -3,7 +3,7 @@ package com.odw.ridesharing.model;
 /**
  *
  */
-public class Car extends InputType {
+public class Car {
 
     private static int nextID = 0;
 
@@ -33,14 +33,6 @@ public class Car extends InputType {
 
         distanceTraveled = 0;
         carID = Car.nextID++;
-    }
-
-    /**
-     * (non-Javadoc)
-     */
-    @Override
-    public Types getType() {
-        return InputType.Types.CAR;
     }
 
     /* Getters and Setters */

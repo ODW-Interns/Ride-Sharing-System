@@ -1,6 +1,6 @@
 package com.odw.ridesharing.model;
 
-public class Pickup extends InputType {
+public class Pickup {
 
     private static int nextID = 0;
     
@@ -38,16 +38,6 @@ public class Pickup extends InputType {
         setDestination(destination_);
         
         pickupID = Pickup.nextID++;
-    }
-    
-    /**
-     * (non-Javadoc)
-     * 
-     * @see com.odw.ridesharing.model.InputType#getType()
-     */
-    @Override
-    public Types getType() {
-        return InputType.Types.PICKUP;
     }
     
     /* Getters and Setters */

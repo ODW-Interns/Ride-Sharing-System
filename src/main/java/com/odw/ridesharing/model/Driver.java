@@ -1,6 +1,6 @@
 package com.odw.ridesharing.model;
 
-public class Driver extends InputType {
+public class Driver {
 
 	private static int nextID = 0;
 
@@ -32,15 +32,6 @@ public class Driver extends InputType {
 		setCarID(carID_);
 
 		driverID = Driver.nextID++;
-	}
-
-	/**
-	 * (non-Javadoc)
-	 * @see com.odw.ridesharing.model.InputType#getType() return types of driver
-	 */
-	@Override
-	public Types getType() {
-		return InputType.Types.DRIVER;
 	}
 
 	/**

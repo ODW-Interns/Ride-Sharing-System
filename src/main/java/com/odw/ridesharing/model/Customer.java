@@ -33,9 +33,18 @@ public class Customer extends InputType {
     }
     
     /* Setters and Getters */
+    /*
+     * Get the customer
+     * @return The customer to be executed
+     */
     public Person getCustomer() {
         return customer;
     }
+    
+    /*
+     * Set the customer
+     * @param The new customer to be set
+     */
     public void setCustomer(Person customer_) {
         this.customer = customer_;
     }

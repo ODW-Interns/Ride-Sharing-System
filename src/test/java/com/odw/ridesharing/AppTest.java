@@ -1,5 +1,6 @@
 package com.odw.ridesharing;
 
+import com.odw.ridesharing.model.Car;
 import com.odw.ridesharing.service.CommandController;
 
 import junit.framework.Test;
@@ -29,5 +30,6 @@ public class AppTest extends TestCase {
     
     public void testController() {
         CommandController testController = new CommandController();
+               
     }
 }

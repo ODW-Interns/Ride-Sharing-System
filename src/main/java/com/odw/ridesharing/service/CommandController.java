@@ -15,7 +15,7 @@ public class CommandController {
 
     public CommandController() {
         Driver d = new Driver();
-        Car c = new Car();
+        Car c = null;//new Car();
         Pickup p = new Pickup();
         Customer k = new Customer();
         create(d);

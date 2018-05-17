@@ -7,14 +7,14 @@ public class Customer extends InputType {
     private int customerID;
     private Person customer;
     
-    /* 
+    /**
      * default constructor: Creates a new customer which is an empty Person
      */
     public Customer() {
         this(new Person());
     }
     
-    /*
+    /**
      * Creates a customer and give it an ID
      */
     public Customer(Person customer_) {
@@ -23,7 +23,7 @@ public class Customer extends InputType {
         customerID = Customer.nextID++;
     }
     
-    /*
+    /**
      * (non-Javadoc)
      * @see com.odw.ridesharing.model.InputType#getType()
      */
@@ -33,16 +33,18 @@ public class Customer extends InputType {
     }
     
     /* Setters and Getters */
-    /*
+    /**
      * Get the customer
+     * 
      * @return The customer to be executed
      */
     public Person getCustomer() {
         return customer;
     }
     
-    /*
+    /**
      * Set the customer
+     * 
      * @param The new customer to be set
      */
     public void setCustomer(Person customer_) {

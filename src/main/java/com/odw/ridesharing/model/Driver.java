@@ -14,7 +14,7 @@ public class Driver extends InputType {
 		this(new Person(), -1, false, -1);
 	}
 
-	/*
+	/**
 	 * Store the information of this driver
 	 * 
 	 * @param driver_ Driver's info and should includes Fistname, Lastname, Sex, and Age
@@ -34,7 +34,7 @@ public class Driver extends InputType {
 		driverID = Driver.nextID++;
 	}
 
-	/*
+	/**
 	 * (non-Javadoc)
 	 * @see com.odw.ridesharing.model.InputType#getType() return types of driver
 	 */
@@ -43,7 +43,7 @@ public class Driver extends InputType {
 		return InputType.Types.DRIVER;
 	}
 
-	/*
+	/**
 	 * Get the info of this person driver
 	 * 
 	 * @return driver this driver's info
@@ -52,17 +52,17 @@ public class Driver extends InputType {
 		return driver;
 	}
 	
-	/*
+	/**
 	 * Set person driver
 	 * 
-	 * @param driver_ This is driver's info
+	 * @param driver_ This is driver's info to be set
 	 * 				  It should includes Firstname, Lastname, Sex, and Age
 	 */
 	public void setDriver(Person driver_) {
 		driver = driver_;
 	}
 	
-	/*
+	/**
 	 * Get the rating of this driver
 	 * 
 	 * @return rating driver's rating info
@@ -71,17 +71,17 @@ public class Driver extends InputType {
 		return rating;
 	}
 	
-	/*
+	/**
 	 * Set the rating of this driver
 	 * 
-	 * @param rating_ This is rating's info of the driver
+	 * @param rating_ This is rating's info of the driver to be set
 	 * 				  It should range from 1 to 5
 	 */
 	public void setRating(int rating_) {
 		rating = rating_;
 	}
 	
-	/*
+	/**
 	 * Get the availability of this driver
 	 * 
 	 * @return isAvailable This driver's status
@@ -90,17 +90,17 @@ public class Driver extends InputType {
 		return isAvailable;
 	}
 
-	/*
+	/**
 	 * Set the status of the this driver
 	 * 
-	 * @param isAvailable This driver's status
+	 * @param isAvailable This driver's status to be set
 	 * 					  It should be true or false
 	 */
 	public void setIsAvailable(boolean isAvailable_) {
 		isAvailable = isAvailable_;
 	}
 
-	/*
+	/**
 	 * Get the car id of this driver
 	 * 
 	 * @return carID The id of this person's car
@@ -110,10 +110,10 @@ public class Driver extends InputType {
 		return carID;
 	}
 
-	/*
+	/**
 	 * Set the car id of this driver
 	 * 
-	 * @param carID This is the driver's unique car id
+	 * @param carID This is the driver's unique car id to be set
 	 */
 	public void setCarID(int carID_) {
 		carID = carID_;

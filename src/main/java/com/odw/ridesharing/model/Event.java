@@ -10,7 +10,7 @@ public class Event {
     public static final String DELETE = "delete";
     
     // Input Types
-    public static final String CAR = "create";
+    public static final String CAR = "car";
     public static final String CUSTOMER = "customer";
     public static final String DRIVER = "driver";
     public static final String PICKUP = "pickup";

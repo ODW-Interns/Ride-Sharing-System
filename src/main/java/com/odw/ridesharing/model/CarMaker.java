@@ -6,35 +6,35 @@
 package com.odw.ridesharing.model;
 
 public class CarMaker {
-    private int _idx;
-    private String _name;
+    private int idx;
+    private String name;
 
     /**
      * 
      */
     public final int getIdx() {
-        return _idx;
+        return idx;
     }
 
     /**
      * 
      */
     public final String getName() {
-        return _name;
+        return name;
     }
 
     /**
      * 
      */
     public final void setIdx(int idx_) {
-        _idx = idx_;
+        idx = idx_;
     }
 
     /**
      * 
      */
     public final void setName(String name_) {
-        _name = name_;
+        name = name_;
     }
 
 }

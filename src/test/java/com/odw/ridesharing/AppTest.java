@@ -5,7 +5,7 @@ import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.odw.ridesharing.model.Event;
+import com.odw.ridesharing.model.*;
 import com.odw.ridesharing.service.CommandController;
 import com.odw.ridesharing.service.EventParser;
 
@@ -49,7 +49,9 @@ public class AppTest extends TestCase {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
-        
+    }
+    
+    public void testCar() {
+        Car car = new Sedan();
     }
 }

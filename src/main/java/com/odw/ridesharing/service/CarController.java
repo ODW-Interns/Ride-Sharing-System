@@ -16,8 +16,8 @@ public class CarController {
      * Default Constructor
      */
     public CarController() {
-        carFactory = new CarFactory();
         carInventory = new ConcurrentHashMap<Integer, Car>();
+        carFactory = new CarFactory();
     }
 
     /**
@@ -41,26 +41,23 @@ public class CarController {
     }
 
     /**
-     * Temporary for now.
-     * TODO: Modify
+     * Returns a string of all the cars in inventory.
+     * @return TODO
      */
     public String getCarInventory() {
-
         if (carInventory.size() > 0) {
-            StringBuilder result = new StringBuilder();
+            StringBuilder _result = new StringBuilder();
 
-            for (Map.Entry<Integer, Car> entry : carInventory.entrySet()) {
-                int i = entry.getKey().intValue();
-                Car c = entry.getValue();
+            for (Map.Entry<Integer, Car> _entry : carInventory.entrySet()) {
+                Car _currentCar = _entry.getValue();
 
-                result.append(c.toString());
+                _result.append(_currentCar.toString());
             }
 
-            return result.toString();
+            return _result.toString();
         }
 
         return "";
-
     }
 
 }

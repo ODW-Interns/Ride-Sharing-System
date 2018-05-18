@@ -39,16 +39,16 @@ public abstract class Car {
         setCarID(idx_);
         distanceTraveled = 0;
     }
-    
+
     /**
-     * TODO: Modify to use StringBuilder / Document
+     * Returns the car's information in String format.
      * 
-     * @return The car in string format.
+     * @return The car information as a String.
      */
     @Override
     public String toString() {
-        return "ID: " + carID + " " + maker + " " + model + " " + color + " " + Integer.toString(year) + " "
-                + Double.toString(distanceTraveled) + System.lineSeparator();
+        return "ID: " + carID + " " + "Maker: " + maker + " " + "Model: " + model + " " + "Color: " + color + " "
+                + "Year: " + Integer.toString(year) + " " + "Distance Traveled: " + Double.toString(distanceTraveled);
     }
 
     /* ===== Getters and Setters ===== */

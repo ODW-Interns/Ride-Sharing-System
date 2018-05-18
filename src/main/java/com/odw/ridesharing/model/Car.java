@@ -47,8 +47,8 @@ public abstract class Car {
      */
     @Override
     public String toString() {
-        return "ID: " + carID + " " + "Maker: " + maker + " " + "Model: " + model + " " + "Color: " + color + " "
-                + "Year: " + Integer.toString(year) + " " + "Distance Traveled: " + Double.toString(distanceTraveled);
+        return "ID: " + carID + " | Maker: " + maker + " | Model: " + model + " | Color: " + color + " | Year: "
+                + Integer.toString(year) + " | Distance Traveled: " + Double.toString(distanceTraveled);
     }
 
     /* ===== Getters and Setters ===== */

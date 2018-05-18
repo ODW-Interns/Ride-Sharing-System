@@ -81,7 +81,7 @@ public class CarController {
             for (Map.Entry<Integer, Car> _entry : carInventory.entrySet()) {
                 Car _currentCar = _entry.getValue();
 
-                _result.append(_currentCar.toString());
+                _result.append(_currentCar.toString() + System.lineSeparator());
             }
 
             return _result.toString();

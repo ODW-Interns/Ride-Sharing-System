@@ -91,7 +91,6 @@ public class CommandController {
     private void modify(Event event_) {
         switch (event_.getInputType()) {
         case Event.CAR:
-            
         	 try {
                  carController.modifyCar(event_.getTypeValues());
              } catch (BadCarException e_) {
@@ -120,7 +119,6 @@ public class CommandController {
     private void delete(Event event_) {
         switch (event_.getInputType()) {
         case Event.CAR:
-            
         	try {
                 carController.deleteCar(event_.getTypeValues());
             } catch (BadCarException e_) {

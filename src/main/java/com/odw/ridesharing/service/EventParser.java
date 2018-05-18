@@ -2,6 +2,7 @@ package com.odw.ridesharing.service;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
@@ -18,16 +19,31 @@ public class EventParser {
     private String delimiter;
 
     /**
-     * Creates a new Event Parser for the given file.
+     * Creates a new EventParser for the given file.
      * 
-     * @param fileName_ The name of the file to access.
+     * @param fileName_
+     *            The name of the file to access.
      * 
-     * @param delimited_ The file's delimiter.
+     * @param delimited_
+     *            The file's delimiter.
      */
     public EventParser(String fileName_, String delimiter_) {
         delimiter = delimiter_;
         fileName = fileName_;
         inputReader = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(fileName)));
+    }
+
+    /**
+     * Creates a new EventParser for a generic InputStream
+     * 
+     * @param inputStream_
+     *            The InputStream to read from.
+     * @param delimiter_
+     *            The InputStream's delimiter.
+     */
+    public EventParser(InputStream inputStream_, String delimiter_) {
+        delimiter = delimiter_;
+        inputReader = new BufferedReader(new InputStreamReader(inputStream_));
     }
 
     /**

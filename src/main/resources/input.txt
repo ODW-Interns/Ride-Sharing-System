@@ -4,7 +4,7 @@ create|car|coupe|Toyota|Trueno|white|1986|
 create|driver|Mark|Constantine|male|21|5|true|0|
 create|pickup|0|0|1|150.11|180.32|180.69|169.69|
 modify|driver|0||||1|false||
-modify|car||Toyota|Trueno|black|1986|
+modify|car|0|coupe|Toyota|Camry|black|2004|
 delete|driver|0|
 create|car|coupe|Nisson|GTR|yellow|2008|
 create|driver|Pete|Tanthmanatham|male|35|5|false|1|

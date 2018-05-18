@@ -7,31 +7,34 @@ package com.odw.ridesharing.service;
 
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.odw.ridesharing.model.Car;
 import com.odw.ridesharing.model.exceptions.BadCarException;
+import java.util.ArrayList;
 
 public class CarController {
-    
-    private ConcurrentHashMap<String, Object> _models;
-    private ConcurrentHashMap<String, Object> _makes;
-    private ConcurrentHashMap<String, Object> _year;
-    
 
-    /**
-     *
-     */
-    private CarController() {
-        _models = new ConcurrentHashMap<String, Object>();
-        _makes = new ConcurrentHashMap<String, Object>();
-        _year = new ConcurrentHashMap<String, Object>();
-    }
-    
-    
-    
-    
-    
-    public void addCar(String make_, String model_, int year_, String color_) throws BadCarException
-    {
-        
-    }
+	private ConcurrentHashMap<Integer, Object> CarInventory;
+
+	/*
+	 * Default Constructor
+	 */
+	private CarController() {
+		CarInventory = new ConcurrentHashMap<Integer, Object>();
+	}
+
+	/**
+	 * 
+	 * Call CarFactory to create a car
+	 * 
+	 * @param typeValue Strings needed to create the cae
+	 * @throws BadCarException If car.getID is greater than zero, then throw an exception
+	 */
+	public void createCar(ArrayList<String> typeValue) throws BadCarException {
+		Car car = CarFactory.createCar(typeValue);
+		if (car.getCarID >= 0)
+			CarInventory.put(car.getCarID, car);
+		else
+			throw new BadCarException();
+	}
 
 }

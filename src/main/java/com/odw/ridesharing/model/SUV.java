@@ -2,8 +2,11 @@ package com.odw.ridesharing.model;
 
 public class SUV extends Car {
 
+    /**
+     * Creates a default, empty suv.
+     */
     public SUV() {
-        this("", "", "", -1);
+        this("", "", "", -1, -1);
     }
     
     /**
@@ -18,7 +21,7 @@ public class SUV extends Car {
      * @param year_
      *            The suv model's year.
      */
-    public SUV(String make_, String model_, String color_, int year_) {
-        super(make_, model_, color_, year_);
+    public SUV(String make_, String model_, String color_, int year_, int idx_) {
+        super(make_, model_, color_, year_, idx_);
     }
 }

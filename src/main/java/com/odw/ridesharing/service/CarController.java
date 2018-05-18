@@ -20,9 +20,9 @@ public class CarController {
      *
      */
     private CarController() {
-        _models = new ConcurrentHashMap<>();
-        _makes = new ConcurrentHashMap<>();
-        _year = new ConcurrentHashMap<>();
+        _models = new ConcurrentHashMap<String, Object>();
+        _makes = new ConcurrentHashMap<String, Object>();
+        _year = new ConcurrentHashMap<String, Object>();
     }
     
     

@@ -1,17 +1,11 @@
 package com.odw.ridesharing.model;
 
-/**
- *
- */
-public class Car {
-
-    private static int nextID = 0;
+public class SUV implements Car{
 
     private int carID;
     private int year;
 
-    private CarMaker maker;
-
+    private String maker;
     private String color;
     private String model;
     private double distanceTraveled;
@@ -19,20 +13,13 @@ public class Car {
     /**
      *
      */
-    protected Car() {
-        this(null, "", 0, "");
-    }
-
-    /**
-     *
-     */
-    public Car(CarMaker make_, String model_, int year_, String color_) {
+    public SUV (String make_, String model_, int year_, String color_) {
         setModel(model_);
         setYear(year_);
         setColor(color_);
 
         distanceTraveled = 0;
-        carID = Car.nextID++;
+
     }
 
     /* Getters and Setters */
@@ -60,7 +47,7 @@ public class Car {
      * 
      * @return The car's maker to be executed
      */
-    public CarMaker getMake() {
+    public String getMake() {
         return maker;
     }
 
@@ -69,7 +56,7 @@ public class Car {
      * 
      * @param The new make of the car to be set
      */
-    public void setMake(CarMaker make_) {
+    public void setMake(String make_) {
         maker = make_;
     }
 

@@ -12,8 +12,11 @@ public abstract class Car {
     private String model;
     private double distanceTraveled;
 
+    /**
+     * Creates a default, empty car.
+     */
     public Car() {
-        this("", "", "", -1);
+        this("", "", "", -1, -1);
     }
 
     /**
@@ -28,16 +31,35 @@ public abstract class Car {
      * @param year_
      *            The car model's year.
      */
-    public Car(String make_, String model_, String color_, int year_) {
+    public Car(String make_, String model_, String color_, int year_, int idx_) {
         setMake(make_);
         setModel(model_);
         setColor(color_);
         setYear(year_);
-
+        setCarID(idx_);
         distanceTraveled = 0;
     }
 
     /* ===== Getters and Setters ===== */
+
+    /**
+     * Gets the current car's id that was assigned
+     * 
+     * @return The current car's id.
+     */
+    public int getCarID() {
+        return carID;
+    }
+
+    /**
+     * Sets the unique ID of the car. Determining if unique is not handled here.
+     * 
+     * @param carID_
+     *            The car ID to be set.
+     */
+    public void setCarID(int carID_) {
+        carID = carID_;
+    }
 
     /**
      * Gets the color of the car.

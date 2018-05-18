@@ -2,8 +2,11 @@ package com.odw.ridesharing.model;
 
 public class Sedan extends Car {
 
+    /**
+     * Creates a default, empty sedan.
+     */
     public Sedan() {
-        this("", "", "", -1);
+        this("", "", "", -1, -1);
     }
     
     /**
@@ -18,7 +21,7 @@ public class Sedan extends Car {
      * @param year_
      *            The sedan model's year.
      */
-    public Sedan(String make_, String model_, String color_, int year_) {
-        super(make_, model_, color_, year_);
+    public Sedan(String make_, String model_, String color_, int year_, int idx_) {
+        super(make_, model_, color_, year_, idx_);
     }
 }

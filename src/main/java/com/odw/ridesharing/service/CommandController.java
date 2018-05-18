@@ -91,7 +91,14 @@ public class CommandController {
     private void modify(Event event_) {
         switch (event_.getInputType()) {
         case Event.CAR:
-            // TODO
+            
+        	 try {
+                 carController.modifyCar(event_.getTypeValues());
+             } catch (BadCarException e_) {
+                 if (logger.isErrorEnabled()) {
+                     logger.error("There was a problem modifying a car.");
+                 }
+             }
             break;
         case Event.CUSTOMER:
             // TODO
@@ -113,7 +120,14 @@ public class CommandController {
     private void delete(Event event_) {
         switch (event_.getInputType()) {
         case Event.CAR:
-            // TODO
+            
+        	try {
+                carController.deleteCar(event_.getTypeValues());
+            } catch (BadCarException e_) {
+                if (logger.isErrorEnabled()) {
+                    logger.error("There was a problem deleting a car.");
+                }
+            }
             break;
         case Event.CUSTOMER:
             // TODO

@@ -13,10 +13,10 @@ import com.odw.ridesharing.model.Event;
 
 public class EventParser {
 
-    private Logger logger = LoggerFactory.getLogger(getClass().getSimpleName());
     private BufferedReader inputReader;
     private String fileName;
     private String delimiter;
+    private boolean isDoneReading;
 
     /**
      * Creates a new EventParser for the given file.
@@ -31,6 +31,7 @@ public class EventParser {
         delimiter = delimiter_;
         fileName = fileName_;
         inputReader = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(fileName)));
+        isDoneReading = false;
     }
 
     /**
@@ -44,60 +45,41 @@ public class EventParser {
     public EventParser(InputStream inputStream_, String delimiter_) {
         delimiter = delimiter_;
         inputReader = new BufferedReader(new InputStreamReader(inputStream_));
+        isDoneReading = false;
     }
 
     /**
      * Parses the event information on the current line of the inputReader. Does not
      * check to see if format is correct.
      * 
-     * @return A new event for further processing.
+     * @return A new event if an event exists in the file. Returns null if 
      */
     public Event parseEvent() throws IOException {
-        StringTokenizer _tokenizer = new StringTokenizer(getNextLine(), delimiter);
+        String _eventToParse = getNextLine();
+        
+        // File has finished parsing the file
+        if (_eventToParse == null) {
+            isDoneReading = true;
+            return null;  
+        }
+        
+        StringTokenizer _tokenizer = new StringTokenizer(_eventToParse, delimiter);
         Event _returnedEvent = new Event();
 
         // Storing the command to be executed as a String.
-        try {
-            _returnedEvent.setCommand(_tokenizer.nextToken().toLowerCase());
-        } catch (Exception e_) {
-            if (logger.isErrorEnabled()) {
-                logger.error(e_.getMessage());
-            }
-            return null;
-        }
+        _returnedEvent.setCommand(_tokenizer.nextToken().toLowerCase());
 
         // Storing the type-of-input format as a String.
-        try {
-            _returnedEvent.setInputType(_tokenizer.nextToken().toLowerCase());
-        } catch (Exception e_) {
-            if (logger.isErrorEnabled()) {
-                logger.error(e_.getMessage());
-            }
-            return null;
-        }
+        _returnedEvent.setInputType(_tokenizer.nextToken().toLowerCase());
 
         // Storing the remaining type information for later object creation.
-        try {
-            while (_tokenizer.hasMoreTokens()) {
-                _returnedEvent.addTypeValue(_tokenizer.nextToken().toLowerCase());
-            }
-        } catch (Exception e_) {
-            if (logger.isErrorEnabled()) {
-                logger.error(e_.getMessage());
-            }
-            return null;
-        }
-
-        if (logger.isInfoEnabled()) {
-            logger.info("---- New event created ----");
-            logger.info("Event CommandType: {}", _returnedEvent.getCommand());
-            logger.info("Event InputType: {}", _returnedEvent.getInputType());
-            logger.info("Event TypeValues: {}", _returnedEvent.getTypeValues().toString());
+        while (_tokenizer.hasMoreTokens()) {
+            _returnedEvent.addTypeValue(_tokenizer.nextToken().toLowerCase());
         }
 
         return _returnedEvent;
     }
-
+    
     /**
      * Get the next line to process in the specified file.
      * 

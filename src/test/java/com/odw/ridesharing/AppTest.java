@@ -36,13 +36,9 @@ public class AppTest extends TestCase {
         return new TestSuite(AppTest.class);
     }
     
-    public void testController() {
-        CommandController testController = new CommandController();       
-    }
-    
     public void testEventParser() {
         EventParser eventParser = new EventParser("/input.txt", "|");
-        Event nextEvent;
+        Event nextEvent = null;
         
         try {
             while ((nextEvent = eventParser.parseEvent()) != null) {

@@ -14,15 +14,12 @@ public class CarFactory {
     public Car createCar(ArrayList<String> typeValues) {        
         switch (typeValues.get(0)) {
             case Car.COUPE:
-                //nextCarID++;
                 return new Coupe(typeValues.get(1), typeValues.get(2), typeValues.get(3), 
                         Integer.parseInt(typeValues.get(4)), nextCarID++);
             case Car.SEDAN:
-                //nextCarID++;
                 return new Sedan(typeValues.get(1), typeValues.get(2), typeValues.get(3), 
                         Integer.parseInt(typeValues.get(4)), nextCarID++);
             case Car.SUV:
-                //nextCarID++;
                 return new SUV(typeValues.get(1), typeValues.get(2), typeValues.get(3), 
                         Integer.parseInt(typeValues.get(4)), nextCarID++);
             default:

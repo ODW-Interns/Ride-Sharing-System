@@ -8,8 +8,8 @@ public abstract class Car {
     private int carID;
     private int year;
     private String maker;
-    private String color;
     private String model;
+    private String color;
     private double distanceTraveled;
 
     /**
@@ -38,6 +38,17 @@ public abstract class Car {
         setYear(year_);
         setCarID(idx_);
         distanceTraveled = 0;
+    }
+    
+    /**
+     * TODO: Modify to use StringBuilder / Document
+     * 
+     * @return The car in string format.
+     */
+    @Override
+    public String toString() {
+        return "ID: " + carID + " " + maker + " " + model + " " + color + " " + Integer.toString(year) + " "
+                + Double.toString(distanceTraveled) + System.lineSeparator();
     }
 
     /* ===== Getters and Setters ===== */

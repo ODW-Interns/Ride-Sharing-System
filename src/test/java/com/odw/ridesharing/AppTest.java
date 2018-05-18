@@ -51,7 +51,8 @@ public class AppTest extends TestCase {
         }
     }
     
-    public void testCar() {
-        Car car = new Sedan();
+    public void testCarAdding() {
+        CommandController cc = new CommandController();
+        cc.processFile("/input.txt", "|");
     }
 }

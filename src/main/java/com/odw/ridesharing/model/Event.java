@@ -4,17 +4,6 @@ import java.util.ArrayList;
 
 public class Event {
 
-    // Commands
-    public static final String CREATE = "create";
-    public static final String MODIFY = "modify";
-    public static final String DELETE = "delete";
-
-    // Input Types
-    public static final String CAR = "car";
-    public static final String CUSTOMER = "customer";
-    public static final String DRIVER = "driver";
-    public static final String PICKUP = "pickup";
-
     private String commandType;
     private String inputType;
     private ArrayList<String> typeValues;
@@ -55,7 +44,8 @@ public class Event {
     }
 
     /**
-     * Get the remaining input values from the event. (excluding the command & type)
+     * Get the remaining input values from the event. This is includes everything
+     * except the command and input type.
      * 
      * @return An ArrayList of the remaining input values.
      */
@@ -80,7 +70,7 @@ public class Event {
      * 
      * @param delimiter_
      *            The specified delimiter to separate the values.
-     * @return The event string before it was parsed
+     * @return The event string reconstructed with a new delimiter
      */
     public String toString(String delimiter_) {
         StringBuilder _typeValuesStringBuilder = new StringBuilder();

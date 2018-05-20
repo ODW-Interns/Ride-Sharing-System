@@ -39,39 +39,41 @@ public class CarController {
             throw new BadCarException();
         }
     }
-    
+
     /**
      * Modify the car's info in the inventory
      * 
-     * @param typeValue_ ArrayList of of input in string
-     * 					 Should Contain Make, Model, Year, and Color
-     * @throws BadCarException 
+     * @param typeValue_
+     *            ArrayList of of input in string Should Contain Make, Model, Year,
+     *            and Color
+     * @throws BadCarException
      */
     public void modifyCar(ArrayList<String> typeValue_) throws BadCarException {
-    //TODO add exception
-    	int idx = Integer.parseInt(typeValue_.get(0));     
-    	Car car = carInventory.get(idx);
-    	
-    	car.setMake(typeValue_.get(2));
-    	car.setModel(typeValue_.get(3));
-    	car.setColor(typeValue_.get(4));
-    	car.setYear(Integer.parseInt(typeValue_.get(5)));    	
+        // TODO add exception
+        int _idx = Integer.parseInt(typeValue_.get(0));
+        Car _car = carInventory.get(_idx);
+
+        _car.setMake(typeValue_.get(2));
+        _car.setModel(typeValue_.get(3));
+        _car.setColor(typeValue_.get(4));
+        _car.setYear(Integer.parseInt(typeValue_.get(5)));
     }
-    
+
     /**
      * Delete the car's info from the inventory
      * 
-     * @param typeValue_ ArrayList of of input in string
-     * 					 Should Contain carID to be deleted
+     * @param typeValue_
+     *            ArrayList of of input in string Should Contain carID to be deleted
      * @throws BadCarException
      */
     public void deleteCar(ArrayList<String> typeValue_) throws BadCarException {
-    //TODO add exception
-    	carInventory.remove(Integer.parseInt(typeValue_.get(0)));
+        // TODO add exception
+        carInventory.remove(Integer.parseInt(typeValue_.get(0)));
     }
-    
+
     /**
      * Returns a string of all the cars in inventory.
+     * 
      * @return TODO
      */
     public String getCarInventory() {
@@ -89,7 +91,5 @@ public class CarController {
 
         return "";
     }
-    
-    
 
 }

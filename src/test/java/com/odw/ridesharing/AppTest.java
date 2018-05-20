@@ -17,7 +17,6 @@ import junit.framework.TestSuite;
  * Unit test for simple App.
  */
 public class AppTest extends TestCase {
-    private Logger logger = LoggerFactory.getLogger(getClass().getSimpleName());
     
     /**
      * Create the test case
@@ -34,21 +33,6 @@ public class AppTest extends TestCase {
      */
     public static Test suite() {
         return new TestSuite(AppTest.class);
-    }
-    
-    public void testEventParser() {
-        EventParser eventParser = new EventParser("/input.txt", "|");
-        Event nextEvent = null;
-        
-        try {
-            while ((nextEvent = eventParser.parseEvent()) != null) {
-                if (logger.isInfoEnabled()) {
-                    logger.info(nextEvent.toString());
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
     
     public void testFileProcessing() {

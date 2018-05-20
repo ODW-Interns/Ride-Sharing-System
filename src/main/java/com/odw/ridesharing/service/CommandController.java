@@ -1,6 +1,8 @@
 package com.odw.ridesharing.service;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,23 +12,35 @@ import com.odw.ridesharing.model.exceptions.BadCarException;
 
 public class CommandController {
 
-    private CarController carController;
-    private Logger logger = LoggerFactory.getLogger(getClass().getSimpleName());
+    // Commands
+    public static final String CREATE = "create";
+    public static final String MODIFY = "modify";
+    public static final String DELETE = "delete";
 
-    public CommandController() {
-        carController = new CarController();
-    }
+    // Input Types
+    public static final String CAR = "car";
+    public static final String CUSTOMER = "customer";
+    public static final String DRIVER = "driver";
+    public static final String PICKUP = "pickup";
+    
+    private CarController carController = new CarController();
+    
+    // TODO: Move
+    private Logger logger = LoggerFactory.getLogger(getClass().getSimpleName());
     
     public void processFile(String fileName_, String delimiter_) {
-        EventParser _eventParser = new EventParser(fileName_, delimiter_);
-        Event _nextEvent = null;
-        
+        EventParser _eventParser = new EventParser();  
+        BufferedReader _inputReader = new BufferedReader(
+                                          new InputStreamReader(
+                                              getClass().getResourceAsStream(fileName_)));
+        String _nextLine = null;
         try {
-            while ((_nextEvent = _eventParser.parseEvent()) != null) {
+            while ((_nextLine = _inputReader.readLine()) != null) {
+                Event _nextEvent = _eventParser.parseEvent(_nextLine, delimiter_);
                 processEvent(_nextEvent);
             }
         } catch (IOException e_) {
-            e_.printStackTrace();
+            e_.printStackTrace(); // TODO: Log
         }
         
         if (logger.isInfoEnabled()) {
@@ -38,13 +52,13 @@ public class CommandController {
     private void processEvent(Event newEvent_) {
         try {
             switch (newEvent_.getCommand()) {
-            case Event.CREATE:
+            case CREATE:
                 create(newEvent_);
                 break;
-            case Event.MODIFY:
+            case MODIFY:
                 modify(newEvent_);
                 break;
-            case Event.DELETE:
+            case DELETE:
                 delete(newEvent_);
                 break;
             default:
@@ -62,7 +76,7 @@ public class CommandController {
 
     private void create(Event event_) {
         switch (event_.getInputType()) {
-        case Event.CAR:
+        case CAR:
             try {
                 carController.createCar(event_.getTypeValues());
             } catch (BadCarException e_) {
@@ -71,13 +85,13 @@ public class CommandController {
                 }
             }
             break;
-        case Event.CUSTOMER:
+        case CUSTOMER:
             // TODO
             break;
-        case Event.DRIVER:
+        case DRIVER:
             // TODO
             break;
-        case Event.PICKUP:
+        case PICKUP:
             // TODO
             break;
         default:
@@ -90,7 +104,7 @@ public class CommandController {
 
     private void modify(Event event_) {
         switch (event_.getInputType()) {
-        case Event.CAR:
+        case CAR:
         	 try {
                  carController.modifyCar(event_.getTypeValues());
              } catch (BadCarException e_) {
@@ -99,13 +113,13 @@ public class CommandController {
                  }
              }
             break;
-        case Event.CUSTOMER:
+        case CUSTOMER:
             // TODO
             break;
-        case Event.DRIVER:
+        case DRIVER:
             // TODO
             break;
-        case Event.PICKUP:
+        case PICKUP:
             // TODO
             break;
         default:
@@ -118,7 +132,7 @@ public class CommandController {
 
     private void delete(Event event_) {
         switch (event_.getInputType()) {
-        case Event.CAR:
+        case CAR:
         	try {
                 carController.deleteCar(event_.getTypeValues());
             } catch (BadCarException e_) {
@@ -127,13 +141,13 @@ public class CommandController {
                 }
             }
             break;
-        case Event.CUSTOMER:
+        case CUSTOMER:
             // TODO
             break;
-        case Event.DRIVER:
+        case DRIVER:
             // TODO
             break;
-        case Event.PICKUP:
+        case PICKUP:
             // TODO
             break;
         default:

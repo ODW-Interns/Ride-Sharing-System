@@ -9,8 +9,9 @@ public class RuntimeConstants {
 
     // Available Input Types
     public static final String CAR = "car";
-    public static final String CUSTOMER = "customer";
-    public static final String DRIVER = "driver";
+    public static final String USER = "user";
+    //public static final String CUSTOMER = "customer";
+    //public static final String DRIVER = "driver";
     public static final String PICKUP = "pickup";
     
     // Available Cars

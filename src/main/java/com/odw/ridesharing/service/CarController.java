@@ -22,13 +22,15 @@ public class CarController {
      * @throws BadCarException
      *             If car.getID is greater than zero. If typeValues
      */
-    public void createCar(ArrayList<String> typeValues_) throws BadCarException {
+    public Car createCar(ArrayList<String> typeValues_) throws BadCarException {
         if (typeValues_.size() == RuntimeConstants.CREATE_CAR_FORMAT.length) {
             Car _car = carFactory.createCar(typeValues_);
             carInventory.put(_car.getCarID(), _car);
-        } else {
-            throw new BadCarException();
+            return _car;
         }
+        
+        // Something went wrong..
+        throw new BadCarException();
     }
 
     /**
@@ -39,7 +41,7 @@ public class CarController {
      *            and Color
      * @throws BadCarException
      */
-    public void modifyCar(ArrayList<String> typeValues) throws BadCarException {
+    public Car modifyCar(ArrayList<String> typeValues) throws BadCarException {
         if (typeValues.size() == RuntimeConstants.MODIFY_CAR_FORMAT.length) {
             int _idx = Integer.parseInt(typeValues.get(0));
             String _newMake = typeValues.get(2);
@@ -54,12 +56,14 @@ public class CarController {
                 _currentCar.setModel(_newModel);
                 _currentCar.setColor(_newColor);
                 _currentCar.setYear(_newYear);
+                return _currentCar;
             } else {
                 throw new BadCarException();
             }
-        } else {
-            throw new BadCarException();
         }
+        
+        // Something went wrong..
+        throw new BadCarException();
     }
 
     /**
@@ -69,18 +73,19 @@ public class CarController {
      *            ArrayList of of input in string Should Contain carID to be deleted
      * @throws BadCarException
      */
-    public void deleteCar(ArrayList<String> typeValues_) throws BadCarException {
+    public Car deleteCar(ArrayList<String> typeValues_) throws BadCarException {
         if (typeValues_.size() == RuntimeConstants.DELETE_CAR_FORMAT.length) {
             int _idx = Integer.parseInt(typeValues_.get(0));
 
             try {
-                carInventory.remove(_idx);
+                return carInventory.remove(_idx);
             } catch (NullPointerException e_) {
                 throw new BadCarException();
             }
-        } else {
-            throw new BadCarException();
         }
+        
+        // Something went wrong..
+        throw new BadCarException();
     }
 
     /**
@@ -90,7 +95,7 @@ public class CarController {
      */
     public String getCarInventory() {
         if (carInventory.size() > 0) {
-            StringBuilder _result = new StringBuilder();
+            StringBuilder _result = new StringBuilder(System.lineSeparator());
 
             for (Map.Entry<Integer, Car> _entry : carInventory.entrySet()) {
                 Car _currentCar = _entry.getValue();

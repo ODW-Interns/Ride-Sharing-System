@@ -1,8 +1,6 @@
 package com.odw.ridesharing.model;
 
 public class Pickup {
-
-    private static int nextID = 0;
     
     private int pickupID;
     private int carID;
@@ -36,8 +34,6 @@ public class Pickup {
         setCustomerID(customerID_);
         setOrigin(origin_);
         setDestination(destination_);
-        
-        pickupID = Pickup.nextID++;
     }
     
     /* Getters and Setters */

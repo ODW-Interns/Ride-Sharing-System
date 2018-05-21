@@ -6,7 +6,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import com.odw.ridesharing.model.Driver;
 import com.odw.ridesharing.model.User;
-import com.odw.ridesharing.model.exceptions.BadCarException;
+import com.odw.ridesharing.model.exceptions.BadUserException;
 import com.odw.ridesharing.model.exceptions.BadUserException;
 
 public class UserController {
@@ -14,16 +14,8 @@ public class UserController {
 	public static final String DRIVER = "driver";
 	public static final String CUSTOMER = "customer";
 
-	private ConcurrentHashMap<Integer, User> userDatabase;
-	private UserFactory userFactory;
-
-	/*
-	 * Default Constructor
-	 */
-	public UserController() {
-		userDatabase = new ConcurrentHashMap<Integer, User>();
-		userFactory = new UserFactory();
-	}
+	private ConcurrentHashMap<Integer, User> userDatabase = new ConcurrentHashMap<Integer, User>();
+	private UserFactory userFactory = new UserFactory();
 
 	/**
 	 * Add user to the userDatabase 
@@ -46,9 +38,9 @@ public class UserController {
 	 * Modify user that is currently in the userDatabase
 	 * 
 	 * @param typeValues
-	 * @throws BadCarException
+	 * @throws BadUserException
 	 */
-	public void modifyUser(ArrayList<String> typeValues) throws BadCarException {
+	public void modifyUser(ArrayList<String> typeValues) throws BadUserException {
 		int _idx = Integer.parseInt(typeValues.get(0));
 		User _user = userDatabase.get(_idx);
 
@@ -65,7 +57,7 @@ public class UserController {
 					_driver.setCarID(Integer.parseInt(typeValues.get(8)));
 
 				} else
-					throw new BadCarException();
+					throw new BadUserException();
 			} else {
 				//Customer _customer = (Customer) _user;
 				if (_user.getUserID() == _idx) {
@@ -74,19 +66,19 @@ public class UserController {
 					_user.setSex(typeValues.get(4));
 					_user.setAge(Integer.parseInt(typeValues.get(5)));
 				} else
-					throw new BadCarException();
+					throw new BadUserException();
 			}
 		} else
-			throw new BadCarException();
+			throw new BadUserException();
 	}
 
 	/**
 	 * Delete user from the database 
 	 * 
 	 * @param typeValues
-	 * @throws BadCarException
+	 * @throws BadUserException
 	 */
-	public void deleteUser(ArrayList<String> typeValues) throws BadCarException {
+	public void deleteUser(ArrayList<String> typeValues) throws BadUserException {
 
 		int _idx = Integer.parseInt(typeValues.get(1));
 		User _user = userDatabase.get(_idx);
@@ -94,9 +86,9 @@ public class UserController {
 			if (_user.getUserID() == _idx)
 				userDatabase.remove(_idx);
 			else
-				throw new BadCarException();
+				throw new BadUserException();
 		} else
-			throw new BadCarException();
+			throw new BadUserException();
 	}
 
 	/**

@@ -68,6 +68,8 @@ public class CarController {
         	}
         	else
         		throw new BadCarException();
+        }
+        
         else
         	throw new BadCarException();
     }

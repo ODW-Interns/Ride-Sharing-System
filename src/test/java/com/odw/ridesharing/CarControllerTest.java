@@ -19,19 +19,13 @@ public class CarControllerTest {
     public void testCreateCar() {
         CarController carController = new CarController();
 
+        // Testing valid car creation
         ArrayList<String> coupeCarInfo = new ArrayList<String>();
         coupeCarInfo.add("coupe");
         coupeCarInfo.add("toyota");
         coupeCarInfo.add("trueno");
         coupeCarInfo.add("white");
         coupeCarInfo.add("1986");
-        ArrayList<String> invalidCarInfo = new ArrayList<String>();
-        invalidCarInfo.add("coupe");
-        invalidCarInfo.add("invalid");
-        invalidCarInfo.add("input");
-        invalidCarInfo.add("length");
-
-        // Testing valid car creation.
         try {
             carController.createCar(coupeCarInfo);
         } catch (BadCarException e_) {
@@ -39,6 +33,11 @@ public class CarControllerTest {
         }
 
         // Testing invalid car creation.
+        ArrayList<String> invalidCarInfo = new ArrayList<String>();
+        invalidCarInfo.add("coupe");
+        invalidCarInfo.add("invalid");
+        invalidCarInfo.add("input");
+        invalidCarInfo.add("length");
         try {
             carController.createCar(invalidCarInfo);
         } catch (BadCarException e_) {
@@ -65,6 +64,7 @@ public class CarControllerTest {
             fail("Error creating a valid car.");
         }
 
+        // Testing valid car modification.
         ArrayList<String> coupeNewInfo = new ArrayList<String>();
         coupeNewInfo.add("0"); // ID
         coupeNewInfo.add("coupe");
@@ -72,10 +72,6 @@ public class CarControllerTest {
         coupeNewInfo.add("camry");
         coupeNewInfo.add("black");
         coupeNewInfo.add("2004");
-        ArrayList<String> invalidModifyInfo = new ArrayList<String>();
-        invalidModifyInfo.add("this car doesn't exist");
-
-        // Testing valid car modification.
         try {
             carController.modifyCar(coupeNewInfo);
         } catch (BadCarException e_) {
@@ -83,6 +79,8 @@ public class CarControllerTest {
         }
 
         // Testing invalid car modification.
+        ArrayList<String> invalidModifyInfo = new ArrayList<String>();
+        invalidModifyInfo.add("this car doesn't exist");
         try {
             carController.modifyCar(invalidModifyInfo);
         } catch (BadCarException e_) {
@@ -109,12 +107,9 @@ public class CarControllerTest {
             fail("Error creating a valid car.");
         }
 
-        ArrayList<String> coupeDeleteInfo = new ArrayList<String>();
-        coupeDeleteInfo.add("0"); // ID
-        ArrayList<String> invalidDeleteInfo = new ArrayList<String>();
-        invalidDeleteInfo.add("1000");
-
         // Testing valid car deletion.
+        ArrayList<String> coupeDeleteInfo = new ArrayList<String>();
+        coupeDeleteInfo.add("0"); // Valid ID
         try {
             carController.deleteCar(coupeDeleteInfo);
         } catch (BadCarException e_) {
@@ -122,6 +117,8 @@ public class CarControllerTest {
         }
 
         // Testing invalid car deletion.
+        ArrayList<String> invalidDeleteInfo = new ArrayList<String>();
+        invalidDeleteInfo.add("1000"); // Invalid ID
         try {
             carController.deleteCar(invalidDeleteInfo);
         } catch (BadCarException e_) {

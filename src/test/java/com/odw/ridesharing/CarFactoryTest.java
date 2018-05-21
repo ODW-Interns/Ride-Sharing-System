@@ -29,33 +29,34 @@ public class CarFactoryTest {
         coupeCarInfo.add("trueno");
         coupeCarInfo.add("white");
         coupeCarInfo.add("1986");
+        Car coupe = carFactory.createCar(coupeCarInfo);
+        assertTrue(coupe instanceof Coupe);
+        
         ArrayList<String> sedanCarInfo = new ArrayList<String>();
         sedanCarInfo.add("sedan");
         sedanCarInfo.add("ford");
         sedanCarInfo.add("focus");
         sedanCarInfo.add("grey");
         sedanCarInfo.add("2014");
+        Car sedan = carFactory.createCar(sedanCarInfo);
+        assertTrue(sedan instanceof Sedan);
+        
         ArrayList<String> suvCarInfo = new ArrayList<String>();
         suvCarInfo.add("suv");
         suvCarInfo.add("cadillac");
         suvCarInfo.add("escalade");
         suvCarInfo.add("black");
         suvCarInfo.add("2018");
+        Car suv = carFactory.createCar(suvCarInfo);
+        assertTrue(suv instanceof Suv);
+        
         ArrayList<String> invalidCarInfo = new ArrayList<String>();
         invalidCarInfo.add("unknown");
         invalidCarInfo.add("must");
         invalidCarInfo.add("be");
         invalidCarInfo.add("length");
         invalidCarInfo.add("5");
-
-        Car coupe = carFactory.createCar(coupeCarInfo);
-        Car sedan = carFactory.createCar(sedanCarInfo);
-        Car suv = carFactory.createCar(suvCarInfo);
         Car unknown = carFactory.createCar(invalidCarInfo);
-
-        assertTrue(coupe instanceof Coupe);
-        assertTrue(sedan instanceof Sedan);
-        assertTrue(suv instanceof Suv);
         assertNull(unknown);
     }
 

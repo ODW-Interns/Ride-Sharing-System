@@ -46,23 +46,19 @@ public class CommandController {
     }
 
     private void processEvent(Event newEvent_) {
-        try {
-            switch (newEvent_.getCommand()) {
-            case RuntimeConstants.CREATE:
-                create(newEvent_);
-                break;
-            case RuntimeConstants.MODIFY:
-                modify(newEvent_);
-                break;
-            case RuntimeConstants.DELETE:
-                delete(newEvent_);
-                break;
-            default:
-                logger.error("Error: Invalid command.");
-                break;
-            }
-        } catch (Exception e_) {
-            logger.error(e_.getMessage());
+        switch (newEvent_.getCommand()) {
+        case RuntimeConstants.CREATE:
+            create(newEvent_);
+            break;
+        case RuntimeConstants.MODIFY:
+            modify(newEvent_);
+            break;
+        case RuntimeConstants.DELETE:
+            delete(newEvent_);
+            break;
+        default:
+            logger.error("Error: Invalid command.");
+            break;
         }
     }
 

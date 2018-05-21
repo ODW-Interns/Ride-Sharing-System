@@ -3,17 +3,17 @@ package com.odw.ridesharing.model;
 public abstract class Car {
     
     private int carID;
-    private int year;
-    private String maker;
+    private String make;
     private String model;
     private String color;
+    private int year;
     private double distanceTraveled;
 
     /**
      * Creates a default, empty car.
      */
     public Car() {
-        this("", "", "", -1, -1);
+        this(-1, "", "", "", -1);
     }
 
     /**
@@ -28,12 +28,12 @@ public abstract class Car {
      * @param year_
      *            The car model's year.
      */
-    public Car(String make_, String model_, String color_, int year_, int idx_) {
+    public Car(int carID_, String make_, String model_, String color_, int year_) {
+        setCarID(carID_);
         setMake(make_);
         setModel(model_);
         setColor(color_);
         setYear(year_);
-        setCarID(idx_);
         distanceTraveled = 0;
     }
 
@@ -44,7 +44,7 @@ public abstract class Car {
      */
     @Override
     public String toString() {
-        return "ID: " + carID + " | Maker: " + maker + " | Model: " + model + " | Color: " + color + " | Year: "
+        return "ID: " + carID + " | Maker: " + make + " | Model: " + model + " | Color: " + color + " | Year: "
                 + Integer.toString(year) + " | Distance Traveled: " + Double.toString(distanceTraveled);
     }
 
@@ -94,7 +94,7 @@ public abstract class Car {
      * @return The car's maker to be executed.
      */
     public String getMake() {
-        return maker;
+        return make;
     }
 
     /**
@@ -104,7 +104,7 @@ public abstract class Car {
      *            The new make of the car.
      */
     public void setMake(String make_) {
-        maker = make_;
+        make = make_;
     }
 
     /**

@@ -6,7 +6,7 @@ public class Suv extends Car {
      * Creates a default, empty suv.
      */
     public Suv() {
-        this("", "", "", -1, -1);
+        this(-1, "", "", "", -1);
     }
     
     /**
@@ -21,7 +21,7 @@ public class Suv extends Car {
      * @param year_
      *            The suv model's year.
      */
-    public Suv(String make_, String model_, String color_, int year_, int idx_) {
-        super(make_, model_, color_, year_, idx_);
+    public Suv(int carID_, String make_, String model_, String color_, int year_) {
+        super(carID_, make_, model_, color_, year_);
     }
 }

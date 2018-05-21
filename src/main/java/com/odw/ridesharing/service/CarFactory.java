@@ -35,11 +35,11 @@ public class CarFactory {
 
         switch (_carType) {
         case RuntimeConstants.COUPE:
-            return new Coupe(_make, _model, _color, _year, nextCarID++);
+            return new Coupe(nextCarID++, _make, _model, _color, _year);
         case RuntimeConstants.SEDAN:
-            return new Sedan(_make, _model, _color, _year, nextCarID++);
+            return new Sedan(nextCarID++, _make, _model, _color, _year);
         case RuntimeConstants.SUV:
-            return new Suv(_make, _model, _color, _year, nextCarID++);
+            return new Suv(nextCarID++, _make, _model, _color, _year);
         default:
             return null;
         }

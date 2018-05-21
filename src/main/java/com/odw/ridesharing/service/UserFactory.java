@@ -16,10 +16,10 @@ public class UserFactory {
      * @param typeValues_
      * 
      * NOTE: typeValues_ format (as an ArrayList):
-     *      Values: Customer | FirstName | LastName | Sex | Age | \n
+     *      Values: Customer | FirstName | LastName | Sex | Age |
      *      Index:  0        | 1         | 2        | 3   | 4   |
      *      
-     *      Values: Driver | FName | LName | Sex | Age | isAvail | CarID | \n
+     *      Values: Driver | FName | LName | Sex | Age | isAvail | CarID |
      *      Index:  0      | 1     | 2     | 3   | 4   | 5       | 6     | 
      * @return
      */
@@ -35,13 +35,13 @@ public class UserFactory {
         // get the userType
         switch (_userType) {
             case RuntimeConstants.CUSTOMER:        
-                return new Customer(_firstName, _lastName, _sex, _age, nextUserID++);
+                return new Customer(nextUserID++, _firstName, _lastName, _sex, _age);
                 
             case RuntimeConstants.DRIVER:
                 boolean _isAvailable = Boolean.parseBoolean(typeValues_.get(5));
                 int _carID = Integer.parseInt(typeValues_.get(6));
                 
-                return new Driver(_firstName, _lastName, _sex, _age, nextUserID++, _rating, _isAvailable, _carID);
+                return new Driver(nextUserID++, _firstName, _lastName, _sex, _age, _rating, _isAvailable, _carID);
                 
             default:
                 return null;

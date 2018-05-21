@@ -6,7 +6,7 @@ public class Coupe extends Car {
      * Creates a default, empty coupe.
      */
     public Coupe() {
-        this("", "", "", -1, -1);
+        this(-1, "", "", "", -1);
     }
     
     /**
@@ -21,8 +21,8 @@ public class Coupe extends Car {
      * @param year_
      *            The coupe model's year.
      */
-    public Coupe(String make_, String model_, String color_, int year_, int idx_) {
-        super(make_, model_, color_, year_, idx_);
+    public Coupe(int carID_, String make_, String model_, String color_, int year_) {
+        super(carID_, make_, model_, color_, year_);
     }
     
 }

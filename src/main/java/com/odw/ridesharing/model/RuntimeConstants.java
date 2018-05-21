@@ -48,6 +48,7 @@ public class RuntimeConstants {
             "SEX (STRING)",
             "AGE (INT)"
     };
+    
     public static final String[] CREATE_PICKUP_FORMAT = new String[] {
             "DRIVER_ID (INT)",
             "CAR_ID (INT)",

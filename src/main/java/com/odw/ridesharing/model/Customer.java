@@ -8,7 +8,7 @@ public class Customer extends User {
      * default constructor: Creates a new customer which is an empty Person
      */
     public Customer() {
-        this("", "", "", -1, -1);
+        this(-1, "", "", "", -1);
     }
     
     /**
@@ -17,8 +17,8 @@ public class Customer extends User {
     /*public Customer(User customer_) {
         setCustomer(customer_);
     }*/
-    public Customer(String firstName_, String lastName_, String sex_, int age_, int idx_) {
-        super(firstName_, lastName_, sex_, age_, idx_);
+    public Customer(int userID_, String firstName_, String lastName_, String sex_, int age_)  {
+        super(userID_, firstName_, lastName_, sex_, age_);
     }
     
     /**

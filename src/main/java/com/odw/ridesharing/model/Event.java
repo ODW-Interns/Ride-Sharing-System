@@ -52,6 +52,19 @@ public class Event {
     public ArrayList<String> getTypeValues() {
         return typeValues;
     }
+    
+    /**
+     * Reconstructs the type values into string format using a specified delimiter.
+     * @param delimiter_ The delimiter to separate the values.
+     * @return Returns a string of the type values separated by a delimiter.
+     */
+    public String typeValuesToString(String delimiter_) {
+        StringBuilder _typeValuesStringBuilder = new StringBuilder();
+        for (String typeValue : typeValues) {
+            _typeValuesStringBuilder.append(typeValue + delimiter_);
+        }
+        return _typeValuesStringBuilder.toString();
+    }
 
     /**
      * Reconstructs the original event before it was parsed and returns it as a
@@ -73,11 +86,7 @@ public class Event {
      * @return The event string reconstructed with a new delimiter
      */
     public String toString(String delimiter_) {
-        StringBuilder _typeValuesStringBuilder = new StringBuilder();
-        for (String typeValue : typeValues) {
-            _typeValuesStringBuilder.append(typeValue + delimiter_);
-        }
-        return commandType + delimiter_ + inputType + delimiter_ + _typeValuesStringBuilder.toString();
+        return commandType + delimiter_ + inputType + delimiter_ + typeValuesToString(delimiter_);
     }
 
     /* ===== Getters and Setters ===== */

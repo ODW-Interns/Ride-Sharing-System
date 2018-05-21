@@ -56,30 +56,36 @@ public class CarController {
      *            and Color
      * @throws BadCarException
      */
-    public void modifyCar(ArrayList<String> typeValue_) throws BadCarException {
-        // TODO add exception
-        int _idx = Integer.parseInt(typeValue_.get(0));
+    public void modifyCar(ArrayList<String> typeValues) throws BadCarException {
+        int _idx = Integer.parseInt(typeValues.get(0));
         Car _car = carInventory.get(_idx);
-
-        _car.setMake(typeValue_.get(2));
-        _car.setModel(typeValue_.get(3));
-        _car.setColor(typeValue_.get(4));
-        _car.setYear(Integer.parseInt(typeValue_.get(5)));
+        if(_idx > -1) {
+        	if(_car.getCarID() == _idx) {
+        		_car.setMake(typeValues.get(2));
+        		_car.setModel(typeValues.get(3));
+        		_car.setColor(typeValues.get(4));
+        		_car.setYear(Integer.parseInt(typeValues.get(5)));
+        	}
+        	else
+        		throw new BadCarException();
+        else
+        	throw new BadCarException();
     }
 
     /**
      * Delete the car's info from the inventory
      * 
-     * @param typeValue_
+     * @param typeValues
      *            ArrayList of of input in string Should Contain carID to be deleted
      * @throws BadCarException
      */
-    public void deleteCar(ArrayList<String> typeValue_) throws BadCarException {
+    public void deleteCar(ArrayList<String> typeValues) throws BadCarException {
 
-    	if(Integer.parseInt(typeValue_.get(0)) > -1) {
-    		Car _car = carInventory.get(Integer.parseInt(typeValue_.get(0)));
-    		if(_car.getCarID() == Integer.parseInt(typeValue_.get(0))) 
-    			carInventory.remove(Integer.parseInt(typeValue_.get(0)));
+    	int _idx = Integer.parseInt(typeValues.get(0));
+    	Car _car = carInventory.get(_idx);
+    	if(_idx > -1) {
+    		if(_car.getCarID() == _idx) 
+    			carInventory.remove(_idx);
     		else
     			throw new BadCarException();
     	}

@@ -27,7 +27,7 @@ public class RuntimeConstants {
             "YEAR"
     };
     
-    public static final String[] CREATE_USER_FORMAT = new String[] {
+    public static final String[] CREATE_USER_DRIVER_FORMAT = new String[] {
             "USER_TYPE",
             "FIRST_NAME",
             "LAST_NAME",
@@ -35,6 +35,14 @@ public class RuntimeConstants {
             "AGE",
             "AVAILABILITY",
             "CAR_ID"
+    };
+    
+    public static final String[] CREATE_USER_CUSTOMER_FORMAT = new String[] {
+            "USER_TYPE",
+            "FIRST_NAME",
+            "LAST_NAME",
+            "SEX",
+            "AGE"
     };
     // TODO
     // public static final String[] createPickupFormat = new String[] {};
@@ -48,9 +56,32 @@ public class RuntimeConstants {
             "YEAR"
     };
     
+    public static final String[] MODIFY_USER_DRIVER_FORMAT = new String[] {
+    		"USER_ID",
+            "USER_TYPE",
+            "FIRST_NAME",
+            "LAST_NAME",
+            "SEX",
+            "AGE",
+            "AVAILABILITY",
+            "RATING",
+            "CAR_ID"
+    };
+    
+    public static final String[] MODIFY_USER_CUSTOMER_FORMAT = new String[] {
+    		"USER_ID",
+            "USER_TYPE",
+            "FIRST_NAME",
+            "LAST_NAME",
+            "SEX",
+            "AGE"
+    };
     public static final String[] DELETE_CAR_FORMAT = new String[] {
             "CAR_ID",
     };
     
-    
+    public static final String[] DELETE_USER_FORMAT = new String[] {
+            "USER_TYPE",
+    		"USER_ID"
+    };
 }

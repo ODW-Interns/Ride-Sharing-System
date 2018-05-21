@@ -8,18 +8,19 @@ import com.odw.ridesharing.service.EventParser;
 
 public class EventParserTest extends TestCase {
 
+    EventParser eventParser = new EventParser();
+    
     /**
      * Tests parseEvent in EventParser. Note that parseEvent does not check if the
      * event is valid or not.
      */
     @Test
     public void testParseEvent() {
-        EventParser _eventParser = new EventParser();
         String _validEventString = "create|customer|Britney|Spears|female|36|";
         String _invalidEventString = "event|parser|has|no|check|for|valid|events|";
 
-        Event _validEvent = _eventParser.parseEvent(_validEventString, "|");
-        Event _invalidEvent = _eventParser.parseEvent(_invalidEventString, "|");
+        Event _validEvent = eventParser.parseEvent(_validEventString, "|");
+        Event _invalidEvent = eventParser.parseEvent(_invalidEventString, "|");
 
         assertEquals(_validEvent.getCommand(), "create");
         assertEquals(_validEvent.getInputType(), "customer");

@@ -5,6 +5,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({ CommandControllerTest.class, EventParserTest.class })
+@SuiteClasses({ EventParserTest.class, CommandControllerTest.class, CarControllerTest.class, CarFactoryTest.class })
 
-public class AllTests {}
+public class AllTests {
+}

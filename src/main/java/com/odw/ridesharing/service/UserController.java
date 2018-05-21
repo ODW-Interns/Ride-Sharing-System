@@ -37,35 +37,44 @@ public class UserController {
     /**
      * Modify user that is currently in the userDatabase
      * 
-     * @param typeValues
+     * @param typeValues_
      * @throws BadUserException
      */
-    public void modifyUser(ArrayList<String> typeValues) throws BadUserException {
-        if (typeValues.size() == RuntimeConstants.MODIFY_USER_DRIVER_FORMAT.length
-                || typeValues.size() == RuntimeConstants.MODIFY_USER_CUSTOMER_FORMAT.length) {
-            int _idx = Integer.parseInt(typeValues.get(0));
+    public void modifyUser(ArrayList<String> typeValues_) throws BadUserException {
+        if (typeValues_.size() == RuntimeConstants.MODIFY_USER_DRIVER_FORMAT.length
+                || typeValues_.size() == RuntimeConstants.MODIFY_USER_CUSTOMER_FORMAT.length) {
+            int _idx = Integer.parseInt(typeValues_.get(0));
+            String _newFirstName = typeValues_.get(2);
+            String _newLastName = typeValues_.get(3);            
+            String _newSex = typeValues_.get(4);
+            int _newAge = Integer.parseInt(typeValues_.get(5));
+            Boolean _newIsAvailable = Boolean.parseBoolean(typeValues_.get(6));
+            int _newCarID = Integer.parseInt(typeValues_.get(7));
+            int _newRating = Integer.parseInt(typeValues_.get(8));
+            
+            
             User _user = userDatabase.get(_idx);
 
             if (_idx > -1) {
-                if (typeValues.get(1) == RuntimeConstants.DRIVER) {
+                if (typeValues_.get(1) == RuntimeConstants.DRIVER) {
                     Driver _driver = (Driver) _user;
-                    if (_user.getUserID() == _idx) {
-                        _user.setFirstName(typeValues.get(2));
-                        _user.setLastName(typeValues.get(3));
-                        _user.setSex(typeValues.get(4));
-                        _user.setAge(Integer.parseInt(typeValues.get(5)));
-                        _driver.setIsAvailable(Boolean.parseBoolean(typeValues.get(6)));
-                        _driver.setCarID(Integer.parseInt(typeValues.get(7)));
-                        _driver.setRating(Integer.parseInt(typeValues.get(8)));
+                    if (_driver.getUserID() == _idx) {
+                        _driver.setFirstName(_newFirstName);
+                        _driver.setLastName(_newLastName);
+                        _driver.setSex(_newSex);
+                        _driver.setAge(_newAge);
+                        _driver.setIsAvailable(_newIsAvailable);
+                        _driver.setCarID(_newCarID);
+                        _driver.setRating(_newRating);
                     } else
                         throw new BadUserException();
                 } else {
                     // Customer _customer = (Customer) _user;
                     if (_user.getUserID() == _idx) {
-                        _user.setFirstName(typeValues.get(2));
-                        _user.setLastName(typeValues.get(3));
-                        _user.setSex(typeValues.get(4));
-                        _user.setAge(Integer.parseInt(typeValues.get(5)));
+                        _user.setFirstName(_newFirstName);
+                        _user.setLastName(_newLastName);
+                        _user.setSex(_newSex);
+                        _user.setAge(_newAge);
                     } else
                         throw new BadUserException();
                 }
@@ -84,7 +93,7 @@ public class UserController {
     public void deleteUser(ArrayList<String> typeValues_) throws BadUserException {
         if (typeValues_.size() == RuntimeConstants.DELETE_USER_FORMAT.length) {
 
-            int _idx = Integer.parseInt(typeValues_.get(1));
+            int _idx = Integer.parseInt(typeValues_.get(0));
 
             if (_idx > -1) {
                 try {

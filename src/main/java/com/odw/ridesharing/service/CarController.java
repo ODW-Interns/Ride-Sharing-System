@@ -41,13 +41,13 @@ public class CarController {
      *            and Color
      * @throws BadCarException
      */
-    public Car modifyCar(ArrayList<String> typeValues) throws BadCarException {
-        if (typeValues.size() == RuntimeConstants.MODIFY_CAR_FORMAT.length) {
-            int _idx = Integer.parseInt(typeValues.get(0));
-            String _newMake = typeValues.get(2);
-            String _newModel = typeValues.get(3);
-            String _newColor = typeValues.get(4);
-            int _newYear = Integer.parseInt(typeValues.get(5));
+    public Car modifyCar(ArrayList<String> typeValues_) throws BadCarException {
+        if (typeValues_.size() == RuntimeConstants.MODIFY_CAR_FORMAT.length) {
+            int _idx = Integer.parseInt(typeValues_.get(0));
+            String _newMake = typeValues_.get(2);
+            String _newModel = typeValues_.get(3);
+            String _newColor = typeValues_.get(4);
+            int _newYear = Integer.parseInt(typeValues_.get(5));
 
             Car _currentCar = carInventory.get(_idx);
 

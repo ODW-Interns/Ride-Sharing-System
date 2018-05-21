@@ -2,16 +2,15 @@ package com.odw.ridesharing.model;
 
 public class Driver extends User {
 
-	private int driverID;
 	private int carID;
 	private int rating;
 	private User driver;
 	private boolean isAvailable;
 
 	public Driver() {
-		this(new User(), -1, false, -1);
+		this("", "", "", -1, -1, false, -1);
 	}
-
+	
 	/**
 	 * Store the information of this driver
 	 * 
@@ -23,13 +22,12 @@ public class Driver extends User {
 	 * 
 	 * @param carID_ Driver's unique car id
 	 */
-	public Driver(User driver_, int rating_, boolean isAvailable_, int carID_) {
-		setDriver(driver_);
-		setRating(rating_);
-		setIsAvailable(isAvailable_);
-		setCarID(carID_);
+	public Driver(String firstName_, String lastName_, String sex_, int age_, int idx_, Boolean isAvailable_, int carID_) {
+	    super(firstName_, lastName_, sex_, age_, idx_);
+	    setIsAvailable(isAvailable); 
+	    setCarID(carID_);
 	}
-
+	
 	/**
 	 * Get the info of this person driver
 	 * 

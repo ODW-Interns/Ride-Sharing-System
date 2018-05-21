@@ -8,22 +8,25 @@ public class Driver extends User {
 	private boolean isAvailable;
 
 	public Driver() {
-		this("", "", "", -1, -1, false, -1);
+		this("", "", "", -1, -1, -1, false, -1);
 	}
 	
 	/**
 	 * Store the information of this driver
 	 * 
-	 * @param driver_ Driver's info and should includes Fistname, Lastname, Sex, and Age
+	 * @param firstName_ Driver's first name
 	 * 
+	 * @param lastName_ Driver's last name
+	 * @param sex_ Driver's sex
+	 * @param age_ Driver's age
+	 * @param idx_ Driver's userID
 	 * @param rating_ Driver's rating
-	 * 
 	 * @param isAvaliable_ Driver's availability
-	 * 
 	 * @param carID_ Driver's unique car id
 	 */
-	public Driver(String firstName_, String lastName_, String sex_, int age_, int idx_, Boolean isAvailable_, int carID_) {
+	public Driver(String firstName_, String lastName_, String sex_, int age_, int idx_, int rating_, Boolean isAvailable_, int carID_) {
 	    super(firstName_, lastName_, sex_, age_, idx_);
+	    setRating(rating_);
 	    setIsAvailable(isAvailable); 
 	    setCarID(carID_);
 	}

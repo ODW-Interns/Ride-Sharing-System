@@ -22,17 +22,16 @@ public class CommandController {
     public static final String CUSTOMER = "customer";
     public static final String DRIVER = "driver";
     public static final String PICKUP = "pickup";
-    
+
     private CarController carController = new CarController();
-    
+
     // TODO: Move
     private Logger logger = LoggerFactory.getLogger(getClass().getSimpleName());
-    
+
     public void processFile(String fileName_, String delimiter_) {
-        EventParser _eventParser = new EventParser();  
+        EventParser _eventParser = new EventParser();
         BufferedReader _inputReader = new BufferedReader(
-                                          new InputStreamReader(
-                                              getClass().getResourceAsStream(fileName_)));
+                new InputStreamReader(getClass().getResourceAsStream(fileName_)));
         String _nextLine = null;
         try {
             while ((_nextLine = _inputReader.readLine()) != null) {
@@ -42,11 +41,8 @@ public class CommandController {
         } catch (IOException e_) {
             e_.printStackTrace(); // TODO: Log
         }
-        
-        if (logger.isInfoEnabled()) {
-            logger.info(carController.getCarInventory());
-        }
-        
+
+        logger.info(carController.getCarInventory());
     }
 
     private void processEvent(Event newEvent_) {
@@ -62,15 +58,11 @@ public class CommandController {
                 delete(newEvent_);
                 break;
             default:
-                if (logger.isErrorEnabled()) {
-                    logger.error("Error: Invalid command.");
-                }
+                logger.error("Error: Invalid command.");
                 break;
             }
         } catch (Exception e_) {
-            if (logger.isErrorEnabled()) {
-                logger.error(e_.getMessage());
-            }
+            logger.error(e_.getMessage());
         }
     }
 
@@ -80,9 +72,7 @@ public class CommandController {
             try {
                 carController.createCar(event_.getTypeValues());
             } catch (BadCarException e_) {
-                if (logger.isErrorEnabled()) {
-                    logger.error("There was a problem adding a car.");
-                }
+                logger.error("There was a problem adding a car.");
             }
             break;
         case CUSTOMER:
@@ -95,9 +85,7 @@ public class CommandController {
             // TODO
             break;
         default:
-            if (logger.isErrorEnabled()) {
-                logger.error("Error: Invalid input type.");
-            }
+            logger.error("Error: Invalid input type.");
             break;
         }
     }
@@ -105,13 +93,11 @@ public class CommandController {
     private void modify(Event event_) {
         switch (event_.getInputType()) {
         case CAR:
-        	 try {
-                 carController.modifyCar(event_.getTypeValues());
-             } catch (BadCarException e_) {
-                 if (logger.isErrorEnabled()) {
-                     logger.error("There was a problem modifying a car.");
-                 }
-             }
+            try {
+                carController.modifyCar(event_.getTypeValues());
+            } catch (BadCarException e_) {
+                logger.error("There was a problem modifying a car.");
+            }
             break;
         case CUSTOMER:
             // TODO
@@ -123,9 +109,7 @@ public class CommandController {
             // TODO
             break;
         default:
-            if (logger.isErrorEnabled()) {
-                logger.error("Error: Invalid input type.");
-            }
+            logger.error("Error: Invalid input type.");
             break;
         }
     }
@@ -133,12 +117,10 @@ public class CommandController {
     private void delete(Event event_) {
         switch (event_.getInputType()) {
         case CAR:
-        	try {
+            try {
                 carController.deleteCar(event_.getTypeValues());
             } catch (BadCarException e_) {
-                if (logger.isErrorEnabled()) {
-                    logger.error("There was a problem deleting a car.");
-                }
+                logger.error("There was a problem deleting a car.");
             }
             break;
         case CUSTOMER:
@@ -151,9 +133,7 @@ public class CommandController {
             // TODO
             break;
         default:
-            if (logger.isErrorEnabled()) {
-                logger.error("Error: Invalid input type.");
-            }
+            logger.error("Error: Invalid input type.");
             break;
         }
     }

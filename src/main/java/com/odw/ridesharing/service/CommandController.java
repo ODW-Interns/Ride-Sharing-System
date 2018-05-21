@@ -8,20 +8,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.odw.ridesharing.model.Event;
+import com.odw.ridesharing.model.RuntimeConstants;
 import com.odw.ridesharing.model.exceptions.BadCarException;
 
 public class CommandController {
-
-    // Available Commands
-    public static final String CREATE = "create";
-    public static final String MODIFY = "modify";
-    public static final String DELETE = "delete";
-
-    // Available Input Types
-    public static final String CAR = "car";
-    public static final String CUSTOMER = "customer";
-    public static final String DRIVER = "driver";
-    public static final String PICKUP = "pickup";
 
     private CarController carController = new CarController();
 
@@ -32,6 +22,7 @@ public class CommandController {
         EventParser _eventParser = new EventParser();
         BufferedReader _inputReader = new BufferedReader(
                 new InputStreamReader(getClass().getResourceAsStream(fileName_)));
+
         String _nextLine = null;
         try {
             while ((_nextLine = _inputReader.readLine()) != null) {
@@ -48,13 +39,13 @@ public class CommandController {
     private void processEvent(Event newEvent_) {
         try {
             switch (newEvent_.getCommand()) {
-            case CREATE:
+            case RuntimeConstants.CREATE:
                 create(newEvent_);
                 break;
-            case MODIFY:
+            case RuntimeConstants.MODIFY:
                 modify(newEvent_);
                 break;
-            case DELETE:
+            case RuntimeConstants.DELETE:
                 delete(newEvent_);
                 break;
             default:
@@ -68,20 +59,20 @@ public class CommandController {
 
     private void create(Event event_) {
         switch (event_.getInputType()) {
-        case CAR:
+        case RuntimeConstants.CAR:
             try {
                 carController.createCar(event_.getTypeValues());
             } catch (BadCarException e_) {
                 logger.error("There was a problem adding a car.");
             }
             break;
-        case CUSTOMER:
+        case RuntimeConstants.CUSTOMER:
             // TODO
             break;
-        case DRIVER:
+        case RuntimeConstants.DRIVER:
             // TODO
             break;
-        case PICKUP:
+        case RuntimeConstants.PICKUP:
             // TODO
             break;
         default:
@@ -92,20 +83,20 @@ public class CommandController {
 
     private void modify(Event event_) {
         switch (event_.getInputType()) {
-        case CAR:
+        case RuntimeConstants.CAR:
             try {
                 carController.modifyCar(event_.getTypeValues());
             } catch (BadCarException e_) {
                 logger.error("There was a problem modifying a car.");
             }
             break;
-        case CUSTOMER:
+        case RuntimeConstants.CUSTOMER:
             // TODO
             break;
-        case DRIVER:
+        case RuntimeConstants.DRIVER:
             // TODO
             break;
-        case PICKUP:
+        case RuntimeConstants.PICKUP:
             // TODO
             break;
         default:
@@ -116,20 +107,20 @@ public class CommandController {
 
     private void delete(Event event_) {
         switch (event_.getInputType()) {
-        case CAR:
+        case RuntimeConstants.CAR:
             try {
                 carController.deleteCar(event_.getTypeValues());
             } catch (BadCarException e_) {
                 logger.error("There was a problem deleting a car.");
             }
             break;
-        case CUSTOMER:
+        case RuntimeConstants.CUSTOMER:
             // TODO
             break;
-        case DRIVER:
+        case RuntimeConstants.DRIVER:
             // TODO
             break;
-        case PICKUP:
+        case RuntimeConstants.PICKUP:
             // TODO
             break;
         default:

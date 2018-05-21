@@ -6,42 +6,28 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.odw.ridesharing.model.Car;
+import com.odw.ridesharing.model.RuntimeConstants;
 import com.odw.ridesharing.model.exceptions.BadCarException;
 import java.util.ArrayList;
 import java.util.Map;
 
 public class CarController {
 
-    // Available Cars
-    public static final String COUPE = "coupe";
-    public static final String SEDAN = "sedan";
-    public static final String SUV = "suv";
-    
-    private ConcurrentHashMap<Integer, Car> carInventory;
-    private CarFactory carFactory;
-
-    /*
-     * Default Constructor
-     */
-    public CarController() {
-        carInventory = new ConcurrentHashMap<Integer, Car>();
-        carFactory = new CarFactory();
-    }
+    private ConcurrentHashMap<Integer, Car> carInventory = new ConcurrentHashMap<Integer, Car>();
+    private CarFactory carFactory = new CarFactory();
 
     /**
      * 
      * Call CarFactory to create a car
      * 
-     * @param typeValue_
+     * @param typeValues_
      *            Strings needed to create the car
      * @throws BadCarException
-     *             If car.getID is greater than zero, then throw an exception
+     *             If car.getID is greater than zero. If typeValues
      */
-    public void createCar(ArrayList<String> typeValue_) throws BadCarException {
-        Car _car = carFactory.createCar(typeValue_);
-
-        // Valid car IDs are non-negative.
-        if (_car.getCarID() >= 0) {
+    public void createCar(ArrayList<String> typeValues_) throws BadCarException {
+        if (typeValues_.size() == RuntimeConstants.CREATE_CAR_FORMAT.length) {
+            Car _car = carFactory.createCar(typeValues_);
             carInventory.put(_car.getCarID(), _car);
         } else {
             throw new BadCarException();
@@ -57,48 +43,53 @@ public class CarController {
      * @throws BadCarException
      */
     public void modifyCar(ArrayList<String> typeValues) throws BadCarException {
-        int _idx = Integer.parseInt(typeValues.get(0));
-        Car _car = carInventory.get(_idx);
-        if(_idx > -1) {
-        	if(_car.getCarID() == _idx) {
-        		_car.setMake(typeValues.get(2));
-        		_car.setModel(typeValues.get(3));
-        		_car.setColor(typeValues.get(4));
-        		_car.setYear(Integer.parseInt(typeValues.get(5)));
-        	}
-        	else
-        		throw new BadCarException();
+        if (typeValues.size() == RuntimeConstants.MODIFY_CAR_FORMAT.length) {
+            int _idx = Integer.parseInt(typeValues.get(0));
+            String _newMake = typeValues.get(2);
+            String _newModel = typeValues.get(3);
+            String _newColor = typeValues.get(4);
+            int _newYear = Integer.parseInt(typeValues.get(5));
+
+            Car _currentCar = carInventory.get(_idx);
+
+            if (_currentCar != null) {
+                _currentCar.setMake(_newMake);
+                _currentCar.setModel(_newModel);
+                _currentCar.setColor(_newColor);
+                _currentCar.setYear(_newYear);
+            } else {
+                throw new BadCarException();
+            }
+        } else {
+            throw new BadCarException();
         }
-        
-        else
-        	throw new BadCarException();
     }
 
     /**
      * Delete the car's info from the inventory
      * 
-     * @param typeValues
+     * @param typeValues_
      *            ArrayList of of input in string Should Contain carID to be deleted
      * @throws BadCarException
      */
-    public void deleteCar(ArrayList<String> typeValues) throws BadCarException {
+    public void deleteCar(ArrayList<String> typeValues_) throws BadCarException {
+        if (typeValues_.size() == RuntimeConstants.DELETE_CAR_FORMAT.length) {
+            int _idx = Integer.parseInt(typeValues_.get(0));
 
-    	int _idx = Integer.parseInt(typeValues.get(0));
-    	Car _car = carInventory.get(_idx);
-    	if(_idx > -1) {
-    		if(_car.getCarID() == _idx) 
-    			carInventory.remove(_idx);
-    		else
-    			throw new BadCarException();
-    	}
-    	else
-    		throw new BadCarException();
+            try {
+                carInventory.remove(_idx);
+            } catch (NullPointerException e_) {
+                throw new BadCarException();
+            }
+        } else {
+            throw new BadCarException();
+        }
     }
 
     /**
      * Returns a string of all the cars in inventory.
      * 
-     * @return TODO
+     * @return A list string of all the cars currently in inventory.
      */
     public String getCarInventory() {
         if (carInventory.size() > 0) {

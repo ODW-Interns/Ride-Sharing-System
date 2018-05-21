@@ -27,17 +27,23 @@ public class CarFactory {
      */
     public Car createCar(ArrayList<String> typeValues_) {  
         
+        String _carType = typeValues_.get(0);
+        String _make = typeValues_.get(1);
+        String _model = typeValues_.get(2);
+        String _color = typeValues_.get(3);
+        int _year = Integer.parseInt(typeValues_.get(4));
+        
         // get the carType 
         switch (typeValues_.get(0)) {
             case CarController.COUPE:
-                return new Coupe(typeValues_.get(1), typeValues_.get(2), typeValues_.get(3), 
-                        Integer.parseInt(typeValues_.get(4)), nextCarID++);
+                return new Coupe(_make, _model, _color, _year, nextCarID++);
+                
             case CarController.SEDAN:
-                return new Sedan(typeValues_.get(1), typeValues_.get(2), typeValues_.get(3), 
-                        Integer.parseInt(typeValues_.get(4)), nextCarID++);
+                return new Sedan(_make, _model, _color, _year, nextCarID++);
+                
             case CarController.SUV:
-                return new Suv(typeValues_.get(1), typeValues_.get(2), typeValues_.get(3), 
-                        Integer.parseInt(typeValues_.get(4)), nextCarID++);
+                return new Suv(_make, _model, _color, _year, nextCarID++);
+                
             default:
                 return null;
         }

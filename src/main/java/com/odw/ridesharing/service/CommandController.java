@@ -12,12 +12,12 @@ import com.odw.ridesharing.model.exceptions.BadCarException;
 
 public class CommandController {
 
-    // Commands
+    // Available Commands
     public static final String CREATE = "create";
     public static final String MODIFY = "modify";
     public static final String DELETE = "delete";
 
-    // Input Types
+    // Available Input Types
     public static final String CAR = "car";
     public static final String CUSTOMER = "customer";
     public static final String DRIVER = "driver";

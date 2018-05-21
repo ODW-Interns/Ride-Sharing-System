@@ -16,13 +16,13 @@ public class CarFactory {
             // Values: CarType | Make | Model | Color | Year
             // Index:  0       | 1    | 2     | 3     | 4
         switch (typeValues_.get(0)) {
-            case Car.COUPE:
+            case CarController.COUPE:
                 return new Coupe(typeValues_.get(1), typeValues_.get(2), typeValues_.get(3), 
                         Integer.parseInt(typeValues_.get(4)), nextCarID++);
-            case Car.SEDAN:
+            case CarController.SEDAN:
                 return new Sedan(typeValues_.get(1), typeValues_.get(2), typeValues_.get(3), 
                         Integer.parseInt(typeValues_.get(4)), nextCarID++);
-            case Car.SUV:
+            case CarController.SUV:
                 return new SUV(typeValues_.get(1), typeValues_.get(2), typeValues_.get(3), 
                         Integer.parseInt(typeValues_.get(4)), nextCarID++);
             default:

@@ -1,10 +1,7 @@
 package com.odw.ridesharing.model;
 
 public abstract class Car {
-    public static final String COUPE = "coupe";
-    public static final String SEDAN = "sedan";
-    public static final String SUV = "suv";
-
+    
     private int carID;
     private int year;
     private String maker;

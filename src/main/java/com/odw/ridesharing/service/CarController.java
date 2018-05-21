@@ -9,6 +9,11 @@ import java.util.Map;
 
 public class CarController {
 
+    // Available Cars
+    public static final String COUPE = "coupe";
+    public static final String SEDAN = "sedan";
+    public static final String SUV = "suv";
+    
     private ConcurrentHashMap<Integer, Car> carInventory;
     private CarFactory carFactory;
 

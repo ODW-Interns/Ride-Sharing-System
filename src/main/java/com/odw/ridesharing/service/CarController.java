@@ -2,6 +2,9 @@ package com.odw.ridesharing.service;
 
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.odw.ridesharing.model.Car;
 import com.odw.ridesharing.model.exceptions.BadCarException;
 import java.util.ArrayList;
@@ -72,8 +75,16 @@ public class CarController {
      * @throws BadCarException
      */
     public void deleteCar(ArrayList<String> typeValue_) throws BadCarException {
-        // TODO add exception
-        carInventory.remove(Integer.parseInt(typeValue_.get(0)));
+
+    	if(Integer.parseInt(typeValue_.get(0)) > -1) {
+    		Car _car = carInventory.get(Integer.parseInt(typeValue_.get(0)));
+    		if(_car.getCarID() == Integer.parseInt(typeValue_.get(0))) 
+    			carInventory.remove(Integer.parseInt(typeValue_.get(0)));
+    		else
+    			throw new BadCarException();
+    	}
+    	else
+    		throw new BadCarException();
     }
 
     /**

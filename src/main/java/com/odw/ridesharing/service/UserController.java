@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.odw.ridesharing.model.Car;
-import com.odw.ridesharing.model.Customer;
 import com.odw.ridesharing.model.Driver;
 import com.odw.ridesharing.model.User;
 import com.odw.ridesharing.model.exceptions.BadCarException;
@@ -34,13 +32,13 @@ public class UserController {
 	 * @throws BadUserException
 	 */
 	public void createUser(ArrayList<String> typeValue_) throws BadUserException {
-		User _user = userFactory.createCar(typeValue_);
+		User _user = userFactory.createUser(typeValue_);
 
 		// Valid car IDs are non-negative.
 		if (_user.getUserID() >= 0) {
 			userDatabase.put(_user.getUserID(), _user);
 		} else {
-			throw new BadCarException();
+			throw new BadUserException();
 		}
 	}
 
@@ -53,7 +51,6 @@ public class UserController {
 	public void modifyUser(ArrayList<String> typeValues) throws BadCarException {
 		int _idx = Integer.parseInt(typeValues.get(0));
 		User _user = userDatabase.get(_idx);
-		boolean _driverflag = true;
 
 		if (_idx > -1) {
 			if (typeValues.get(1) == DRIVER) {
@@ -70,7 +67,7 @@ public class UserController {
 				} else
 					throw new BadCarException();
 			} else {
-				Customer _customer = (Customer) _user;
+				//Customer _customer = (Customer) _user;
 				if (_user.getUserID() == _idx) {
 					_user.setFirstName(typeValues.get(2));
 					_user.setLastName(typeValues.get(3));

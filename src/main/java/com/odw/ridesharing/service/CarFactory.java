@@ -11,10 +11,23 @@ public class CarFactory {
 
     private int nextCarID = 0;
     
-    public Car createCar(ArrayList<String> typeValues_) {        
-        // NOTE typeValues_ format (as an ArrayList):
-            // Values: CarType | Make | Model | Color | Year
-            // Index:  0       | 1    | 2     | 3     | 4
+    
+    /**
+     * Create a Car Object and fill it with ArrayList info
+     * 
+     * @param typeValues_ 
+     *          the ArrayList to be turned into a Car Object
+     *     
+     * NOTE: typeValues_ format (as an ArrayList):
+     *      Values: CarType | Make | Model | Color | Year
+     *      Index:  0       | 1    | 2     | 3     | 4
+     * 
+     * @return 
+     *          a Car Object
+     */
+    public Car createCar(ArrayList<String> typeValues_) {  
+        
+        // get the carType 
         switch (typeValues_.get(0)) {
             case CarController.COUPE:
                 return new Coupe(typeValues_.get(1), typeValues_.get(2), typeValues_.get(3), 

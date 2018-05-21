@@ -20,69 +20,96 @@ public class RuntimeConstants {
     public static final String SUV = "suv";
 
     // -- Predetermined Input Formats (Excludes COMMAND and INPUT_TYPES) --
+    // Mainly used for checking input lengths. However, it can be expanded to be
+    // used for other things. Can be used as a reference for when creating input.
+    // This way our system knows how we expect our input.
     public static final String[] CREATE_CAR_FORMAT = new String[] { 
-            "CAR_TYPE",
-            "MAKE",
-            "MODEL",
-            "COLOR",
-            "YEAR"
+            "CAR_TYPE (STRING)",
+            "MAKE (STRING)",
+            "MODEL (STRING)",
+            "COLOR (STRING)",
+            "YEAR (INT)"
     };
     
     public static final String[] CREATE_USER_DRIVER_FORMAT = new String[] {
-            "USER_TYPE",
-            "FIRST_NAME",
-            "LAST_NAME",
-            "SEX",
-            "AGE",
-            "AVAILABILITY",
-            "CAR_ID"
+            "USER_TYPE (STRING)",
+            "FIRST_NAME (STRING)",
+            "LAST_NAME (STRING)",
+            "SEX (STRING)",
+            "AGE (INT)",
+            "AVAILABILITY (BOOLEAN)",
+            "CAR_ID (INT)"
     };
     
     public static final String[] CREATE_USER_CUSTOMER_FORMAT = new String[] {
-            "USER_TYPE",
-            "FIRST_NAME",
-            "LAST_NAME",
-            "SEX",
-            "AGE"
+            "USER_TYPE (STRING)",
+            "FIRST_NAME (STRING)",
+            "LAST_NAME (STRING)",
+            "SEX (STRING)",
+            "AGE (INT)"
     };
-    // TODO
-    // public static final String[] createPickupFormat = new String[] {};
+    public static final String[] CREATE_PICKUP_FORMAT = new String[] {
+            "DRIVER_ID (INT)",
+            "CAR_ID (INT)",
+            "CUSTOMER_ID (INT)",
+            "ORIGIN_LATITUDE (DOUBLE)",
+            "ORIGIN_LONGITUDE (DOUBLE)",
+            "DESTINATION_LATITUDE (DOUBLE)",
+            "DESTINATION_LONGITUDE (DOUBLE)"
+            
+    };
 
     public static final String[] MODIFY_CAR_FORMAT = new String[] {
-            "CAR_ID",
-            "CAR_TYPE",
-            "MAKE",
-            "MODEL",
-            "COLOR",
-            "YEAR"
+            "CAR_ID (INT)",
+            "CAR_TYPE (STRING)",
+            "MAKE (STRING)",
+            "MODEL (STRING)",
+            "COLOR (STRING)",
+            "YEAR (INT)"
     };
     
     public static final String[] MODIFY_USER_DRIVER_FORMAT = new String[] {
-    		"USER_ID",
-            "USER_TYPE",
-            "FIRST_NAME",
-            "LAST_NAME",
-            "SEX",
-            "AGE",
-            "AVAILABILITY",
-            "RATING",
-            "CAR_ID"
+    		"USER_ID (INT)",
+            "USER_TYPE (STRING)",
+            "FIRST_NAME (STRING)",
+            "LAST_NAME (STRING)",
+            "SEX (STRING)",
+            "AGE (INT)",
+            "AVAILABILITY (BOOLEAN)",
+            "RATING (INT)",
+            "CAR_ID (INT)"
     };
     
     public static final String[] MODIFY_USER_CUSTOMER_FORMAT = new String[] {
-    		"USER_ID",
-            "USER_TYPE",
-            "FIRST_NAME",
-            "LAST_NAME",
-            "SEX",
-            "AGE"
+    		"USER_ID (INT)",
+            "USER_TYPE (STRING)",
+            "FIRST_NAME (STRING)",
+            "LAST_NAME (STRING)",
+            "SEX (STRING)",
+            "AGE (INT)"
     };
+    
+    public static final String[] MODIFY_PICKUP_FORMAT = new String[] {
+            "PICKUP_ID (INT)",
+            "CAR_ID (INT)",
+            "CUSTOMER_ID (INT)",
+            "DRIVER_ID (INT)",
+            "ORIGIN_LATITUDE (DOUBLE)",
+            "ORIGIN_LONGITUDE (DOUBLE",
+            "DESTINATION_LATITUDE (DOUBLE)",
+            "DESTINATION_LONGITUDE (DOUBLE)"
+            
+    };
+    
     public static final String[] DELETE_CAR_FORMAT = new String[] {
-            "CAR_ID",
+            "CAR_ID (INT)",
     };
     
     public static final String[] DELETE_USER_FORMAT = new String[] {
-            "USER_TYPE",
-    		"USER_ID"
+    		"USER_ID (INT)"
+    };
+    
+    public static final String[] DELETE_PICKUP_FORMAT = new String[] {
+            "PICKUP_ID (INT)"
     };
 }

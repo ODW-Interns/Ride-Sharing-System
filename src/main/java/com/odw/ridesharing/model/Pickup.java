@@ -4,8 +4,8 @@ public class Pickup {
     
     private int pickupID;
     private int carID;
-    private int driverID;
     private int customerID;
+    private int driverID;
     private Location origin;
     private Location destination;
     

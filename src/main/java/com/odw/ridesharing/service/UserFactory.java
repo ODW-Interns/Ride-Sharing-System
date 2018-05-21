@@ -16,7 +16,7 @@ public class UserFactory {
      * 
      * NOTE: typeValues_ format (as an ArrayList):
      *      Values: Customer | FirstName | LastName | Sex | Age | \n
-     *      Index:  0        | 1        | 2         | 3   | 4   |
+     *      Index:  0        | 1         | 2        | 3   | 4   |
      *      
      *      Values: Driver | FName | LName | Sex | Age | isAvail | CarID | \n
      *      Index:  0      | 1     | 2     | 3   | 4   | 5       | 6     | 
@@ -29,6 +29,7 @@ public class UserFactory {
         String _lastName = typeValues_.get(2);
         String _sex = typeValues_.get(3);
         int _age = Integer.parseInt(typeValues_.get(4));
+        int _rating = -1;
         
         // get the userType
         switch (_userType) {
@@ -39,7 +40,7 @@ public class UserFactory {
                 boolean _isAvailable = Boolean.parseBoolean(typeValues_.get(5));
                 int _carID = Integer.parseInt(typeValues_.get(6));
                 
-                return new Driver(_firstName, _lastName, _sex, _age, nextUserID++, _isAvailable, _carID);
+                return new Driver(_firstName, _lastName, _sex, _age, nextUserID++, _rating, _isAvailable, _carID);
                 
             default:
                 return null;

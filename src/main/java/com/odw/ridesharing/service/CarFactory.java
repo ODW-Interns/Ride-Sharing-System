@@ -25,8 +25,8 @@ public class CarFactory {
      * 
      * @return a Car Object
      */
-    public Car createCar(ArrayList<String> typeValues_) {
 
+    public Car createCar(ArrayList<String> typeValues_) {
         String _carType = typeValues_.get(0);
         String _make = typeValues_.get(1);
         String _model = typeValues_.get(2);

@@ -1,14 +1,15 @@
 package com.odw.ridesharing.model;
 
-public class User {
+public abstract class User {
 
 	private String firstName;
 	private String lastName;
 	private String sex;
 	private int age;
+	private int userID;
 
 	public User() {
-		this("", "", "", -1);
+		this("", "", "", -1, -1);
 	}
 
 	/**
@@ -22,11 +23,12 @@ public class User {
 	 * 
 	 * @param age_ This user's age
 	 */
-	public User(String firstName_, String lastName_, String sex_, int age_) {
+	public User(String firstName_, String lastName_, String sex_, int age_, int userID_) {
 		setFirstName(firstName_);
 		setLastName(lastName_);
 		setSex(sex_);
 		setAge(age_);
+		setUserID(userID_);
 	}
 
 	/**
@@ -47,6 +49,16 @@ public class User {
 		firstName = firstName_;
 	}
 
+	
+	
+	public int getUserID() {
+	    return userID;
+	}
+	
+	public void setUserID(int userID_) {
+	    userID = userID_;
+	}
+	
 	/**
 	 * Get the last name of this user
 	 * 

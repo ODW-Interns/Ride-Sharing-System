@@ -1,22 +1,24 @@
 package com.odw.ridesharing.model;
 
 public class Customer extends User {
-    
-    private int customerID;
+   
     private User customer;
     
     /**
      * default constructor: Creates a new customer which is an empty Person
      */
     public Customer() {
-        this(new User());
+        this("", "", "", -1, -1);
     }
     
     /**
      * Creates a customer and give it an ID
      */
-    public Customer(User customer_) {
+    /*public Customer(User customer_) {
         setCustomer(customer_);
+    }*/
+    public Customer(String firstName_, String lastName_, String sex_, int age_, int idx_) {
+        super(firstName_, lastName_, sex_, age_, idx_);
     }
     
     /**

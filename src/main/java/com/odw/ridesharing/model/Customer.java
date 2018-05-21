@@ -1,26 +1,22 @@
 package com.odw.ridesharing.model;
 
-public class Customer {
-
-    private static int nextID = 0;
+public class Customer extends User {
     
     private int customerID;
-    private Person customer;
+    private User customer;
     
     /**
      * default constructor: Creates a new customer which is an empty Person
      */
     public Customer() {
-        this(new Person());
+        this(new User());
     }
     
     /**
      * Creates a customer and give it an ID
      */
-    public Customer(Person customer_) {
+    public Customer(User customer_) {
         setCustomer(customer_);
-        
-        customerID = Customer.nextID++;
     }
     
     /**
@@ -34,7 +30,7 @@ public class Customer {
      * 
      * @return The customer to be executed
      */
-    public Person getCustomer() {
+    public User getCustomer() {
         return customer;
     }
     
@@ -43,7 +39,7 @@ public class Customer {
      * 
      * @param The new customer to be set
      */
-    public void setCustomer(Person customer_) {
+    public void setCustomer(User customer_) {
         this.customer = customer_;
     }
 

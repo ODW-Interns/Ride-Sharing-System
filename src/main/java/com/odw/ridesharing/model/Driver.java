@@ -1,17 +1,15 @@
 package com.odw.ridesharing.model;
 
-public class Driver {
-
-	private static int nextID = 0;
+public class Driver extends User {
 
 	private int driverID;
 	private int carID;
 	private int rating;
-	private Person driver;
+	private User driver;
 	private boolean isAvailable;
 
 	public Driver() {
-		this(new Person(), -1, false, -1);
+		this(new User(), -1, false, -1);
 	}
 
 	/**
@@ -25,13 +23,11 @@ public class Driver {
 	 * 
 	 * @param carID_ Driver's unique car id
 	 */
-	public Driver(Person driver_, int rating_, boolean isAvailable_, int carID_) {
+	public Driver(User driver_, int rating_, boolean isAvailable_, int carID_) {
 		setDriver(driver_);
 		setRating(rating_);
 		setIsAvailable(isAvailable_);
 		setCarID(carID_);
-
-		driverID = Driver.nextID++;
 	}
 
 	/**
@@ -39,7 +35,7 @@ public class Driver {
 	 * 
 	 * @return driver this driver's info
 	 */
-	public Person getDriver() {
+	public User getDriver() {
 		return driver;
 	}
 	
@@ -49,7 +45,7 @@ public class Driver {
 	 * @param driver_ This is driver's info to be set
 	 * 				  It should includes Firstname, Lastname, Sex, and Age
 	 */
-	public void setDriver(Person driver_) {
+	public void setDriver(User driver_) {
 		driver = driver_;
 	}
 	

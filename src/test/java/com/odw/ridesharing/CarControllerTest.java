@@ -1,10 +1,9 @@
 package com.odw.ridesharing;
 
 import static org.junit.Assert.*;
+import org.junit.Test;
 
 import java.util.ArrayList;
-
-import org.junit.Test;
 
 import com.odw.ridesharing.model.exceptions.BadCarException;
 import com.odw.ridesharing.service.CarController;

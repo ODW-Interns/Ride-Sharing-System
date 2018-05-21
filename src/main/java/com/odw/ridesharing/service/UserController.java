@@ -7,7 +7,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import com.odw.ridesharing.model.Driver;
 import com.odw.ridesharing.model.RuntimeConstants;
 import com.odw.ridesharing.model.User;
-import com.odw.ridesharing.model.exceptions.BadCarException;
+import com.odw.ridesharing.model.exceptions.BadUserException;
 import com.odw.ridesharing.model.exceptions.BadUserException;
 
 public class UserController {
@@ -15,16 +15,8 @@ public class UserController {
 	public static final String DRIVER = "driver";
 	public static final String CUSTOMER = "customer";
 
-	private ConcurrentHashMap<Integer, User> userDatabase;
-	private UserFactory userFactory;
-
-	/*
-	 * Default Constructor
-	 */
-	public UserController() {
-		userDatabase = new ConcurrentHashMap<Integer, User>();
-		userFactory = new UserFactory();
-	}
+	private ConcurrentHashMap<Integer, User> userDatabase = new ConcurrentHashMap<Integer, User>();
+	private UserFactory userFactory = new UserFactory();
 
 	/**
 	 * Add user to the userDatabase
@@ -54,7 +46,7 @@ public class UserController {
 	 * Modify user that is currently in the userDatabase
 	 * 
 	 * @param typeValues
-	 * @throws BadCarException
+	 * @throws BadUserException
 	 */
 	public void modifyUser(ArrayList<String> typeValues) throws BadUserException {
 		if (typeValues.size() == RuntimeConstants.MODIFY_USER_DRIVER_FORMAT.length
@@ -95,7 +87,7 @@ public class UserController {
 	 * Delete user from the database
 	 * 
 	 * @param typeValues
-	 * @throws BadCarException
+	 * @throws BadUserException
 	 */
 	public void deleteUser(ArrayList<String> typeValues_) throws BadUserException {
 		if (typeValues_.size() == RuntimeConstants.DELETE_USER_FORMAT.length) {
@@ -120,7 +112,6 @@ public class UserController {
 				throw new BadUserException();
 		} else
 			throw new BadUserException();
-
 	}
 
 	/**

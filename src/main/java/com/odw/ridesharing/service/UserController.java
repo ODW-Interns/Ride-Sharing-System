@@ -12,9 +12,6 @@ import com.odw.ridesharing.model.exceptions.BadUserException;
 
 public class UserController {
 
-	public static final String DRIVER = "driver";
-	public static final String CUSTOMER = "customer";
-
 	private ConcurrentHashMap<Integer, User> userDatabase = new ConcurrentHashMap<Integer, User>();
 	private UserFactory userFactory = new UserFactory();
 
@@ -26,7 +23,7 @@ public class UserController {
 	 */
 	public void createUser(ArrayList<String> typeValue_) throws BadUserException {
 		// Valid car IDs are non-negative.
-		if (typeValue_.get(0) == DRIVER) {
+		if (typeValue_.get(0) == RuntimeConstants.DRIVER) {
 			if (typeValue_.size() == RuntimeConstants.CREATE_USER_DRIVER_FORMAT.length) {
 				User _user = userFactory.createUser(typeValue_);
 				userDatabase.put(_user.getUserID(), _user);
@@ -55,7 +52,7 @@ public class UserController {
 			User _user = userDatabase.get(_idx);
 
 			if (_idx > -1) {
-				if (typeValues.get(1) == DRIVER) {
+				if (typeValues.get(1) == RuntimeConstants.DRIVER) {
 					Driver _driver = (Driver) _user;
 					if (_user.getUserID() == _idx) {
 						_user.setFirstName(typeValues.get(2));

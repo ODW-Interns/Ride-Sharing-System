@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.odw.ridesharing.model.Customer;
 import com.odw.ridesharing.model.Driver;
+import com.odw.ridesharing.model.RuntimeConstants;
 import com.odw.ridesharing.model.User;
 
 public class UserFactory {
@@ -33,10 +34,10 @@ public class UserFactory {
         
         // get the userType
         switch (_userType) {
-            case UserController.CUSTOMER:        
+            case RuntimeConstants.CUSTOMER:        
                 return new Customer(_firstName, _lastName, _sex, _age, nextUserID++);
                 
-            case UserController.DRIVER:
+            case RuntimeConstants.DRIVER:
                 boolean _isAvailable = Boolean.parseBoolean(typeValues_.get(5));
                 int _carID = Integer.parseInt(typeValues_.get(6));
                 

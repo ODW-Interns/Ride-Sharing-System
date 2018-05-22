@@ -60,9 +60,8 @@ public class PickupControllerTest {
 		}
 
 		ArrayList<String> pickupInfo = new ArrayList<String>();
-		pickupInfo.add("0");
 		pickupInfo.add("1");
-		pickupInfo.add("2");
+		pickupInfo.add("0");
 		pickupInfo.add("150.11");
 		pickupInfo.add("180.32");
 		pickupInfo.add("180.69");
@@ -76,7 +75,6 @@ public class PickupControllerTest {
 
 		// Invalid Pickup Info
 		ArrayList<String> invalidPickupInfo = new ArrayList<String>();
-		invalidPickupInfo.add("0");
 		invalidPickupInfo.add("1");
 		invalidPickupInfo.add("2");
 		invalidPickupInfo.add("150.11");
@@ -134,9 +132,8 @@ public class PickupControllerTest {
 		}
 
 		ArrayList<String> pickupInfo = new ArrayList<String>();
-		pickupInfo.add("0");
 		pickupInfo.add("1");
-		pickupInfo.add("2");
+		pickupInfo.add("0");
 		pickupInfo.add("150.11");
 		pickupInfo.add("180.32");
 		pickupInfo.add("180.69");
@@ -149,9 +146,8 @@ public class PickupControllerTest {
 		}
 		
 		ArrayList<String> newPickupInfo = new ArrayList<String>();
-		newPickupInfo.add("0");
 		newPickupInfo.add("1");
-		newPickupInfo.add("2");
+		newPickupInfo.add("0");
 		newPickupInfo.add("100.11");
 		newPickupInfo.add("108.32");
 		newPickupInfo.add("111.69");
@@ -165,9 +161,8 @@ public class PickupControllerTest {
 		
 		//Invalid modifying info
 		ArrayList<String> invalidPickupInfo = new ArrayList<String>();
-		invalidPickupInfo.add("0");
 		invalidPickupInfo.add("1");
-		invalidPickupInfo.add("2");
+		invalidPickupInfo.add("0");
 		invalidPickupInfo.add("150.11");
 		invalidPickupInfo.add("180.32");
 
@@ -223,9 +218,8 @@ public class PickupControllerTest {
 		}
 
 		ArrayList<String> pickupInfo = new ArrayList<String>();
-		pickupInfo.add("0");
 		pickupInfo.add("1");
-		pickupInfo.add("2");
+		pickupInfo.add("0");
 		pickupInfo.add("150.11");
 		pickupInfo.add("180.32");
 		pickupInfo.add("180.69");

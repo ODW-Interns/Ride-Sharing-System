@@ -31,19 +31,17 @@ public class PickupController {
 		if (typeValues_.size() == RuntimeConstants.MODIFY_PICKUP_FORMAT.length) {
 
 			int _pickupIdx = Integer.parseInt(typeValues_.get(0));
-			int _newCarIdx = Integer.parseInt(typeValues_.get(1));
-			int _newCustomerIdx = Integer.parseInt(typeValues_.get(2));
-			int _newDriverIdx = Integer.parseInt(typeValues_.get(3));
-			double _newOriginx = Double.parseDouble(typeValues_.get(4));
-			double _newOriginy = Double.parseDouble(typeValues_.get(5));
-			double _newDestx = Double.parseDouble(typeValues_.get(6));
-			double _newDesty = Double.parseDouble(typeValues_.get(7));
+			int _newCustomerIdx = Integer.parseInt(typeValues_.get(1));
+			int _newDriverIdx = Integer.parseInt(typeValues_.get(2));
+			double _newOriginx = Double.parseDouble(typeValues_.get(3));
+			double _newOriginy = Double.parseDouble(typeValues_.get(4));
+			double _newDestx = Double.parseDouble(typeValues_.get(5));
+			double _newDesty = Double.parseDouble(typeValues_.get(6));
 			Location _newOrigin = new Location(_newOriginx, _newOriginy);
 			Location _newDest = new Location(_newDestx, _newDesty);
 
 			Pickup _currentPickup = pickupDatabase.get(_pickupIdx);
 			if (_currentPickup != null) {
-				_currentPickup.setCarID(_newCarIdx);
 				_currentPickup.setCustomerID(_newCustomerIdx);
 				_currentPickup.setDriverID(_newDriverIdx);
 				_currentPickup.setOrigin(_newOrigin);

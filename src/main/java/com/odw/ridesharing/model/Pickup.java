@@ -3,14 +3,14 @@ package com.odw.ridesharing.model;
 public class Pickup {
 
     private int pickupID;
-    private int carID;
+
     private int customerID;
     private int driverID;
     private Location origin;
     private Location destination;
 
     public Pickup() {
-        this(-1, -1, -1, -1, new Location(), new Location());
+        this(-1, -1, -1, new Location(), new Location());
     }
 
     /**
@@ -33,9 +33,8 @@ public class Pickup {
      * @param destination_
      *            the destination location in longitude and latitude
      */
-    public Pickup(int idx_, int carID_, int customerID_, int driverID_, Location origin_, Location destination_) {
+    public Pickup(int idx_, int customerID_, int driverID_, Location origin_, Location destination_) {
         setPickupID(idx_);
-        setCarID(carID_);
         setCustomerID(customerID_);
         setDriverID(driverID_);
         setOrigin(origin_);
@@ -49,7 +48,7 @@ public class Pickup {
      */
     @Override
     public String toString() {
-        return "PickupID: " + pickupID + " | CarID: " + carID + " | CustomerID: " + customerID + " | DriverID: " + driverID + " | Origin: "
+        return "PickupID: " + pickupID + " | CustomerID: " + customerID + " | DriverID: " + driverID + " | Origin: "
                 + Double.toString(origin.longitude) + " | " + Double.toString(origin.latitude) + " | Destination: "
                         + Double.toString(destination.longitude) + " | " + Double.toString(destination.latitude);
     }
@@ -73,25 +72,6 @@ public class Pickup {
      */
     public void setPickupID(int pickupID_) {
         pickupID = pickupID_;
-    }
-
-    /**
-     * Get the unique ID of the car
-     * 
-     * @return The ID of the car to be executed
-     */
-    public int getCarID() {
-        return carID;
-    }
-
-    /**
-     * Set the ID of the car
-     * 
-     * @param The
-     *            new ID of the car to be set
-     */
-    public void setCarID(int carID_) {
-        carID = carID_;
     }
 
     /**

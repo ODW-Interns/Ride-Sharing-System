@@ -115,8 +115,8 @@ public class UserController {
         String _newSex = newValues_.get(4);
         int _newAge = Integer.parseInt(newValues_.get(5));
         Boolean _newIsAvailable = Boolean.parseBoolean(newValues_.get(6));
-        int _newCarID = Integer.parseInt(newValues_.get(7));
-        int _newRating = Integer.parseInt(newValues_.get(8));
+        int _newRating = Integer.parseInt(newValues_.get(7));
+        int _newCarID = Integer.parseInt(newValues_.get(8));
         
         User _modifiedUser = userDatabase.remove(userID_);
         

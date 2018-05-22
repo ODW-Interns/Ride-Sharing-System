@@ -41,6 +41,18 @@ public class Pickup {
         setOrigin(origin_);
         setDestination(destination_);
     }
+    
+    /**
+     * Returns the pickup's information in String format.
+     * 
+     * @return The pickup information as a String.
+     */
+    @Override
+    public String toString() {
+        return "PickupID: " + pickupID + " | CarID: " + carID + " | CustomerID: " + customerID + " | DriverID: " + driverID + " | Origin: "
+                + Double.toString(origin.longitude) + " | " + Double.toString(origin.latitude) + " | Destination: "
+                        + Double.toString(destination.longitude) + " | " + Double.toString(destination.latitude);
+    }
 
     /* Getters and Setters */
 

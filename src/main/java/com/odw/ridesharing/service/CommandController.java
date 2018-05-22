@@ -12,9 +12,11 @@ import org.slf4j.LoggerFactory;
 import com.odw.ridesharing.model.Car;
 import com.odw.ridesharing.model.Driver;
 import com.odw.ridesharing.model.Event;
+import com.odw.ridesharing.model.Pickup;
 import com.odw.ridesharing.model.RuntimeConstants;
 import com.odw.ridesharing.model.User;
 import com.odw.ridesharing.model.exceptions.BadCarException;
+import com.odw.ridesharing.model.exceptions.BadPickupException;
 import com.odw.ridesharing.model.exceptions.BadUserException;
 
 public class CommandController {
@@ -23,6 +25,7 @@ public class CommandController {
     
     private CarController carController = new CarController();
     private UserController userController = new UserController();
+    private PickupController pickupController = new PickupController();
     private Logger logger = LoggerFactory.getLogger(getClass().getSimpleName());
 
     public void processFile(String fileName_, String delimiter_) {
@@ -85,7 +88,12 @@ public class CommandController {
             break;
         }
         case RuntimeConstants.PICKUP: {
-            // TODO
+        	try {
+                Pickup _addedPickup = pickupController.createPickup(event_.getTypeValues());
+                logger.info("CREATED PICKUP: " + _addedPickup.toString());
+            } catch (BadPickupException e_) {
+                logger.error("There was a problem with creating pickup: " + event_.typeValuesToString("|"));
+            }
             break;
         }
         default:
@@ -115,7 +123,12 @@ public class CommandController {
             break;
         }
         case RuntimeConstants.PICKUP: {
-            // TODO
+        	try {
+                Pickup modifiedPickup = pickupController.modifyPickup(event_.getTypeValues());
+                logger.info("MODIFIED PICKUP: " + modifiedPickup.toString());
+            } catch (BadPickupException e_) {
+                logger.error("There was a problem with modifying pickup: " + event_.typeValuesToString("|"));
+            }
             break;
         }
         default:
@@ -145,7 +158,12 @@ public class CommandController {
             break;
         }
         case RuntimeConstants.PICKUP: {
-            // TODO
+        	try {
+                Pickup deletedPickup = pickupController.deletePickup(event_.getTypeValues());
+                logger.info("DELETED PICKUP: " + deletedPickup.toString());
+            } catch (BadPickupException e_) {
+                logger.error("There was a problem with deleting pickup: " + event_.typeValuesToString("|"));
+            }
             break;
         }
         default:

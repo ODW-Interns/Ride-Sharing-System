@@ -1,14 +1,11 @@
 package com.odw.ridesharing.service;
 
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.odw.ridesharing.model.Car;
 import com.odw.ridesharing.model.Location;
 import com.odw.ridesharing.model.Pickup;
 import com.odw.ridesharing.model.RuntimeConstants;
-import com.odw.ridesharing.model.exceptions.BadCarException;
 import com.odw.ridesharing.model.exceptions.BadPickupException;
 
 public class PickupController {
@@ -16,7 +13,7 @@ public class PickupController {
 	private ConcurrentHashMap<Integer, Pickup> pickupDatabase = new ConcurrentHashMap<Integer, Pickup>();
 	private PickupFactory pickupFactory = new PickupFactory();
 
-	public Pickup createPickupr(ArrayList<String> typeValues_) throws BadPickupException {
+	public Pickup createPickup(ArrayList<String> typeValues_) throws BadPickupException {
 
 		if (typeValues_.size() == RuntimeConstants.CREATE_PICKUP_FORMAT.length) {
 
@@ -65,12 +62,11 @@ public class PickupController {
 		if (typeValues_.size() == RuntimeConstants.DELETE_PICKUP_FORMAT.length) {
 
 			int _idx = Integer.parseInt(typeValues_.get(0));
-			Pickup _currentPickup = pickupDatabase.get(_idx);
-
+			
 			try {
 				return pickupDatabase.remove(_idx);
 			} catch (NullPointerException e_) {
-				throw new BadCarException();
+				throw new BadPickupException();
 			}
 
 		} else

@@ -43,13 +43,13 @@ public class CarController {
      */
     public Car modifyCar(ArrayList<String> typeValues_) throws BadCarException {
         if (typeValues_.size() == RuntimeConstants.MODIFY_CAR_FORMAT.length) {
-            int _idx = Integer.parseInt(typeValues_.get(0));
+            int _carID = Integer.parseInt(typeValues_.get(0));
             String _newMake = typeValues_.get(2);
             String _newModel = typeValues_.get(3);
             String _newColor = typeValues_.get(4);
             int _newYear = Integer.parseInt(typeValues_.get(5));
 
-            Car _currentCar = carInventory.get(_idx);
+            Car _currentCar = carInventory.get(_carID);
 
             if (_currentCar != null) {
                 _currentCar.setMake(_newMake);
@@ -75,10 +75,9 @@ public class CarController {
      */
     public Car deleteCar(ArrayList<String> typeValues_) throws BadCarException {
         if (typeValues_.size() == RuntimeConstants.DELETE_CAR_FORMAT.length) {
-            int _idx = Integer.parseInt(typeValues_.get(0));
-
+            int _carID = Integer.parseInt(typeValues_.get(0));
             try {
-                return carInventory.remove(_idx);
+                return carInventory.remove(_carID);
             } catch (NullPointerException e_) {
                 throw new BadCarException();
             }

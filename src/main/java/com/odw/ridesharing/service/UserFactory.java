@@ -30,19 +30,12 @@ public class UserFactory {
         String _lastName = typeValues_.get(2);
         String _sex = typeValues_.get(3);
         int _age = Integer.parseInt(typeValues_.get(4));
-        int _rating = -1;
         
-        // get the userType
         switch (_userType) {
             case RuntimeConstants.CUSTOMER:        
                 return new Customer(nextUserID++, _firstName, _lastName, _sex, _age);
-                
             case RuntimeConstants.DRIVER:
-                boolean _isAvailable = Boolean.parseBoolean(typeValues_.get(5));
-                int _carID = Integer.parseInt(typeValues_.get(6));
-                
-                return new Driver(nextUserID++, _firstName, _lastName, _sex, _age, _rating, _isAvailable, _carID);
-                
+                return new Driver(nextUserID++, _firstName, _lastName, _sex, _age);
             default:
                 return null;
         }

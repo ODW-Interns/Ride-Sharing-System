@@ -5,5 +5,5 @@ modify|user|0|driver|mark|constantine|male|21|true|-1|0|
 create|pickup|1|0|-360|360|-180|180|
 delete|car|0|
 create|car|coupe|BMW|Z4|Black|2012|
-modify|user|driver|mark|constantine|male|21|true|-1|1|
+modify|user|0|driver|mark|constantine|male|21|true|-1|1|
 create|pickup|1|0|-540|540|-360|360|

@@ -28,10 +28,10 @@ public class PickupFactory {
         int _carID = Integer.parseInt(typeValues_.get(0));
         int _customerID = Integer.parseInt(typeValues_.get(1));
         int _driverID = Integer.parseInt(typeValues_.get(2));
-        Double _originLongitude = Double.parseDouble(typeValues_.get(3));
-        Double _originLatitude = Double.parseDouble(typeValues_.get(4));
-        Double _destinationLongitude = Double.parseDouble(typeValues_.get(5));
-        Double _destinationLatitude = Double.parseDouble(typeValues_.get(6));
+        double _originLongitude = Double.parseDouble(typeValues_.get(3));
+        double _originLatitude = Double.parseDouble(typeValues_.get(4));
+        double _destinationLongitude = Double.parseDouble(typeValues_.get(5));
+        double _destinationLatitude = Double.parseDouble(typeValues_.get(6));
         
         // set the origin and destination to be used for Pickup
         Location _origin = new Location(_originLongitude, _originLatitude);

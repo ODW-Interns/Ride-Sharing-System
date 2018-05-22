@@ -31,17 +31,7 @@ public class RuntimeConstants {
             "YEAR (INT)"
     };
     
-    public static final String[] CREATE_USER_DRIVER_FORMAT = new String[] {
-            "USER_TYPE (STRING)",
-            "FIRST_NAME (STRING)",
-            "LAST_NAME (STRING)",
-            "SEX (STRING)",
-            "AGE (INT)",
-            "AVAILABILITY (BOOLEAN)",
-            "CAR_ID (INT)"
-    };
-    
-    public static final String[] CREATE_USER_CUSTOMER_FORMAT = new String[] {
+    public static final String[] CREATE_USER_FORMAT = new String[] {
             "USER_TYPE (STRING)",
             "FIRST_NAME (STRING)",
             "LAST_NAME (STRING)",

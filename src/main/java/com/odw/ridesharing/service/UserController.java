@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.odw.ridesharing.model.Customer;
 import com.odw.ridesharing.model.Driver;
 import com.odw.ridesharing.model.RuntimeConstants;
 import com.odw.ridesharing.model.User;
@@ -12,139 +13,144 @@ import com.odw.ridesharing.model.exceptions.BadUserException;
 
 public class UserController {
 
-	private ConcurrentHashMap<Integer, User> userDatabase = new ConcurrentHashMap<Integer, User>();
-	private UserFactory userFactory = new UserFactory();
+    private ConcurrentHashMap<Integer, User> userDatabase = new ConcurrentHashMap<Integer, User>();
+    private UserFactory userFactory = new UserFactory();
 
-	/**
-	 * Add user to the userDatabase
-	 * 
-	 * @param typeValues_
-	 * @throws BadUserException
-	 */
-	public User createUser(ArrayList<String> typeValues_) throws BadUserException {
-		// Valid car IDs are non-negative.
+    /**
+     * Add user to the userDatabase
+     * 
+     * @param typeValues_
+     * @throws BadUserException
+     */
+    public User createUser(ArrayList<String> typeValues_) throws BadUserException {
+        if (typeValues_.size() == RuntimeConstants.CREATE_USER_FORMAT.length) {
+            User _user = userFactory.createUser(typeValues_);
+            userDatabase.put(_user.getUserID(), _user);
+            return _user;
+        }
 
-		if (Objects.equals(typeValues_.get(0), RuntimeConstants.CUSTOMER)
-				&& typeValues_.size() == RuntimeConstants.CREATE_USER_CUSTOMER_FORMAT.length
-				|| Objects.equals(typeValues_.get(0), RuntimeConstants.DRIVER)
-						&& typeValues_.size() == RuntimeConstants.CREATE_USER_DRIVER_FORMAT.length) {
+        // Something went wrong..
+        throw new BadUserException();
+    }
 
-			User _user = userFactory.createUser(typeValues_);
-			userDatabase.put(_user.getUserID(), _user);
-			return _user;
+    /**
+     * Modify user that is currently in the userDatabase
+     * 
+     * @param typeValues_
+     * @throws BadUserException
+     */
+    public User modifyUser(ArrayList<String> typeValues_) throws BadUserException {
+        if (typeValues_.size() == RuntimeConstants.MODIFY_USER_DRIVER_FORMAT.length) {
+            int _userID = Integer.parseInt(typeValues_.get(0));
+            String _userType = typeValues_.get(1);
+            if (_userType.equals(RuntimeConstants.DRIVER)) {
+                return modifyDriver(_userID, typeValues_);
+            }
+        } else if (typeValues_.size() == RuntimeConstants.MODIFY_USER_CUSTOMER_FORMAT.length) {
+            int _userID = Integer.parseInt(typeValues_.get(0));
+            String _userType = typeValues_.get(1);
+            if (_userType.equals(RuntimeConstants.CUSTOMER)) {
+                return modifyCustomer(_userID, typeValues_);
+            }
+        }
+        
+        // Something went wrong..
+        throw new BadUserException();
+    }
 
-		}
+    /**
+     * Delete user from the database
+     * 
+     * @param typeValues
+     * @throws BadUserException
+     */
+    public User deleteUser(ArrayList<String> typeValues_) throws BadUserException {
+        if (typeValues_.size() == RuntimeConstants.DELETE_USER_FORMAT.length) {
+            int _userID = Integer.parseInt(typeValues_.get(0));
+            try {
+                return userDatabase.remove(_userID);
+            } catch (NullPointerException e_) {
+                throw new BadUserException();
+            }
+        }
 
-		throw new BadUserException();
-	}
+        // Something went wrong..
+        throw new BadUserException();
+    }
 
-	/**
-	 * Modify user that is currently in the userDatabase
-	 * 
-	 * @param typeValues_
-	 * @throws BadUserException
-	 */
-	public User modifyUser(ArrayList<String> typeValues_) throws BadUserException {
-		if (Objects.equals(typeValues_.get(1), RuntimeConstants.CUSTOMER)
-				&& typeValues_.size() == RuntimeConstants.MODIFY_USER_CUSTOMER_FORMAT.length
-				|| Objects.equals(typeValues_.get(1), RuntimeConstants.DRIVER)
-						&& typeValues_.size() == RuntimeConstants.MODIFY_USER_DRIVER_FORMAT.length) {
+    /**
+     * Returns a string of all the users in userDatabase.
+     * 
+     * @return TODO
+     */
+    public String getUserDatabase() {
+        if (userDatabase.size() > 0) {
+            StringBuilder _result = new StringBuilder();
 
-			int _idx = Integer.parseInt(typeValues_.get(0));
-			String _newFirstName = typeValues_.get(2);
-			String _newLastName = typeValues_.get(3);
-			String _newSex = typeValues_.get(4);
-			int _newAge = Integer.parseInt(typeValues_.get(5));
+            for (Map.Entry<Integer, User> _entry : userDatabase.entrySet()) {
 
-			User _currentUser = userDatabase.get(_idx);
+                User _currentUser = _entry.getValue();
+                if (_currentUser instanceof Driver) {
+                    Driver _currentDriver = (Driver) _currentUser;
+                    _result.append(_currentDriver.toString() + System.lineSeparator());
+                } else
+                    _result.append(_currentUser.toString() + System.lineSeparator());
 
-			if (_idx > -1) {
-				if (Objects.equals(typeValues_.get(1), RuntimeConstants.DRIVER)) {
-					Driver _currentDriver = (Driver) _currentUser;
-					Boolean _newIsAvailable = Boolean.parseBoolean(typeValues_.get(6));
-					int _newCarID = Integer.parseInt(typeValues_.get(7));
-					int _newRating = Integer.parseInt(typeValues_.get(8));
-					if (_currentDriver.getUserID() == _idx) {
-						_currentDriver.setFirstName(_newFirstName);
-						_currentDriver.setLastName(_newLastName);
-						_currentDriver.setSex(_newSex);
-						_currentDriver.setAge(_newAge);
-						_currentDriver.setIsAvailable(_newIsAvailable);
-						_currentDriver.setCarID(_newCarID);
-						_currentDriver.setRating(_newRating);
-						return _currentDriver;
-					} else
-						throw new BadUserException();
-				} else {
-					// Customer _customer = (Customer) _user;
-					if (_currentUser.getUserID() == _idx) {
-						_currentUser.setFirstName(_newFirstName);
-						_currentUser.setLastName(_newLastName);
-						_currentUser.setSex(_newSex);
-						_currentUser.setAge(_newAge);
-						return _currentUser;
-					} else
-						throw new BadUserException();
-				}
-			} else
-				throw new BadUserException();
-		} else
-			throw new BadUserException();
-	}
+            }
 
-	/**
-	 * Delete user from the database
-	 * 
-	 * @param typeValues
-	 * @throws BadUserException
-	 */
-	public User deleteUser(ArrayList<String> typeValues_) throws BadUserException {
-		if (typeValues_.size() == RuntimeConstants.DELETE_USER_FORMAT.length) {
+            return _result.toString();
+        }
 
-			int _idx = Integer.parseInt(typeValues_.get(0));
+        return "";
+    }
 
-			if (_idx > -1) {
-				try {
-					User _user = userDatabase.get(_idx);
-					if (_user.getUserID() == _idx)
-						return userDatabase.remove(_idx);
-					else
-						throw new BadUserException();
-
-				} catch (NullPointerException e_) {
-					throw new BadUserException();
-
-				}
-
-			} else
-				throw new BadUserException();
-		} else
-			throw new BadUserException();
-	}
-
-	/**
-	 * Returns a string of all the users in userDatabase.
-	 * 
-	 * @return TODO
-	 */
-	public String getUserDatabase() {
-		if (userDatabase.size() > 0) {
-			StringBuilder _result = new StringBuilder();
-
-			for (Map.Entry<Integer, User> _entry : userDatabase.entrySet()) {
-
-				User _currentUser = _entry.getValue();
-				if (_currentUser instanceof Driver) {
-					Driver _currentDriver = (Driver) _currentUser;
-					_result.append(_currentDriver.toString() + System.lineSeparator());
-				} else
-					_result.append(_currentUser.toString() + System.lineSeparator());
-
-			}
-
-			return _result.toString();
-		}
-
-		return "";
-	}
+    /**
+     * Private method to modify a specific driver from the database.
+     */
+    private Driver modifyDriver(int userID_, ArrayList<String> newValues_) {
+        String _newFirstName = newValues_.get(2);
+        String _newLastName = newValues_.get(3);
+        String _newSex = newValues_.get(4);
+        int _newAge = Integer.parseInt(newValues_.get(5));
+        Boolean _newIsAvailable = Boolean.parseBoolean(newValues_.get(6));
+        int _newCarID = Integer.parseInt(newValues_.get(7));
+        int _newRating = Integer.parseInt(newValues_.get(8));
+        
+        User _modifiedUser = userDatabase.remove(userID_);
+        
+        Driver _newDriver = (Driver)_modifiedUser; // TODO: error handle this downcasting
+        _newDriver.setFirstName(_newFirstName);
+        _newDriver.setLastName(_newLastName);
+        _newDriver.setSex(_newSex);
+        _newDriver.setAge(_newAge);
+        _newDriver.setIsAvailable(_newIsAvailable);
+        _newDriver.setCarID(_newCarID);
+        _newDriver.setRating(_newRating);
+        
+        userDatabase.put(userID_, _newDriver);
+        
+        return _newDriver;
+    }
+    
+    /**
+     * Private method to modify a specific customer from the database.
+     */
+    private Customer modifyCustomer(int userID_, ArrayList<String> newValues_) {
+        String _newFirstName = newValues_.get(2);
+        String _newLastName = newValues_.get(3);
+        String _newSex = newValues_.get(4);
+        int _newAge = Integer.parseInt(newValues_.get(5));
+        
+        User _modifiedUser = userDatabase.remove(userID_);
+        
+        Customer _newCustomer = (Customer)_modifiedUser; // TODO: error handle this downcasting
+        _newCustomer.setFirstName(_newFirstName);
+        _newCustomer.setLastName(_newLastName);
+        _newCustomer.setSex(_newSex);
+        _newCustomer.setAge(_newAge);
+        
+        userDatabase.put(userID_, _newCustomer);
+        
+        return _newCustomer;
+    }
 }

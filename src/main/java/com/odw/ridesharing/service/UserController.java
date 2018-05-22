@@ -108,6 +108,8 @@ public class UserController {
      * Private method to modify a specific driver from the database.
      */
     private Driver modifyDriver(int userID_, ArrayList<String> newValues_) {
+     // TODO: Can't modify a driver to customer.
+        
         String _newFirstName = newValues_.get(2);
         String _newLastName = newValues_.get(3);
         String _newSex = newValues_.get(4);
@@ -136,6 +138,8 @@ public class UserController {
      * Private method to modify a specific customer from the database.
      */
     private Customer modifyCustomer(int userID_, ArrayList<String> newValues_) {
+        // TODO: Can't modify a customer to driver.
+        
         String _newFirstName = newValues_.get(2);
         String _newLastName = newValues_.get(3);
         String _newSex = newValues_.get(4);

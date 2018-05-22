@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.odw.ridesharing.model.Car;
+import com.odw.ridesharing.model.Driver;
 import com.odw.ridesharing.model.Event;
 import com.odw.ridesharing.model.RuntimeConstants;
 import com.odw.ridesharing.model.User;

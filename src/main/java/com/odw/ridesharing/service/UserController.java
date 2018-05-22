@@ -40,7 +40,7 @@ public class UserController {
      * @param typeValues_
      * @throws BadUserException
      */
-    public void modifyUser(ArrayList<String> typeValues_) throws BadUserException {
+    public User modifyUser(ArrayList<String> typeValues_) throws BadUserException {
         if (typeValues_.size() == RuntimeConstants.MODIFY_USER_DRIVER_FORMAT.length
                 || typeValues_.size() == RuntimeConstants.MODIFY_USER_CUSTOMER_FORMAT.length) {
             int _idx = Integer.parseInt(typeValues_.get(0));
@@ -53,28 +53,30 @@ public class UserController {
             int _newRating = Integer.parseInt(typeValues_.get(8));
             
             
-            User _user = userDatabase.get(_idx);
+            User _currentUser = userDatabase.get(_idx);
 
             if (_idx > -1) {
                 if (typeValues_.get(1) == RuntimeConstants.DRIVER) {
-                    Driver _driver = (Driver) _user;
-                    if (_driver.getUserID() == _idx) {
-                        _driver.setFirstName(_newFirstName);
-                        _driver.setLastName(_newLastName);
-                        _driver.setSex(_newSex);
-                        _driver.setAge(_newAge);
-                        _driver.setIsAvailable(_newIsAvailable);
-                        _driver.setCarID(_newCarID);
-                        _driver.setRating(_newRating);
+                    Driver _currentDriver = (Driver) _currentUser;
+                    if (_currentDriver.getUserID() == _idx) {
+                        _currentDriver.setFirstName(_newFirstName);
+                        _currentDriver.setLastName(_newLastName);
+                        _currentDriver.setSex(_newSex);
+                        _currentDriver.setAge(_newAge);
+                        _currentDriver.setIsAvailable(_newIsAvailable);
+                        _currentDriver.setCarID(_newCarID);
+                        _currentDriver.setRating(_newRating);
+                        return _currentDriver;
                     } else
                         throw new BadUserException();
                 } else {
                     // Customer _customer = (Customer) _user;
-                    if (_user.getUserID() == _idx) {
-                        _user.setFirstName(_newFirstName);
-                        _user.setLastName(_newLastName);
-                        _user.setSex(_newSex);
-                        _user.setAge(_newAge);
+                    if (_currentUser.getUserID() == _idx) {
+                        _currentUser.setFirstName(_newFirstName);
+                        _currentUser.setLastName(_newLastName);
+                        _currentUser.setSex(_newSex);
+                        _currentUser.setAge(_newAge);
+                        return _currentUser;
                     } else
                         throw new BadUserException();
                 }
@@ -90,7 +92,7 @@ public class UserController {
      * @param typeValues
      * @throws BadUserException
      */
-    public void deleteUser(ArrayList<String> typeValues_) throws BadUserException {
+    public User deleteUser(ArrayList<String> typeValues_) throws BadUserException {
         if (typeValues_.size() == RuntimeConstants.DELETE_USER_FORMAT.length) {
 
             int _idx = Integer.parseInt(typeValues_.get(0));
@@ -99,7 +101,7 @@ public class UserController {
                 try {
                     User _user = userDatabase.get(_idx);
                     if (_user.getUserID() == _idx)
-                        userDatabase.remove(_idx);
+                        return userDatabase.remove(_idx);
                     else
                         throw new BadUserException();
 

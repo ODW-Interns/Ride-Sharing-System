@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import com.odw.ridesharing.model.Car;
 import com.odw.ridesharing.model.Event;
 import com.odw.ridesharing.model.RuntimeConstants;
+import com.odw.ridesharing.model.User;
 import com.odw.ridesharing.model.exceptions.BadCarException;
 import com.odw.ridesharing.model.exceptions.BadUserException;
 
@@ -66,8 +67,8 @@ public class CommandController {
         switch (event_.getInputType()) {
         case RuntimeConstants.CAR: {
             try {
-                Car addedCar = carController.createCar(event_.getTypeValues());
-                logger.info("CREATED CAR: " + addedCar.toString());
+                Car _addedCar = carController.createCar(event_.getTypeValues());
+                logger.info("CREATED CAR: " + _addedCar.toString());
             } catch (BadCarException e_) {
                 logger.error("There was a problem with adding car: " + event_.typeValuesToString("|"));
             }
@@ -75,7 +76,8 @@ public class CommandController {
         }
         case RuntimeConstants.USER: {
             try {
-                userController.createUser(event_.getTypeValues());
+                User _addedUser = userController.createUser(event_.getTypeValues());
+                logger.info("CREATED USER: " + _addedUser.toString());
             } catch (BadUserException e_) {
                 logger.error("There was a problem with creating user: " + event_.typeValuesToString("|"));
             }
@@ -104,7 +106,8 @@ public class CommandController {
         }
         case RuntimeConstants.USER: {
             try {
-                userController.modifyUser(event_.getTypeValues());
+                User modifiedUser = userController.modifyUser(event_.getTypeValues());
+                logger.info("MODIFIED USER: " + modifiedUser.toString());
             } catch (BadUserException e_) {
                 logger.error("There was a problem with modifying user: " + event_.typeValuesToString("|"));
             }
@@ -133,7 +136,8 @@ public class CommandController {
         }
         case RuntimeConstants.USER: {
             try {
-                userController.deleteUser(event_.getTypeValues());
+                User _deletedUser = userController.deleteUser(event_.getTypeValues());
+                logger.info("DELETED USER: " + _deletedUser.toString());
             } catch (BadUserException e_) {
                 logger.error("There was a problem deleting user: " + event_.typeValuesToString("|"));
             }

@@ -30,6 +30,20 @@ public abstract class User {
 		setAge(age_);
 		setUserID(userID_);
 	}
+	
+	/**
+     * Returns the car's information in String format.
+     * 
+     * @return The car information as a String.
+     */
+    @Override
+    public String toString() {
+        //TODO: Write an if statement for when it's driver to show extra info
+        
+        return "ID: " + userID + " | First Name: " + firstName + " | Last Name: " + lastName + " | Sex: " + sex + " | Age: "
+                + Integer.toString(age);
+    }
+	
 
 	/**
 	 * Get the first name of this user

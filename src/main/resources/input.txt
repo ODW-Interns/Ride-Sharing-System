@@ -5,7 +5,7 @@ create|user|driver|Mark|Constantine|male|21|true|0|
 create|pickup|0|0|1|150.11|180.32|180.69|169.69|
 modify|user|2|driver|Mark|Constantine|male|21|false|0|5|
 modify|car|0|coupe|Toyota|Camry|black|2004|
-delete|user|driver|0|
+delete|user|0|
 create|car|coupe|Nisson|GTR|yellow|2008|
 create|user|driver|Pete|Tanthmanatham|male|35|false|1
 create|pickup|1|1|2|311.12|234.1|123.43|233.3|

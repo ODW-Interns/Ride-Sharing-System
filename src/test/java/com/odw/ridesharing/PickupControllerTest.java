@@ -39,8 +39,7 @@ public class PickupControllerTest {
 		driverUserInfo.add("Constantine");
 		driverUserInfo.add("male");
 		driverUserInfo.add("21");
-		driverUserInfo.add("true");
-		driverUserInfo.add("0");
+
 		try {
 			userController.createUser(driverUserInfo);
 		} catch (BadUserException e_) {
@@ -114,8 +113,7 @@ public class PickupControllerTest {
 		driverUserInfo.add("Constantine");
 		driverUserInfo.add("male");
 		driverUserInfo.add("21");
-		driverUserInfo.add("true");
-		driverUserInfo.add("0");
+	
 		try {
 			userController.createUser(driverUserInfo);
 		} catch (BadUserException e_) {
@@ -204,8 +202,7 @@ public class PickupControllerTest {
 		driverUserInfo.add("Constantine");
 		driverUserInfo.add("male");
 		driverUserInfo.add("21");
-		driverUserInfo.add("true");
-		driverUserInfo.add("0");
+
 		try {
 			userController.createUser(driverUserInfo);
 		} catch (BadUserException e_) {

@@ -1,11 +1,11 @@
 create|user|customer|Britney|Spears|female|36|
 create|user|customer|Wesley|Dong|male|23|
 create|car|coupe|Toyota|Trueno|white|1986|
-create|user|driver|Mark|Constantine|male|21|true|0|
+create|user|driver|Mark|Constantine|male|21|
 create|pickup|0|1|2|150.11|180.32|180.69|169.69|
 modify|pickup|0|0|1|2|150.11|111.32|100.69|100.69|
 delete|pickup|0|
-modify|user|2|driver|Mark|Constantine|male|21|false|0|5|
+modify|user|2|driver|Mark|Constantine|male|21|
 modify|car|0|coupe|Toyota|Camry|black|2004|
 delete|user|0|
 create|car|coupe|Nisson|GTR|yellow|2008|

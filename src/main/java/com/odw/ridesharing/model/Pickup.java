@@ -33,11 +33,11 @@ public class Pickup {
      * @param destination_
      *            the destination location in longitude and latitude
      */
-    public Pickup(int idx_, int carID_, int driverID_, int customerID_, Location origin_, Location destination_) {
+    public Pickup(int idx_, int carID_, int customerID_, int driverID_, Location origin_, Location destination_) {
         setPickupID(idx_);
         setCarID(carID_);
-        setDriverID(driverID_);
         setCustomerID(customerID_);
+        setDriverID(driverID_);
         setOrigin(origin_);
         setDestination(destination_);
     }

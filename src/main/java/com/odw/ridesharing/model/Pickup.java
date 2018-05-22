@@ -8,6 +8,7 @@ public class Pickup {
     private int driverID;
     private Location origin;
     private Location destination;
+    private double totalCost;
 
     public Pickup() {
         this(-1, -1, -1, new Location(), new Location());
@@ -39,6 +40,7 @@ public class Pickup {
         setDriverID(driverID_);
         setOrigin(origin_);
         setDestination(destination_);
+        setTotalCost(0); // Scheduler sets this
     }
     
     /**
@@ -48,13 +50,33 @@ public class Pickup {
      */
     @Override
     public String toString() {
-        return "PickupID: " + pickupID + " | CustomerID: " + customerID + " | DriverID: " + driverID + " | Origin: "
-                + Double.toString(origin.longitude) + " | " + Double.toString(origin.latitude) + " | Destination: "
-                        + Double.toString(destination.longitude) + " | " + Double.toString(destination.latitude);
+
+        return "PickupID: " + getPickupID() + 
+               " | CustomerID: " + getCustomerID() +
+               " | DriverID: " + getDriverID() +
+               " | Origin (latitude, longitude): " + origin.toString() +
+               " | Destination (latitude, longitude): " + destination.toString() +
+               " | Total Cost: $" + getTotalCost();
     }
 
     /* Getters and Setters */
 
+    /**
+     * TODO
+     * @return TODO
+     */
+    public double getTotalCost() {
+        return totalCost;
+    }
+
+    /**
+     * TODO
+     * @param isDone_ TODO
+     */
+    public void setTotalCost(double totalCost_) {
+        totalCost = totalCost_;
+    }
+    
     /**
      * Get the unique ID of the pickup.
      * 

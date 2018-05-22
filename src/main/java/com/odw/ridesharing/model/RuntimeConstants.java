@@ -19,6 +19,8 @@ public class RuntimeConstants {
     public static final String SEDAN = "sedan";
     public static final String SUV = "suv";
 
+    public static final double CHARGE_RATE = 1.25d;
+    
     // -- Predetermined Input Formats (Excludes COMMAND and INPUT_TYPES) --
     // Mainly used for checking input lengths. However, it can be expanded to be
     // used for other things. Can be used as a reference for when creating input.

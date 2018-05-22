@@ -70,5 +70,4 @@ public class PickupController {
 		} else
 			throw new BadPickupException();
 	}
-
 }

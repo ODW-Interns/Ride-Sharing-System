@@ -9,7 +9,7 @@ modify|user|2|driver|Mark|Constantine|male|21|false|0|5|
 modify|car|0|coupe|Toyota|Camry|black|2004|
 delete|user|0|
 create|car|coupe|Nisson|GTR|yellow|2008|
-create|user|driver|Pete|Tanthmanatham|male|35|false|1
+create|user|driver|Pete|Tanthmanatham|male|35|
 create|pickup|1|1|2|311.12|234.1|123.43|233.3|
 create|pickup|1|1|0|311.12|234.1|123.43|233.3|
 delete|car|1|

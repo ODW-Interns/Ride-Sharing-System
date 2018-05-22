@@ -2,11 +2,11 @@
 
 public abstract class User {
 
-    private int userID;
-	private String firstName;
-	private String lastName;
-	private String sex;
-	private int age;
+    protected int userID;
+	protected String firstName;
+	protected String lastName;
+	protected String sex;
+	protected int age;
 
 	public User() {
 		this(-1, "", "", "", -1);
@@ -32,14 +32,12 @@ public abstract class User {
 	}
 	
 	/**
-     * Returns the car's information in String format.
+     * Returns the user's information in String format.
      * 
-     * @return The car information as a String.
+     * @return The user information as a String.
      */
     @Override
     public String toString() {
-        //TODO: Write an if statement for when it's driver to show extra info
-        
         return "ID: " + userID + " | First Name: " + firstName + " | Last Name: " + lastName + " | Sex: " + sex + " | Age: "
                 + Integer.toString(age);
     }

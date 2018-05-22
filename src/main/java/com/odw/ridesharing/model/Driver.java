@@ -8,7 +8,7 @@ public class Driver extends User {
 	private boolean isAvailable;
 
 	public Driver() {
-		this(-1, "", "", "", -1, -1, false, -1);
+		this(-1, "", "", "", -1);
 	}
 	
 	/**
@@ -24,12 +24,26 @@ public class Driver extends User {
 	 * @param isAvaliable_ Driver's availability
 	 * @param carID_ Driver's unique car id
 	 */
-	public Driver(int userID_, String firstName_, String lastName_, String sex_, int age_, int rating_, Boolean isAvailable_, int carID_) {
+	public Driver(int userID_, String firstName_, String lastName_, String sex_, int age_) {
 	    super(userID_, firstName_, lastName_, sex_, age_);
-	    setRating(rating_);
-	    setIsAvailable(isAvailable); 
-	    setCarID(carID_);
+	    
+	    // These fields must be assigned using modify.
+	    setRating(-1);
+	    setIsAvailable(false);
+	    setCarID(-1);
 	}
+	
+	/**
+     * Returns the user's information in String format.
+     * 
+     * @return The user information as a String.
+     */
+    @Override
+    public String toString() {
+        // TODO: use getMethods()
+        return "ID: " + userID + " | First Name: " + firstName + " | Last Name: " + lastName + " | Sex: " + sex + " | Age: "
+                + Integer.toString(age) + " | CarID: " + carID + " | Rating: " + rating + " | isAvailable: " + isAvailable;
+    }
 	
 	/**
 	 * Get the info of this person driver

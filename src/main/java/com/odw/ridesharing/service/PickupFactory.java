@@ -25,20 +25,19 @@ public class PickupFactory {
     public Pickup createPickup(ArrayList<String> typeValues_) {
         
         // get the values from the ArrayList
-        int _carID = Integer.parseInt(typeValues_.get(0));
-        int _customerID = Integer.parseInt(typeValues_.get(1));
-        int _driverID = Integer.parseInt(typeValues_.get(2));
-        double _originLongitude = Double.parseDouble(typeValues_.get(3));
-        double _originLatitude = Double.parseDouble(typeValues_.get(4));
-        double _destinationLongitude = Double.parseDouble(typeValues_.get(5));
-        double _destinationLatitude = Double.parseDouble(typeValues_.get(6));
+        int _customerID = Integer.parseInt(typeValues_.get(0));
+        int _driverID = Integer.parseInt(typeValues_.get(1));
+        double _originLongitude = Double.parseDouble(typeValues_.get(2));
+        double _originLatitude = Double.parseDouble(typeValues_.get(3));
+        double _destinationLongitude = Double.parseDouble(typeValues_.get(4));
+        double _destinationLatitude = Double.parseDouble(typeValues_.get(5));
         
         // set the origin and destination to be used for Pickup
         Location _origin = new Location(_originLongitude, _originLatitude);
         Location _destination = new Location(_destinationLongitude, _destinationLatitude);
         
         //create a new Pickup object
-        return new Pickup(nextPickupID++, _carID, _customerID, _driverID,
+        return new Pickup(nextPickupID++, _customerID, _driverID,
                 _origin, _destination);
     }
 

@@ -102,6 +102,7 @@ public class UserControllerTest {
         userNewInfo.add("false");
         userNewInfo.add("0");
         userNewInfo.add("5");
+       
 
         try {
             userController.modifyUser(userNewInfo);
@@ -139,7 +140,9 @@ public class UserControllerTest {
 
         // Testing invalid user modification.
         ArrayList<String> invalidModifyInfo = new ArrayList<String>();
+        invalidModifyInfo.add("0");
         invalidModifyInfo.add("this user doesn't exist");
+
         try {
             userController.modifyUser(invalidModifyInfo);
         } catch (BadUserException e_) {
@@ -167,7 +170,6 @@ public class UserControllerTest {
 
         // Testing valid user deletion.
         ArrayList<String> driverDeleteInfo = new ArrayList<String>();
-        driverDeleteInfo.add("driver");
         driverDeleteInfo.add("0"); // Valid ID
         try {
             userController.deleteUser(driverDeleteInfo);

@@ -1,4 +1,4 @@
-package com.odw.ridesharing.model;
+ package com.odw.ridesharing.model;
 
 public abstract class User {
 

@@ -39,7 +39,7 @@ public class UserFactoryTest {
         driverUserInfo.add("23");
         driverUserInfo.add("true");
         driverUserInfo.add("3");
-        User driver = userFactory.createUser(customerUserInfo);
+        User driver = userFactory.createUser(driverUserInfo);
         assertTrue(driver instanceof Driver);
         
         ArrayList<String> invalidUserInfo = new ArrayList<String>();

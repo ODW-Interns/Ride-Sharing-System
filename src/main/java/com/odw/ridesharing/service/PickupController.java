@@ -10,67 +10,71 @@ import com.odw.ridesharing.model.exceptions.BadPickupException;
 
 public class PickupController {
 
-	private ConcurrentHashMap<Integer, Pickup> pickupDatabase = new ConcurrentHashMap<Integer, Pickup>();
-	private PickupFactory pickupFactory = new PickupFactory();
+    private ConcurrentHashMap<Integer, Pickup> pickupDatabase = new ConcurrentHashMap<Integer, Pickup>();
+    private PickupFactory pickupFactory = new PickupFactory();
 
-	public Pickup createPickup(ArrayList<String> typeValues_) throws BadPickupException {
+    public Pickup createPickup(ArrayList<String> typeValues_) throws BadPickupException {
+        if (typeValues_.size() == RuntimeConstants.CREATE_PICKUP_FORMAT.length) {
+            Pickup _scheduledPickup = schedule(pickupFactory.createPickup(typeValues_));
+            pickupDatabase.put(_scheduledPickup.getPickupID(), _scheduledPickup);
+            return _scheduledPickup;
+        }
 
-		if (typeValues_.size() == RuntimeConstants.CREATE_PICKUP_FORMAT.length) {
+        throw new BadPickupException();
+    }
 
-			Pickup _pickup = pickupFactory.createPickup(typeValues_);
-			pickupDatabase.put(_pickup.getPickupID(), _pickup);
-			return _pickup;
+    public Pickup modifyPickup(ArrayList<String> typeValues_) throws BadPickupException {
 
-		}
+        if (typeValues_.size() == RuntimeConstants.MODIFY_PICKUP_FORMAT.length) {
 
-		throw new BadPickupException();
-	}
+            int _pickupIdx = Integer.parseInt(typeValues_.get(0));
+            int _newCarIdx = Integer.parseInt(typeValues_.get(1));
+            int _newCustomerIdx = Integer.parseInt(typeValues_.get(2));
+            int _newDriverIdx = Integer.parseInt(typeValues_.get(3));
+            double _newOriginx = Double.parseDouble(typeValues_.get(4));
+            double _newOriginy = Double.parseDouble(typeValues_.get(5));
+            double _newDestx = Double.parseDouble(typeValues_.get(6));
+            double _newDesty = Double.parseDouble(typeValues_.get(7));
+            Location _newOrigin = new Location(_newOriginx, _newOriginy);
+            Location _newDest = new Location(_newDestx, _newDesty);
 
-	public Pickup modifyPickup(ArrayList<String> typeValues_) throws BadPickupException {
+            Pickup _currentPickup = pickupDatabase.get(_pickupIdx);
+            if (_currentPickup != null) {
+                _currentPickup.setCarID(_newCarIdx);
+                _currentPickup.setCustomerID(_newCustomerIdx);
+                _currentPickup.setDriverID(_newDriverIdx);
+                _currentPickup.setOrigin(_newOrigin);
+                _currentPickup.setDestination(_newDest);
 
-		if (typeValues_.size() == RuntimeConstants.MODIFY_PICKUP_FORMAT.length) {
+                return _currentPickup;
+            } else
+                throw new BadPickupException();
 
-			int _pickupIdx = Integer.parseInt(typeValues_.get(0));
-			int _newCarIdx = Integer.parseInt(typeValues_.get(1));
-			int _newCustomerIdx = Integer.parseInt(typeValues_.get(2));
-			int _newDriverIdx = Integer.parseInt(typeValues_.get(3));
-			double _newOriginx = Double.parseDouble(typeValues_.get(4));
-			double _newOriginy = Double.parseDouble(typeValues_.get(5));
-			double _newDestx = Double.parseDouble(typeValues_.get(6));
-			double _newDesty = Double.parseDouble(typeValues_.get(7));
-			Location _newOrigin = new Location(_newOriginx, _newOriginy);
-			Location _newDest = new Location(_newDestx, _newDesty);
+        } else
+            throw new BadPickupException();
+    }
 
-			Pickup _currentPickup = pickupDatabase.get(_pickupIdx);
-			if (_currentPickup != null) {
-				_currentPickup.setCarID(_newCarIdx);
-				_currentPickup.setCustomerID(_newCustomerIdx);
-				_currentPickup.setDriverID(_newDriverIdx);
-				_currentPickup.setOrigin(_newOrigin);
-				_currentPickup.setDestination(_newDest);
+    public Pickup deletePickup(ArrayList<String> typeValues_) throws BadPickupException {
 
-				return _currentPickup;
-			} else
-				throw new BadPickupException();
+        if (typeValues_.size() == RuntimeConstants.DELETE_PICKUP_FORMAT.length) {
+            int _idx = Integer.parseInt(typeValues_.get(0));
 
-		} else
-			throw new BadPickupException();
-	}
+            try {
+                return pickupDatabase.remove(_idx);
+            } catch (NullPointerException e_) {
+                throw new BadPickupException();
+            }
 
-	public Pickup deletePickup(ArrayList<String> typeValues_) throws BadPickupException {
+        } else
+            throw new BadPickupException();
+    }
 
-		if (typeValues_.size() == RuntimeConstants.DELETE_PICKUP_FORMAT.length) {
-
-			int _idx = Integer.parseInt(typeValues_.get(0));
-			
-			try {
-				return pickupDatabase.remove(_idx);
-			} catch (NullPointerException e_) {
-				throw new BadPickupException();
-			}
-
-		} else
-			throw new BadPickupException();
-	}
-
+    private Pickup schedule(Pickup current_) {
+        Location origin = current_.getOrigin();
+        Location destination = current_.getDestination();
+        
+        current_.setTotalCost(origin.distanceTo(destination) * RuntimeConstants.CHARGE_RATE);
+        
+        return current_;
+    }
 }

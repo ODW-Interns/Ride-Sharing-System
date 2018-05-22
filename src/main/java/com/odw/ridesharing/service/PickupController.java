@@ -25,9 +25,7 @@ public class PickupController {
     }
 
     public Pickup modifyPickup(ArrayList<String> typeValues_) throws BadPickupException {
-
         if (typeValues_.size() == RuntimeConstants.MODIFY_PICKUP_FORMAT.length) {
-
             int _pickupIdx = Integer.parseInt(typeValues_.get(0));
             int _newCustomerIdx = Integer.parseInt(typeValues_.get(1));
             int _newDriverIdx = Integer.parseInt(typeValues_.get(2));
@@ -70,10 +68,12 @@ public class PickupController {
     }
 
     private Pickup schedule(Pickup current_) {
-        Location origin = current_.getOrigin();
-        Location destination = current_.getDestination();
+        Location _origin = current_.getOrigin();
+        Location _destination = current_.getDestination();
+
+        double _tripCost = RuntimeConstants.FLAT_RATE_FEE + (_origin.distanceTo(_destination) * RuntimeConstants.CHARGE_RATE_PER_MILE);
         
-        current_.setTotalCost(origin.distanceTo(destination) * RuntimeConstants.CHARGE_RATE);
+        current_.setTotalCost(_tripCost);
         
         return current_;
     }

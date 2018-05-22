@@ -2,7 +2,7 @@ create|car|sedan|ford|focus|grey|2014|
 create|user|driver|mark|constantine|male|21|
 create|user|customer|wesley|dong|male|23|
 modify|user|0|driver|mark|constantine|male|21|true|-1|0|
-create|pickup|1|0|-360|360|-180|180|
+create|pickup|1|0|36.072939|-115.205965|36.0731847|-115.2065509|
 delete|car|0|
 create|car|coupe|BMW|Z4|Black|2012|
 modify|user|0|driver|mark|constantine|male|21|true|-1|1|

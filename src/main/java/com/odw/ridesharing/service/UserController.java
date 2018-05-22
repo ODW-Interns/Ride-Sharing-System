@@ -49,22 +49,21 @@ public class UserController {
 				&& typeValues_.size() == RuntimeConstants.MODIFY_USER_CUSTOMER_FORMAT.length
 				|| Objects.equals(typeValues_.get(1), RuntimeConstants.DRIVER)
 						&& typeValues_.size() == RuntimeConstants.MODIFY_USER_DRIVER_FORMAT.length) {
-			
+
 			int _idx = Integer.parseInt(typeValues_.get(0));
 			String _newFirstName = typeValues_.get(2);
 			String _newLastName = typeValues_.get(3);
 			String _newSex = typeValues_.get(4);
 			int _newAge = Integer.parseInt(typeValues_.get(5));
-			Boolean _newIsAvailable = Boolean.parseBoolean(typeValues_.get(6));
-			int _newCarID = Integer.parseInt(typeValues_.get(7));
-			int _newRating = Integer.parseInt(typeValues_.get(8));
 
 			User _currentUser = userDatabase.get(_idx);
 
 			if (_idx > -1) {
 				if (Objects.equals(typeValues_.get(1), RuntimeConstants.DRIVER)) {
 					Driver _currentDriver = (Driver) _currentUser;
-
+					Boolean _newIsAvailable = Boolean.parseBoolean(typeValues_.get(6));
+					int _newCarID = Integer.parseInt(typeValues_.get(7));
+					int _newRating = Integer.parseInt(typeValues_.get(8));
 					if (_currentDriver.getUserID() == _idx) {
 						_currentDriver.setFirstName(_newFirstName);
 						_currentDriver.setLastName(_newLastName);

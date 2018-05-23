@@ -97,7 +97,7 @@ public class CarController {
 	 * 
 	 * @return A list string of all the cars currently in inventory.
 	 */
-	public String getCarInventory() {
+	public String getCarInventoryAsString() {
 		if (carInventory.size() > 0) {
 			StringBuilder _result = new StringBuilder(System.lineSeparator());
 

@@ -15,7 +15,8 @@ public class PickupController {
     private PickupFactory pickupFactory = new PickupFactory();
 
     /**
-     * Call PickupFactory to create pickup
+     * Call PickupFactory to create a pickup. Immediately schedules the pickup to
+     * the next available driver. See command controller.
      * 
      * @param typeValues_
      *            String needed to create a pickup
@@ -24,7 +25,7 @@ public class PickupController {
      */
     public Pickup createPickup(ArrayList<String> typeValues_, User driver_) throws BadPickupException {
         if (typeValues_.size() == RuntimeConstants.CREATE_PICKUP_FORMAT.length) {
-            
+
             // Add the driver information to the ArrayList
             typeValues_.add(Integer.toString(driver_.getUserID()));
             typeValues_.add(driver_.getFirstName());

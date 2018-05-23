@@ -96,7 +96,7 @@ public class UserController {
      * 
      * @return A list string of all the cars currently in inventory.
      */
-    public String getUserDatabase() {
+    public String getUserDatabaseAsString() {
         if (userDatabase.size() > 0) {
             StringBuilder _result = new StringBuilder();
 

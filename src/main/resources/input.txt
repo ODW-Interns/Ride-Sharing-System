@@ -1,9 +1,12 @@
 create|car|sedan|ford|focus|grey|2014|
 create|user|driver|mark|constantine|male|21|
+modify|user|0|driver|mark|constantine|male|21|true|-1|0
+create|car|suv|cadillac|escalade|black|2016|
+create|user|driver|pete|tan|male|35|
+modify|user|1|driver|pete|tan|male|35|true|-1|1|
 create|user|customer|wesley|dong|male|23|
-modify|user|0|driver|mark|constantine|male|21|true|-1|0|
 create|pickup|1|36.0731654|-115.20643259999997|36.0041386|-115.1412292|
 delete|car|0|
 create|car|coupe|BMW|Z4|Black|2012|
-modify|user|0|driver|mark|constantine|male|21|true|-1|1|
+modify|user|0|driver|mark|constantine|male|21|true|-1|2|
 create|pickup|1|36.10583630000001|-115.13841919999999|36.0041386||-115.1412292|

@@ -43,7 +43,8 @@ public class CommandController {
             }
 
             // SUCCESS!
-            logger.info(carController.getCarInventory());
+            logger.debug(carController.getCarInventoryAsString());
+            logger.debug(userController.getUserDatabaseAsString());
         } catch (FileNotFoundException e_) {
             logger.error("Could not find the specified file.");
         } catch (IOException e_) {
@@ -74,7 +75,7 @@ public class CommandController {
             case RuntimeConstants.CAR: {
                 try {
                     Car _addedCar = carController.createCar(event_.getTypeValues());
-                    logger.info("CREATED CAR: " + _addedCar.toString());
+                    logger.debug("CREATED CAR: " + _addedCar.toString());
                 } catch (BadCarException e_) {
                     logger.error("There was a problem with adding car: " + event_.typeValuesToString("|"));
                 }
@@ -83,7 +84,7 @@ public class CommandController {
             case RuntimeConstants.USER: {
                 try {
                     User _addedUser = userController.createUser(event_.getTypeValues());
-                    logger.info("CREATED USER: " + _addedUser.toString());
+                    logger.debug("CREATED USER: " + _addedUser.toString());
                 } catch (BadUserException e_) {
                     logger.error("There was a problem with creating user: " + event_.typeValuesToString("|"));
                 }
@@ -93,7 +94,7 @@ public class CommandController {
                 try {
                     Pickup _addedPickup = pickupController.createPickup(event_.getTypeValues(),
                             userController.getNextAvailableDriver());
-                    logger.info("CREATED PICKUP: " + _addedPickup.toString());
+                    logger.debug("CREATED PICKUP: " + _addedPickup.toString());
                 } catch (BadPickupException e_) {
                     logger.error("There was a problem with creating pickup: " + event_.typeValuesToString("|"));
                 }
@@ -110,7 +111,7 @@ public class CommandController {
             case RuntimeConstants.CAR: {
                 try {
                     Car modifiedCar = carController.modifyCar(event_.getTypeValues());
-                    logger.info("MODIFIED CAR: " + modifiedCar.toString());
+                    logger.debug("MODIFIED CAR: " + modifiedCar.toString());
                 } catch (BadCarException e_) {
                     logger.error("There was a problem with modifying car: " + event_.typeValuesToString("|"));
                 }
@@ -119,21 +120,25 @@ public class CommandController {
             case RuntimeConstants.USER: {
                 try {
                     User modifiedUser = userController.modifyUser(event_.getTypeValues());
-                    logger.info("MODIFIED USER: " + modifiedUser.toString());
+                    logger.debug("MODIFIED USER: " + modifiedUser.toString());
                 } catch (BadUserException e_) {
                     logger.error("There was a problem with modifying user: " + event_.typeValuesToString("|"));
                 }
                 break;
             }
+            
+            // ----- DEPRECATED! -----
             case RuntimeConstants.PICKUP: {
                 try {
                     Pickup modifiedPickup = pickupController.modifyPickup(event_.getTypeValues());
-                    logger.info("MODIFIED PICKUP: " + modifiedPickup.toString());
+                    logger.debug("MODIFIED PICKUP: " + modifiedPickup.toString());
                 } catch (BadPickupException e_) {
                     logger.error("There was a problem with modifying pickup: " + event_.typeValuesToString("|"));
                 }
                 break;
             }
+            // -----------------------
+            
             default:
                 logger.error("Error: Invalid input type.");
                 break;
@@ -145,7 +150,7 @@ public class CommandController {
             case RuntimeConstants.CAR: {
                 try {
                     Car deletedCar = carController.deleteCar(event_.getTypeValues());
-                    logger.info("DELETED CAR: " + deletedCar.toString());
+                    logger.debug("DELETED CAR: " + deletedCar.toString());
                 } catch (BadCarException e_) {
                     logger.error("There was a problem deleting car: " + event_.typeValuesToString("|"));
                 }
@@ -154,21 +159,25 @@ public class CommandController {
             case RuntimeConstants.USER: {
                 try {
                     User _deletedUser = userController.deleteUser(event_.getTypeValues());
-                    logger.info("DELETED USER: " + _deletedUser.toString());
+                    logger.debug("DELETED USER: " + _deletedUser.toString());
                 } catch (BadUserException e_) {
                     logger.error("There was a problem deleting user: " + event_.typeValuesToString("|"));
                 }
                 break;
             }
+            
+            // ----- DEPRECATED! -----
             case RuntimeConstants.PICKUP: {
                 try {
                     Pickup deletedPickup = pickupController.deletePickup(event_.getTypeValues());
-                    logger.info("DELETED PICKUP: " + deletedPickup.toString());
+                    logger.debug("DELETED PICKUP: " + deletedPickup.toString());
                 } catch (BadPickupException e_) {
                     logger.error("There was a problem with deleting pickup: " + event_.typeValuesToString("|"));
                 }
                 break;
             }
+            // -----------------------
+            
             default:
                 logger.error("Error: Invalid input type.");
                 break;

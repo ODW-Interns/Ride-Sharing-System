@@ -73,7 +73,7 @@ public class PickupController {
 
         double _tripCost = RuntimeConstants.FLAT_RATE_FEE + (_origin.distanceTo(_destination) * RuntimeConstants.CHARGE_RATE_PER_MILE);
         
-        current_.setTotalCost(_tripCost);
+        current_.setPickupCost(_tripCost);
         
         return current_;
     }

@@ -1,14 +1,18 @@
 package com.odw.ridesharing.model;
 
+import javax.money.Monetary;
+import javax.money.MonetaryAmount;
+
+import org.javamoney.moneta.Money;
+
 public class Pickup {
 
     private int pickupID;
-
     private int customerID;
     private int driverID;
     private Location origin;
     private Location destination;
-    private double totalCost;
+    private MonetaryAmount pickupCost;
 
     public Pickup() {
         this(-1, -1, -1, new Location(), new Location());
@@ -40,9 +44,10 @@ public class Pickup {
         setDriverID(driverID_);
         setOrigin(origin_);
         setDestination(destination_);
-        setTotalCost(0); // Scheduler sets this
+        
+        pickupCost = Money.of(0.d, RuntimeConstants.CURRENCY_CODE);
     }
-    
+
     /**
      * Returns the pickup's information in String format.
      * 
@@ -51,32 +56,35 @@ public class Pickup {
     @Override
     public String toString() {
 
-        return "PickupID: " + getPickupID() + 
+        return "PickupID: " + getPickupID() +
                " | CustomerID: " + getCustomerID() +
                " | DriverID: " + getDriverID() +
                " | Origin (latitude, longitude): " + origin.toString() +
                " | Destination (latitude, longitude): " + destination.toString() +
-               " | Total Cost: $" + getTotalCost();
+               " | Total Cost: " + pickupCost.with(Monetary.getDefaultRounding()).toString();
     }
 
     /* Getters and Setters */
 
     /**
      * TODO
+     * 
      * @return TODO
      */
-    public double getTotalCost() {
-        return totalCost;
+    public MonetaryAmount getPickupCost() {
+        return pickupCost;
     }
 
     /**
      * TODO
-     * @param isDone_ TODO
+     * 
+     * @param totalCost_
+     *            TODO
      */
-    public void setTotalCost(double totalCost_) {
-        totalCost = totalCost_;
+    public void setPickupCost(double totalCost_) {
+        pickupCost = Money.of(totalCost_, RuntimeConstants.CURRENCY_CODE);
     }
-    
+
     /**
      * Get the unique ID of the pickup.
      * 

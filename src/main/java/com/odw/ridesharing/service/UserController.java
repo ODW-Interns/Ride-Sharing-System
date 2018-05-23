@@ -132,8 +132,10 @@ public class UserController {
                 if (_currentUser instanceof Driver) {
                     Driver _currentDriver = (Driver) _currentUser;
                     
-                    if(_currentDriver.getIsAvailable())
+                    if(_currentDriver.getIsAvailable()) {
+                        _currentDriver.setIsAvailable(false);
                     	return _currentDriver;
+                    }
                 }
             }
     	}

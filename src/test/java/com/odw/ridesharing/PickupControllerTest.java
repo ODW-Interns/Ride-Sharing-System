@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
+import com.odw.ridesharing.model.Customer;
+import com.odw.ridesharing.model.Driver;
 import com.odw.ridesharing.model.exceptions.BadCarException;
 import com.odw.ridesharing.model.exceptions.BadPickupException;
 import com.odw.ridesharing.model.exceptions.BadUserException;
@@ -15,12 +17,14 @@ import com.odw.ridesharing.service.UserController;
 
 public class PickupControllerTest {
 
-    /* OLD TESTS
+    
 	@Test
 	public void testCreatePickup() {
 		CarController carController = new CarController();
 		UserController userController = new UserController();
 		PickupController pickupController = new PickupController();
+		Customer customer = new Customer();
+		Driver driver = new Driver();
 
 		ArrayList<String> coupeCarInfo = new ArrayList<String>();
 		coupeCarInfo.add("coupe");
@@ -42,7 +46,7 @@ public class PickupControllerTest {
 		driverUserInfo.add("21");
 
 		try {
-			userController.createUser(driverUserInfo);
+		    driver = (Driver)(userController.createUser(driverUserInfo));
 		} catch (BadUserException e_) {
 			fail("Error creating a valid driver user.");
 		}
@@ -55,21 +59,20 @@ public class PickupControllerTest {
 		customerUserInfo.add("21");
 
 		try {
-			userController.createUser(customerUserInfo);
+			customer = (Customer)(userController.createUser(customerUserInfo));
 		} catch (BadUserException e_) {
 			fail("Error creating a valid driver user.");
 		}
 
 		ArrayList<String> pickupInfo = new ArrayList<String>();
 		pickupInfo.add("1");
-		pickupInfo.add("0");
-		pickupInfo.add("150.11");
-		pickupInfo.add("180.32");
-		pickupInfo.add("180.69");
-		pickupInfo.add("169.32");
+		pickupInfo.add("36.0731654");
+		pickupInfo.add("-115.20643259999997");
+		pickupInfo.add("36.0041386");
+		pickupInfo.add("-115.1412292");
 
 		try {
-			pickupController.createPickup(pickupInfo);
+			pickupController.createPickup(pickupInfo, customer, driver);
 		} catch (BadPickupException e_) {
 			fail("Error creating a valid pickup.");
 		}
@@ -82,12 +85,12 @@ public class PickupControllerTest {
 		invalidPickupInfo.add("180.32");
 
 		try {
-			pickupController.createPickup(invalidPickupInfo);
+			pickupController.createPickup(invalidPickupInfo, customer, driver);
 		} catch (BadPickupException e_) {
 			assertTrue(true);
 		}
 	}
-
+/*
 	@Test
 	public void testModifyPickup() {
 		CarController carController = new CarController();
@@ -173,7 +176,7 @@ public class PickupControllerTest {
 			assertTrue(true);
 		}
 	}
-	
+/*	
 	@Test
 	public void testDeletePickup() {
 		CarController carController = new CarController();

@@ -2,7 +2,6 @@ package com.odw.ridesharing.service;
 
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.odw.ridesharing.model.Customer;
@@ -20,6 +19,9 @@ public class UserController {
      * Add user to the userDatabase
      * 
      * @param typeValues_
+     * 			  String needed to create the user
+     * @return _user 
+     * 			  User object to be used for logger
      * @throws BadUserException
      */
     public User createUser(ArrayList<String> typeValues_) throws BadUserException {
@@ -37,6 +39,14 @@ public class UserController {
      * Modify user that is currently in the userDatabase
      * 
      * @param typeValues_
+     * 			  ArrayList of string that should contain Firstname, Lastname,
+     * 			  Age, and Sex for customer
+     * 			  For Driver, the ArrayList will contain 3 more fields:
+     * 			  isAvailable, Rating, and CarID
+     * @return modifyDriver(_userID, typeValues_)
+     * 			  User object that contain driver's info
+     * @return modifyCustomer(_userID, typeValues_)
+     * 			  User object that contain customer's infl
      * @throws BadUserException
      */
     public User modifyUser(ArrayList<String> typeValues_) throws BadUserException {
@@ -62,6 +72,9 @@ public class UserController {
      * Delete user from the database
      * 
      * @param typeValues
+     * 			  ArrayList of string that should contain userID
+     * @return userDatabase.remove(_userID)
+     * 			  Object to be removed, will be used for logger
      * @throws BadUserException
      */
     public User deleteUser(ArrayList<String> typeValues_) throws BadUserException {
@@ -81,7 +94,7 @@ public class UserController {
     /**
      * Returns a string of all the users in userDatabase.
      * 
-     * @return TODO
+     * @return A list string of all the cars currently in inventory.
      */
     public String getUserDatabase() {
         if (userDatabase.size() > 0) {
@@ -106,6 +119,14 @@ public class UserController {
 
     /**
      * Private method to modify a specific driver from the database.
+     * 
+     * @param userID_
+     * 			  The userID to be modify
+     * @param newValues_
+     * 			  ArrayList of string that should contain Firstname, Lastname,
+     * 			  Sex, Age, isAvailable, Rating, and CarID to be modified
+     * @return _newDriver
+     * 			  Object that contain new info of driver
      */
     private Driver modifyDriver(int userID_, ArrayList<String> newValues_) {
      // TODO: Can't modify a driver to customer.
@@ -136,6 +157,14 @@ public class UserController {
     
     /**
      * Private method to modify a specific customer from the database.
+     * 
+     * @param userID_
+     * 			  The userID to be modify
+     * @param newValues_
+     * 			  ArrayList of string that should contain Firstname, Lastname,
+     * 			  Sex, Age
+     * @return _newCustomer
+     * 			  Object that contain new info of customer
      */
     private Customer modifyCustomer(int userID_, ArrayList<String> newValues_) {
         // TODO: Can't modify a customer to driver.

@@ -6,6 +6,7 @@ import com.odw.ridesharing.model.Customer;
 import com.odw.ridesharing.model.Driver;
 import com.odw.ridesharing.model.Location;
 import com.odw.ridesharing.model.Pickup;
+import com.odw.ridesharing.model.User;
 
 public class PickupFactory {
     
@@ -23,7 +24,7 @@ public class PickupFactory {
      * @return a Pickup object with a pickupID attached to it
      */
     /* @formatter:on */
-    public Pickup createPickup(ArrayList<String> typeValues_, Customer pickupCustomer_, Driver pickupDriver_) {
+    public Pickup createPickup(ArrayList<String> typeValues_, User pickupCustomer_, User pickupDriver_) {
         
         // Get the values from input
         // Ignoring .get(0) because that's passed under pickupCustomer_
@@ -37,7 +38,7 @@ public class PickupFactory {
         Location _destination = new Location(_destinationLongitude, _destinationLatitude);
         
         //create a new Pickup object
-        return new Pickup(nextPickupID++, pickupCustomer_, pickupDriver_, _origin, _destination);
+        return new Pickup(nextPickupID++, (Customer)pickupCustomer_, (Driver)pickupDriver_, _origin, _destination);
     }
 
 }

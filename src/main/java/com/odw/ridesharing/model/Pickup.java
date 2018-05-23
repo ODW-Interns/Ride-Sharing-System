@@ -8,8 +8,8 @@ import org.javamoney.moneta.Money;
 public class Pickup {
 
     private int pickupID;
-    private Driver pickupDriver;
     private Customer pickupCustomer;
+    private Driver pickupDriver;
     private Location origin;
     private Location destination;
     private MonetaryAmount pickupCost;

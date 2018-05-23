@@ -3,11 +3,10 @@ package com.odw.ridesharing.service;
 import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.odw.ridesharing.model.Customer;
-import com.odw.ridesharing.model.Driver;
 import com.odw.ridesharing.model.Location;
 import com.odw.ridesharing.model.Pickup;
 import com.odw.ridesharing.model.RuntimeConstants;
+import com.odw.ridesharing.model.User;
 import com.odw.ridesharing.model.exceptions.BadPickupException;
 
 public class PickupController {
@@ -24,10 +23,11 @@ public class PickupController {
      * @return _pickup pickup object to be used for logger
      * @throws BadPickupException
      */
-    public Pickup createPickup(ArrayList<String> typeValues_, Customer customer_, Driver driver_) throws BadPickupException {
+    /* @formatter:off */
+    public Pickup createPickup(ArrayList<String> typeValues_, User pickupCustomer_, User pickupDriver_) throws BadPickupException {
         if (typeValues_.size() == RuntimeConstants.CREATE_PICKUP_FORMAT.length) {
 
-            Pickup _pickup = schedule(pickupFactory.createPickup(typeValues_, customer_, driver_));
+            Pickup _pickup = schedule(pickupFactory.createPickup(typeValues_, pickupCustomer_, pickupDriver_));
             pickupDatabase.put(_pickup.getPickupID(), _pickup);
             return _pickup;
         }
@@ -35,7 +35,8 @@ public class PickupController {
         // Something went wrong..
         throw new BadPickupException();
     }
-    
+    /* @formatter:on */
+
     /**
      * Schedule the pickup based on the given pickup info. Called when a pickup is
      * created.
@@ -78,20 +79,20 @@ public class PickupController {
             double _newDestinationLongitude = Double.parseDouble(typeValues_.get(6));
             Location _newOrigin = new Location(_newOriginLatitude, _newOriginLongitude);
             Location _newDestination = new Location(_newDestinationLatitude, _newDestinationLongitude);
-
+    
             Pickup _currentPickup = pickupDatabase.get(_pickupIdx);
             if (_currentPickup != null) {
                 _currentPickup.setCustomerID(_newCustomerIdx);
                 _currentPickup.setDriverID(_newDriverIdx);
                 _currentPickup.setOrigin(_newOrigin);
                 _currentPickup.setDestination(_newDestination);
-
+    
                 return _currentPickup;
             } else
                 throw new BadPickupException();
-
+    
         }
-
+    
         // Something went wrong..
         throw new BadPickupException();
     }
@@ -117,7 +118,7 @@ public class PickupController {
                 throw new BadPickupException();
             }
         }
-
+    
         // Something went wrong..
         throw new BadPickupException();
     }

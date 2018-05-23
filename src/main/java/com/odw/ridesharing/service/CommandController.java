@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.odw.ridesharing.model.Car;
+import com.odw.ridesharing.model.Customer;
 import com.odw.ridesharing.model.Driver;
 import com.odw.ridesharing.model.Event;
 import com.odw.ridesharing.model.Pickup;
@@ -93,12 +94,16 @@ public class CommandController {
             case RuntimeConstants.PICKUP: {
                 try {
                     int _customerID = Integer.parseInt(event_.getTypeValues().get(0));
+                    Customer _pickupCustomer = (Customer)userController.getUserByID(_customerID); // TODO error handle this downcast.
+                    Driver _scheduledDriver = (Driver)userController.getNextAvailableDriver(); // TODO error handle this downcast.
                     Pickup _addedPickup = pickupController.createPickup(event_.getTypeValues(),
-                                                                        userController.getUserByID(_customerID),
-                                                                        userController.getNextAvailableDriver());
+                                                                        _pickupCustomer,
+                                                                        _scheduledDriver);
                     logger.debug("CREATED PICKUP: " + _addedPickup.toString());
                 } catch (BadPickupException e_) {
                     logger.error("There was a problem with creating pickup: " + event_.typeValuesToString("|"));
+                } catch (BadUserException e_) {
+                    // TODO
                 }
                 break;
             }

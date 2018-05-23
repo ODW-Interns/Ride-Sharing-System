@@ -19,18 +19,21 @@ public class UserFactory {
      *      Values: Customer | FirstName | LastName | Sex | Age |
      *      Index:  0        | 1         | 2        | 3   | 4   |
      *      
-     *      Values: Driver | FName | LName | Sex | Age | isAvail | CarID |
-     *      Index:  0      | 1     | 2     | 3   | 4   | 5       | 6     | 
+     *      Values: Driver | FName | LName | Sex | Age | 
+     *      Index:  0      | 1     | 2     | 3   | 4   | 
      * @return
      */
     public User createUser(ArrayList<String> typeValues_) {
         
+        // store the values from ArrayList
         String _userType = typeValues_.get(0);
         String _firstName = typeValues_.get(1);
         String _lastName = typeValues_.get(2);
         String _sex = typeValues_.get(3);
         int _age = Integer.parseInt(typeValues_.get(4));
         
+        // create a User object based off of its userType
+        // Driver changed to instantiating rating and isAvailable in class constructor
         switch (_userType) {
             case RuntimeConstants.CUSTOMER:        
                 return new Customer(nextUserID++, _firstName, _lastName, _sex, _age);

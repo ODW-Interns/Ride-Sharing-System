@@ -60,11 +60,12 @@ public class Pickup {
      */
     @Override
     public String toString() {
-
-        return "PickupID: " + getPickupID() + " | CustomerID: " + getCustomerID() + " | DriverID: " + getDriverID()
-                + " | Origin (latitude, longitude): " + origin.toString() + " | Destination (latitude, longitude): "
-                + destination.toString() + " | Total Cost: "
-                + pickupCost.with(Monetary.getDefaultRounding()).toString();
+        return "PickupID: " + getPickupID() +
+               " | CustomerID: " + getCustomerID() +
+               " | DriverID: " + getDriverID() +
+               " | Origin (latitude, longitude): " + origin.toString() +
+               " | Destination (latitude, longitude): " + destination.toString() +
+               " | Total Cost: " + pickupCost.with(Monetary.getDefaultRounding()).toString();
     }
 
     /* Getters and Setters */

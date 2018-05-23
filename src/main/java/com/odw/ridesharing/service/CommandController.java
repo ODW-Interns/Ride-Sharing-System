@@ -31,9 +31,10 @@ public class CommandController {
     public void processFile(String fileName_, String delimiter_) {
         EventParser _eventParser = new EventParser();
 
+        /* @formatter:off */
         try (BufferedReader _inputReader = new BufferedReader(
-                new InputStreamReader(new FileInputStream(fileName_)))) {
-            
+                                            new InputStreamReader(
+                                             new FileInputStream(fileName_)))) {    
             // Process each event line-by-line.
             String _nextLine = null;
             while ((_nextLine = _inputReader.readLine()) != null) {
@@ -48,6 +49,7 @@ public class CommandController {
         } catch (IOException e_) {
             logger.error("Something went wrong while reading the file.");
         }
+        /* @formatter:on */
     }
 
     private void processEvent(Event newEvent_) {

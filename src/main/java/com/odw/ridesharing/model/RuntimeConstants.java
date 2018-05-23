@@ -13,21 +13,22 @@ public class RuntimeConstants {
     public static final String CUSTOMER = "customer";
     public static final String DRIVER = "driver";
     public static final String PICKUP = "pickup";
-    
+
     // Available Cars
     public static final String COUPE = "coupe";
     public static final String SEDAN = "sedan";
     public static final String SUV = "suv";
 
     // Money Stuff
-    public static final String CURRENCY_CODE = "USD"; 
+    public static final String CURRENCY_CODE = "USD";
     public static final double CHARGE_RATE_PER_MILE = 1.25d;
     public static final double FLAT_RATE_FEE = 5.d;
-    
+
     // -- Predetermined Input Formats (Excludes COMMAND and INPUT_TYPES) --
     // Mainly used for checking input lengths. However, it can be expanded to be
     // used for other things. Can be used as a reference for when creating input.
     // This way our system knows how we expect our input.
+    /* @formatter:off */
     public static final String[] CREATE_CAR_FORMAT = new String[] { 
             "CAR_TYPE (STRING)",
             "MAKE (STRING)",
@@ -92,7 +93,6 @@ public class RuntimeConstants {
             "ORIGIN_LONGITUDE (DOUBLE",
             "DESTINATION_LATITUDE (DOUBLE)",
             "DESTINATION_LONGITUDE (DOUBLE)"
-            
     };
     
     public static final String[] DELETE_CAR_FORMAT = new String[] {
@@ -106,4 +106,5 @@ public class RuntimeConstants {
     public static final String[] DELETE_PICKUP_FORMAT = new String[] {
             "PICKUP_ID (INT)"
     };
+    /* @formatter:on */
 }

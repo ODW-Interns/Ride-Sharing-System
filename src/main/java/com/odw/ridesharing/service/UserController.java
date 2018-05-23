@@ -38,13 +38,14 @@ public class UserController {
      * Modify user that is currently in the userDatabase
      * 
      * @param typeValues_
-     *            ArrayList of string that should contain Firstname, Lastname, Age,
-     *            and Sex for customer For Driver, the ArrayList will contain 3 more
-     *            fields: isAvailable, Rating, and CarID
-     * @return modifyDriver(_userID, typeValues_) User object that contain driver's
-     *         info
-     * @return modifyCustomer(_userID, typeValues_) User object that contain
-     *         customer's infl
+     * 			  ArrayList of string that should contain FirstName, LastName,
+     * 			  Age, and Sex for customer
+     * 			  For Driver, the ArrayList will contain 3 more fields:
+     * 			  isAvailable, Rating, and CarID
+     * @return modifyDriver(_userID, typeValues_)
+     * 			  User object that contain driver's info
+     * @return modifyCustomer(_userID, typeValues_)
+     * 			  User object that contain customer's info
      * @throws BadUserException
      */
     public User modifyUser(ArrayList<String> typeValues_) throws BadUserException {
@@ -138,15 +139,27 @@ public class UserController {
         return null;
     }
 
+    public User getUserByID(int userID_) throws BadUserException{
+        
+        try {
+            return userDatabase.get(userID_);
+        }
+        catch(NullPointerException e_) {
+            throw new BadUserException();
+        }
+        
+
+    }
     /**
      * Private method to modify a specific driver from the database.
      * 
      * @param userID_
      *            The userID to be modify
      * @param newValues_
-     *            ArrayList of string that should contain Firstname, Lastname, Sex,
-     *            Age, isAvailable, Rating, and CarID to be modified
-     * @return _newDriver Object that contain new info of driver
+     * 			  ArrayList of string that should contain FirstName, LastName,
+     * 			  Sex, Age, isAvailable, Rating, and CarID to be modified
+     * @return _newDriver
+     * 			  Object that contain new info of driver
      */
     private Driver modifyDriver(int userID_, ArrayList<String> newValues_) {
         // TODO: Can't modify a driver to customer.

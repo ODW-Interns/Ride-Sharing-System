@@ -47,7 +47,6 @@ public class RuntimeConstants {
     
     public static final String[] CREATE_PICKUP_FORMAT = new String[] {
             "CUSTOMER_ID (INT)",
-            "DRIVER_ID (INT)",
             "ORIGIN_LATITUDE (DOUBLE)",
             "ORIGIN_LONGITUDE (DOUBLE)",
             "DESTINATION_LATITUDE (DOUBLE)",

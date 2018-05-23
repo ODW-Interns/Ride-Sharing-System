@@ -58,6 +58,7 @@ public class Pickup {
      * 
      * @return The pickup information as a String.
      */
+    /* @formatter:off */
     @Override
     public String toString() {
         return "PickupID: " + getPickupID() +
@@ -65,9 +66,13 @@ public class Pickup {
                " | DriverID: " + getDriverID() +
                " | Origin (latitude, longitude): " + origin.toString() +
                " | Destination (latitude, longitude): " + destination.toString() +
+               " | DriverID: " + getDriverID() +
+               " | Driver First Name: " + getDriverFirstName() +
+               " | Driver Last Name: " + getDriverLastName() +
                " | Total Cost: " + pickupCost.with(Monetary.getDefaultRounding()).toString();
     }
 
+    /* @formatter:on */
     /* Getters and Setters */
 
     /**

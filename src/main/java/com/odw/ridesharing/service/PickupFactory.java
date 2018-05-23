@@ -40,7 +40,7 @@ public class PickupFactory {
         
         //create a new Pickup object
         return new Pickup(nextPickupID++, _customerID, _origin, _destination, 
-                _driverID,_driverFirstName, _driverLastName);
+                _driverID, _driverFirstName, _driverLastName);
     }
 
 }

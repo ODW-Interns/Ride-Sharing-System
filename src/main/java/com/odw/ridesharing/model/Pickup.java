@@ -8,16 +8,14 @@ import org.javamoney.moneta.Money;
 public class Pickup {
 
     private int pickupID;
-    private int customerID;
-    private int driverID;
+    private Driver pickupDriver;
+    private Customer pickupCustomer;
     private Location origin;
     private Location destination;
     private MonetaryAmount pickupCost;
-    private String driverFirstName;
-    private String driverLastName;
 
     public Pickup() {
-        this(-1, -1, new Location(), new Location(), -1, "", "");
+        this(-1, new Customer(), new Driver(), new Location(), new Location());
     }
 
     /**
@@ -40,18 +38,21 @@ public class Pickup {
      * @param destination_
      *            the destination location in longitude and latitude
      */
-    public Pickup(int idx_, int customerID_, Location origin_, Location destination_, int driverID_,
-            String driverFirstName_, String driverLastName_) {
-        setPickupID(idx_);
-        setCustomerID(customerID_);
+    /* @formatter:off */
+    public Pickup(int pickupId__,
+                  Customer pickupCustomer_,
+                  Driver pickupDriver_,
+                  Location origin_,
+                  Location destination_) {
+        setPickupID(pickupId__);
+        setCustomer(pickupCustomer_);
+        setDriver(pickupDriver_);
         setOrigin(origin_);
         setDestination(destination_);
-        setDriverID(driverID_);
-        setDriverFirstName(driverFirstName_);
-        setDriverLastName(driverLastName_);
 
         pickupCost = Money.of(0.d, RuntimeConstants.CURRENCY_CODE);
     }
+    /* @formatter:on */
 
     /**
      * Returns the pickup's information in String format.
@@ -62,42 +63,20 @@ public class Pickup {
     @Override
     public String toString() {
         return "PickupID: " + getPickupID() +
-               " | CustomerID: " + getCustomerID() +
-               " | DriverID: " + getDriverID() +
+               " | Customer: " + pickupCustomer.getFirstName() + " " + pickupCustomer.getLastName() + " " 
+                               + "ID (" + pickupCustomer.getUserID() + ")" + 
+               " | Driver: " + pickupDriver.getFirstName() + " " + pickupDriver.getLastName() + " "
+                             + "ID (" + pickupDriver.getUserID() + ")" +
                " | Origin (latitude, longitude): " + origin.toString() +
                " | Destination (latitude, longitude): " + destination.toString() +
-               " | DriverID: " + getDriverID() +
-               " | Driver First Name: " + getDriverFirstName() +
-               " | Driver Last Name: " + getDriverLastName() +
                " | Total Cost: " + pickupCost.with(Monetary.getDefaultRounding()).toString();
     }
-
     /* @formatter:on */
-    /* Getters and Setters */
-
-    /**
-     * TODO
-     * 
-     * @return TODO
-     */
-    public MonetaryAmount getPickupCost() {
-        return pickupCost;
-    }
-
-    /**
-     * TODO
-     * 
-     * @param totalCost_
-     *            TODO
-     */
-    public void setPickupCost(double totalCost_) {
-        pickupCost = Money.of(totalCost_, RuntimeConstants.CURRENCY_CODE);
-    }
 
     /**
      * Get the unique ID of the pickup.
      * 
-     * @return Returns the pickup's ID.
+     * @return the pickup's ID.
      */
     public int getPickupID() {
         return pickupID;
@@ -114,64 +93,64 @@ public class Pickup {
     }
 
     /**
-     * Get the unique ID of the driver
+     * Get the driver of this pickup.
      * 
-     * @return The ID of the driver to be executed
+     * @return the driver of this pickup.
      */
-    public int getDriverID() {
-        return driverID;
+    public Driver getDriver() {
+        return pickupDriver;
     }
 
     /**
-     * Set the ID of the driver
+     * Set the driver of this pickup.
      * 
-     * @param driverID_
-     *            The new ID of the driver to be set
+     * @param newDriver_
+     *            The driver to be set.
      */
-    public void setDriverID(int driverID_) {
-        driverID = driverID_;
+    public void setDriver(Driver newDriver_) {
+        pickupDriver = newDriver_;
     }
 
     /**
-     * Get the unique ID of the customer
+     * Get the customer of this pickup.
      * 
-     * @return The ID of the driver to be executed
+     * @return the customer of this pickup.
      */
-    public int getCustomerID() {
-        return customerID;
+    public Customer getCustomer() {
+        return pickupCustomer;
     }
 
     /**
-     * Set the ID of the customer
+     * Set the customer of this pickup.
      * 
-     * @param customerID_
-     *            The new ID of the customer to be set
+     * @param newCustomer_
+     *            The customer to be set.
      */
-    public void setCustomerID(int customerID_) {
-        customerID = customerID_;
+    public void setCustomer(Customer newCustomer_) {
+        pickupCustomer = newCustomer_;
     }
 
     /**
-     * Get the x and y coordinates of the starting location for the Pickup
+     * Get the location of the pickup's starting point as a location object.
      * 
-     * @return The origin of the Pickup to be executed
+     * @return the starting point of the pickup
      */
     public Location getOrigin() {
         return origin;
     }
 
     /**
-     * Set the x and y coordinates of the starting location for the Pickup
+     * Set the location of the pickup's starting point as a location object.
      * 
      * @param origin_
-     *            The new origin of the Pickup to be set
+     *            The new starting point of the Pickup to be set.
      */
     public void setOrigin(Location origin_) {
         origin = origin_;
     }
 
     /**
-     * Get the x and y coordinates of the ending location for the Pickup
+     * Get the location of the pickup's ending point as a location object.
      * 
      * @return The end location of the Pickup to be executed
      */
@@ -180,49 +159,32 @@ public class Pickup {
     }
 
     /**
-     * Set the x and y coordinates of the ending location for the Pickup
+     * Set the location of the pickup's ending point as a location object.
      * 
-     * @param destination_
-     *            The new end location of the Pickup to be set
+     * @param newDestination_
+     *            The new ending point of the Pickup to be set.
      */
-    public void setDestination(Location destination_) {
-        destination = destination_;
+    public void setDestination(Location newDestination_) {
+        destination = newDestination_;
     }
 
     /**
-     * Get the first name of the driver
+     * Gets the cost of the pickup as a double.
      * 
-     * @return The first name of the driver to be executed
+     * @return the cost of the pickup.
      */
-    public String getDriverFirstName() {
-        return driverFirstName;
+    public double getPickupCost() {
+        return pickupCost.getNumber().doubleValue();
     }
 
     /**
-     * Set the first name of the driver
+     * Sets the cost of the pickup.
      * 
-     * @param driverFirstName_
+     * @param totalCost_
+     *            The value to set to.
      */
-    public void setDriverFirstName(String driverFirstName_) {
-        driverFirstName = driverFirstName_;
-    }
-
-    /**
-     * Get the last name of the driver
-     * 
-     * @return
-     */
-    public String getDriverLastName() {
-        return driverLastName;
-    }
-
-    /**
-     * Set the last name of the driver
-     * 
-     * @param driverLastName_
-     */
-    public void setDriverLastName(String driverLastName_) {
-        driverLastName = driverLastName_;
+    public void setPickupCost(double totalCost_) {
+        pickupCost = Money.of(totalCost_, RuntimeConstants.CURRENCY_CODE);
     }
 
 }

@@ -3,10 +3,11 @@ package com.odw.ridesharing.service;
 import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.odw.ridesharing.model.Customer;
+import com.odw.ridesharing.model.Driver;
 import com.odw.ridesharing.model.Location;
 import com.odw.ridesharing.model.Pickup;
 import com.odw.ridesharing.model.RuntimeConstants;
-import com.odw.ridesharing.model.User;
 import com.odw.ridesharing.model.exceptions.BadPickupException;
 
 public class PickupController {
@@ -23,21 +24,35 @@ public class PickupController {
      * @return _pickup pickup object to be used for logger
      * @throws BadPickupException
      */
-    public Pickup createPickup(ArrayList<String> typeValues_, User driver_) throws BadPickupException {
+    public Pickup createPickup(ArrayList<String> typeValues_, Customer customer_, Driver driver_) throws BadPickupException {
         if (typeValues_.size() == RuntimeConstants.CREATE_PICKUP_FORMAT.length) {
 
-            // Add the driver information to the ArrayList
-            typeValues_.add(Integer.toString(driver_.getUserID()));
-            typeValues_.add(driver_.getFirstName());
-            typeValues_.add(driver_.getLastName());
-
-            Pickup _pickup = schedule(pickupFactory.createPickup(typeValues_));
+            Pickup _pickup = schedule(pickupFactory.createPickup(typeValues_, customer_, driver_));
             pickupDatabase.put(_pickup.getPickupID(), _pickup);
             return _pickup;
         }
 
         // Something went wrong..
         throw new BadPickupException();
+    }
+    
+    /**
+     * Schedule the pickup based on the given pickup info. Called when a pickup is
+     * created.
+     * 
+     * @param current_
+     *            The current pickup info to be scheduled.
+     * @return current_ Pickup object to be used for logger.
+     */
+    private Pickup schedule(Pickup current_) {
+        Location _origin = current_.getOrigin();
+        Location _destination = current_.getDestination();
+
+        double _tripCost = _origin.distanceTo(_destination) * RuntimeConstants.CHARGE_RATE_PER_MILE;
+
+        current_.setPickupCost(_tripCost + RuntimeConstants.FLAT_RATE_FEE);
+
+        return current_;
     }
 
     /**
@@ -50,6 +65,8 @@ public class PickupController {
      * @return _currentPickup Object to be used for logger
      * @throws BadPickupException
      */
+    // DEPRECATED!
+    /*----------------------------------------------------------------------------------------------------
     public Pickup modifyPickup(ArrayList<String> typeValues_) throws BadPickupException {
         if (typeValues_.size() == RuntimeConstants.MODIFY_PICKUP_FORMAT.length) {
             int _pickupIdx = Integer.parseInt(typeValues_.get(0));
@@ -78,6 +95,7 @@ public class PickupController {
         // Something went wrong..
         throw new BadPickupException();
     }
+    ----------------------------------------------------------------------------------------------------*/
 
     /**
      * Delete Pickup's info in the database
@@ -88,6 +106,8 @@ public class PickupController {
      *         for logger
      * @throws BadPickupException
      */
+    // DEPRECATED!
+    /*----------------------------------------------------------------------------------------------------
     public Pickup deletePickup(ArrayList<String> typeValues_) throws BadPickupException {
         if (typeValues_.size() == RuntimeConstants.DELETE_PICKUP_FORMAT.length) {
             int _idx = Integer.parseInt(typeValues_.get(0));
@@ -101,23 +121,5 @@ public class PickupController {
         // Something went wrong..
         throw new BadPickupException();
     }
-
-    /**
-     * Schedule the pickup based on the given pickup info. Called when a pickup is
-     * created.
-     * 
-     * @param current_
-     *            The current pickup info to be scheduled.
-     * @return current_ Pickup object to be used for logger.
-     */
-    private Pickup schedule(Pickup current_) {
-        Location _origin = current_.getOrigin();
-        Location _destination = current_.getDestination();
-
-        double _tripCost = _origin.distanceTo(_destination) * RuntimeConstants.CHARGE_RATE_PER_MILE;
-
-        current_.setPickupCost(_tripCost + RuntimeConstants.FLAT_RATE_FEE);
-
-        return current_;
-    }
+    ----------------------------------------------------------------------------------------------------*/
 }

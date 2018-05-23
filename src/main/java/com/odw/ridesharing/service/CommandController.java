@@ -43,8 +43,8 @@ public class CommandController {
             }
 
             // SUCCESS!
-            logger.debug(carController.getCarInventoryAsString());
-            logger.debug(userController.getUserDatabaseAsString());
+            logger.debug("FINAL CAR INVENTORY:" + carController.getCarInventoryAsString());
+            logger.debug("FINAL USER DATABASE:" + userController.getUserDatabaseAsString());
         } catch (FileNotFoundException e_) {
             logger.error("Could not find the specified file.");
         } catch (IOException e_) {
@@ -92,8 +92,10 @@ public class CommandController {
             }
             case RuntimeConstants.PICKUP: {
                 try {
+                    int _customerID = Integer.parseInt(event_.getTypeValues().get(0));
                     Pickup _addedPickup = pickupController.createPickup(event_.getTypeValues(),
-                            userController.getNextAvailableDriver());
+                                                                        userController.getUserByID(_customerID),
+                                                                        userController.getNextAvailableDriver());
                     logger.debug("CREATED PICKUP: " + _addedPickup.toString());
                 } catch (BadPickupException e_) {
                     logger.error("There was a problem with creating pickup: " + event_.typeValuesToString("|"));
@@ -128,6 +130,7 @@ public class CommandController {
             }
             
             // ----- DEPRECATED! -----
+            /*
             case RuntimeConstants.PICKUP: {
                 try {
                     Pickup modifiedPickup = pickupController.modifyPickup(event_.getTypeValues());
@@ -137,6 +140,7 @@ public class CommandController {
                 }
                 break;
             }
+            */
             // -----------------------
             
             default:
@@ -167,6 +171,7 @@ public class CommandController {
             }
             
             // ----- DEPRECATED! -----
+            /*
             case RuntimeConstants.PICKUP: {
                 try {
                     Pickup deletedPickup = pickupController.deletePickup(event_.getTypeValues());
@@ -176,6 +181,7 @@ public class CommandController {
                 }
                 break;
             }
+            */
             // -----------------------
             
             default:

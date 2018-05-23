@@ -89,7 +89,7 @@ public class CommandController {
         }
         case RuntimeConstants.PICKUP: {
         	try {
-                Pickup _addedPickup = pickupController.createPickup(event_.getTypeValues());
+                Pickup _addedPickup = pickupController.createPickup(event_.getTypeValues(), userController.getNextAvailableDriver());
                 logger.info("CREATED PICKUP: " + _addedPickup.toString());
             } catch (BadPickupException e_) {
                 logger.error("There was a problem with creating pickup: " + event_.typeValuesToString("|"));

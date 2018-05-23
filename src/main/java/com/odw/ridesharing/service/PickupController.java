@@ -13,6 +13,15 @@ public class PickupController {
     private ConcurrentHashMap<Integer, Pickup> pickupDatabase = new ConcurrentHashMap<Integer, Pickup>();
     private PickupFactory pickupFactory = new PickupFactory();
 
+    /**
+	  * Call PickupFactory to create pickup
+	  * 
+	  * @param typeValues_
+	  *            String needed to create a pickup
+	  * @return _pickup 
+	  * 			  pickup object to be used for logger
+	  * @throws BadPickupException
+	  */
     public Pickup createPickup(ArrayList<String> typeValues_) throws BadPickupException {
         if (typeValues_.size() == RuntimeConstants.CREATE_PICKUP_FORMAT.length) {
             Pickup _pickup = schedule(pickupFactory.createPickup(typeValues_));
@@ -23,7 +32,18 @@ public class PickupController {
         // Something went wrong..
         throw new BadPickupException();
     }
-
+  
+    /**
+	  * Modify Pickup's info in the database
+	  * 
+	  * @param typeValues_
+	  * 			  ArrayList of of input in string Should Contain PickupID, CustomerID, 
+	  * 			  DriverID, Origin, and Destination
+	  *            
+	  * @return _currentPickup
+	  * 			  Object to be used for logger
+	  * @throws BadPickupException
+	  */
     public Pickup modifyPickup(ArrayList<String> typeValues_) throws BadPickupException {
         if (typeValues_.size() == RuntimeConstants.MODIFY_PICKUP_FORMAT.length) {
             int _pickupIdx = Integer.parseInt(typeValues_.get(0));
@@ -52,7 +72,16 @@ public class PickupController {
         // Something went wrong..
         throw new BadPickupException();
     }
-
+  
+    /**
+	  * Delete Pickup's info in the database
+	  * 
+	  * @param typeValues_
+	  * 			  ArrayList of of input in string Should Contain PickupID
+	  * @return pickupDatabase.remove(_idx) 
+	  *            The object to be removed, will be used for logger
+	  * @throws BadPickupException
+	  */
     public Pickup deletePickup(ArrayList<String> typeValues_) throws BadPickupException {
         if (typeValues_.size() == RuntimeConstants.DELETE_PICKUP_FORMAT.length) {
             int _idx = Integer.parseInt(typeValues_.get(0));
@@ -66,7 +95,15 @@ public class PickupController {
         // Something went wrong..
         throw new BadPickupException();
     }
-
+  
+    /**
+	  * Schedule the pickup based on the given pickup info
+	  * 
+	  * @param current_ 
+	  * 			  The current pickup info to be scheduled
+	  * @return current_
+	  * 			  Object to be used for logger
+	  */
     private Pickup schedule(Pickup current_) {
         Location _origin = current_.getOrigin();
         Location _destination = current_.getDestination();

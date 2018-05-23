@@ -12,4 +12,7 @@ import org.junit.runners.Suite.SuiteClasses;
                 CarFactoryTest.class,
                 UserFactoryTest.class })
 
+/**
+ * Note: Run this as a JUnit test to run all the tests specified under @SuiteClasses.
+ */
 public class AllTests { }

@@ -14,8 +14,6 @@ import com.odw.ridesharing.service.CarFactory;
 
 public class CarFactoryTest {
 
-    CarFactory carFactory = new CarFactory();
-
     /**
      * Tests CarFactory's createCar method. Ensures that the proper concrete car is
      * being generated. Note that the assumption for this method is that the
@@ -23,41 +21,43 @@ public class CarFactoryTest {
      */
     @Test
     public void testCreateCar() {
-        ArrayList<String> coupeCarInfo = new ArrayList<String>();
-        coupeCarInfo.add("coupe");
-        coupeCarInfo.add("toyota");
-        coupeCarInfo.add("trueno");
-        coupeCarInfo.add("white");
-        coupeCarInfo.add("1986");
-        Car coupe = carFactory.createCar(coupeCarInfo);
-        assertTrue(coupe instanceof Coupe);
+        CarFactory _carFactory = new CarFactory();
         
-        ArrayList<String> sedanCarInfo = new ArrayList<String>();
-        sedanCarInfo.add("sedan");
-        sedanCarInfo.add("ford");
-        sedanCarInfo.add("focus");
-        sedanCarInfo.add("grey");
-        sedanCarInfo.add("2014");
-        Car sedan = carFactory.createCar(sedanCarInfo);
-        assertTrue(sedan instanceof Sedan);
+        ArrayList<String> _coupeCarInfo = new ArrayList<String>();
+        _coupeCarInfo.add("coupe");
+        _coupeCarInfo.add("toyota");
+        _coupeCarInfo.add("trueno");
+        _coupeCarInfo.add("white");
+        _coupeCarInfo.add("1986");
+        Car _coupe = _carFactory.createCar(_coupeCarInfo);
+        assertTrue(_coupe instanceof Coupe);
         
-        ArrayList<String> suvCarInfo = new ArrayList<String>();
-        suvCarInfo.add("suv");
-        suvCarInfo.add("cadillac");
-        suvCarInfo.add("escalade");
-        suvCarInfo.add("black");
-        suvCarInfo.add("2018");
-        Car suv = carFactory.createCar(suvCarInfo);
-        assertTrue(suv instanceof Suv);
+        ArrayList<String> _sedanCarInfo = new ArrayList<String>();
+        _sedanCarInfo.add("sedan");
+        _sedanCarInfo.add("ford");
+        _sedanCarInfo.add("focus");
+        _sedanCarInfo.add("grey");
+        _sedanCarInfo.add("2014");
+        Car _sedan = _carFactory.createCar(_sedanCarInfo);
+        assertTrue(_sedan instanceof Sedan);
         
-        ArrayList<String> invalidCarInfo = new ArrayList<String>();
-        invalidCarInfo.add("unknown");
-        invalidCarInfo.add("must");
-        invalidCarInfo.add("be");
-        invalidCarInfo.add("length");
-        invalidCarInfo.add("5");
-        Car unknown = carFactory.createCar(invalidCarInfo);
-        assertNull(unknown);
+        ArrayList<String> _suvCarInfo = new ArrayList<String>();
+        _suvCarInfo.add("suv");
+        _suvCarInfo.add("cadillac");
+        _suvCarInfo.add("escalade");
+        _suvCarInfo.add("black");
+        _suvCarInfo.add("2018");
+        Car _suv = _carFactory.createCar(_suvCarInfo);
+        assertTrue(_suv instanceof Suv);
+        
+        ArrayList<String> _invalidCarInfo = new ArrayList<String>();
+        _invalidCarInfo.add("unknown");
+        _invalidCarInfo.add("must");
+        _invalidCarInfo.add("be");
+        _invalidCarInfo.add("length");
+        _invalidCarInfo.add("5");
+        Car _unknown = _carFactory.createCar(_invalidCarInfo);
+        assertNull(_unknown);
     }
 
 }

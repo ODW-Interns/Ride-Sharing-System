@@ -15,6 +15,7 @@ import com.odw.ridesharing.service.UserController;
 
 public class PickupControllerTest {
 
+    /* OLD TESTS
 	@Test
 	public void testCreatePickup() {
 		CarController carController = new CarController();
@@ -249,5 +250,6 @@ public class PickupControllerTest {
             assertTrue(true);
         }
 	}
+	*/
 		
 }

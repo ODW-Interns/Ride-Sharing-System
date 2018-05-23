@@ -8,9 +8,10 @@ import com.odw.ridesharing.model.RuntimeConstants;
 import com.odw.ridesharing.model.User;
 
 public class UserFactory {
-    
+
     private int nextUserID = 0;
-    
+
+    /* @formatter:off */
     /**
      * 
      * @param typeValues_
@@ -23,26 +24,27 @@ public class UserFactory {
      *      Index:  0      | 1     | 2     | 3   | 4   | 
      * @return
      */
+    /* @formatter:on */
     public User createUser(ArrayList<String> typeValues_) {
-        
+
         // store the values from ArrayList
         String _userType = typeValues_.get(0);
         String _firstName = typeValues_.get(1);
         String _lastName = typeValues_.get(2);
         String _sex = typeValues_.get(3);
         int _age = Integer.parseInt(typeValues_.get(4));
-        
+
         // create a User object based off of its userType
         // Driver changed to instantiating rating and isAvailable in class constructor
         switch (_userType) {
-            case RuntimeConstants.CUSTOMER:        
+            case RuntimeConstants.CUSTOMER:
                 return new Customer(nextUserID++, _firstName, _lastName, _sex, _age);
             case RuntimeConstants.DRIVER:
                 return new Driver(nextUserID++, _firstName, _lastName, _sex, _age);
             default:
                 return null;
         }
-        
+
     }
 
 }

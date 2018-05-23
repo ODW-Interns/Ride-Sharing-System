@@ -5,14 +5,19 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
+
+/* @formatter:off */
 @SuiteClasses({ EventParserTest.class,
                 CommandControllerTest.class,
                 CarControllerTest.class,
                 UserControllerTest.class,
                 CarFactoryTest.class,
                 UserFactoryTest.class })
+/* @formatter:on */
 
 /**
- * Note: Run this as a JUnit test to run all the tests specified under @SuiteClasses.
+ * Note: Run this as a JUnit test to run all the tests specified
+ * under @SuiteClasses.
  */
-public class AllTests { }
+public class AllTests {
+}

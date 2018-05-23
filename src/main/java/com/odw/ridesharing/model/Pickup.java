@@ -55,7 +55,6 @@ public class Pickup {
      */
     @Override
     public String toString() {
-
         return "PickupID: " + getPickupID() +
                " | CustomerID: " + getCustomerID() +
                " | DriverID: " + getDriverID() +

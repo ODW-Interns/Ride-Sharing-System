@@ -108,9 +108,9 @@ public class PickupController {
         Location _origin = current_.getOrigin();
         Location _destination = current_.getDestination();
 
-        double _tripCost = RuntimeConstants.FLAT_RATE_FEE + (_origin.distanceTo(_destination) * RuntimeConstants.CHARGE_RATE_PER_MILE);
+        double _tripCost = _origin.distanceTo(_destination) * RuntimeConstants.CHARGE_RATE_PER_MILE;
         
-        current_.setPickupCost(_tripCost);
+        current_.setPickupCost(_tripCost + RuntimeConstants.FLAT_RATE_FEE);
         
         return current_;
     }

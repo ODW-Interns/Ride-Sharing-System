@@ -9,6 +9,7 @@ public class PickupFactory {
     
     private int nextPickupID = 0;
     
+    /* @formatter:off */
     /**
      * 
      * @param typeValues_ 
@@ -22,6 +23,7 @@ public class PickupFactory {
      *      
      * @return a Pickup object with a pickupID attached to it
      */
+    /* @formatter:on */
     public Pickup createPickup(ArrayList<String> typeValues_) {
         
         // get the values from the ArrayList

@@ -12,6 +12,7 @@ public class CarFactory {
 
     private int nextCarID = 0;
 
+    /* @formatter:off */
     /**
      * Creates a specific Car instance object and sets its values. Assumes that the
      * method format is correct.
@@ -25,7 +26,7 @@ public class CarFactory {
      * 
      * @return a Car Object
      */
-
+    /* @formatter:on */
     public Car createCar(ArrayList<String> typeValues_) {
         
         // store the values from ArrayList

@@ -15,21 +15,21 @@ public class PickupController {
     private PickupFactory pickupFactory = new PickupFactory();
 
     /**
-	  * Call PickupFactory to create pickup
-	  * 
-	  * @param typeValues_
-	  *            String needed to create a pickup
-	  * @return _pickup 
-	  * 			  pickup object to be used for logger
-	  * @throws BadPickupException
-	  */
+     * Call PickupFactory to create pickup
+     * 
+     * @param typeValues_
+     *            String needed to create a pickup
+     * @return _pickup pickup object to be used for logger
+     * @throws BadPickupException
+     */
     public Pickup createPickup(ArrayList<String> typeValues_, User driver_) throws BadPickupException {
         if (typeValues_.size() == RuntimeConstants.CREATE_PICKUP_FORMAT.length) {
+            
             // Add the driver information to the ArrayList
             typeValues_.add(Integer.toString(driver_.getUserID()));
             typeValues_.add(driver_.getFirstName());
             typeValues_.add(driver_.getLastName());
-            
+
             Pickup _pickup = schedule(pickupFactory.createPickup(typeValues_));
             pickupDatabase.put(_pickup.getPickupID(), _pickup);
             return _pickup;
@@ -38,18 +38,17 @@ public class PickupController {
         // Something went wrong..
         throw new BadPickupException();
     }
-  
+
     /**
-	  * Modify Pickup's info in the database
-	  * 
-	  * @param typeValues_
-	  * 			  ArrayList of of input in string Should Contain PickupID, CustomerID, 
-	  * 			  DriverID, Origin, and Destination
-	  *            
-	  * @return _currentPickup
-	  * 			  Object to be used for logger
-	  * @throws BadPickupException
-	  */
+     * Modify Pickup's info in the database
+     * 
+     * @param typeValues_
+     *            ArrayList of of input in string Should Contain PickupID,
+     *            CustomerID, DriverID, Origin, and Destination
+     * 
+     * @return _currentPickup Object to be used for logger
+     * @throws BadPickupException
+     */
     public Pickup modifyPickup(ArrayList<String> typeValues_) throws BadPickupException {
         if (typeValues_.size() == RuntimeConstants.MODIFY_PICKUP_FORMAT.length) {
             int _pickupIdx = Integer.parseInt(typeValues_.get(0));
@@ -74,20 +73,20 @@ public class PickupController {
                 throw new BadPickupException();
 
         }
-        
+
         // Something went wrong..
         throw new BadPickupException();
     }
-  
+
     /**
-	  * Delete Pickup's info in the database
-	  * 
-	  * @param typeValues_
-	  * 			  ArrayList of of input in string Should Contain PickupID
-	  * @return pickupDatabase.remove(_idx) 
-	  *            The object to be removed, will be used for logger
-	  * @throws BadPickupException
-	  */
+     * Delete Pickup's info in the database
+     * 
+     * @param typeValues_
+     *            ArrayList of of input in string Should Contain PickupID
+     * @return pickupDatabase.remove(_idx) The object to be removed, will be used
+     *         for logger
+     * @throws BadPickupException
+     */
     public Pickup deletePickup(ArrayList<String> typeValues_) throws BadPickupException {
         if (typeValues_.size() == RuntimeConstants.DELETE_PICKUP_FORMAT.length) {
             int _idx = Integer.parseInt(typeValues_.get(0));
@@ -97,27 +96,27 @@ public class PickupController {
                 throw new BadPickupException();
             }
         }
-        
+
         // Something went wrong..
         throw new BadPickupException();
     }
-  
+
     /**
-	  * Schedule the pickup based on the given pickup info
-	  * 
-	  * @param current_ 
-	  * 			  The current pickup info to be scheduled
-	  * @return current_
-	  * 			  Object to be used for logger
-	  */
+     * Schedule the pickup based on the given pickup info. Called when a pickup is
+     * created.
+     * 
+     * @param current_
+     *            The current pickup info to be scheduled.
+     * @return current_ Pickup object to be used for logger.
+     */
     private Pickup schedule(Pickup current_) {
         Location _origin = current_.getOrigin();
         Location _destination = current_.getDestination();
 
         double _tripCost = _origin.distanceTo(_destination) * RuntimeConstants.CHARGE_RATE_PER_MILE;
-        
+
         current_.setPickupCost(_tripCost + RuntimeConstants.FLAT_RATE_FEE);
-        
+
         return current_;
     }
 }

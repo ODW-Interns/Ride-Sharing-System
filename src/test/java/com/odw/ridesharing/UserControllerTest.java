@@ -12,68 +12,71 @@ import com.odw.ridesharing.service.UserController;
 public class UserControllerTest {
 
     /**
-     * Tests CarController's createCar method. Ensures that a valid car can be
-     * created and an invalid car is handled properly
-     * 
+     * Tests UserController's createUser method. Ensures that a valid customer and driver can be
+     * created and an invalid user is handled properly.
      */
     @Test
     public void testCreateUser() throws BadUserException {
-        UserController userController = new UserController();
+        UserController _userController = new UserController();
 
         // Testing valid driver creation.
         try {
-            userController.createUser(createValidDriverInfo());
+            _userController.createUser(createValidDriverInfo());
         } catch (BadUserException e_) {
             fail("Error creating a valid driver user.");
         }
 
         // Testing valid customer creation.
         try {
-            userController.createUser(createValidCustomerInfo());
+            _userController.createUser(createValidCustomerInfo());
         } catch (BadUserException e_) {
             fail("Error creating a valid driver user.");
         }
-        
+
         // Testing invalid driver creation.
         try {
-            userController.createUser(createInvalidDriverInfo());
+            _userController.createUser(createInvalidDriverInfo());
         } catch (BadUserException e_) {
             assertTrue(true); // Hacky solution to state that this is the desired outcome.
         }
-        
+
         // Testing invalid customer creation.
         try {
-            userController.createUser(createInvalidCustomerInfo());
+            _userController.createUser(createInvalidCustomerInfo());
         } catch (BadUserException e_) {
             assertTrue(true); // Hacky solution to state that this is the desired outcome.
         }
     }
 
+    /**
+     * Tests UserController's modifyUser method. Ensures that a valid customer and driver can be
+     * modified and an invalid user is handled properly.
+     */
     @Test
     public void testModifyUser() {
-        UserController userController = new UserController();
-        
+        UserController _userController = new UserController();
+
         // ---------------------------------------------
         // Creating a valid driver to later be modified.
         try {
-            userController.createUser(createValidDriverInfo());
+            _userController.createUser(createValidDriverInfo());
         } catch (BadUserException e_) {
             fail("Error creating a valid driver.");
         }
-        
+
         // Testing valid driver modification.
-        ArrayList<String> driverNewInfo = new ArrayList<String>();
-        driverNewInfo.add("0");
-        driverNewInfo.add("driver");
-        driverNewInfo.add("Mark");
-        driverNewInfo.add("Constantine");
-        driverNewInfo.add("male");
-        driverNewInfo.add("21");
-        driverNewInfo.add("false");
-        driverNewInfo.add("0");
-        driverNewInfo.add("5");
+        ArrayList<String> _driverNewInfo = new ArrayList<String>();
+        _driverNewInfo.add("0");
+        _driverNewInfo.add("driver");
+        _driverNewInfo.add("Mark");
+        _driverNewInfo.add("Constantine");
+        _driverNewInfo.add("male");
+        _driverNewInfo.add("21");
+        _driverNewInfo.add("false");
+        _driverNewInfo.add("0");
+        _driverNewInfo.add("5");
         try {
-            userController.modifyUser(driverNewInfo);
+            _userController.modifyUser(_driverNewInfo);
         } catch (BadUserException e_) {
             fail("Error modifying a valid driver.");
         }
@@ -81,111 +84,133 @@ public class UserControllerTest {
         // ---------------------------------------------
         // Creating a valid customer to be later modified.
         try {
-            userController.createUser(createValidCustomerInfo());
+            _userController.createUser(createValidCustomerInfo());
         } catch (BadUserException e_) {
             fail("Error creating a valid driver user.");
         }
-        
+
         // Testing valid customer modification.
-        ArrayList<String> customerNewInfo = new ArrayList<String>();
-        customerNewInfo.add("1");
-        customerNewInfo.add("customer");
-        customerNewInfo.add("Pete");
-        customerNewInfo.add("Tanthmanatham");
-        customerNewInfo.add("male");
-        customerNewInfo.add("22");
+        ArrayList<String> _customerNewInfo = new ArrayList<String>();
+        _customerNewInfo.add("1");
+        _customerNewInfo.add("customer");
+        _customerNewInfo.add("Pete");
+        _customerNewInfo.add("Tanthmanatham");
+        _customerNewInfo.add("male");
+        _customerNewInfo.add("22");
         try {
-            userController.modifyUser(customerNewInfo);
+            _userController.modifyUser(_customerNewInfo);
         } catch (BadUserException e_) {
             fail("Error modifying a valid customer.");
         }
 
         // ---------------------------------------------
         // Testing invalid user modification.
-        ArrayList<String> invalidModifyInfo = new ArrayList<String>();
-        invalidModifyInfo.add("0"); // Modifying the first created user (Mark Constantine)
-        invalidModifyInfo.add("must include all fields");
+        ArrayList<String> _invalidModifyInfo = new ArrayList<String>();
+        _invalidModifyInfo.add("0"); // Modifying the first created user (Mark Constantine)
+        _invalidModifyInfo.add("must include all fields");
         try {
-            userController.modifyUser(invalidModifyInfo);
+            _userController.modifyUser(_invalidModifyInfo);
         } catch (BadUserException e_) {
             assertTrue(true);
         }
     }
-    
 
+    /**
+     * Tests UserController's deleteUser method. Ensures that a valid user can be
+     * deleted and an invalid user is handled properly.
+     */
     @Test
     public void testDeleteUser() {
-        UserController userController = new UserController();
+        UserController _userController = new UserController();
 
         // ---------------------------------------------
         // Creating a valid driver to delete later.
         try {
-            userController.createUser(createValidDriverInfo());
+            _userController.createUser(createValidDriverInfo());
         } catch (BadUserException e_) {
             fail("Error creating a valid driver user.");
         }
 
         // Testing valid user deletion. (User and Driver work the same)
-        ArrayList<String> driverDeleteInfo = new ArrayList<String>();
-        driverDeleteInfo.add("0"); // Valid ID
+        ArrayList<String> _driverDeleteInfo = new ArrayList<String>();
+        _driverDeleteInfo.add("0"); // Valid ID
         try {
-            userController.deleteUser(driverDeleteInfo);
+            _userController.deleteUser(_driverDeleteInfo);
         } catch (BadUserException e_) {
             fail("Error deleting a valid user.");
         }
 
         // ---------------------------------------------
         // Testing invalid user deletion.
-        ArrayList<String> invalidDeleteInfo = new ArrayList<String>();
-        invalidDeleteInfo.add("driver");
-        invalidDeleteInfo.add("1000"); // Invalid ID
+        ArrayList<String> _invalidDeleteInfo = new ArrayList<String>();
+        _invalidDeleteInfo.add("driver");
+        _invalidDeleteInfo.add("1000"); // Invalid ID
         try {
-            userController.deleteUser(invalidDeleteInfo);
+            _userController.deleteUser(_invalidDeleteInfo);
         } catch (BadUserException e_) {
             assertTrue(true);
         }
     }
-    
-    
+
+    /**
+     * Helper function to generate valid driver info.
+     * 
+     * @return An ArrayList of Strings containing valid driver info.
+     */
     private ArrayList<String> createValidDriverInfo() {
-        ArrayList<String> userDriverInfo = new ArrayList<String>();
-        userDriverInfo.add("driver");
-        userDriverInfo.add("Mark");
-        userDriverInfo.add("Constantine");
-        userDriverInfo.add("male");
-        userDriverInfo.add("21");
-        return userDriverInfo;
+        ArrayList<String> _userDriverInfo = new ArrayList<String>();
+        _userDriverInfo.add("driver");
+        _userDriverInfo.add("Mark");
+        _userDriverInfo.add("Constantine");
+        _userDriverInfo.add("male");
+        _userDriverInfo.add("21");
+        return _userDriverInfo;
     }
-    
+
+    /**
+     * Helper function to generate valid customer info.
+     * 
+     * @return An ArrayList of Strings containing valid customer info.
+     */
     private ArrayList<String> createValidCustomerInfo() {
-        ArrayList<String> userCustomerInfo = new ArrayList<String>();
-        userCustomerInfo.add("customer");
-        userCustomerInfo.add("Pete");
-        userCustomerInfo.add("Tanthmanatham");
-        userCustomerInfo.add("male");
-        userCustomerInfo.add("21");
-        return userCustomerInfo;
+        ArrayList<String> _userCustomerInfo = new ArrayList<String>();
+        _userCustomerInfo.add("customer");
+        _userCustomerInfo.add("Pete");
+        _userCustomerInfo.add("Tanthmanatham");
+        _userCustomerInfo.add("male");
+        _userCustomerInfo.add("21");
+        return _userCustomerInfo;
     }
-    
+
+    /**
+     * Helper function to generate invalid driver info.
+     * 
+     * @return An ArrayList of Strings containing invalid driver info.
+     */
     private ArrayList<String> createInvalidDriverInfo() {
-        ArrayList<String> invalidDriverInfo = new ArrayList<String>();
-        invalidDriverInfo.add("driver");
-        invalidDriverInfo.add("invalid");
-        invalidDriverInfo.add("input");
-        invalidDriverInfo.add("length");
-        return invalidDriverInfo;
+        ArrayList<String> _invalidDriverInfo = new ArrayList<String>();
+        _invalidDriverInfo.add("driver");
+        _invalidDriverInfo.add("invalid");
+        _invalidDriverInfo.add("input");
+        _invalidDriverInfo.add("length");
+        return _invalidDriverInfo;
     }
-    
+
+    /**
+     * Helper function to generate invalid customer info.
+     * 
+     * @return An ArrayList of Strings containing invalid customer info.
+     */
     private ArrayList<String> createInvalidCustomerInfo() {
-        ArrayList<String> invalidCustomerInfo = new ArrayList<String>();
-        invalidCustomerInfo.add("customer");
-        invalidCustomerInfo.add("invalid");
-        invalidCustomerInfo.add("input");
-        invalidCustomerInfo.add("length");
-        invalidCustomerInfo.add("too");
-        invalidCustomerInfo.add("many");
-        invalidCustomerInfo.add("fields");
-        return invalidCustomerInfo;
+        ArrayList<String> _invalidCustomerInfo = new ArrayList<String>();
+        _invalidCustomerInfo.add("customer");
+        _invalidCustomerInfo.add("invalid");
+        _invalidCustomerInfo.add("input");
+        _invalidCustomerInfo.add("length");
+        _invalidCustomerInfo.add("too");
+        _invalidCustomerInfo.add("many");
+        _invalidCustomerInfo.add("fields");
+        return _invalidCustomerInfo;
     }
 
 }

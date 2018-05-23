@@ -19,9 +19,8 @@ public class UserController {
      * Add user to the userDatabase
      * 
      * @param typeValues_
-     * 			  String needed to create the user
-     * @return _user 
-     * 			  User object to be used for logger
+     *            String needed to create the user
+     * @return _user User object to be used for logger
      * @throws BadUserException
      */
     public User createUser(ArrayList<String> typeValues_) throws BadUserException {
@@ -63,7 +62,7 @@ public class UserController {
                 return modifyCustomer(_userID, typeValues_);
             }
         }
-        
+
         // Something went wrong..
         throw new BadUserException();
     }
@@ -72,9 +71,9 @@ public class UserController {
      * Delete user from the database
      * 
      * @param typeValues
-     * 			  ArrayList of string that should contain userID
-     * @return userDatabase.remove(_userID)
-     * 			  Object to be removed, will be used for logger
+     *            ArrayList of string that should contain userID
+     * @return userDatabase.remove(_userID) Object to be removed, will be used for
+     *         logger
      * @throws BadUserException
      */
     public User deleteUser(ArrayList<String> typeValues_) throws BadUserException {
@@ -98,7 +97,7 @@ public class UserController {
      */
     public String getUserDatabaseAsString() {
         if (userDatabase.size() > 0) {
-            StringBuilder _result = new StringBuilder();
+            StringBuilder _result = new StringBuilder(System.lineSeparator());
 
             for (Map.Entry<Integer, User> _entry : userDatabase.entrySet()) {
 
@@ -116,30 +115,28 @@ public class UserController {
 
         return "";
     }
- 
+
     /**
      * Return the first available driver in the driverDatabase
      * 
-     * @return _currentDriver
-     * 			  The first available driver's info
+     * @return _currentDriver The first available driver's info
      */
-    public User getNextAvailableDriver()
-    {
-    	if (userDatabase.size() > 0) {
+    public User getNextAvailableDriver() {
+        if (userDatabase.size() > 0) {
             for (Map.Entry<Integer, User> _entry : userDatabase.entrySet()) {
                 User _currentUser = _entry.getValue();
-                
+
                 if (_currentUser instanceof Driver) {
                     Driver _currentDriver = (Driver) _currentUser;
-                    
-                    if(_currentDriver.getIsAvailable()) {
+
+                    if (_currentDriver.getIsAvailable()) {
                         _currentDriver.setIsAvailable(false);
-                    	return _currentDriver;
+                        return _currentDriver;
                     }
                 }
             }
-    	}
-    	return null;
+        }
+        return null;
     }
 
     public User getUserByID(int userID_) throws BadUserException{
@@ -157,7 +154,7 @@ public class UserController {
      * Private method to modify a specific driver from the database.
      * 
      * @param userID_
-     * 			  The userID to be modify
+     *            The userID to be modify
      * @param newValues_
      * 			  ArrayList of string that should contain FirstName, LastName,
      * 			  Sex, Age, isAvailable, Rating, and CarID to be modified
@@ -165,8 +162,8 @@ public class UserController {
      * 			  Object that contain new info of driver
      */
     private Driver modifyDriver(int userID_, ArrayList<String> newValues_) {
-     // TODO: Can't modify a driver to customer.
-        
+        // TODO: Can't modify a driver to customer.
+
         String _newFirstName = newValues_.get(2);
         String _newLastName = newValues_.get(3);
         String _newSex = newValues_.get(4);
@@ -174,10 +171,10 @@ public class UserController {
         Boolean _newIsAvailable = Boolean.parseBoolean(newValues_.get(6));
         int _newRating = Integer.parseInt(newValues_.get(7));
         int _newCarID = Integer.parseInt(newValues_.get(8));
-        
+
         User _modifiedUser = userDatabase.remove(userID_);
-        
-        Driver _newDriver = (Driver)_modifiedUser; // TODO: error handle this downcasting
+
+        Driver _newDriver = (Driver) _modifiedUser; // TODO: error handle this downcasting
         _newDriver.setFirstName(_newFirstName);
         _newDriver.setLastName(_newLastName);
         _newDriver.setSex(_newSex);
@@ -185,41 +182,40 @@ public class UserController {
         _newDriver.setIsAvailable(_newIsAvailable);
         _newDriver.setCarID(_newCarID);
         _newDriver.setRating(_newRating);
-        
+
         userDatabase.put(userID_, _newDriver);
-        
+
         return _newDriver;
     }
-    
+
     /**
      * Private method to modify a specific customer from the database.
      * 
      * @param userID_
-     * 			  The userID to be modify
+     *            The userID to be modify
      * @param newValues_
-     * 			  ArrayList of string that should contain FirstName, LastName,
-     * 			  Sex, Age
-     * @return _newCustomer
-     * 			  Object that contain new info of customer
+     *            ArrayList of string that should contain Firstname, Lastname, Sex,
+     *            Age
+     * @return _newCustomer Object that contain new info of customer
      */
     private Customer modifyCustomer(int userID_, ArrayList<String> newValues_) {
         // TODO: Can't modify a customer to driver.
-        
+
         String _newFirstName = newValues_.get(2);
         String _newLastName = newValues_.get(3);
         String _newSex = newValues_.get(4);
         int _newAge = Integer.parseInt(newValues_.get(5));
-        
+
         User _modifiedUser = userDatabase.remove(userID_);
-        
-        Customer _newCustomer = (Customer)_modifiedUser; // TODO: error handle this downcasting
+
+        Customer _newCustomer = (Customer) _modifiedUser; // TODO: error handle this downcasting
         _newCustomer.setFirstName(_newFirstName);
         _newCustomer.setLastName(_newLastName);
         _newCustomer.setSex(_newSex);
         _newCustomer.setAge(_newAge);
-        
+
         userDatabase.put(userID_, _newCustomer);
-        
+
         return _newCustomer;
     }
 }

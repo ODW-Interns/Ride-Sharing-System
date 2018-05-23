@@ -64,9 +64,9 @@ public class Pickup {
     public String toString() {
         return "PickupID: " + getPickupID() +
                " | Customer: " + pickupCustomer.getFirstName() + " " + pickupCustomer.getLastName() + " " 
-                               + "ID (" + pickupCustomer.getUserID() + ")" + 
+                               + "ID(" + pickupCustomer.getUserID() + ")" + 
                " | Driver: " + pickupDriver.getFirstName() + " " + pickupDriver.getLastName() + " "
-                             + "ID (" + pickupDriver.getUserID() + ")" +
+                             + "ID(" + pickupDriver.getUserID() + ")" +
                " | Origin (latitude, longitude): " + origin.toString() +
                " | Destination (latitude, longitude): " + destination.toString() +
                " | Total Cost: " + pickupCost.with(Monetary.getDefaultRounding()).toString();

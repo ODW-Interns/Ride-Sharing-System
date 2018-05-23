@@ -10,9 +10,11 @@ import org.junit.runners.Suite.SuiteClasses;
 @SuiteClasses({ EventParserTest.class,
                 CommandControllerTest.class,
                 CarControllerTest.class,
-                UserControllerTest.class,
                 CarFactoryTest.class,
-                UserFactoryTest.class })
+                UserControllerTest.class,
+                UserFactoryTest.class,
+                PickupControllerTest.class, 
+                PickupFactoryTest.class })
 /* @formatter:on */
 
 /**

@@ -58,6 +58,9 @@ public class PickupController {
         return current_;
     }
 
+    
+    
+    // DEPRECATED!
     /**
      * Modify Pickup's info in the database
      * 
@@ -68,7 +71,6 @@ public class PickupController {
      * @return _currentPickup Object to be used for logger
      * @throws BadPickupException
      */
-    // DEPRECATED!
     /*----------------------------------------------------------------------------------------------------
     public Pickup modifyPickup(ArrayList<String> typeValues_) throws BadPickupException {
         if (typeValues_.size() == RuntimeConstants.MODIFY_PICKUP_FORMAT.length) {
@@ -100,6 +102,9 @@ public class PickupController {
     }
     ----------------------------------------------------------------------------------------------------*/
 
+    
+    
+    // DEPRECATED!
     /**
      * Delete Pickup's info in the database
      * 
@@ -109,7 +114,6 @@ public class PickupController {
      *         for logger
      * @throws BadPickupException
      */
-    // DEPRECATED!
     /*----------------------------------------------------------------------------------------------------
     public Pickup deletePickup(ArrayList<String> typeValues_) throws BadPickupException {
         if (typeValues_.size() == RuntimeConstants.DELETE_PICKUP_FORMAT.length) {

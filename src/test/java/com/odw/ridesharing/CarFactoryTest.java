@@ -23,6 +23,8 @@ public class CarFactoryTest {
     public void testCreateCar() {
         CarFactory _carFactory = new CarFactory();
         
+        // ---------------------------------------------
+        // Creating a valid coupe.
         ArrayList<String> _coupeCarInfo = new ArrayList<String>();
         _coupeCarInfo.add("coupe");
         _coupeCarInfo.add("toyota");
@@ -32,6 +34,8 @@ public class CarFactoryTest {
         Car _coupe = _carFactory.createCar(_coupeCarInfo);
         assertTrue(_coupe instanceof Coupe);
         
+        // ---------------------------------------------
+        // Creating a valid sedan.
         ArrayList<String> _sedanCarInfo = new ArrayList<String>();
         _sedanCarInfo.add("sedan");
         _sedanCarInfo.add("ford");
@@ -41,6 +45,8 @@ public class CarFactoryTest {
         Car _sedan = _carFactory.createCar(_sedanCarInfo);
         assertTrue(_sedan instanceof Sedan);
         
+        // ---------------------------------------------
+        // Creating a valid suv.
         ArrayList<String> _suvCarInfo = new ArrayList<String>();
         _suvCarInfo.add("suv");
         _suvCarInfo.add("cadillac");
@@ -50,6 +56,8 @@ public class CarFactoryTest {
         Car _suv = _carFactory.createCar(_suvCarInfo);
         assertTrue(_suv instanceof Suv);
         
+        // ---------------------------------------------
+        // Creating a invalid car.
         ArrayList<String> _invalidCarInfo = new ArrayList<String>();
         _invalidCarInfo.add("unknown");
         _invalidCarInfo.add("must");

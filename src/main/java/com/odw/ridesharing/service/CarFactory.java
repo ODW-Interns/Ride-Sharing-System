@@ -27,12 +27,15 @@ public class CarFactory {
      */
 
     public Car createCar(ArrayList<String> typeValues_) {
+        
+        // store the values from ArrayList
         String _carType = typeValues_.get(0);
         String _make = typeValues_.get(1);
         String _model = typeValues_.get(2);
         String _color = typeValues_.get(3);
         int _year = Integer.parseInt(typeValues_.get(4));
 
+        // create a Car object based off of its carType
         switch (_carType) {
         case RuntimeConstants.COUPE:
             return new Coupe(nextCarID++, _make, _model, _color, _year);

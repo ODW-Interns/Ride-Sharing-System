@@ -12,43 +12,42 @@ import com.odw.ridesharing.service.UserFactory;
 
 public class UserFactoryTest {
     
-    UserFactory userFactory = new UserFactory();
-    
     /**
      * Tests UserFactory's createUser method. Ensures that the proper concrete user is
      * being generated. Note that the assumption for this method is that the
      * ArrayList is equal to the predetermined event type values size.
      */
-
     @Test
     public void testCreateUser() {
-        ArrayList<String> customerUserInfo = new ArrayList<String>();
-        customerUserInfo.add("customer");
-        customerUserInfo.add("miley");
-        customerUserInfo.add("cyrus");
-        customerUserInfo.add("female");
-        customerUserInfo.add("25");
-        User customer = userFactory.createUser(customerUserInfo);
-        assertTrue(customer instanceof Customer);
+        UserFactory _userFactory = new UserFactory();
         
-        ArrayList<String> driverUserInfo = new ArrayList<String>();
-        driverUserInfo.add("driver");
-        driverUserInfo.add("wesley");
-        driverUserInfo.add("dong");
-        driverUserInfo.add("male");
-        driverUserInfo.add("23");
-        driverUserInfo.add("true");
-        driverUserInfo.add("3");
-        User driver = userFactory.createUser(driverUserInfo);
-        assertTrue(driver instanceof Driver);
+        ArrayList<String> _customerUserInfo = new ArrayList<String>();
+        _customerUserInfo.add("customer");
+        _customerUserInfo.add("miley");
+        _customerUserInfo.add("cyrus");
+        _customerUserInfo.add("female");
+        _customerUserInfo.add("25");
+        User _customer = _userFactory.createUser(_customerUserInfo);
+        assertTrue(_customer instanceof Customer);
         
-        ArrayList<String> invalidUserInfo = new ArrayList<String>();
-        invalidUserInfo.add("unknown");
-        invalidUserInfo.add("must");
-        invalidUserInfo.add("be");
-        invalidUserInfo.add("length");
-        invalidUserInfo.add("5");
-        User unknown = userFactory.createUser(invalidUserInfo);
-        assertNull(unknown);
+        ArrayList<String> _driverUserInfo = new ArrayList<String>();
+        _driverUserInfo.add("driver");
+        _driverUserInfo.add("wesley");
+        _driverUserInfo.add("dong");
+        _driverUserInfo.add("male");
+        _driverUserInfo.add("23");
+        _driverUserInfo.add("true");
+        _driverUserInfo.add("3");
+        User _driver = _userFactory.createUser(_driverUserInfo);
+        assertTrue(_driver instanceof Driver);
+        
+        ArrayList<String> _invalidUserInfo = new ArrayList<String>();
+        _invalidUserInfo.add("unknown");
+        _invalidUserInfo.add("must");
+        _invalidUserInfo.add("be");
+        _invalidUserInfo.add("length");
+        _invalidUserInfo.add("5");
+        User _unknown = _userFactory.createUser(_invalidUserInfo);
+        assertNull(_unknown);
     }
 }

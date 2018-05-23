@@ -8,18 +8,19 @@ import com.odw.ridesharing.service.CommandController;
 
 public class CommandControllerTest {
 
-    CommandController commandController = new CommandController();
-
     /**
-     * Tests CommandController's processFile method. Does not check it see if
-     * everything was processed correctly. Only tests file and exception handling.
+     * Tests CommandController's processFile method. Takes the given input file,
+     * processes it, and logs it to console and the specified log file in
+     * log4j.properties.
      */
     @Test
     public void testProcessFile() {
+        CommandController _commandController = new CommandController();
+
         String _fileName = "src/main/resources/input.txt";
         String _delimiter = "|";
 
-        commandController.processFile(_fileName, _delimiter);
+        _commandController.processFile(_fileName, _delimiter);
 
         // File found and read with no exceptions.
         assertTrue(true); // See logger file to determine validity.

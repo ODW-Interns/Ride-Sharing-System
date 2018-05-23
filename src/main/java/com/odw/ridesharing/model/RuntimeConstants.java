@@ -19,6 +19,8 @@ public class RuntimeConstants {
     public static final String SEDAN = "sedan";
     public static final String SUV = "suv";
 
+    // Money Stuff
+    public static final String CURRENCY_CODE = "USD"; 
     public static final double CHARGE_RATE_PER_MILE = 1.25d;
     public static final double FLAT_RATE_FEE = 5.d;
     

@@ -116,6 +116,29 @@ public class UserController {
 
         return "";
     }
+ 
+    /**
+     * Return the first available driver in the driverDatabase
+     * 
+     * @return _currentDriver
+     * 			  The first available driver's info
+     */
+    public User getNextAvailableDriver()
+    {
+    	if (userDatabase.size() > 0) {
+            for (Map.Entry<Integer, User> _entry : userDatabase.entrySet()) {
+                User _currentUser = _entry.getValue();
+                
+                if (_currentUser instanceof Driver) {
+                    Driver _currentDriver = (Driver) _currentUser;
+                    
+                    if(_currentDriver.getIsAvailable())
+                    	return _currentDriver;
+                }
+            }
+    	}
+    	return null;
+    }
 
     /**
      * Private method to modify a specific driver from the database.

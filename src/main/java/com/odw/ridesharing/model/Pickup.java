@@ -13,9 +13,11 @@ public class Pickup {
     private Location origin;
     private Location destination;
     private MonetaryAmount pickupCost;
+    private String driverFirstName;
+    private String driverLastName;
 
     public Pickup() {
-        this(-1, -1, -1, new Location(), new Location());
+        this(-1, -1, new Location(), new Location(), -1, "", "");
     }
 
     /**
@@ -38,13 +40,16 @@ public class Pickup {
      * @param destination_
      *            the destination location in longitude and latitude
      */
-    public Pickup(int idx_, int customerID_, int driverID_, Location origin_, Location destination_) {
+    public Pickup(int idx_, int customerID_, Location origin_, Location destination_, int driverID_,
+            String driverFirstName_, String driverLastName_) {
         setPickupID(idx_);
         setCustomerID(customerID_);
-        setDriverID(driverID_);
         setOrigin(origin_);
         setDestination(destination_);
-        
+        setDriverID(driverID_);
+        setDriverFirstName(driverFirstName_);
+        setDriverLastName(driverLastName_);
+
         pickupCost = Money.of(0.d, RuntimeConstants.CURRENCY_CODE);
     }
 
@@ -97,7 +102,7 @@ public class Pickup {
      * Get the unique ID of the pickup.
      * 
      * @param pickupID_
-     *            The new ID for the pickup to be set to.
+     *            pickupID_ The new ID for the pickup to be set to.
      */
     public void setPickupID(int pickupID_) {
         pickupID = pickupID_;
@@ -115,8 +120,8 @@ public class Pickup {
     /**
      * Set the ID of the driver
      * 
-     * @param The
-     *            new ID of the driver to be set
+     * @param driverID_
+     *            The new ID of the driver to be set
      */
     public void setDriverID(int driverID_) {
         driverID = driverID_;
@@ -134,8 +139,8 @@ public class Pickup {
     /**
      * Set the ID of the customer
      * 
-     * @param The
-     *            new ID of the customer to be set
+     * @param customerID_
+     *            The new ID of the customer to be set
      */
     public void setCustomerID(int customerID_) {
         customerID = customerID_;
@@ -153,8 +158,8 @@ public class Pickup {
     /**
      * Set the x and y coordinates of the starting location for the Pickup
      * 
-     * @param The
-     *            new origin of the Pickup to be set
+     * @param origin_
+     *            The new origin of the Pickup to be set
      */
     public void setOrigin(Location origin_) {
         origin = origin_;
@@ -172,10 +177,47 @@ public class Pickup {
     /**
      * Set the x and y coordinates of the ending location for the Pickup
      * 
-     * @param The
-     *            new end location of the Pickup to be set
+     * @param destination_
+     *            The new end location of the Pickup to be set
      */
     public void setDestination(Location destination_) {
         destination = destination_;
     }
+
+    /**
+     * Get the first name of the driver
+     * 
+     * @return The first name of the driver to be executed
+     */
+    public String getDriverFirstName() {
+        return driverFirstName;
+    }
+
+    /**
+     * Set the first name of the driver
+     * 
+     * @param driverFirstName_
+     */
+    public void setDriverFirstName(String driverFirstName_) {
+        driverFirstName = driverFirstName_;
+    }
+
+    /**
+     * Get the last name of the driver
+     * 
+     * @return
+     */
+    public String getDriverLastName() {
+        return driverLastName;
+    }
+
+    /**
+     * Set the last name of the driver
+     * 
+     * @param driverLastName_
+     */
+    public void setDriverLastName(String driverLastName_) {
+        driverLastName = driverLastName_;
+    }
+
 }

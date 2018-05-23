@@ -3,6 +3,7 @@ package com.odw.ridesharing.service;
 import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.odw.ridesharing.model.Driver;
 import com.odw.ridesharing.model.Location;
 import com.odw.ridesharing.model.Pickup;
 import com.odw.ridesharing.model.RuntimeConstants;
@@ -22,8 +23,13 @@ public class PickupController {
 	  * 			  pickup object to be used for logger
 	  * @throws BadPickupException
 	  */
-    public Pickup createPickup(ArrayList<String> typeValues_) throws BadPickupException {
+    public Pickup createPickup(ArrayList<String> typeValues_, Driver driver_) throws BadPickupException {
         if (typeValues_.size() == RuntimeConstants.CREATE_PICKUP_FORMAT.length) {
+            // Add the driver information to the ArrayList
+            typeValues_.add(Integer.toString(driver_.getUserID()));
+            typeValues_.add(driver_.getFirstName());
+            typeValues_.add(driver_.getLastName());
+            
             Pickup _pickup = schedule(pickupFactory.createPickup(typeValues_));
             pickupDatabase.put(_pickup.getPickupID(), _pickup);
             return _pickup;

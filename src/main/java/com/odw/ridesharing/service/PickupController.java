@@ -1,8 +1,10 @@
 package com.odw.ridesharing.service;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.odw.ridesharing.model.Car;
 import com.odw.ridesharing.model.Location;
 import com.odw.ridesharing.model.Pickup;
 import com.odw.ridesharing.model.RuntimeConstants;
@@ -123,4 +125,25 @@ public class PickupController {
         throw new BadPickupException();
     }
     ----------------------------------------------------------------------------------------------------*/
+    
+    /**
+     * Returns a string of all the pickup in pickupDatabase.
+     * 
+     * @return A list string of all the pickup in the database
+     */
+    public String getPickupHistoryAsString() {
+        if (pickupDatabase.size() > 0) {
+            StringBuilder _result = new StringBuilder(System.lineSeparator());
+
+            for (Map.Entry<Integer, Pickup> _entry : pickupDatabase.entrySet()) {
+                Pickup _currentPickup= _entry.getValue();
+
+                _result.append(_currentPickup.toString() + System.lineSeparator());
+            }
+
+            return _result.toString();
+        }
+
+        return "";
+    }
 }

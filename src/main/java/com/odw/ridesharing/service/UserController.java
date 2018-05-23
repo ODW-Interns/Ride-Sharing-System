@@ -93,7 +93,7 @@ public class UserController {
     /**
      * Returns a string of all the users in userDatabase.
      * 
-     * @return A list string of all the cars currently in inventory.
+     * @return A list string of all the users currently in database.
      */
     public String getUserDatabaseAsString() {
         if (userDatabase.size() > 0) {
@@ -139,6 +139,16 @@ public class UserController {
         return null;
     }
 
+    /**
+     * Search the user database for the driver/customer based on 
+     * the given ID, then return it
+     * 
+     * @param userID_ 
+     *            userID needed to search the database
+     * @return userDatabase.get(userID_)
+     *            return the user object
+     * @throws BadUserException
+     */
     public User getUserByID(int userID_) throws BadUserException{
         
         try {

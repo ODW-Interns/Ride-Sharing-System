@@ -8,6 +8,8 @@ import org.junit.Test;
 
 import com.odw.ridesharing.model.Customer;
 import com.odw.ridesharing.model.Driver;
+import com.odw.ridesharing.model.Location;
+import com.odw.ridesharing.model.Pickup;
 import com.odw.ridesharing.model.exceptions.BadCarException;
 import com.odw.ridesharing.model.exceptions.BadPickupException;
 import com.odw.ridesharing.model.exceptions.BadUserException;
@@ -16,7 +18,6 @@ import com.odw.ridesharing.service.PickupController;
 import com.odw.ridesharing.service.UserController;
 
 public class PickupControllerTest {
-
     
 	@Test
 	public void testCreatePickup() {
@@ -25,6 +26,7 @@ public class PickupControllerTest {
 		PickupController pickupController = new PickupController();
 		Customer customer = new Customer();
 		Driver driver = new Driver();
+		Pickup pickup = new Pickup();
 
 		ArrayList<String> coupeCarInfo = new ArrayList<String>();
 		coupeCarInfo.add("coupe");
@@ -72,7 +74,9 @@ public class PickupControllerTest {
 		pickupInfo.add("-115.1412292");
 
 		try {
-			pickupController.createPickup(pickupInfo, customer, driver);
+			pickup = pickupController.createPickup(pickupInfo, customer, driver);
+			// check to see if schedule() is correct
+			assertEquals(12.5 , pickup.getPickupCost(), 0.01d);
 		} catch (BadPickupException e_) {
 			fail("Error creating a valid pickup.");
 		}
@@ -90,6 +94,7 @@ public class PickupControllerTest {
 			assertTrue(true);
 		}
 	}
+	
 /*
 	@Test
 	public void testModifyPickup() {

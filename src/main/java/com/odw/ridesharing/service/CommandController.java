@@ -46,6 +46,7 @@ public class CommandController {
             // SUCCESS!
             logger.debug("FINAL CAR INVENTORY:" + carController.getCarInventoryAsString());
             logger.debug("FINAL USER DATABASE:" + userController.getUserDatabaseAsString());
+            logger.debug("PICKUP HISTORY:" + pickupController.getPickupHistoryAsString());
         } catch (FileNotFoundException e_) {
             logger.error("Could not find the specified file.");
         } catch (IOException e_) {

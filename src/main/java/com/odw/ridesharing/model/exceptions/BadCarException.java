@@ -10,7 +10,8 @@ public class BadCarException extends Exception {
     /**
      *
      */
-    public BadCarException() {}
+    public BadCarException() {
+    }
 
     /**
      *

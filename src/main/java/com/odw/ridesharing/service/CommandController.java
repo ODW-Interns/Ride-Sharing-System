@@ -26,13 +26,21 @@ import com.odw.ridesharing.model.exceptions.InvalidUserArgumentsException;
 
 public class CommandController {
 
-    // TODO: Document
-
     private CarController carController = new CarController();
     private UserController userController = new UserController();
     private PickupController pickupController = new PickupController();
     private Logger logger = LoggerFactory.getLogger(getClass().getSimpleName());
 
+    /**
+     * Processes a file line-by-line by parsing each line into an event and
+     * performing each event. Can be considered as the application's "starting
+     * point".
+     * 
+     * @param fileName_
+     *            The file name and path to process.
+     * @param delimiter_
+     *            The delimiter used in the file to separate values.
+     */
     public void processFile(String fileName_, String delimiter_) {
         EventParser _eventParser = new EventParser();
 
@@ -59,6 +67,12 @@ public class CommandController {
         /* @formatter:on */
     }
 
+    /**
+     * Helper function for processFile. Decodes the current event's command.
+     * 
+     * @param newEvent_
+     *            The current event to be decoded
+     */
     private void processEvent(Event newEvent_) {
         switch (newEvent_.getCommand()) {
             case RuntimeConstants.CREATE:
@@ -76,6 +90,12 @@ public class CommandController {
         }
     }
 
+    /**
+     * Helper function for processEvent. Decodes the input type to create.
+     * 
+     * @param event_
+     *            The current event to be decoded.
+     */
     private void create(Event event_) {
         switch (event_.getInputType()) {
             case RuntimeConstants.CAR: {
@@ -112,7 +132,7 @@ public class CommandController {
                     logger.error("There was a problem with creating pickup: " + event_.typeValuesToString("|"));
                 } catch (BadCustomerException e_) {
                     // TODO
-                        // BadUserException
+                    // BadUserException
                 }
                 break;
             }
@@ -122,6 +142,12 @@ public class CommandController {
         }
     }
 
+    /**
+     * Helper function for processEvent. Decodes the input type to modify.
+     * 
+     * @param event_
+     *            The current event to be decoded.
+     */
     private void modify(Event event_) {
         switch (event_.getInputType()) {
             case RuntimeConstants.CAR: {
@@ -131,7 +157,7 @@ public class CommandController {
                 } catch (BadCarException e_) {
                     logger.error("There was a problem with modifying car: " + event_.typeValuesToString("|"));
                 } catch (InvalidCarArgumentsException e_) {
-                    logger.error("There was a problem with modifying car: " + event_.typeValuesToString("l"));
+                    logger.error("There was a problem with modifying car: " + event_.typeValuesToString("|"));
                 }
                 break;
             }
@@ -142,9 +168,9 @@ public class CommandController {
                 } catch (BadCustomerException e_) {
                     logger.error("There was a problem with modifying customer; customer does not exist: "
                             + event_.typeValuesToString("|"));
-                }catch (BadDriverException e_) {
-                    logger.error(
-                            "There was a problem with modifying driver; driver does not exist: " + event_.typeValuesToString("|"));
+                } catch (BadDriverException e_) {
+                    logger.error("There was a problem with modifying driver; driver does not exist: "
+                            + event_.typeValuesToString("|"));
                 } catch (InvalidUserArgumentsException e_) {
                     logger.error(
                             "The argument passed are not valid; unable to add user: " + event_.typeValuesToString("|"));
@@ -169,6 +195,12 @@ public class CommandController {
         }
     }
 
+    /**
+     * Helper function for processEvent. Decodes the input type to delete.
+     * 
+     * @param event_
+     *            The current event to be decoded.
+     */
     private void delete(Event event_) {
         switch (event_.getInputType()) {
             case RuntimeConstants.CAR: {

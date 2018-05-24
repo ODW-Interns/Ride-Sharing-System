@@ -103,7 +103,7 @@ public class CommandController {
                     Car _addedCar = carController.createCar(event_.getTypeValues());
                     logger.debug("CREATED CAR: " + _addedCar.toString());
                 } catch (InvalidCarArgumentsException e_) {
-                    logger.error("There was a problem with adding car: " + event_.typeValuesToString("|"));
+                    logger.error("There was a problem with adding car: " + event_.typeValuesToString());
                 }
                 break;
             }
@@ -113,7 +113,7 @@ public class CommandController {
                     logger.debug("CREATED USER: " + _addedUser.toString());
                 } catch (InvalidUserArgumentsException e_) {
                     logger.error(
-                            "The argument passed are not valid; unable to add user: " + event_.typeValuesToString("|"));
+                            "The argument passed are not valid; unable to add user: " + event_.typeValuesToString());
                 }
                 break;
             }
@@ -129,7 +129,7 @@ public class CommandController {
                             _scheduledDriver);
                     logger.debug("CREATED PICKUP: " + _addedPickup.toString());
                 } catch (InvalidPickupArgumentsException e_) {
-                    logger.error("There was a problem with creating pickup: " + event_.typeValuesToString("|"));
+                    logger.error("There was a problem with creating pickup: " + event_.typeValuesToString());
                 } catch (BadCustomerException e_) {
                     // TODO
                     // BadUserException
@@ -155,9 +155,9 @@ public class CommandController {
                     Car modifiedCar = carController.modifyCar(event_.getTypeValues());
                     logger.debug("MODIFIED CAR: " + modifiedCar.toString());
                 } catch (BadCarException e_) {
-                    logger.error("There was a problem with modifying car: " + event_.typeValuesToString("|"));
+                    logger.error("There was a problem with modifying car: " + event_.typeValuesToString());
                 } catch (InvalidCarArgumentsException e_) {
-                    logger.error("There was a problem with modifying car: " + event_.typeValuesToString("|"));
+                    logger.error("There was a problem with modifying car: " + event_.typeValuesToString());
                 }
                 break;
             }
@@ -173,7 +173,7 @@ public class CommandController {
                             + event_.typeValuesToString("|"));
                 } catch (InvalidUserArgumentsException e_) {
                     logger.error(
-                            "The argument passed are not valid; unable to add user: " + event_.typeValuesToString("|"));
+                            "The argument passed are not valid; unable to add user: " + event_.typeValuesToString());
                 }
                 break;
             }
@@ -208,7 +208,7 @@ public class CommandController {
                     Car deletedCar = carController.deleteCar(event_.getTypeValues());
                     logger.debug("DELETED CAR: " + deletedCar.toString());
                 } catch (BadCarException e_) {
-                    logger.error("There was a problem deleting car: " + event_.typeValuesToString("|"));
+                    logger.error("There was a problem deleting car: " + event_.typeValuesToString());
                 }
                 break;
             }
@@ -217,7 +217,7 @@ public class CommandController {
                     User _deletedUser = userController.deleteUser(event_.getTypeValues());
                     logger.debug("DELETED USER: " + _deletedUser.toString());
                 } catch (BadUserException e_) {
-                    logger.error("There was a problem deleting user: " + event_.typeValuesToString("|"));
+                    logger.error("There was a problem deleting user: " + event_.typeValuesToString());
                 }
                 break;
             }

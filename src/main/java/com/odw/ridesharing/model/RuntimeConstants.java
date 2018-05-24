@@ -24,12 +24,14 @@ public class RuntimeConstants {
     public static final double CHARGE_RATE_PER_MILE = 1.25d;
     public static final double FLAT_RATE_FEE = 5.d;
 
+    // The minimum event instruction length needed to process an event.
+    public static final int MINIMUM_EVENT_LENGTH = 3;
+    
     // -- Predetermined Input Formats (Excludes COMMAND and INPUT_TYPES) --
     // Mainly used for checking input lengths. However, it can be expanded to be
     // used for other things. Can be used as a reference for when creating input.
     // This way our system knows how we expect our input.
     /* @formatter:off */
-    public static final int MINIMUM_EVENT_LENGTH = 3;
     
     public static final String[] CREATE_CAR_FORMAT = new String[] { 
             "CAR_TYPE (STRING)",

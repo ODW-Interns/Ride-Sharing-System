@@ -166,7 +166,7 @@ public class CommandController {
                             + event_.typeValuesToString("|"));
                 } catch (InvalidUserArgumentsException e_) {
                     logger.error(
-                            "The argument passed are not valid; unable to add user: " + event_.typeValuesToString());
+                            "The argument passed are not valid; unable to modify user: " + event_.typeValuesToString());
                 }
                 break;
             }

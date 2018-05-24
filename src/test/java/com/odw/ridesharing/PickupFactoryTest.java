@@ -9,7 +9,6 @@ import org.junit.Test;
 import com.odw.ridesharing.model.Customer;
 import com.odw.ridesharing.model.Driver;
 import com.odw.ridesharing.model.Pickup;
-import com.odw.ridesharing.model.RuntimeConstants;
 import com.odw.ridesharing.service.PickupFactory;
 
 public class PickupFactoryTest {
@@ -30,22 +29,28 @@ public class PickupFactoryTest {
         _pickupValues.add("-115.13841919999999");
         _pickupValues.add("36.0041386");
         _pickupValues.add("-115.1412292");
-        Pickup _firstPickup = _pickupFactory.createPickup(_pickupValues, _customer, _driver);
+        try {
+            Pickup _firstPickup = _pickupFactory.createPickup(_pickupValues, _customer, _driver);
+                    
+            assertEquals(_firstPickup.getPickupID(), 0);
+            
+            assertEquals(_firstPickup.getDriver().getUserID(), 1);
+            assertEquals(_firstPickup.getDriver().getFirstName(), "Mark");
+            assertEquals(_firstPickup.getDriver().getLastName(), "Constantine");
+            assertEquals(_firstPickup.getDriver().getSex(), "Male");
+            assertEquals(_firstPickup.getDriver().getAge(), 21);
+            assertEquals(_firstPickup.getDriver().getCarID(), 50);
+            
+            assertEquals(_firstPickup.getCustomer().getUserID(), 0);
+            assertEquals(_firstPickup.getCustomer().getFirstName(), "Wesley");
+            assertEquals(_firstPickup.getCustomer().getLastName(), "Dong");
+            assertEquals(_firstPickup.getCustomer().getSex(), "Female");
+            assertEquals(_firstPickup.getCustomer().getAge(), 23);
+        } catch (Exception e_) {
+            fail("Error creating a valid pickup");
+        }
         
-        assertEquals(_firstPickup.getPickupID(), 0);
         
-        assertEquals(_firstPickup.getDriver().getUserID(), 1);
-        assertEquals(_firstPickup.getDriver().getFirstName(), "Mark");
-        assertEquals(_firstPickup.getDriver().getLastName(), "Constantine");
-        assertEquals(_firstPickup.getDriver().getSex(), "Male");
-        assertEquals(_firstPickup.getDriver().getAge(), 21);
-        assertEquals(_firstPickup.getDriver().getCarID(), 50);
-        
-        assertEquals(_firstPickup.getCustomer().getUserID(), 0);
-        assertEquals(_firstPickup.getCustomer().getFirstName(), "Wesley");
-        assertEquals(_firstPickup.getCustomer().getLastName(), "Dong");
-        assertEquals(_firstPickup.getCustomer().getSex(), "Female");
-        assertEquals(_firstPickup.getCustomer().getAge(), 23);
     }
 
 }

@@ -6,6 +6,7 @@ import com.odw.ridesharing.model.Customer;
 import com.odw.ridesharing.model.Driver;
 import com.odw.ridesharing.model.RuntimeConstants;
 import com.odw.ridesharing.model.User;
+import com.odw.ridesharing.model.exceptions.InvalidUserArgumentsException;
 
 public class UserFactory {
 
@@ -25,26 +26,35 @@ public class UserFactory {
      * @return
      */
     /* @formatter:on */
-    public User createUser(ArrayList<String> typeValues_) {
+    public User createUser(ArrayList<String> typeValues_) throws InvalidUserArgumentsException {
 
-        // store the values from ArrayList
-        String _userType = typeValues_.get(0);
-        String _firstName = typeValues_.get(1);
-        String _lastName = typeValues_.get(2);
-        String _sex = typeValues_.get(3);
-        int _age = Integer.parseInt(typeValues_.get(4));
+        if (typeValues_.size() == RuntimeConstants.CREATE_USER_FORMAT.length) {
+            try {
+                // store the values from ArrayList
+                String _userType = typeValues_.get(0);
+                String _firstName = typeValues_.get(1);
+                String _lastName = typeValues_.get(2);
+                String _sex = typeValues_.get(3);
+                int _age = Integer.parseInt(typeValues_.get(4));
 
-        // create a User object based off of its userType
-        // Driver changed to instantiating rating and isAvailable in class constructor
-        switch (_userType) {
-            case RuntimeConstants.CUSTOMER:
-                return new Customer(nextUserID++, _firstName, _lastName, _sex, _age);
-            case RuntimeConstants.DRIVER:
-                return new Driver(nextUserID++, _firstName, _lastName, _sex, _age);
-            default:
-                return null;
+                // create a User object based off of its userType
+                // Driver changed to instantiating rating and isAvailable in class constructor
+                switch (_userType) {
+                    case RuntimeConstants.CUSTOMER:
+                        return new Customer(nextUserID++, _firstName, _lastName, _sex, _age);
+                    case RuntimeConstants.DRIVER:
+                        return new Driver(nextUserID++, _firstName, _lastName, _sex, _age);
+                    default:
+                        return null;
+                }
+            } catch (NullPointerException e_) {
+                throw new InvalidUserArgumentsException();
+            } catch (NumberFormatException e_) {
+                throw new InvalidUserArgumentsException();
+            }
+
         }
-
+        throw new InvalidUserArgumentsException();
     }
 
 }

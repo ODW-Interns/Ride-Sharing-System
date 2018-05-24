@@ -19,6 +19,9 @@ import com.odw.ridesharing.model.User;
 import com.odw.ridesharing.model.exceptions.BadCarException;
 import com.odw.ridesharing.model.exceptions.BadPickupException;
 import com.odw.ridesharing.model.exceptions.BadUserException;
+import com.odw.ridesharing.model.exceptions.BadCustomerException;
+import com.odw.ridesharing.model.exceptions.BadDriverException;
+import com.odw.ridesharing.model.exceptions.InvalidUserArgumentsException;
 
 public class CommandController {
 
@@ -87,23 +90,26 @@ public class CommandController {
                 try {
                     User _addedUser = userController.createUser(event_.getTypeValues());
                     logger.debug("CREATED USER: " + _addedUser.toString());
-                } catch (BadUserException e_) {
-                    logger.error("There was a problem with creating user: " + event_.typeValuesToString("|"));
+                } catch (InvalidUserArgumentsException e_) {
+                    logger.error(
+                            "The argument passed are not valid; unable to add user: " + event_.typeValuesToString("|"));
                 }
                 break;
             }
             case RuntimeConstants.PICKUP: {
                 try {
                     int _customerID = Integer.parseInt(event_.getTypeValues().get(0));
-                    Customer _pickupCustomer = (Customer)userController.getUserByID(_customerID); // TODO error handle this downcast.
-                    Driver _scheduledDriver = (Driver)userController.getNextAvailableDriver(); // TODO error handle this downcast.
-                    Pickup _addedPickup = pickupController.createPickup(event_.getTypeValues(),
-                                                                        _pickupCustomer,
-                                                                        _scheduledDriver);
+                    Customer _pickupCustomer = (Customer) userController.getCustomerByID(_customerID); // TODO error
+                                                                                                       // handle
+                    // this downcast.
+                    Driver _scheduledDriver = (Driver) userController.getNextAvailableDriver(); // TODO error handle
+                                                                                                // this downcast.
+                    Pickup _addedPickup = pickupController.createPickup(event_.getTypeValues(), _pickupCustomer,
+                            _scheduledDriver);
                     logger.debug("CREATED PICKUP: " + _addedPickup.toString());
                 } catch (BadPickupException e_) {
                     logger.error("There was a problem with creating pickup: " + event_.typeValuesToString("|"));
-                } catch (BadUserException e_) {
+                } catch (BadCustomerException e_) {
                     // TODO
                 }
                 break;
@@ -129,26 +135,30 @@ public class CommandController {
                 try {
                     User modifiedUser = userController.modifyUser(event_.getTypeValues());
                     logger.debug("MODIFIED USER: " + modifiedUser.toString());
-                } catch (BadUserException e_) {
-                    logger.error("There was a problem with modifying user: " + event_.typeValuesToString("|"));
+                } catch (BadCustomerException e_) {
+                    logger.error("There was a problem with modifying customer; customer does not exist: "
+                            + event_.typeValuesToString("|"));
+                }catch (BadDriverException e_) {
+                    logger.error(
+                            "There was a problem with modifying driver; driver does not exist: " + event_.typeValuesToString("|"));
+                } catch (InvalidUserArgumentsException e_) {
+                    logger.error(
+                            "The argument passed are not valid; unable to add user: " + event_.typeValuesToString("|"));
                 }
                 break;
             }
-            
+
             // ----- DEPRECATED! -----
             /*
-            case RuntimeConstants.PICKUP: {
-                try {
-                    Pickup modifiedPickup = pickupController.modifyPickup(event_.getTypeValues());
-                    logger.debug("MODIFIED PICKUP: " + modifiedPickup.toString());
-                } catch (BadPickupException e_) {
-                    logger.error("There was a problem with modifying pickup: " + event_.typeValuesToString("|"));
-                }
-                break;
-            }
-            */
+             * case RuntimeConstants.PICKUP: { try { Pickup modifiedPickup =
+             * pickupController.modifyPickup(event_.getTypeValues());
+             * logger.debug("MODIFIED PICKUP: " + modifiedPickup.toString()); } catch
+             * (BadPickupException e_) {
+             * logger.error("There was a problem with modifying pickup: " +
+             * event_.typeValuesToString("|")); } break; }
+             */
             // -----------------------
-            
+
             default:
                 logger.error("Error: Invalid input type.");
                 break;
@@ -175,21 +185,18 @@ public class CommandController {
                 }
                 break;
             }
-            
+
             // ----- DEPRECATED! -----
             /*
-            case RuntimeConstants.PICKUP: {
-                try {
-                    Pickup deletedPickup = pickupController.deletePickup(event_.getTypeValues());
-                    logger.debug("DELETED PICKUP: " + deletedPickup.toString());
-                } catch (BadPickupException e_) {
-                    logger.error("There was a problem with deleting pickup: " + event_.typeValuesToString("|"));
-                }
-                break;
-            }
-            */
+             * case RuntimeConstants.PICKUP: { try { Pickup deletedPickup =
+             * pickupController.deletePickup(event_.getTypeValues());
+             * logger.debug("DELETED PICKUP: " + deletedPickup.toString()); } catch
+             * (BadPickupException e_) {
+             * logger.error("There was a problem with deleting pickup: " +
+             * event_.typeValuesToString("|")); } break; }
+             */
             // -----------------------
-            
+
             default:
                 logger.error("Error: Invalid input type.");
                 break;

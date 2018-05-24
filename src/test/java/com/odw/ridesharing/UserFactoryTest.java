@@ -8,6 +8,7 @@ import org.junit.Test;
 import com.odw.ridesharing.model.Customer;
 import com.odw.ridesharing.model.Driver;
 import com.odw.ridesharing.model.User;
+import com.odw.ridesharing.model.exceptions.InvalidUserArgumentsException;
 import com.odw.ridesharing.service.UserFactory;
 
 public class UserFactoryTest {
@@ -16,9 +17,10 @@ public class UserFactoryTest {
      * Tests UserFactory's createUser method. Ensures that the proper concrete user is
      * being generated. Note that the assumption for this method is that the
      * ArrayList is equal to the predetermined event type values size.
+     * @throws InvalidUserArgumentsException 
      */
     @Test
-    public void testCreateUser() {
+    public void testCreateUser() throws InvalidUserArgumentsException {
         UserFactory _userFactory = new UserFactory();
         
         ArrayList<String> _customerUserInfo = new ArrayList<String>();
@@ -36,8 +38,7 @@ public class UserFactoryTest {
         _driverUserInfo.add("dong");
         _driverUserInfo.add("male");
         _driverUserInfo.add("23");
-        _driverUserInfo.add("true");
-        _driverUserInfo.add("3");
+ 
         User _driver = _userFactory.createUser(_driverUserInfo);
         assertTrue(_driver instanceof Driver);
         

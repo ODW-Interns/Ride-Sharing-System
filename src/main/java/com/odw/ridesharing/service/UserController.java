@@ -8,7 +8,10 @@ import com.odw.ridesharing.model.Customer;
 import com.odw.ridesharing.model.Driver;
 import com.odw.ridesharing.model.RuntimeConstants;
 import com.odw.ridesharing.model.User;
+import com.odw.ridesharing.model.exceptions.BadCustomerException;
+import com.odw.ridesharing.model.exceptions.BadDriverException;
 import com.odw.ridesharing.model.exceptions.BadUserException;
+import com.odw.ridesharing.model.exceptions.InvalidUserArgumentsException;
 
 public class UserController {
 
@@ -21,50 +24,71 @@ public class UserController {
      * @param typeValues_
      *            String needed to create the user
      * @return _user User object to be used for logger
-     * @throws BadUserException
+     * @throws InvalidUserArgumentsException
      */
-    public User createUser(ArrayList<String> typeValues_) throws BadUserException {
+    public User createUser(ArrayList<String> typeValues_) throws InvalidUserArgumentsException {
         if (typeValues_.size() == RuntimeConstants.CREATE_USER_FORMAT.length) {
-            User _user = userFactory.createUser(typeValues_);
-            userDatabase.put(_user.getUserID(), _user);
-            return _user;
+            try {
+                User _user = userFactory.createUser(typeValues_);
+                userDatabase.put(_user.getUserID(), _user);
+                return _user;
+            } catch (NullPointerException e_) {
+                throw new InvalidUserArgumentsException();
+            } catch (NumberFormatException e_) {
+                throw new InvalidUserArgumentsException();
+            }
         }
 
         // Something went wrong..
-        throw new BadUserException();
+        throw new InvalidUserArgumentsException();
     }
 
     /**
      * Modify user that is currently in the userDatabase
      * 
      * @param typeValues_
-     * 			  ArrayList of string that should contain FirstName, LastName,
-     * 			  Age, and Sex for customer
-     * 			  For Driver, the ArrayList will contain 3 more fields:
-     * 			  isAvailable, Rating, and CarID
-     * @return modifyDriver(_userID, typeValues_)
-     * 			  User object that contain driver's info
-     * @return modifyCustomer(_userID, typeValues_)
-     * 			  User object that contain customer's info
-     * @throws BadUserException
+     *            ArrayList of string that should contain FirstName, LastName, Age,
+     *            and Sex for customer For Driver, the ArrayList will contain 3 more
+     *            fields: isAvailable, Rating, and CarID
+     * @return modifyDriver(_userID, typeValues_) User object that contain driver's
+     *         info
+     * @return modifyCustomer(_userID, typeValues_) User object that contain
+     *         customer's info
+     * @throws BadCustomerException
+     * @throws InvalidUserArgumentsException
+     * @throws BadDriverException 
      */
-    public User modifyUser(ArrayList<String> typeValues_) throws BadUserException {
+    public User modifyUser(ArrayList<String> typeValues_) throws BadCustomerException, InvalidUserArgumentsException, BadDriverException {
         if (typeValues_.size() == RuntimeConstants.MODIFY_USER_DRIVER_FORMAT.length) {
-            int _userID = Integer.parseInt(typeValues_.get(0));
-            String _userType = typeValues_.get(1);
-            if (_userType.equals(RuntimeConstants.DRIVER)) {
-                return modifyDriver(_userID, typeValues_);
+            try {
+                int _userID = Integer.parseInt(typeValues_.get(0));
+                String _userType = typeValues_.get(1);
+                if (_userType.equals(RuntimeConstants.DRIVER)) {
+                    return modifyDriver(_userID, typeValues_);
+                }
+            } catch (NullPointerException e_) {
+                throw new InvalidUserArgumentsException();
+            } catch (NumberFormatException e_) {
+                throw new InvalidUserArgumentsException();
             }
+
         } else if (typeValues_.size() == RuntimeConstants.MODIFY_USER_CUSTOMER_FORMAT.length) {
-            int _userID = Integer.parseInt(typeValues_.get(0));
-            String _userType = typeValues_.get(1);
-            if (_userType.equals(RuntimeConstants.CUSTOMER)) {
-                return modifyCustomer(_userID, typeValues_);
+            try {
+                int _userID = Integer.parseInt(typeValues_.get(0));
+                String _userType = typeValues_.get(1);
+                if (_userType.equals(RuntimeConstants.CUSTOMER)) {
+                    return modifyCustomer(_userID, typeValues_);
+                }
+            } catch (NullPointerException e_) {
+                throw new InvalidUserArgumentsException();
+            } catch (NumberFormatException e_) {
+                throw new InvalidUserArgumentsException();
             }
+
         }
 
         // Something went wrong..
-        throw new BadUserException();
+        throw new InvalidUserArgumentsException();
     }
 
     /**
@@ -140,62 +164,66 @@ public class UserController {
     }
 
     /**
-     * Search the user database for the driver/customer based on 
-     * the given ID, then return it
+     * Search the user database for the driver/customer based on the given ID, then
+     * return it
      * 
-     * @param userID_ 
+     * @param userID_
      *            userID needed to search the database
-     * @return userDatabase.get(userID_)
-     *            return the user object
-     * @throws BadUserException
+     * @return userDatabase.get(userID_) return the user object
+     * @throws BadCustomerException
      */
-    public User getUserByID(int userID_) throws BadUserException{
-        
+    public User getCustomerByID(int userID_) throws BadCustomerException {
+
         try {
             return userDatabase.get(userID_);
+        } catch (NullPointerException e_) {
+            throw new BadCustomerException();
         }
-        catch(NullPointerException e_) {
-            throw new BadUserException();
-        }
-        
 
     }
+
     /**
      * Private method to modify a specific driver from the database.
      * 
      * @param userID_
      *            The userID to be modify
      * @param newValues_
-     * 			  ArrayList of string that should contain FirstName, LastName,
-     * 			  Sex, Age, isAvailable, Rating, and CarID to be modified
-     * @return _newDriver
-     * 			  Object that contain new info of driver
+     *            ArrayList of string that should contain FirstName, LastName, Sex,
+     *            Age, isAvailable, Rating, and CarID to be modified
+     * @return _newDriver Object that contain new info of driver
+     * @throws BadDriverException
+     * @throws InvalidUserArgumentsException
      */
-    private Driver modifyDriver(int userID_, ArrayList<String> newValues_) {
+    private Driver modifyDriver(int userID_, ArrayList<String> newValues_)
+            throws BadDriverException, InvalidUserArgumentsException {
         // TODO: Can't modify a driver to customer.
+        try {
+            String _newFirstName = newValues_.get(2);
+            String _newLastName = newValues_.get(3);
+            String _newSex = newValues_.get(4);
+            int _newAge = Integer.parseInt(newValues_.get(5));
+            Boolean _newIsAvailable = Boolean.parseBoolean(newValues_.get(6));
+            int _newRating = Integer.parseInt(newValues_.get(7));
+            int _newCarID = Integer.parseInt(newValues_.get(8));
+            User _modifiedUser = userDatabase.remove(userID_);
 
-        String _newFirstName = newValues_.get(2);
-        String _newLastName = newValues_.get(3);
-        String _newSex = newValues_.get(4);
-        int _newAge = Integer.parseInt(newValues_.get(5));
-        Boolean _newIsAvailable = Boolean.parseBoolean(newValues_.get(6));
-        int _newRating = Integer.parseInt(newValues_.get(7));
-        int _newCarID = Integer.parseInt(newValues_.get(8));
+            Driver _newDriver = (Driver) _modifiedUser; // TODO: error handle this downcasting
+            _newDriver.setFirstName(_newFirstName);
+            _newDriver.setLastName(_newLastName);
+            _newDriver.setSex(_newSex);
+            _newDriver.setAge(_newAge);
+            _newDriver.setIsAvailable(_newIsAvailable);
+            _newDriver.setCarID(_newCarID);
+            _newDriver.setRating(_newRating);
 
-        User _modifiedUser = userDatabase.remove(userID_);
+            userDatabase.put(userID_, _newDriver);
 
-        Driver _newDriver = (Driver) _modifiedUser; // TODO: error handle this downcasting
-        _newDriver.setFirstName(_newFirstName);
-        _newDriver.setLastName(_newLastName);
-        _newDriver.setSex(_newSex);
-        _newDriver.setAge(_newAge);
-        _newDriver.setIsAvailable(_newIsAvailable);
-        _newDriver.setCarID(_newCarID);
-        _newDriver.setRating(_newRating);
-
-        userDatabase.put(userID_, _newDriver);
-
-        return _newDriver;
+            return _newDriver;
+        } catch (NullPointerException e_) {
+            throw new BadDriverException();
+        } catch (NumberFormatException e_) {
+            throw new InvalidUserArgumentsException();
+        }
     }
 
     /**
@@ -207,25 +235,32 @@ public class UserController {
      *            ArrayList of string that should contain Firstname, Lastname, Sex,
      *            Age
      * @return _newCustomer Object that contain new info of customer
+     * @throws BadCustomerException 
+     * @throws InvalidUserArgumentsException 
      */
-    private Customer modifyCustomer(int userID_, ArrayList<String> newValues_) {
+    private Customer modifyCustomer(int userID_, ArrayList<String> newValues_) throws BadCustomerException, InvalidUserArgumentsException {
         // TODO: Can't modify a customer to driver.
+        try {
+            String _newFirstName = newValues_.get(2);
+            String _newLastName = newValues_.get(3);
+            String _newSex = newValues_.get(4);
+            int _newAge = Integer.parseInt(newValues_.get(5));
 
-        String _newFirstName = newValues_.get(2);
-        String _newLastName = newValues_.get(3);
-        String _newSex = newValues_.get(4);
-        int _newAge = Integer.parseInt(newValues_.get(5));
+            User _modifiedUser = userDatabase.remove(userID_);
 
-        User _modifiedUser = userDatabase.remove(userID_);
+            Customer _newCustomer = (Customer) _modifiedUser; // TODO: error handle this downcasting
+            _newCustomer.setFirstName(_newFirstName);
+            _newCustomer.setLastName(_newLastName);
+            _newCustomer.setSex(_newSex);
+            _newCustomer.setAge(_newAge);
 
-        Customer _newCustomer = (Customer) _modifiedUser; // TODO: error handle this downcasting
-        _newCustomer.setFirstName(_newFirstName);
-        _newCustomer.setLastName(_newLastName);
-        _newCustomer.setSex(_newSex);
-        _newCustomer.setAge(_newAge);
+            userDatabase.put(userID_, _newCustomer);
 
-        userDatabase.put(userID_, _newCustomer);
-
-        return _newCustomer;
+            return _newCustomer;
+        } catch (NullPointerException e_) {
+            throw new BadCustomerException();
+        } catch (NumberFormatException e_) {
+            throw new InvalidUserArgumentsException();
+        }
     }
 }

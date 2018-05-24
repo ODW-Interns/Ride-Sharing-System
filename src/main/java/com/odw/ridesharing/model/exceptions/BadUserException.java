@@ -1,5 +1,5 @@
 package com.odw.ridesharing.model.exceptions;
 
-public class BadUserException extends Exception {
+public class BadUserException extends Exception{
 
 }

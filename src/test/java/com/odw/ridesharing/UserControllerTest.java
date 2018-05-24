@@ -112,11 +112,11 @@ public class UserControllerTest {
         try {
             _userController.modifyUser(_customerNewInfo);
         } catch (BadDriverException e_) {
-            fail("Error modifying a valid driver.");
+            fail("Error modifying a valid customer.");
         } catch (BadCustomerException e_) {
-            fail("Error modifying a valid driver.");
+            fail("Error modifying a valid customer.");
         } catch (InvalidUserArgumentsException e_) {
-            fail("Error modifying a valid driver.");
+            fail("Error modifying a valid customer.");
         }
 
         // ---------------------------------------------

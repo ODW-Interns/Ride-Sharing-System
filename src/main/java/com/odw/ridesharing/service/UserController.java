@@ -12,6 +12,7 @@ import com.odw.ridesharing.model.exceptions.BadCustomerException;
 import com.odw.ridesharing.model.exceptions.BadDriverException;
 import com.odw.ridesharing.model.exceptions.BadUserException;
 import com.odw.ridesharing.model.exceptions.InvalidUserArgumentsException;
+import com.odw.ridesharing.model.exceptions.NoAvailableDriversException;
 
 public class UserController {
 
@@ -66,8 +67,6 @@ public class UserController {
                 String _userType = typeValues_.get(1);
                 if (_userType.equals(RuntimeConstants.DRIVER)) {
                     return modifyDriver(_userID, typeValues_);
-                } else {
-                    throw new InvalidUserArgumentsException();
                 }
             } catch (NullPointerException e_) {
                 throw new InvalidUserArgumentsException();
@@ -81,8 +80,6 @@ public class UserController {
                 String _userType = typeValues_.get(1);
                 if (_userType.equals(RuntimeConstants.CUSTOMER)) {
                     return modifyCustomer(_userID, typeValues_);
-                } else {
-                    throw new InvalidUserArgumentsException();
                 }
             } catch (NullPointerException e_) {
                 throw new InvalidUserArgumentsException();
@@ -125,16 +122,16 @@ public class UserController {
      */
     public String getUserDatabaseAsString() {
         if (userDatabase.size() > 0) {
-            StringBuilder _result = new StringBuilder(System.lineSeparator());
+            StringBuilder _result = new StringBuilder();
 
             for (Map.Entry<Integer, User> _entry : userDatabase.entrySet()) {
 
                 User _currentUser = _entry.getValue();
                 if (_currentUser instanceof Driver) {
                     Driver _currentDriver = (Driver) _currentUser;
-                    _result.append(_currentDriver.toString() + System.lineSeparator());
+                    _result.append(System.lineSeparator() + _currentDriver.toString());
                 } else
-                    _result.append(_currentUser.toString() + System.lineSeparator());
+                    _result.append(System.lineSeparator() + _currentUser.toString());
 
             }
 
@@ -145,12 +142,13 @@ public class UserController {
     }
 
     /**
-     * Return the first available driver in the driverDatabase
+     * Return the first available driver in the user database. Sets the driver's
+     * availability to false because he/she is going to be scheduled.
      * 
      * @return _currentDriver The first available driver's info
      */
-    public User getNextAvailableDriver() {
-        if (userDatabase.size() > 0) {
+    public Driver getNextAvailableDriver() throws NoAvailableDriversException {
+        if (!userDatabase.isEmpty()) {
             for (Map.Entry<Integer, User> _entry : userDatabase.entrySet()) {
                 User _currentUser = _entry.getValue();
 
@@ -158,13 +156,21 @@ public class UserController {
                     Driver _currentDriver = (Driver) _currentUser;
 
                     if (_currentDriver.getIsAvailable()) {
-                        _currentDriver.setIsAvailable(false);
+                        _currentDriver.setIsAvailable(false); // Assumed driver is going to be scheduled.
+
+                        // Update the database.
+                        int _driverKey = _entry.getKey();
+                        userDatabase.remove(_driverKey);
+                        userDatabase.put(_driverKey, _currentDriver);
+
                         return _currentDriver;
                     }
                 }
             }
         }
-        return null;
+
+        // There are no available drivers to be scheduled.
+        throw new NoAvailableDriversException();
     }
 
     /**
@@ -176,14 +182,16 @@ public class UserController {
      * @return userDatabase.get(userID_) return the user object
      * @throws BadCustomerException
      */
-    public User getCustomerByID(int userID_) throws BadCustomerException {
+    public Customer getCustomerByID(int userID_) throws BadCustomerException {
 
-        try {
-            return userDatabase.get(userID_);
-        } catch (NullPointerException e_) {
-            throw new BadCustomerException();
+        User _retrievedUser = userDatabase.get(userID_);
+
+        if (_retrievedUser != null && _retrievedUser instanceof Customer) {
+            return (Customer) _retrievedUser;
         }
 
+        // User was driver or does not exist.
+        throw new BadCustomerException();
     }
 
     /**
@@ -198,8 +206,9 @@ public class UserController {
      * @throws BadDriverException
      * @throws InvalidUserArgumentsException
      */
+    /* @formatter:off */
     private Driver modifyDriver(int userID_, ArrayList<String> newValues_)
-            throws BadDriverException, InvalidUserArgumentsException {
+     throws BadDriverException, InvalidUserArgumentsException {
         try {
             String _newFirstName = newValues_.get(2);
             String _newLastName = newValues_.get(3);
@@ -228,6 +237,7 @@ public class UserController {
             throw new InvalidUserArgumentsException();
         }
     }
+    /* @formatter:on */
 
     /**
      * Private method to modify a specific customer from the database.
@@ -235,14 +245,15 @@ public class UserController {
      * @param userID_
      *            The userID to be modify
      * @param newValues_
-     *            ArrayList of string that should contain Firstname, Lastname, Sex,
-     *            Age
+     *            ArrayList of string that should contain first name, last name,
+     *            sex, age
      * @return _newCustomer Object that contain new info of customer
      * @throws BadCustomerException
      * @throws InvalidUserArgumentsException
      */
+    /* @formatter:off */
     private Customer modifyCustomer(int userID_, ArrayList<String> newValues_)
-            throws BadCustomerException, InvalidUserArgumentsException {
+     throws BadCustomerException, InvalidUserArgumentsException {
         try {
             String _newFirstName = newValues_.get(2);
             String _newLastName = newValues_.get(3);
@@ -266,4 +277,5 @@ public class UserController {
             throw new InvalidUserArgumentsException();
         }
     }
+    /* @formatter:on */
 }

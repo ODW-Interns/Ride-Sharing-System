@@ -6,51 +6,59 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
+import com.odw.ridesharing.model.exceptions.BadCustomerException;
+import com.odw.ridesharing.model.exceptions.BadDriverException;
 import com.odw.ridesharing.model.exceptions.BadUserException;
+import com.odw.ridesharing.model.exceptions.InvalidUserArgumentsException;
 import com.odw.ridesharing.service.UserController;
 
 public class UserControllerTest {
 
     /**
-     * Tests UserController's createUser method. Ensures that a valid customer and driver can be
-     * created and an invalid user is handled properly.
+     * Tests UserController's createUser method. Ensures that a valid customer and
+     * driver can be created and an invalid user is handled properly.
+     * 
+     * @throws InvalidUserArgumentsException
      */
     @Test
-    public void testCreateUser() throws BadUserException {
+    public void testCreateUser() {
         UserController _userController = new UserController();
 
         // Testing valid driver creation.
         try {
             _userController.createUser(createValidDriverInfo());
-        } catch (BadUserException e_) {
+        } catch (InvalidUserArgumentsException e_) {
             fail("Error creating a valid driver user.");
         }
 
         // Testing valid customer creation.
         try {
             _userController.createUser(createValidCustomerInfo());
-        } catch (BadUserException e_) {
+        } catch (InvalidUserArgumentsException e_) {
             fail("Error creating a valid driver user.");
         }
 
         // Testing invalid driver creation.
         try {
             _userController.createUser(createInvalidDriverInfo());
-        } catch (BadUserException e_) {
+        } catch (InvalidUserArgumentsException e_) {
             assertTrue(true); // Hacky solution to state that this is the desired outcome.
         }
 
         // Testing invalid customer creation.
         try {
             _userController.createUser(createInvalidCustomerInfo());
-        } catch (BadUserException e_) {
+        } catch (InvalidUserArgumentsException e_) {
             assertTrue(true); // Hacky solution to state that this is the desired outcome.
         }
     }
 
     /**
-     * Tests UserController's modifyUser method. Ensures that a valid customer and driver can be
-     * modified and an invalid user is handled properly.
+     * Tests UserController's modifyUser method. Ensures that a valid customer and
+     * driver can be modified and an invalid user is handled properly.
+     * 
+     * @throws BadDriverException
+     * @throws InvalidUserArgumentsException
      */
     @Test
     public void testModifyUser() {
@@ -60,7 +68,7 @@ public class UserControllerTest {
         // Creating a valid driver to later be modified.
         try {
             _userController.createUser(createValidDriverInfo());
-        } catch (BadUserException e_) {
+        } catch (InvalidUserArgumentsException e_) {
             fail("Error creating a valid driver.");
         }
 
@@ -77,7 +85,11 @@ public class UserControllerTest {
         _driverNewInfo.add("5");
         try {
             _userController.modifyUser(_driverNewInfo);
-        } catch (BadUserException e_) {
+        } catch (BadDriverException e_) {
+            fail("Error modifying a valid driver.");
+        } catch (BadCustomerException e_) {
+            fail("Error modifying a valid driver.");
+        } catch (InvalidUserArgumentsException e_) {
             fail("Error modifying a valid driver.");
         }
 
@@ -85,7 +97,7 @@ public class UserControllerTest {
         // Creating a valid customer to be later modified.
         try {
             _userController.createUser(createValidCustomerInfo());
-        } catch (BadUserException e_) {
+        } catch (InvalidUserArgumentsException e_) {
             fail("Error creating a valid driver user.");
         }
 
@@ -99,8 +111,12 @@ public class UserControllerTest {
         _customerNewInfo.add("22");
         try {
             _userController.modifyUser(_customerNewInfo);
-        } catch (BadUserException e_) {
-            fail("Error modifying a valid customer.");
+        } catch (BadDriverException e_) {
+            fail("Error modifying a valid driver.");
+        } catch (BadCustomerException e_) {
+            fail("Error modifying a valid driver.");
+        } catch (InvalidUserArgumentsException e_) {
+            fail("Error modifying a valid driver.");
         }
 
         // ---------------------------------------------
@@ -110,9 +126,14 @@ public class UserControllerTest {
         _invalidModifyInfo.add("must include all fields");
         try {
             _userController.modifyUser(_invalidModifyInfo);
-        } catch (BadUserException e_) {
+        } catch (BadDriverException e_) {
+            assertTrue(true);
+        } catch (BadCustomerException e_) {
+            assertTrue(true);
+        } catch (InvalidUserArgumentsException e_) {
             assertTrue(true);
         }
+
     }
 
     /**
@@ -127,7 +148,7 @@ public class UserControllerTest {
         // Creating a valid driver to delete later.
         try {
             _userController.createUser(createValidDriverInfo());
-        } catch (BadUserException e_) {
+        } catch (InvalidUserArgumentsException e_) {
             fail("Error creating a valid driver user.");
         }
 

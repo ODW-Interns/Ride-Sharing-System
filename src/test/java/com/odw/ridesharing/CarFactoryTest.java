@@ -10,6 +10,7 @@ import com.odw.ridesharing.model.Car;
 import com.odw.ridesharing.model.Coupe;
 import com.odw.ridesharing.model.Sedan;
 import com.odw.ridesharing.model.Suv;
+import com.odw.ridesharing.model.exceptions.InvalidCarArgumentsException;
 import com.odw.ridesharing.service.CarFactory;
 
 public class CarFactoryTest {
@@ -22,7 +23,7 @@ public class CarFactoryTest {
     @Test
     public void testCreateCar() {
         CarFactory _carFactory = new CarFactory();
-        
+
         // ---------------------------------------------
         // Creating a valid coupe.
         ArrayList<String> _coupeCarInfo = new ArrayList<String>();
@@ -31,9 +32,13 @@ public class CarFactoryTest {
         _coupeCarInfo.add("trueno");
         _coupeCarInfo.add("white");
         _coupeCarInfo.add("1986");
-        Car _coupe = _carFactory.createCar(_coupeCarInfo);
-        assertTrue(_coupe instanceof Coupe);
-        
+        try {
+            Car _coupe = _carFactory.createCar(_coupeCarInfo);
+            assertTrue(_coupe instanceof Coupe);
+        } catch (InvalidCarArgumentsException e_) {
+            fail("Invalid arguments creating a coupe.");
+        }
+
         // ---------------------------------------------
         // Creating a valid sedan.
         ArrayList<String> _sedanCarInfo = new ArrayList<String>();
@@ -42,9 +47,13 @@ public class CarFactoryTest {
         _sedanCarInfo.add("focus");
         _sedanCarInfo.add("grey");
         _sedanCarInfo.add("2014");
-        Car _sedan = _carFactory.createCar(_sedanCarInfo);
-        assertTrue(_sedan instanceof Sedan);
-        
+        try {
+            Car _sedan = _carFactory.createCar(_sedanCarInfo);
+            assertTrue(_sedan instanceof Sedan);
+        } catch (InvalidCarArgumentsException e_) {
+            fail("Invalid arguments creating a sedan.");
+        }
+
         // ---------------------------------------------
         // Creating a valid suv.
         ArrayList<String> _suvCarInfo = new ArrayList<String>();
@@ -53,9 +62,13 @@ public class CarFactoryTest {
         _suvCarInfo.add("escalade");
         _suvCarInfo.add("black");
         _suvCarInfo.add("2018");
-        Car _suv = _carFactory.createCar(_suvCarInfo);
-        assertTrue(_suv instanceof Suv);
-        
+        try {
+            Car _suv = _carFactory.createCar(_suvCarInfo);
+            assertTrue(_suv instanceof Suv);
+        } catch (InvalidCarArgumentsException e_) {
+            fail("Invalid arguments creating an SUV.");
+        }
+
         // ---------------------------------------------
         // Creating a invalid car.
         ArrayList<String> _invalidCarInfo = new ArrayList<String>();
@@ -64,8 +77,12 @@ public class CarFactoryTest {
         _invalidCarInfo.add("be");
         _invalidCarInfo.add("length");
         _invalidCarInfo.add("5");
-        Car _unknown = _carFactory.createCar(_invalidCarInfo);
-        assertNull(_unknown);
+        try {
+            Car _unknown = _carFactory.createCar(_invalidCarInfo);
+            assertNull(_unknown);
+        } catch (InvalidCarArgumentsException e_) {
+            fail("Invalid arguments creating a car");
+        }
     }
 
 }

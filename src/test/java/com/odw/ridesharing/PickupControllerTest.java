@@ -12,6 +12,8 @@ import com.odw.ridesharing.model.Pickup;
 import com.odw.ridesharing.model.exceptions.BadCarException;
 import com.odw.ridesharing.model.exceptions.BadUserException;
 import com.odw.ridesharing.model.exceptions.InvalidPickupArgumentsException;
+import com.odw.ridesharing.model.exceptions.InvalidUserArgumentsException;
+import com.odw.ridesharing.model.exceptions.BadCustomerException;
 import com.odw.ridesharing.service.CarController;
 import com.odw.ridesharing.service.PickupController;
 import com.odw.ridesharing.service.UserController;
@@ -34,8 +36,8 @@ public class PickupControllerTest {
 		_coupeCarInfo.add("white");
 		_coupeCarInfo.add("1986");
 		try {
-			_carController.createCar(_coupeCarInfo);
-		} catch (BadCarException e_) {
+			_carController.createCar(coupeCarInfo);
+		} catch (InvalidCarArgumentsException e_) {
 			fail("Error creating a valid car.");
 		}
 
@@ -47,8 +49,8 @@ public class PickupControllerTest {
 		_driverUserInfo.add("21");
 
 		try {
-		    _driver = (Driver)(_userController.createUser(_driverUserInfo));
-		} catch (BadUserException e_) {
+		  _driver = (Driver)(_userController.createUser(_driverUserInfo));
+		} catch (InvalidUserArgumentsException e_) {
 			fail("Error creating a valid driver user.");
 		}
 
@@ -61,7 +63,7 @@ public class PickupControllerTest {
 
 		try {
 			_customer = (Customer)(_userController.createUser(_customerUserInfo));
-		} catch (BadUserException e_) {
+		} catch (InvalidUserArgumentsException e_) {
 			fail("Error creating a valid driver user.");
 		}
 

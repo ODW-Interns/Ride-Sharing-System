@@ -29,6 +29,8 @@ public class RuntimeConstants {
     // used for other things. Can be used as a reference for when creating input.
     // This way our system knows how we expect our input.
     /* @formatter:off */
+    public static final int MINIMUM_EVENT_LENGTH = 3;
+    
     public static final String[] CREATE_CAR_FORMAT = new String[] { 
             "CAR_TYPE (STRING)",
             "MAKE (STRING)",

@@ -10,3 +10,5 @@ delete|car|0|
 create|car|coupe|BMW|Z4|Black|2012|
 modify|user|0|driver|mark|constantine|male|21|true|-1|2|
 create|pickup|2|36.10583630000001|-115.13841919999999|36.0041386|-115.1412292|
+bad|event
+create|car|sedan|ford|focus|black|2013

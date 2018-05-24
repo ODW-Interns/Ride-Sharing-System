@@ -9,20 +9,8 @@ import java.io.InputStreamReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.odw.ridesharing.model.Car;
-import com.odw.ridesharing.model.Customer;
-import com.odw.ridesharing.model.Driver;
-import com.odw.ridesharing.model.Event;
-import com.odw.ridesharing.model.Pickup;
-import com.odw.ridesharing.model.RuntimeConstants;
-import com.odw.ridesharing.model.User;
-import com.odw.ridesharing.model.exceptions.BadCarException;
-import com.odw.ridesharing.model.exceptions.BadUserException;
-import com.odw.ridesharing.model.exceptions.InvalidCarArgumentsException;
-import com.odw.ridesharing.model.exceptions.InvalidPickupArgumentsException;
-import com.odw.ridesharing.model.exceptions.BadCustomerException;
-import com.odw.ridesharing.model.exceptions.BadDriverException;
-import com.odw.ridesharing.model.exceptions.InvalidUserArgumentsException;
+import com.odw.ridesharing.model.*;
+import com.odw.ridesharing.model.exceptions.*;
 
 public class CommandController {
 
@@ -45,14 +33,19 @@ public class CommandController {
         EventParser _eventParser = new EventParser();
 
         /* @formatter:off */
+        
         try (BufferedReader _inputReader = new BufferedReader(
                                             new InputStreamReader(
                                              new FileInputStream(fileName_)))) {    
             // Process each event line-by-line.
             String _nextLine = null;
             while ((_nextLine = _inputReader.readLine()) != null) {
-                Event _nextEvent = _eventParser.parseEvent(_nextLine, delimiter_);
-                processEvent(_nextEvent);
+                try {
+                    Event _nextEvent = _eventParser.parseEvent(_nextLine, delimiter_);
+                    processEvent(_nextEvent);
+                } catch (InvalidEventException e_) {
+                    logger.error("Could not parse the given event: \"" + _nextLine + "\"");
+                }
             }
 
             // SUCCESS!

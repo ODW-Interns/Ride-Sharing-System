@@ -10,6 +10,7 @@ import com.odw.ridesharing.model.Location;
 import com.odw.ridesharing.model.Pickup;
 import com.odw.ridesharing.model.RuntimeConstants;
 import com.odw.ridesharing.model.User;
+import com.odw.ridesharing.model.exceptions.CannotSchedulePickupException;
 import com.odw.ridesharing.model.exceptions.InvalidPickupArgumentsException;
 
 public class PickupController {
@@ -28,18 +29,21 @@ public class PickupController {
      */
     /* @formatter:off */
     public Pickup createPickup(ArrayList<String> typeValues_, User pickupCustomer_, User pickupDriver_)
-     throws InvalidPickupArgumentsException {
+     throws InvalidPickupArgumentsException, CannotSchedulePickupException {
         if ((typeValues_.size() == RuntimeConstants.CREATE_PICKUP_FORMAT.length)
          && (pickupCustomer_ != null && pickupDriver_ != null)
          && (pickupCustomer_ instanceof Customer && pickupDriver_ instanceof Driver)) {
             
             try {
                 // Scheduling a pickup as soon as we get it from the factory.
-                Pickup _scheduledPickup = schedule(pickupFactory.createPickup(typeValues_, pickupCustomer_, pickupDriver_));
+                Pickup _scheduledPickup = schedule(pickupFactory.createPickup(typeValues_, pickupCustomer_, pickupDriver_),
+                                                   pickupDriver_);
                 pickupDatabase.put(_scheduledPickup.getPickupID(), _scheduledPickup);
                 return _scheduledPickup;
             } catch (InvalidPickupArgumentsException e_) {
                 throw new InvalidPickupArgumentsException();
+            } catch (CannotSchedulePickupException e_) {
+                throw new CannotSchedulePickupException();
             }
         }
 
@@ -56,30 +60,34 @@ public class PickupController {
      *            The current pickup info to be scheduled.
      * @return current_ Pickup object to be used for logger.
      */
-    private Pickup schedule(Pickup current_) {
-        Location _origin = current_.getOrigin();
-        Location _destination = current_.getDestination();
+    private Pickup schedule(Pickup current_, User pickupDriver_) throws CannotSchedulePickupException {
+        if (pickupDriver_ != null && pickupDriver_ instanceof Driver) {
+            Location _origin = current_.getOrigin();
+            Location _destination = current_.getDestination();
 
-        double _tripCost = _origin.distanceTo(_destination) * RuntimeConstants.CHARGE_RATE_PER_MILE;
+            double _tripCost = _origin.distanceTo(_destination) * RuntimeConstants.CHARGE_RATE_PER_MILE;
 
-        current_.setPickupCost(_tripCost + RuntimeConstants.FLAT_RATE_FEE);
+            current_.setPickupCost(_tripCost + RuntimeConstants.FLAT_RATE_FEE);
 
-        return current_;
+            return current_;
+        }
+
+        throw new CannotSchedulePickupException();
     }
-    
+
     /**
      * Returns a string of all the pickup in pickupDatabase.
      * 
      * @return A list string of all the pickup in the database
      */
     public String getPickupHistoryAsString() {
-        if (pickupDatabase.size() > 0) {
-            StringBuilder _result = new StringBuilder(System.lineSeparator());
+        if (!pickupDatabase.isEmpty()) {
+            StringBuilder _result = new StringBuilder();
 
             for (Map.Entry<Integer, Pickup> _entry : pickupDatabase.entrySet()) {
                 Pickup _currentPickup = _entry.getValue();
 
-                _result.append(_currentPickup.toString() + System.lineSeparator());
+                _result.append(System.lineSeparator() + _currentPickup.toString());
             }
 
             return _result.toString();
@@ -155,5 +163,5 @@ public class PickupController {
         throw new BadPickupException();
     }
     ----------------------------------------------------------------------------------------------------*/
-    
+
 }

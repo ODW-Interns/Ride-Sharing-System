@@ -16,12 +16,12 @@ public class CommandControllerTest {
     @Test
     public void testProcessFile() {
         CommandController _commandController = new CommandController();
-
-        String _fileName = "src/main/resources/input.txt";
-        String _delimiter = "|";
-
-        _commandController.processFile(_fileName, _delimiter);
-
+        _commandController.processFile("src/main/resources/validInputTest.txt", "|");
+        
+        // Separating executions. Not necessary.
+        _commandController = new CommandController();
+        _commandController.processFile("src/main/resources/invalidInputTest.txt", "|");
+        
         // File found and read with no exceptions.
         assertTrue(true); // See logger file to determine validity.
     }

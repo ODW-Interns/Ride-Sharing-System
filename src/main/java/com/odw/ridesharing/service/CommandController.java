@@ -37,6 +37,8 @@ public class CommandController {
         try (BufferedReader _inputReader = new BufferedReader(
                                             new InputStreamReader(
                                              new FileInputStream(fileName_)))) {    
+            logger.trace("=============== Processing File: " + fileName_ + " ===============");
+            
             // Process each event line-by-line.
             String _nextLine = null;
             while ((_nextLine = _inputReader.readLine()) != null) {
@@ -94,7 +96,7 @@ public class CommandController {
             case RuntimeConstants.CAR: {
                 try {
                     Car _addedCar = carController.createCar(event_.getTypeValues());
-                    logger.debug("CREATED CAR: " + _addedCar.toString());
+                    logger.info("CREATED CAR: " + _addedCar.toString());
                 } catch (InvalidCarArgumentsException e_) {
                     logger.error("There was a problem with adding car: " + event_.typeValuesToString());
                 }
@@ -103,7 +105,7 @@ public class CommandController {
             case RuntimeConstants.USER: {
                 try {
                     User _addedUser = userController.createUser(event_.getTypeValues());
-                    logger.debug("CREATED USER: " + _addedUser.toString());
+                    logger.info("CREATED USER: " + _addedUser.toString());
                 } catch (InvalidUserArgumentsException e_) {
                     logger.error(
                             "The argument passed are not valid; unable to add user: " + event_.typeValuesToString());
@@ -111,21 +113,24 @@ public class CommandController {
                 break;
             }
             case RuntimeConstants.PICKUP: {
+                int _customerID = Integer.parseInt(event_.getTypeValues().get(0)); // TODO check for this
                 try {
-                    int _customerID = Integer.parseInt(event_.getTypeValues().get(0));
-                    Customer _pickupCustomer = (Customer) userController.getCustomerByID(_customerID); // TODO error
-                                                                                                       // handle
-                    // this downcast.
-                    Driver _scheduledDriver = (Driver) userController.getNextAvailableDriver(); // TODO error handle
-                                                                                                // this downcast.
+                    Customer _pickupCustomer = userController.getCustomerByID(_customerID);
+
+                    Driver _scheduledDriver = userController.getNextAvailableDriver();
                     Pickup _addedPickup = pickupController.createPickup(event_.getTypeValues(), _pickupCustomer,
                             _scheduledDriver);
-                    logger.debug("CREATED PICKUP: " + _addedPickup.toString());
+
+                    logger.info("CREATED PICKUP: " + _addedPickup.toString());
+
                 } catch (InvalidPickupArgumentsException e_) {
                     logger.error("There was a problem with creating pickup: " + event_.typeValuesToString());
                 } catch (BadCustomerException e_) {
-                    // TODO
-                    // BadUserException
+                    logger.error("Pickup customerID " + event_.getTypeValues().get(0) + " does not exist in the user database.");
+                } catch (CannotSchedulePickupException e_) {
+                    logger.error("There was an issue scheduling the pickup: " + event_.typeValuesToString());
+                } catch (NoAvailableDriversException e_) {
+                    logger.warn("There are no available drivers to schedule pickup: " + event_.typeValuesToString());
                 }
                 break;
             }
@@ -146,7 +151,7 @@ public class CommandController {
             case RuntimeConstants.CAR: {
                 try {
                     Car modifiedCar = carController.modifyCar(event_.getTypeValues());
-                    logger.debug("MODIFIED CAR: " + modifiedCar.toString());
+                    logger.info("MODIFIED CAR: " + modifiedCar.toString());
                 } catch (BadCarException e_) {
                     logger.error("There was a problem with modifying car: " + event_.typeValuesToString());
                 } catch (InvalidCarArgumentsException e_) {
@@ -157,7 +162,7 @@ public class CommandController {
             case RuntimeConstants.USER: {
                 try {
                     User modifiedUser = userController.modifyUser(event_.getTypeValues());
-                    logger.debug("MODIFIED USER: " + modifiedUser.toString());
+                    logger.info("MODIFIED USER: " + modifiedUser.toString());
                 } catch (BadCustomerException e_) {
                     logger.error("There was a problem with modifying customer; customer does not exist: "
                             + event_.typeValuesToString("|"));
@@ -199,7 +204,7 @@ public class CommandController {
             case RuntimeConstants.CAR: {
                 try {
                     Car deletedCar = carController.deleteCar(event_.getTypeValues());
-                    logger.debug("DELETED CAR: " + deletedCar.toString());
+                    logger.info("DELETED CAR: " + deletedCar.toString());
                 } catch (BadCarException e_) {
                     logger.error("There was a problem deleting car: " + event_.typeValuesToString());
                 }
@@ -208,7 +213,7 @@ public class CommandController {
             case RuntimeConstants.USER: {
                 try {
                     User _deletedUser = userController.deleteUser(event_.getTypeValues());
-                    logger.debug("DELETED USER: " + _deletedUser.toString());
+                    logger.info("DELETED USER: " + _deletedUser.toString());
                 } catch (BadUserException e_) {
                     logger.error("There was a problem deleting user: " + event_.typeValuesToString());
                 }

@@ -9,8 +9,9 @@ import org.junit.Test;
 import com.odw.ridesharing.model.Customer;
 import com.odw.ridesharing.model.Driver;
 import com.odw.ridesharing.model.Pickup;
+import com.odw.ridesharing.model.exceptions.BadCustomerException;
+import com.odw.ridesharing.model.exceptions.BadDriverException;
 import com.odw.ridesharing.model.exceptions.InvalidCarArgumentsException;
-import com.odw.ridesharing.model.exceptions.InvalidPickupArgumentsException;
 import com.odw.ridesharing.model.exceptions.InvalidUserArgumentsException;
 import com.odw.ridesharing.service.CarController;
 import com.odw.ridesharing.service.PickupController;
@@ -51,6 +52,22 @@ public class PickupControllerTest {
 		} catch (InvalidUserArgumentsException e_) {
 			fail("Error creating a valid driver user.");
 		}
+		
+		ArrayList<String> _modifyDriverInfo = new ArrayList<String>();
+		_modifyDriverInfo.add("0");
+		_modifyDriverInfo.add("driver");
+        _modifyDriverInfo.add("Mark");
+        _modifyDriverInfo.add("Constantine");
+        _modifyDriverInfo.add("male");
+        _modifyDriverInfo.add("21");
+        _modifyDriverInfo.add("true");
+        _modifyDriverInfo.add("-1");
+        _modifyDriverInfo.add("0");
+        try {
+            _userController.modifyUser(_modifyDriverInfo);
+        } catch (BadCustomerException | InvalidUserArgumentsException | BadDriverException e) {
+            fail("Error modifying a valid driver");
+        }
 
 		ArrayList<String> _customerUserInfo = new ArrayList<String>();
 		_customerUserInfo.add("customer");
@@ -58,25 +75,24 @@ public class PickupControllerTest {
 		_customerUserInfo.add("Tanthmanatham");
 		_customerUserInfo.add("male");
 		_customerUserInfo.add("21");
-
 		try {
 			_customer = (Customer)(_userController.createUser(_customerUserInfo));
 		} catch (InvalidUserArgumentsException e_) {
 			fail("Error creating a valid driver user.");
 		}
 
-		ArrayList<String> _pickupInfo = new ArrayList<String>();
-		_pickupInfo.add("1");
-		_pickupInfo.add("36.0731654");
-		_pickupInfo.add("-115.20643259999997");
-		_pickupInfo.add("36.0041386");
-		_pickupInfo.add("-115.1412292");
+		ArrayList<String> _validPickupInfo = new ArrayList<String>();
+		_validPickupInfo.add("1");
+		_validPickupInfo.add("36.0731654");
+		_validPickupInfo.add("-115.20643259999997");
+		_validPickupInfo.add("36.0041386");
+		_validPickupInfo.add("-115.1412292");
 
 		try {
-			_pickup = _pickupController.createPickup(_pickupInfo, _customer, _driver);
+			_pickup = _pickupController.createPickup(_validPickupInfo, _customer, _driver);
 			// check to see if schedule() is correct
 			assertEquals(12.5 , _pickup.getPickupCost(), 0.01d);
-		} catch (InvalidPickupArgumentsException e_) {
+		} catch (Exception e_) {
 			fail("Error creating a valid pickup.");
 		}
 
@@ -89,7 +105,7 @@ public class PickupControllerTest {
 
 		try {
 			_pickupController.createPickup(_invalidPickupInfo, _customer, _driver);
-		} catch (InvalidPickupArgumentsException e_) {
+		} catch (Exception e_) {
 			assertTrue(true); // This is the desired outcome.
 		}
 	}

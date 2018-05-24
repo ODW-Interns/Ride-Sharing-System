@@ -113,12 +113,12 @@ public class CarController {
      */
     public String getCarInventoryAsString() {
         if (carInventory.size() > 0) {
-            StringBuilder _result = new StringBuilder(System.lineSeparator());
+            StringBuilder _result = new StringBuilder();
 
             for (Map.Entry<Integer, Car> _entry : carInventory.entrySet()) {
                 Car _currentCar = _entry.getValue();
 
-                _result.append(_currentCar.toString() + System.lineSeparator());
+                _result.append(System.lineSeparator() + _currentCar.toString());
             }
 
             return _result.toString();

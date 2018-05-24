@@ -59,11 +59,19 @@ public class Event {
      * @return Returns a string of the type values separated by a delimiter.
      */
     public String typeValuesToString(String delimiter_) {
-        StringBuilder _typeValuesStringBuilder = new StringBuilder();
+        StringBuilder _typeValuesStringBuilder = new StringBuilder(delimiter_);
         for (String typeValue : typeValues) {
             _typeValuesStringBuilder.append(typeValue + delimiter_);
         }
         return _typeValuesStringBuilder.toString();
+    }
+    
+    /**
+     * Reconstructs the type values into string format using pipes "|" as delimiters.
+     * @return Returns a string of the type values separated by pipes "|".
+     */
+    public String typeValuesToString() {
+        return typeValuesToString("|");
     }
 
     /**

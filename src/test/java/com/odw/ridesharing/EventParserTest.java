@@ -25,11 +25,11 @@ public class EventParserTest extends TestCase {
 
         assertEquals(_validEvent.getCommand(), "create");
         assertEquals(_validEvent.getInputType(), "customer");
-        assertEquals(_validEvent.typeValuesToString("|"), "britney|spears|female|36|");
+        assertEquals(_validEvent.typeValuesToString(), "|britney|spears|female|36|");
 
         assertEquals(_invalidEvent.getCommand(), "event");
         assertEquals(_invalidEvent.getInputType(), "parser");
-        assertEquals(_invalidEvent.typeValuesToString("|"), "has|no|check|for|valid|events|");
+        assertEquals(_invalidEvent.typeValuesToString(), "|has|no|check|for|valid|events|");
     }
 
 }

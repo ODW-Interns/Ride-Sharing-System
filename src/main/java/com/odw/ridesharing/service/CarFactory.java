@@ -6,7 +6,7 @@ import com.odw.ridesharing.model.Car;
 import com.odw.ridesharing.model.Coupe;
 import com.odw.ridesharing.model.RuntimeConstants;
 import com.odw.ridesharing.model.Suv;
-import com.odw.ridesharing.model.exceptions.BadCarException;
+import com.odw.ridesharing.model.exceptions.InvalidCarArgumentsException;
 import com.odw.ridesharing.model.Sedan;
 
 public class CarFactory {
@@ -21,23 +21,23 @@ public class CarFactory {
      * @param typeValues_
      *            the ArrayList to be turned into a Car Object
      * 
-     *            NOTE: typeValues_ format (as an ArrayList):
-     *            Values: CarType | Make | Model | Color | Year
-     *            Index:  0       | 1    | 2     | 3     | 4
+     *            NOTE: typeValues_ format (as an ArrayList): Values: CarType | Make
+     *            | Model | Color | Year Index: 0 | 1 | 2 | 3 | 4
      * 
      * @return a Car Object
      */
     /* @formatter:on */
-    public Car createCar(ArrayList<String> typeValues_) throws BadCarException {
-        
+    public Car createCar(ArrayList<String> typeValues_) throws InvalidCarArgumentsException {
+
         if (typeValues_.size() == RuntimeConstants.CREATE_CAR_FORMAT.length) {
+            try {
                 // store the values from ArrayList
                 String _carType = typeValues_.get(0);
                 String _make = typeValues_.get(1);
                 String _model = typeValues_.get(2);
                 String _color = typeValues_.get(3);
                 int _year = Integer.parseInt(typeValues_.get(4));
-    
+
                 // create a Car object based off of its carType
                 switch (_carType) {
                 case RuntimeConstants.COUPE:
@@ -48,10 +48,14 @@ public class CarFactory {
                     return new Suv(nextCarID++, _make, _model, _color, _year);
                 default:
                     return null;
-                
+                }
+            } catch (NullPointerException e_) {
+                throw new InvalidCarArgumentsException();
+            } catch (NumberFormatException e_) {
+                throw new InvalidCarArgumentsException();
             }
         }
-        
-        throw new BadCarException();
+        // something went wrong creating a car...
+        throw new InvalidCarArgumentsException();
     }
 }

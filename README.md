@@ -6,9 +6,9 @@ This ride sharing service will do 3 things.
 
 
 ## Project Members
-* Mark
+* Mark Constantine
 * Wesley Dong
-* Pete
+* Pete Tanthmanatham
 
 
 ## Project details
@@ -59,10 +59,10 @@ Delete | TYPE | Type_Id | \n
 ```
 Note:
 ```
-TYPE -> RuntimeConstants
-Modify -> Order matters
+TYPE -> CAR, USER, DRIVER (RuntimeConstants)
+Order matters
 One car per driver
-Only one pickup is avaliable for driver
+Driver cannot take more than one pickup until he/she finishes the current pickup
 ```
 
 ### CommandHandler

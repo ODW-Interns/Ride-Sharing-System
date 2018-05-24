@@ -1,7 +1,12 @@
 package com.odw.ridesharing.model.exceptions;
 
 public class BadDriverException extends Exception {
-    
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 416154890178631578L;
+
     /**
      *
      */

@@ -1,7 +1,13 @@
 package com.odw.ridesharing.model.exceptions;
 
 public class InvalidUserArgumentsException extends Exception{
-   /**
+   
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 3313711250466662808L;
+
+    /**
     *
     */
    public InvalidUserArgumentsException() {}

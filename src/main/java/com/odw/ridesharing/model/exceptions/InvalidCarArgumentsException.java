@@ -3,6 +3,11 @@ package com.odw.ridesharing.model.exceptions;
 public class InvalidCarArgumentsException extends Exception {
 
     /**
+     * 
+     */
+    private static final long serialVersionUID = 2823368122118207360L;
+
+    /**
      *
      */
     public InvalidCarArgumentsException() {

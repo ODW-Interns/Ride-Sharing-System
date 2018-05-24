@@ -1,7 +1,12 @@
 package com.odw.ridesharing.model.exceptions;
 
 public class BadCustomerException extends Exception {
-    
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 8011630503202520471L;
+
     /**
     *
     */

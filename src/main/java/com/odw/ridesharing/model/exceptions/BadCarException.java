@@ -1,11 +1,11 @@
-/****************************************************************************
- * FILE: BadCarException.java
- * DSCRPT: 
- ****************************************************************************/
-
 package com.odw.ridesharing.model.exceptions;
 
 public class BadCarException extends Exception {
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -7182344539016320569L;
 
     /**
      *

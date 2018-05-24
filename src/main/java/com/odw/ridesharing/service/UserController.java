@@ -56,15 +56,18 @@ public class UserController {
      *         customer's info
      * @throws BadCustomerException
      * @throws InvalidUserArgumentsException
-     * @throws BadDriverException 
+     * @throws BadDriverException
      */
-    public User modifyUser(ArrayList<String> typeValues_) throws BadCustomerException, InvalidUserArgumentsException, BadDriverException {
+    public User modifyUser(ArrayList<String> typeValues_)
+            throws BadCustomerException, InvalidUserArgumentsException, BadDriverException {
         if (typeValues_.size() == RuntimeConstants.MODIFY_USER_DRIVER_FORMAT.length) {
             try {
                 int _userID = Integer.parseInt(typeValues_.get(0));
                 String _userType = typeValues_.get(1);
                 if (_userType.equals(RuntimeConstants.DRIVER)) {
                     return modifyDriver(_userID, typeValues_);
+                } else {
+                    throw new InvalidUserArgumentsException();
                 }
             } catch (NullPointerException e_) {
                 throw new InvalidUserArgumentsException();
@@ -78,13 +81,14 @@ public class UserController {
                 String _userType = typeValues_.get(1);
                 if (_userType.equals(RuntimeConstants.CUSTOMER)) {
                     return modifyCustomer(_userID, typeValues_);
+                } else {
+                    throw new InvalidUserArgumentsException();
                 }
             } catch (NullPointerException e_) {
                 throw new InvalidUserArgumentsException();
             } catch (NumberFormatException e_) {
                 throw new InvalidUserArgumentsException();
             }
-
         }
 
         // Something went wrong..
@@ -196,7 +200,6 @@ public class UserController {
      */
     private Driver modifyDriver(int userID_, ArrayList<String> newValues_)
             throws BadDriverException, InvalidUserArgumentsException {
-        // TODO: Can't modify a driver to customer.
         try {
             String _newFirstName = newValues_.get(2);
             String _newLastName = newValues_.get(3);
@@ -235,11 +238,11 @@ public class UserController {
      *            ArrayList of string that should contain Firstname, Lastname, Sex,
      *            Age
      * @return _newCustomer Object that contain new info of customer
-     * @throws BadCustomerException 
-     * @throws InvalidUserArgumentsException 
+     * @throws BadCustomerException
+     * @throws InvalidUserArgumentsException
      */
-    private Customer modifyCustomer(int userID_, ArrayList<String> newValues_) throws BadCustomerException, InvalidUserArgumentsException {
-        // TODO: Can't modify a customer to driver.
+    private Customer modifyCustomer(int userID_, ArrayList<String> newValues_)
+            throws BadCustomerException, InvalidUserArgumentsException {
         try {
             String _newFirstName = newValues_.get(2);
             String _newLastName = newValues_.get(3);

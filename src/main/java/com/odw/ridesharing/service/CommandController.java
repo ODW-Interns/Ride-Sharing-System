@@ -17,8 +17,8 @@ import com.odw.ridesharing.model.Pickup;
 import com.odw.ridesharing.model.RuntimeConstants;
 import com.odw.ridesharing.model.User;
 import com.odw.ridesharing.model.exceptions.BadCarException;
-import com.odw.ridesharing.model.exceptions.BadPickupException;
 import com.odw.ridesharing.model.exceptions.BadUserException;
+import com.odw.ridesharing.model.exceptions.InvalidPickupArgumentsException;
 
 public class CommandController {
 
@@ -101,10 +101,11 @@ public class CommandController {
                                                                         _pickupCustomer,
                                                                         _scheduledDriver);
                     logger.debug("CREATED PICKUP: " + _addedPickup.toString());
-                } catch (BadPickupException e_) {
+                } catch (InvalidPickupArgumentsException e_) {
                     logger.error("There was a problem with creating pickup: " + event_.typeValuesToString("|"));
-                } catch (BadUserException e_) {
+                } catch (Exception e_) {
                     // TODO
+                        // BadUserException
                 }
                 break;
             }

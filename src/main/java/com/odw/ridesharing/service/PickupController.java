@@ -5,11 +5,13 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.odw.ridesharing.model.Car;
+import com.odw.ridesharing.model.Customer;
+import com.odw.ridesharing.model.Driver;
 import com.odw.ridesharing.model.Location;
 import com.odw.ridesharing.model.Pickup;
 import com.odw.ridesharing.model.RuntimeConstants;
 import com.odw.ridesharing.model.User;
-import com.odw.ridesharing.model.exceptions.BadPickupException;
+import com.odw.ridesharing.model.exceptions.InvalidPickupArgumentsException;
 
 public class PickupController {
 
@@ -23,19 +25,27 @@ public class PickupController {
      * @param typeValues_
      *            String needed to create a pickup
      * @return _pickup pickup object to be used for logger
-     * @throws BadPickupException
+     * @throws InvalidPickupArgumentsException
      */
     /* @formatter:off */
-    public Pickup createPickup(ArrayList<String> typeValues_, User pickupCustomer_, User pickupDriver_) throws BadPickupException {
-        if (typeValues_.size() == RuntimeConstants.CREATE_PICKUP_FORMAT.length) {
-
-            Pickup _pickup = schedule(pickupFactory.createPickup(typeValues_, pickupCustomer_, pickupDriver_));
-            pickupDatabase.put(_pickup.getPickupID(), _pickup);
-            return _pickup;
+    public Pickup createPickup(ArrayList<String> typeValues_, User pickupCustomer_, User pickupDriver_)
+     throws InvalidPickupArgumentsException {
+        if ((typeValues_.size() == RuntimeConstants.CREATE_PICKUP_FORMAT.length)
+         && (pickupCustomer_ != null && pickupDriver_ != null)
+         && (pickupCustomer_ instanceof Customer && pickupDriver_ instanceof Driver)) {
+            
+            try {
+                // Scheduling a pickup as soon as we get it from the factory.
+                Pickup _scheduledPickup = schedule(pickupFactory.createPickup(typeValues_, pickupCustomer_, pickupDriver_));
+                pickupDatabase.put(_scheduledPickup.getPickupID(), _scheduledPickup);
+                return _scheduledPickup;
+            } catch (InvalidPickupArgumentsException e_) {
+                throw new InvalidPickupArgumentsException();
+            }
         }
 
-        // Something went wrong..
-        throw new BadPickupException();
+        // Something went wrong creating a pickup..
+        throw new InvalidPickupArgumentsException();
     }
     /* @formatter:on */
 
@@ -57,9 +67,28 @@ public class PickupController {
 
         return current_;
     }
+    
+    /**
+     * Returns a string of all the pickup in pickupDatabase.
+     * 
+     * @return A list string of all the pickup in the database
+     */
+    public String getPickupHistoryAsString() {
+        if (pickupDatabase.size() > 0) {
+            StringBuilder _result = new StringBuilder(System.lineSeparator());
 
-    
-    
+            for (Map.Entry<Integer, Pickup> _entry : pickupDatabase.entrySet()) {
+                Pickup _currentPickup = _entry.getValue();
+
+                _result.append(_currentPickup.toString() + System.lineSeparator());
+            }
+
+            return _result.toString();
+        }
+
+        return "";
+    }
+
     // DEPRECATED!
     /**
      * Modify Pickup's info in the database
@@ -102,8 +131,6 @@ public class PickupController {
     }
     ----------------------------------------------------------------------------------------------------*/
 
-    
-    
     // DEPRECATED!
     /**
      * Delete Pickup's info in the database
@@ -130,24 +157,4 @@ public class PickupController {
     }
     ----------------------------------------------------------------------------------------------------*/
     
-    /**
-     * Returns a string of all the pickup in pickupDatabase.
-     * 
-     * @return A list string of all the pickup in the database
-     */
-    public String getPickupHistoryAsString() {
-        if (pickupDatabase.size() > 0) {
-            StringBuilder _result = new StringBuilder(System.lineSeparator());
-
-            for (Map.Entry<Integer, Pickup> _entry : pickupDatabase.entrySet()) {
-                Pickup _currentPickup= _entry.getValue();
-
-                _result.append(_currentPickup.toString() + System.lineSeparator());
-            }
-
-            return _result.toString();
-        }
-
-        return "";
-    }
 }

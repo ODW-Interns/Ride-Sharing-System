@@ -81,7 +81,7 @@ public class CommandController {
                 try {
                     Car _addedCar = carController.createCar(event_.getTypeValues());
                     logger.debug("CREATED CAR: " + _addedCar.toString());
-                } catch (BadCarException e_) {
+                } catch (InvalidCarArgumentsException e_) {
                     logger.error("There was a problem with adding car: " + event_.typeValuesToString("|"));
                 }
                 break;
@@ -128,6 +128,8 @@ public class CommandController {
                     logger.debug("MODIFIED CAR: " + modifiedCar.toString());
                 } catch (BadCarException e_) {
                     logger.error("There was a problem with modifying car: " + event_.typeValuesToString("|"));
+                } catch (InvalidCarArgumentsException e_) {
+                    logger.error("There was a problem with modifying car: " + event_.typeValuesToString("l"));
                 }
                 break;
             }

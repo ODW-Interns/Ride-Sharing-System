@@ -6,6 +6,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 
 import com.odw.ridesharing.model.exceptions.BadCarException;
+import com.odw.ridesharing.model.exceptions.InvalidCarArgumentsException;
 import com.odw.ridesharing.service.CarController;
 
 public class CarControllerTest {
@@ -22,7 +23,7 @@ public class CarControllerTest {
         // Testing valid car creation
         try {
             _carController.createCar(createValidCarInfo());
-        } catch (BadCarException e_) {
+        } catch (InvalidCarArgumentsException e_) {
             fail("Error creating a valid car.");
         }
 
@@ -30,7 +31,7 @@ public class CarControllerTest {
         // Testing invalid car creation.
         try {
             _carController.createCar(createInvalidCarInfo());
-        } catch (BadCarException e_) {
+        } catch (InvalidCarArgumentsException e_) {
             assertTrue(true); // Hacky solution to state that this is the desired outcome.
         }
     }
@@ -47,7 +48,7 @@ public class CarControllerTest {
         // Creating a valid car to later be modified.
         try {
             _carController.createCar(createValidCarInfo());
-        } catch (BadCarException e_) {
+        } catch (InvalidCarArgumentsException e_) {
             fail("Error creating a valid car.");
         }
 
@@ -63,6 +64,8 @@ public class CarControllerTest {
             _carController.modifyCar(_coupeNewInfo);
         } catch (BadCarException e_) {
             fail("Error modifying a valid car.");
+        } catch (InvalidCarArgumentsException e_) {
+            fail("Error modifying arguments for a valid car.");
         }
 
         // ---------------------------------------------
@@ -71,7 +74,7 @@ public class CarControllerTest {
         _invalidModifyInfo.add("not enough info");
         try {
             _carController.modifyCar(_invalidModifyInfo);
-        } catch (BadCarException e_) {
+        } catch (Exception e_) {
             assertTrue(true);
         }
     }
@@ -88,7 +91,7 @@ public class CarControllerTest {
         // Creating a valid car to later be modified.
         try {
             _carController.createCar(createValidCarInfo());
-        } catch (BadCarException e_) {
+        } catch (InvalidCarArgumentsException e_) {
             fail("Error creating a valid car.");
         }
 

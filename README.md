@@ -59,45 +59,46 @@ Delete | TYPE | Type_Id | \n
 ```
 Note:
 ```
-TYPE -> ENUM
+TYPE -> RuntimeConstants
 Modify -> Order matters
 One car per driver
-Multiple pickups is avaliable for driver
-Delete Driver will also Delete Car and Pickup
-Delete Car will not Delete Driver 
-Delete Pickup will not Delete Driver
+Only one pickup is avaliable for driver
 ```
 
 ### CommandHandler
-CarInfo -> Make | Model | Year | Color | DistanceTraveled
+CarInfo -> Make | Model | Year | Color |
 
-DriverInfo -> FirstName | LastName | Sex | Age | Rating | Status | Car_id |
+DriverInfo -> FirstName | LastName | Sex | Age |
 
-PickupInfo -> Driver_id | Car_id | Customer_id | Origin | Dest |
+NewDriverInfo -> FirstName | LastName | Sex | Age | Status | Rating | Car_id |
+
+PickupInfo -> Driver_id | Origin | Dest |
 
 CustomerInfo -> FirstName | LastName | Sex | Age |
 
 - Create(InputType I)
 ```
-Create | CAR | CarInfo | \n
-Create | DRIVER | DriverInfo | \n
+Create | CAR | CarType | CarInfo | \n
+Create | USER | UserType | DriverInfo or CustomerInfo| \n
 Create | PICKUP | PickupInfo | \n
 ```
 - Modify(InputType I)
 ```
-Modify | CAR | car_id | CarInfo | \n
-Modify | DRIVER | driver_id | DriverInfo | \n
+Modify | CAR | CarType | car_id | CarInfo | \n
+Modify | USER | user_id | NewDriverInfo or CustomerInfo | \n
 Modify | PICKUP | pickup_id | PickupInfo | \n
 ```
 - Delete(InputType I)
 ```
 Delete | CAR | car_id | \n
-Delete | DRIVER | driver_id | \n
+Delete | USER | driver_id | \n
 Delete | PICKUP | pickup_id | \n
 ```
 
 Note:
 ```
+CarType -> Sedan, Coupe, SUV
+UserType -> Customer, Driver
 car_id, driver_id, and pickup_id is automatically assign when creating Car/Driver/Pickup
 DistanceTraveled -> Total distance traveled while working as a driver
 Car_id maybe null

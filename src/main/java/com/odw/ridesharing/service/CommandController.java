@@ -96,7 +96,7 @@ public class CommandController {
             case RuntimeConstants.CAR: {
                 try {
                     Car _addedCar = carController.createCar(event_.getTypeValues());
-                    logger.info("CREATED CAR: " + _addedCar.toString());
+                    logger.info("CREATED CAR = " + _addedCar.toString());
                 } catch (InvalidCarArgumentsException e_) {
                     logger.error("There was a problem with adding car: " + event_.typeValuesToString());
                 }
@@ -105,7 +105,11 @@ public class CommandController {
             case RuntimeConstants.USER: {
                 try {
                     User _addedUser = userController.createUser(event_.getTypeValues());
-                    logger.info("CREATED USER: " + _addedUser.toString());
+                    if (_addedUser instanceof Driver) {
+                        logger.info("CREATED DRIVER = " + _addedUser.toString());
+                    } else if (_addedUser instanceof Customer) {
+                        logger.info("CREATED CUSTOMER = " + _addedUser.toString());
+                    }
                 } catch (InvalidUserArgumentsException e_) {
                     logger.error(
                             "The argument passed are not valid; unable to add user: " + event_.typeValuesToString());
@@ -121,7 +125,7 @@ public class CommandController {
                     Pickup _addedPickup = pickupController.createPickup(event_.getTypeValues(), _pickupCustomer,
                             _scheduledDriver);
 
-                    logger.info("CREATED PICKUP: " + _addedPickup.toString());
+                    logger.info("CREATED PICKUP = " + _addedPickup.toString());
 
                 } catch (InvalidPickupArgumentsException e_) {
                     logger.error("There was a problem with creating pickup: " + event_.typeValuesToString());
@@ -151,7 +155,7 @@ public class CommandController {
             case RuntimeConstants.CAR: {
                 try {
                     Car modifiedCar = carController.modifyCar(event_.getTypeValues());
-                    logger.info("MODIFIED CAR: " + modifiedCar.toString());
+                    logger.info("MODIFIED CAR = " + modifiedCar.toString());
                 } catch (BadCarException e_) {
                     logger.error("There was a problem with modifying car: " + event_.typeValuesToString());
                 } catch (InvalidCarArgumentsException e_) {
@@ -162,7 +166,7 @@ public class CommandController {
             case RuntimeConstants.USER: {
                 try {
                     User modifiedUser = userController.modifyUser(event_.getTypeValues());
-                    logger.info("MODIFIED USER: " + modifiedUser.toString());
+                    logger.info("MODIFIED USER = " + modifiedUser.toString());
                 } catch (BadCustomerException e_) {
                     logger.error("There was a problem with modifying customer; customer does not exist: "
                             + event_.typeValuesToString("|"));
@@ -204,7 +208,7 @@ public class CommandController {
             case RuntimeConstants.CAR: {
                 try {
                     Car deletedCar = carController.deleteCar(event_.getTypeValues());
-                    logger.info("DELETED CAR: " + deletedCar.toString());
+                    logger.info("DELETED CAR = " + deletedCar.toString());
                 } catch (BadCarException e_) {
                     logger.error("There was a problem deleting car: " + event_.typeValuesToString());
                 }

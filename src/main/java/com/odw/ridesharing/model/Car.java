@@ -1,7 +1,7 @@
 package com.odw.ridesharing.model;
 
 public abstract class Car {
-    
+
     private int carID;
     private String make;
     private String model;
@@ -38,17 +38,33 @@ public abstract class Car {
     }
 
     /**
-     * Returns the car's information in String format.
+     * Returns the car's information in String format using a specified delimiter.
+     * 
+     * @param delimiter_
+     *            The delimiter used to separate the values.
+     * @return The car information as a String separated by the specified delimiter.
+     */
+    /* @formatter:off */
+    public String toString(String delimiter_) {
+        return "CarID: " + getCarID() + " " + delimiter_ + " " + 
+               "Maker: " + getMake() + " " + delimiter_ + " " +
+               "Model: " + getModel() + " " + delimiter_ + " " +
+               "Color: " + getColor() + " " + delimiter_ + " " +
+               "Year: " + getYear() + " " + delimiter_ + " " +
+               "Distance Traveled: " + getDistanceTraveled() + " " + delimiter_ + " ";
+    }
+    /* @formatter:on */
+
+    /**
+     * Returns the car's information in String format using pipes ("|") as the
+     * default delimiter.
      * 
      * @return The car information as a String.
      */
     @Override
     public String toString() {
-        return "ID: " + carID + " | Maker: " + make + " | Model: " + model + " | Color: " + color + " | Year: "
-                + Integer.toString(year) + " | Distance Traveled: " + Double.toString(distanceTraveled);
+        return toString("|");
     }
-
-    /* ===== Getters and Setters ===== */
 
     /**
      * Gets the current car's id that was assigned

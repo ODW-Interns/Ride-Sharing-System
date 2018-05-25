@@ -60,18 +60,29 @@ public class Pickup {
      * @return The pickup information as a String.
      */
     /* @formatter:off */
-    @Override
-    public String toString() {
-        return "PickupID: " + getPickupID() +
-               " | Customer: " + pickupCustomer.getFirstName() + " " + pickupCustomer.getLastName() + " " 
-                               + "ID(" + pickupCustomer.getUserID() + ")" + 
-               " | Driver: " + pickupDriver.getFirstName() + " " + pickupDriver.getLastName() + " "
-                             + "ID(" + pickupDriver.getUserID() + ")" +
-               " | Origin (latitude, longitude): " + origin.toString() +
-               " | Destination (latitude, longitude): " + destination.toString() +
-               " | Total Cost: " + pickupCost.with(Monetary.getDefaultRounding()).toString();
+    public String toString(String delimiter_) {
+        return "PickupID: " + getPickupID() + " " + delimiter_ + " " +
+               "Customer First Name: " + pickupCustomer.getFirstName() + " " + delimiter_ + " " +
+               "Customer Last Name: " + pickupCustomer.getLastName() + " " + delimiter_ + " " + 
+               "CustomerID: " + pickupCustomer.getUserID() + " " + delimiter_ + " " + 
+               "Driver First Name: " + pickupDriver.getFirstName() + " " + delimiter_ + " " +
+               "Driver Last Name: " + pickupDriver.getLastName() + " " + delimiter_ + " " +
+               "DriverID: " + pickupDriver.getUserID() + " " + delimiter_ + " " + 
+               "Origin (latitude, longitude): " + origin.toString() + " " + delimiter_ + " " +
+               "Destination (latitude, longitude): " + destination.toString() + " " + delimiter_ + " " +
+               "Total Cost: " + pickupCost.with(Monetary.getDefaultRounding()).toString() + " " + delimiter_;
     }
     /* @formatter:on */
+    
+    /**
+     * Returns the pickup's information in String format.
+     * 
+     * @return The pickup information as a String.
+     */
+    @Override
+    public String toString() {
+        return toString("|");
+    }
 
     /**
      * Get the unique ID of the pickup.

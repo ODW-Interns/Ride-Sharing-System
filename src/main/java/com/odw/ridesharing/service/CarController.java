@@ -4,7 +4,9 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import com.odw.ridesharing.model.RuntimeConstants;
 import com.odw.ridesharing.model.abstractmodel.Car;
+
 import com.odw.ridesharing.model.exceptions.BadCarException;
+import com.odw.ridesharing.model.exceptions.BadCustomerException;
 import com.odw.ridesharing.model.exceptions.InvalidCarArgumentsException;
 
 import java.util.ArrayList;
@@ -103,6 +105,17 @@ public class CarController {
         }
 
         // Something went wrong..
+        throw new BadCarException();
+    }
+    
+    public Car getCarByID (int carID_) throws BadCarException{
+        Car _retrievedCar = carInventory.get(carID_);
+
+        if (_retrievedCar != null) {
+            return _retrievedCar;
+        }
+
+        // Car does not exist.
         throw new BadCarException();
     }
 

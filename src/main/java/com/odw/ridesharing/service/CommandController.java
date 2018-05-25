@@ -132,7 +132,8 @@ public class CommandController {
                 } catch (InvalidPickupArgumentsException e_) {
                     logger.error("There was a problem with creating pickup: " + event_.typeValuesToString());
                 } catch (BadCustomerException e_) {
-                    logger.error("Pickup customerID " + event_.getTypeValues().get(0) + " does not exist in the user database.");
+                    logger.error("Pickup customerID " + event_.getTypeValues().get(0)
+                            + " does not exist in the user database.");
                 } catch (CannotSchedulePickupException e_) {
                     logger.error("There was an issue scheduling the pickup: " + event_.typeValuesToString());
                 } catch (NoAvailableDriversException e_) {
@@ -166,9 +167,14 @@ public class CommandController {
                 break;
             }
             case RuntimeConstants.USER: {
+                int _carID = Integer.parseInt(event_.getTypeValues().get(8));
                 try {
+                    carController.getCarByID(_carID);
                     User modifiedUser = userController.modifyUser(event_.getTypeValues());
-                    logger.info("MODIFIED USER = " + modifiedUser.toString());
+                    logger.info("MODIFIED USER: " + modifiedUser.toString());
+                } catch (BadCarException e_) {
+                    logger.error("There was a problem with modifying driver's car; car does not exist: "
+                            + event_.typeValuesToString("|"));
                 } catch (BadCustomerException e_) {
                     logger.error("There was a problem with modifying customer; customer does not exist: "
                             + event_.typeValuesToString("|"));

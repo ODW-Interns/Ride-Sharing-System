@@ -1,5 +1,7 @@
 package com.odw.ridesharing.model;
 
+import com.odw.ridesharing.model.abstractmodel.User;
+
 public class Customer extends User {
    
     private User customer;

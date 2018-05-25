@@ -7,7 +7,7 @@ import com.odw.ridesharing.model.Driver;
 import com.odw.ridesharing.model.Location;
 import com.odw.ridesharing.model.Pickup;
 import com.odw.ridesharing.model.RuntimeConstants;
-import com.odw.ridesharing.model.User;
+import com.odw.ridesharing.model.abstractmodel.User;
 import com.odw.ridesharing.model.exceptions.InvalidPickupArgumentsException;
 
 public class PickupFactory {

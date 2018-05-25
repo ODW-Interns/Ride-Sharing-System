@@ -1,5 +1,7 @@
 package com.odw.ridesharing.model;
 
+import com.odw.ridesharing.model.abstractmodel.Car;
+
 public class Coupe extends Car {
 
     /**

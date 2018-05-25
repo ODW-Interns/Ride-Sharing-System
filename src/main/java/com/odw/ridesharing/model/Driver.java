@@ -1,5 +1,7 @@
 package com.odw.ridesharing.model;
 
+import com.odw.ridesharing.model.abstractmodel.User;
+
 public class Driver extends User {
 
     private int carID;

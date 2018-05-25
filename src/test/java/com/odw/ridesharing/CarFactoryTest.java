@@ -6,10 +6,10 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
-import com.odw.ridesharing.model.Car;
 import com.odw.ridesharing.model.Coupe;
 import com.odw.ridesharing.model.Sedan;
 import com.odw.ridesharing.model.Suv;
+import com.odw.ridesharing.model.abstractmodel.Car;
 import com.odw.ridesharing.model.exceptions.InvalidCarArgumentsException;
 import com.odw.ridesharing.service.CarFactory;
 

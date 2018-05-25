@@ -7,7 +7,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import com.odw.ridesharing.model.Customer;
 import com.odw.ridesharing.model.Driver;
 import com.odw.ridesharing.model.RuntimeConstants;
-import com.odw.ridesharing.model.User;
+import com.odw.ridesharing.model.abstractmodel.User;
 import com.odw.ridesharing.model.exceptions.BadCustomerException;
 import com.odw.ridesharing.model.exceptions.BadDriverException;
 import com.odw.ridesharing.model.exceptions.BadUserException;

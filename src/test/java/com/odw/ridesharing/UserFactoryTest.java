@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import com.odw.ridesharing.model.Customer;
 import com.odw.ridesharing.model.Driver;
-import com.odw.ridesharing.model.User;
+import com.odw.ridesharing.model.abstractmodel.User;
 import com.odw.ridesharing.model.exceptions.InvalidUserArgumentsException;
 import com.odw.ridesharing.service.UserFactory;
 

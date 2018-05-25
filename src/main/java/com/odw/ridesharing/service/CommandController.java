@@ -10,6 +10,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.odw.ridesharing.model.*;
+import com.odw.ridesharing.model.abstractmodel.Car;
+import com.odw.ridesharing.model.abstractmodel.User;
 import com.odw.ridesharing.model.exceptions.*;
 
 public class CommandController {

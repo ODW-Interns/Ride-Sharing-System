@@ -35,22 +35,21 @@ public class PickupFactoryTest {
         _pickupValues.add("-115.1412292");
         try {
             Pickup _firstPickup = _pickupFactory.createPickup(_pickupValues, _customer, _driver);
-
-            assertEquals(_firstPickup.getPickupID(), 0);
-
-            assertEquals(_firstPickup.getDriver().getUserID(), 1);
-            assertEquals(_firstPickup.getDriver().getFirstName(), "Mark");
-            assertEquals(_firstPickup.getDriver().getLastName(), "Constantine");
-            assertEquals(_firstPickup.getDriver().getSex(), "Male");
-            assertEquals(_firstPickup.getDriver().getAge(), 21);
-            assertEquals(_firstPickup.getDriver().getCarID(), 50);
-
-            assertEquals(_firstPickup.getCustomer().getUserID(), 0);
-            assertEquals(_firstPickup.getCustomer().getFirstName(), "Wesley");
-            assertEquals(_firstPickup.getCustomer().getLastName(), "Dong");
-            assertEquals(_firstPickup.getCustomer().getSex(), "Female");
-            assertEquals(_firstPickup.getCustomer().getAge(), 23);
-
+                  
+            assertEquals(0, _firstPickup.getPickupID());
+            
+            assertEquals(1, _firstPickup.getDriver().getUserID());
+            assertEquals("Mark", _firstPickup.getDriver().getFirstName());
+            assertEquals("Constantine", _firstPickup.getDriver().getLastName());
+            assertEquals("Male", _firstPickup.getDriver().getSex());
+            assertEquals(21,_firstPickup.getDriver().getAge());
+            assertEquals(50, _firstPickup.getDriver().getCarID());
+            
+            assertEquals(0, _firstPickup.getCustomer().getUserID());
+            assertEquals("Wesley", _firstPickup.getCustomer().getFirstName());
+            assertEquals("Dong", _firstPickup.getCustomer().getLastName());
+            assertEquals("Female", _firstPickup.getCustomer().getSex());
+            assertEquals(23, _firstPickup.getCustomer().getAge());
         } catch (Exception e_) {
             fail("Error creating a valid pickup");
         }

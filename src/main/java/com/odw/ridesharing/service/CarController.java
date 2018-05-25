@@ -6,7 +6,6 @@ import com.odw.ridesharing.model.RuntimeConstants;
 import com.odw.ridesharing.model.abstractmodel.Car;
 
 import com.odw.ridesharing.model.exceptions.BadCarException;
-import com.odw.ridesharing.model.exceptions.BadCustomerException;
 import com.odw.ridesharing.model.exceptions.InvalidCarArgumentsException;
 
 import java.util.ArrayList;

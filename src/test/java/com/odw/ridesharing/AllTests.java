@@ -7,14 +7,14 @@ import org.junit.runners.Suite.SuiteClasses;
 @RunWith(Suite.class)
 
 /* @formatter:off */
-@SuiteClasses({ EventParserTest.class,
-                CommandControllerTest.class,
-                CarControllerTest.class,
+@SuiteClasses({ CarControllerTest.class,
                 CarFactoryTest.class,
-                UserControllerTest.class,
-                UserFactoryTest.class,
+                CommandControllerTest.class,
+                EventParserTest.class,
                 PickupControllerTest.class, 
-                PickupFactoryTest.class })
+                PickupFactoryTest.class,
+                UserControllerTest.class,
+                UserFactoryTest.class })
 /* @formatter:on */
 
 /**

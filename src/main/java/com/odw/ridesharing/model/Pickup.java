@@ -50,7 +50,7 @@ public class Pickup {
         setOrigin(origin_);
         setDestination(destination_);
 
-        pickupCost = Money.of(0.d, RuntimeConstants.CURRENCY_CODE);
+        pickupCost = Money.of(0.d, RuntimeConstants.USD_CURRENCY_CODE);
     }
     /* @formatter:on */
 
@@ -195,7 +195,7 @@ public class Pickup {
      *            The value to set to.
      */
     public void setPickupCost(double totalCost_) {
-        pickupCost = Money.of(totalCost_, RuntimeConstants.CURRENCY_CODE);
+        pickupCost = Money.of(totalCost_, RuntimeConstants.USD_CURRENCY_CODE);
     }
 
 }

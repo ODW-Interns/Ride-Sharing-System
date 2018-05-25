@@ -160,10 +160,16 @@ public class CommandController {
                 break;
             }
             case RuntimeConstants.USER: {
+                int _carID = Integer.parseInt(event_.getTypeValues().get(8));
                 try {
+                    Car _diverCar = carController.getCarByID(_carID);
                     User modifiedUser = userController.modifyUser(event_.getTypeValues());
                     logger.info("MODIFIED USER: " + modifiedUser.toString());
-                } catch (BadCustomerException e_) {
+                } catch (BadCarException e_) {
+                    logger.error("There was a problem with modifying driver's car; car does not exist: "
+                            + event_.typeValuesToString("|"));
+                }
+                catch (BadCustomerException e_) {
                     logger.error("There was a problem with modifying customer; customer does not exist: "
                             + event_.typeValuesToString("|"));
                 } catch (BadDriverException e_) {

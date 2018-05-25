@@ -55,37 +55,24 @@ public class PickupControllerTest {
             _userController.modifyUser(modifyValidDriverInfo());
         } catch (Exception e_) {
             fail("Error modifying a valid driver");
-        }		
-
+        }
+        
         // Creating a valid pickup. This is what we're testing.
-		try {
-			_customer = (Customer)(_userController.createUser(_customerUserInfo));
-		} catch (InvalidUserArgumentsException e_) {
-			fail("Error creating a valid driver user.");
-		}
+        try {
+            _pickup = _pickupController.createPickup(createValidPickupInfo(), _customer, _driver);
+            
+            // Check to see if schedule() is correct
+            assertEquals(12.5 , _pickup.getPickupCost(), 0.01d);
+        } catch (Exception e_) {
+            fail("Error creating a valid pickup.");
+        }
 
-		ArrayList<String> _validPickupInfo = new ArrayList<String>();
-		_validPickupInfo.add("1");
-		_validPickupInfo.add("36.0731654");
-		_validPickupInfo.add("-115.20643259999997");
-		_validPickupInfo.add("36.0041386");
-		_validPickupInfo.add("-115.1412292");
-
-		try {
-			_pickup = _pickupController.createPickup(_validPickupInfo, _customer, _driver);
-			// check to see if schedule() is correct
-			assertEquals(12.5, _pickup.getPickupCost(), 0.01d);
-
-		} catch (Exception e_) {
-			fail("Error creating a valid pickup.");
-		}
-
-		// Creating an invalid pickup.
-		try {
-			_pickupController.createPickup(createInvalidPickupInfo(), _customer, _driver);
-		} catch (Exception e_) {
-			assertTrue(true); // This is the desired outcome.
-		}
+        // Creating an invalid pickup.
+        try {
+            _pickupController.createPickup(createInvalidPickupInfo(), _customer, _driver);
+        } catch (Exception e_) {
+            assertTrue(true); // This is the desired outcome.
+        }
 	}
 	
 	/**

@@ -91,7 +91,7 @@ public class PickupControllerTest {
 		try {
 			_pickup = _pickupController.createPickup(_validPickupInfo, _customer, _driver);
 			// check to see if schedule() is correct
-			assertEquals(12.5 , _pickup.getPickupCost(), 0.01d);
+			assertEquals(_pickup.getPickupCost(), 12.5, 0.01d);
 		} catch (Exception e_) {
 			fail("Error creating a valid pickup.");
 		}

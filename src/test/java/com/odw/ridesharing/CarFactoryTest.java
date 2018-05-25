@@ -17,8 +17,7 @@ public class CarFactoryTest {
 
     /**
      * Tests CarFactory's createCar method. Ensures that the proper concrete car is
-     * being generated. Note that the assumption for this method is that the
-     * ArrayList is equal to the predetermined event type values size.
+     * being generated.
      */
     @Test
     public void testCreateCar() {

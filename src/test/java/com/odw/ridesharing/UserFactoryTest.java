@@ -12,43 +12,84 @@ import com.odw.ridesharing.model.exceptions.InvalidUserArgumentsException;
 import com.odw.ridesharing.service.UserFactory;
 
 public class UserFactoryTest {
-    
+
     /**
-     * Tests UserFactory's createUser method. Ensures that the proper concrete user is
-     * being generated. Note that the assumption for this method is that the
-     * ArrayList is equal to the predetermined event type values size.
-     * @throws InvalidUserArgumentsException 
+     * Tests UserFactory's createUser method. Ensures that the proper concrete user
+     * is being generated.
      */
     @Test
-    public void testCreateUser() throws InvalidUserArgumentsException {
+    public void testCreateUser() {
         UserFactory _userFactory = new UserFactory();
-        
-        ArrayList<String> _customerUserInfo = new ArrayList<String>();
-        _customerUserInfo.add("customer");
-        _customerUserInfo.add("miley");
-        _customerUserInfo.add("cyrus");
-        _customerUserInfo.add("female");
-        _customerUserInfo.add("25");
-        User _customer = _userFactory.createUser(_customerUserInfo);
-        assertTrue(_customer instanceof Customer);
-        
-        ArrayList<String> _driverUserInfo = new ArrayList<String>();
-        _driverUserInfo.add("driver");
-        _driverUserInfo.add("wesley");
-        _driverUserInfo.add("dong");
-        _driverUserInfo.add("male");
-        _driverUserInfo.add("23");
- 
-        User _driver = _userFactory.createUser(_driverUserInfo);
-        assertTrue(_driver instanceof Driver);
-        
+
+        // ---------------------------------------------
+        // Creating a valid customer.
+        try {
+            User _shouldBeCustomer = _userFactory.createUser(createValidCustomerInfo());
+            assertTrue(_shouldBeCustomer instanceof Customer);
+        } catch (InvalidUserArgumentsException e) {
+            fail("Error creating a valid customer.");
+        }
+
+        // ---------------------------------------------
+        // Creating a valid driver.
+        try {
+            User _shouldBeDriver = _userFactory.createUser(createValidDriverInfo());
+            assertTrue(_shouldBeDriver instanceof Driver);
+        } catch (InvalidUserArgumentsException e) {
+            fail("Error creating a valid driver");
+        }
+
+        // ---------------------------------------------
+        // Creating an invalid user.
+        try {
+            @SuppressWarnings("unused") // Suppressed because this variable is not needed.
+            User _unknownUserType = _userFactory.createUser(createInvalidUserInfo());
+        } catch (InvalidUserArgumentsException e) {
+            assertTrue(true); // This is the desired outcome.
+        }
+    }
+
+    /**
+     * Helper function to generate valid customer info.
+     * 
+     * @return An ArrayList of Strings containing valid customer info.
+     */
+    private ArrayList<String> createValidCustomerInfo() {
+        ArrayList<String> _validCustomerInfo = new ArrayList<String>();
+        _validCustomerInfo.add("customer");
+        _validCustomerInfo.add("miley");
+        _validCustomerInfo.add("cyrus");
+        _validCustomerInfo.add("female");
+        _validCustomerInfo.add("25");
+        return _validCustomerInfo;
+    }
+
+    /**
+     * Helper function to generate valid driver info.
+     * 
+     * @return An ArrayList of Strings containing valid driver info.
+     */
+    private ArrayList<String> createValidDriverInfo() {
+        ArrayList<String> _validDriverInfo = new ArrayList<String>();
+        _validDriverInfo.add("driver");
+        _validDriverInfo.add("wesley");
+        _validDriverInfo.add("dong");
+        _validDriverInfo.add("male");
+        _validDriverInfo.add("23");
+        return _validDriverInfo;
+    }
+
+    /**
+     * Helper function to generate invalid user info.
+     * 
+     * @return An ArrayList of Strings containing invalid user info.
+     */
+    private ArrayList<String> createInvalidUserInfo() {
         ArrayList<String> _invalidUserInfo = new ArrayList<String>();
         _invalidUserInfo.add("unknown");
-        _invalidUserInfo.add("must");
-        _invalidUserInfo.add("be");
+        _invalidUserInfo.add("and");
+        _invalidUserInfo.add("bad");
         _invalidUserInfo.add("length");
-        _invalidUserInfo.add("5");
-        User _unknown = _userFactory.createUser(_invalidUserInfo);
-        assertNull(_unknown);
+        return _invalidUserInfo;
     }
 }

@@ -30,7 +30,7 @@ public class EventParserTest extends TestCase {
 
         String _invalidEventString = "";
         try {
-            @SuppressWarnings("unused")
+            @SuppressWarnings("unused") // Suppressed because the variable is not used.
             Event _invalidEvent = _eventParser.parseEvent(_invalidEventString, "|");
         } catch (InvalidEventException e_) {
             assertTrue(true); // This is the desired outcome.

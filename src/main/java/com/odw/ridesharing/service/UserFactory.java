@@ -8,6 +8,11 @@ import com.odw.ridesharing.model.RuntimeConstants;
 import com.odw.ridesharing.model.abstractmodel.User;
 import com.odw.ridesharing.model.exceptions.InvalidUserArgumentsException;
 
+/**
+ * UserFactory is called by UserController to create a User object which
+ * can either be a Customer or Driver. The Users share the userID which is
+ * instantiated in this class and assigned to the User as they are created.
+ */
 public class UserFactory {
 
     private int nextUserID = 0;

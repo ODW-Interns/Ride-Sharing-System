@@ -14,6 +14,11 @@ import com.odw.ridesharing.model.exceptions.BadUserException;
 import com.odw.ridesharing.model.exceptions.InvalidUserArgumentsException;
 import com.odw.ridesharing.model.exceptions.NoAvailableDriversException;
 
+/**
+ * The UserController is called by the CommandController to handle the commands
+ * done on a User. UserController calls UserFactory to create a User 
+ * (Customer/Driver) and handles modifying and deleting of User object.
+ */
 public class UserController {
 
     private ConcurrentHashMap<Integer, User> userDatabase = new ConcurrentHashMap<Integer, User>();

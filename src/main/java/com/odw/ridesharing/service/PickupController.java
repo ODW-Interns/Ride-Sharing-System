@@ -13,6 +13,13 @@ import com.odw.ridesharing.model.abstractmodel.User;
 import com.odw.ridesharing.model.exceptions.CannotSchedulePickupException;
 import com.odw.ridesharing.model.exceptions.InvalidPickupArgumentsException;
 
+/**
+ * PickupController is called by CommandController to handle the
+ * commands done on Pickup. PickupController calls PickupFactory to 
+ * create a Pickup. PickupController also handles scheduling of the 
+ * Pickups and calculates the rate/fees associated with the Pickup based
+ * off of the distance traveled.
+ */
 public class PickupController {
 
     private ConcurrentHashMap<Integer, Pickup> pickupDatabase = new ConcurrentHashMap<Integer, Pickup>();

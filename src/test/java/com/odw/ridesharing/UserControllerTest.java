@@ -17,8 +17,6 @@ public class UserControllerTest {
     /**
      * Tests UserController's createUser method. Ensures that a valid customer and
      * driver can be created and an invalid user is handled properly.
-     * 
-     * @throws InvalidUserArgumentsException
      */
     @Test
     public void testCreateUser() {
@@ -56,9 +54,6 @@ public class UserControllerTest {
     /**
      * Tests UserController's modifyUser method. Ensures that a valid customer and
      * driver can be modified and an invalid user is handled properly.
-     * 
-     * @throws BadDriverException
-     * @throws InvalidUserArgumentsException
      */
     @Test
     public void testModifyUser() {

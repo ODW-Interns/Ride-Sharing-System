@@ -11,6 +11,11 @@ import com.odw.ridesharing.model.exceptions.InvalidCarArgumentsException;
 import java.util.ArrayList;
 import java.util.Map;
 
+/**
+ * CarController is called by CommandController to handle the commands done 
+ * on Car. Car Controller calls CarFactory to create a Car and handles 
+ * modifying and deleting of Car object.
+ */
 public class CarController {
 
     private ConcurrentHashMap<Integer, Car> carInventory = new ConcurrentHashMap<Integer, Car>();

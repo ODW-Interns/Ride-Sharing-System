@@ -10,6 +10,12 @@ import com.odw.ridesharing.model.RuntimeConstants;
 import com.odw.ridesharing.model.abstractmodel.User;
 import com.odw.ridesharing.model.exceptions.InvalidPickupArgumentsException;
 
+/**
+ * PickupFactory is called by CommandController to create a Pickup object.
+ * PickupFactory is passed in a Customer and Driver along with the latitude 
+ * and longitude to create a Pickup object. The pickupID is instantiated 
+ * in this class and is assigned to the Pickup objects as they are created. 
+ */
 public class PickupFactory {
 
     private int nextPickupID = 0;

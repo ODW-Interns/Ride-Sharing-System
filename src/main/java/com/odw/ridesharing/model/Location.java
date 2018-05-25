@@ -1,11 +1,16 @@
 package com.odw.ridesharing.model;
 
+/**
+ * Location class is used to keep track of coordinates of the origin and 
+ * destination of Pickup. Location will be converted and used to calculate
+ * the cost of the ride associated with Pickup.
+ */
 public class Location {
     private double longitude;
     private double latitude;
 
     /**
-     * Create and initialize a default point with a latitude and logitude specified
+     * Create and initialize a default point with a latitude and longitude specified
      * in degrees.
      * 
      * @param latitude

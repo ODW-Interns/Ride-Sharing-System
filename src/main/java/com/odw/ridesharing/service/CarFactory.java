@@ -9,6 +9,11 @@ import com.odw.ridesharing.model.abstractmodel.Car;
 import com.odw.ridesharing.model.exceptions.InvalidCarArgumentsException;
 import com.odw.ridesharing.model.Sedan;
 
+/**
+ * CarFactory is called by CarController to create a Car object.
+ * The carID is instantiated in this class and is assigned to the 
+ * Car objects as they are created.
+ */
 public class CarFactory {
 
     private int nextCarID = 0;

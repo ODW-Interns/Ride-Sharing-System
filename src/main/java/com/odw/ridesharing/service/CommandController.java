@@ -14,6 +14,13 @@ import com.odw.ridesharing.model.abstractmodel.Car;
 import com.odw.ridesharing.model.abstractmodel.User;
 import com.odw.ridesharing.model.exceptions.*;
 
+/**
+ * CommandController is called by the Main function to process the events 
+ * CREATE, MODIFY, and DELETE on objects CAR, USER (Customer/Driver), or
+ * PICKUP. CommandController calls the respective controllers for each object
+ * to handle the commands. CommandController calls EventParser to parse the
+ * file line-by-line into events.
+ */
 public class CommandController {
 
     private CarController carController = new CarController();

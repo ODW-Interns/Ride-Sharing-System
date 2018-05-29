@@ -96,9 +96,10 @@ public class CarController {
     public Car deleteCar(ArrayList<String> typeValues_) throws CarNotFoundException {
         if (typeValues_.size() == RuntimeConstants.DELETE_CAR_FORMAT.length) {
             int _carID = Integer.parseInt(typeValues_.get(0));
-            try {
+            
+            if (carInventory.get(_carID) != null) {
                 return carInventory.remove(_carID);
-            } catch (NullPointerException e_) {
+            } else {
                 throw new CarNotFoundException();
             }
         }

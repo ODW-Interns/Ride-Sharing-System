@@ -15,10 +15,10 @@ import com.odw.ridesharing.model.exceptions.*;
 
 /**
  * CommandController is called by the Main function to process the events
- * CREATE, MODIFY, and DELETE on objects CAR (Coupe/Sedan/SUV), USER (Customer/Driver), or PICKUP.
- * CommandController calls the respective controllers for each object to handle
- * the commands. CommandController calls EventParser to parse the file
- * line-by-line into events.
+ * CREATE, MODIFY, and DELETE on objects CAR (Coupe/Sedan/SUV), USER
+ * (Customer/Driver), or PICKUP. CommandController calls the respective
+ * controllers for each object to handle the commands. CommandController calls
+ * EventParser to parse the file line-by-line into events.
  */
 public class CommandController {
 
@@ -171,8 +171,8 @@ public class CommandController {
         switch (event_.getInputType()) {
             case RuntimeConstants.CAR: {
                 try {
-                    Car modifiedCar = carController.modifyCar(event_.getTypeValues());
-                    logger.info("MODIFIED CAR = " + modifiedCar.toString());
+                    Car _modifiedCar = carController.modifyCar(event_.getTypeValues());
+                    logger.info("MODIFIED CAR = " + _modifiedCar.toString());
                 } catch (CarNotFoundException e_) {
                     logger.error("There was a problem with modifying car: " + event_.typeValuesToString());
                 } catch (InvalidCarArgumentsException e_) {
@@ -181,11 +181,14 @@ public class CommandController {
                 break;
             }
             case RuntimeConstants.USER: {
-                int _carID = Integer.parseInt(event_.getTypeValues().get(8));
                 try {
-                    carController.getCarByID(_carID);
-                    User modifiedUser = userController.modifyUser(event_.getTypeValues());
-                    logger.info("MODIFIED USER: " + modifiedUser.toString());
+                    if (event_.getTypeValues().get(1).equals(RuntimeConstants.DRIVER)) {
+                        int _carID = Integer.parseInt(event_.getTypeValues().get(8));
+                        carController.getCarByID(_carID);
+                    }
+                    
+                    User _modifiedUser = userController.modifyUser(event_.getTypeValues());
+                    logger.info("MODIFIED USER: " + _modifiedUser.toString());
                 } catch (CarNotFoundException e_) {
                     logger.error("There was a problem with modifying driver's car; car does not exist: "
                             + event_.typeValuesToString("|"));

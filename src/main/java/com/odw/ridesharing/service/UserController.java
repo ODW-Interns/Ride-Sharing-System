@@ -104,9 +104,11 @@ public class UserController {
     public User deleteUser(ArrayList<String> typeValues_) throws UserNotFoundException {
         if (typeValues_.size() == RuntimeConstants.DELETE_USER_FORMAT.length) {
             int _userID = Integer.parseInt(typeValues_.get(0));
-            try {
+
+            if (userDatabase.get(_userID) != null) {
                 return userDatabase.remove(_userID);
-            } catch (NullPointerException e_) {
+            }
+            else {
                 throw new UserNotFoundException();
             }
         }
@@ -130,8 +132,9 @@ public class UserController {
                 if (_currentUser instanceof Driver) {
                     Driver _currentDriver = (Driver) _currentUser;
                     _result.append(System.lineSeparator() + _currentDriver.toString());
-                } else
+                } else {
                     _result.append(System.lineSeparator() + _currentUser.toString());
+                }
 
             }
 

@@ -143,8 +143,6 @@ public class CommandController {
                             + " does not exist in the user database.");
                 } catch (CannotSchedulePickupException e_) {
                     logger.error("There was an issue scheduling the pickup: " + event_.typeValuesToString());
-                } catch (NoAvailableDriversException e_) {
-                    logger.warn("There are no available drivers to schedule pickup: " + event_.typeValuesToString());
                 }
                 break;
             }

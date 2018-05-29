@@ -8,11 +8,7 @@ import com.odw.ridesharing.model.Customer;
 import com.odw.ridesharing.model.Driver;
 import com.odw.ridesharing.model.RuntimeConstants;
 import com.odw.ridesharing.model.abstractmodel.User;
-import com.odw.ridesharing.model.exceptions.BadCustomerException;
-import com.odw.ridesharing.model.exceptions.BadDriverException;
-import com.odw.ridesharing.model.exceptions.BadUserException;
-import com.odw.ridesharing.model.exceptions.InvalidUserArgumentsException;
-import com.odw.ridesharing.model.exceptions.NoAvailableDriversException;
+import com.odw.ridesharing.model.exceptions.*;
 
 /**
  * The UserController is called by the CommandController to handle the commands
@@ -38,9 +34,7 @@ public class UserController {
                 User _user = userFactory.createUser(typeValues_);
                 userDatabase.put(_user.getUserID(), _user);
                 return _user;
-            } catch (NullPointerException e_) {
-                throw new InvalidUserArgumentsException();
-            } catch (NumberFormatException e_) {
+            } catch (Exception e_) {
                 throw new InvalidUserArgumentsException();
             }
         }
@@ -152,7 +146,7 @@ public class UserController {
      * 
      * @return _currentDriver The first available driver's info
      */
-    public Driver getNextAvailableDriver() throws NoAvailableDriversException {
+    public Driver getNextAvailableDriver() {
         if (!userDatabase.isEmpty()) {
             for (Map.Entry<Integer, User> _entry : userDatabase.entrySet()) {
                 User _currentUser = _entry.getValue();
@@ -161,7 +155,8 @@ public class UserController {
                     Driver _currentDriver = (Driver) _currentUser;
 
                     if (_currentDriver.getIsAvailable()) {
-                        _currentDriver.setIsAvailable(false); // Assumed driver is going to be scheduled.
+                        // Set false here because driver is guaranteed to be scheduled.
+                        _currentDriver.setIsAvailable(false);
 
                         // Update the database.
                         int _driverKey = _entry.getKey();
@@ -175,7 +170,7 @@ public class UserController {
         }
 
         // There are no available drivers to be scheduled.
-        throw new NoAvailableDriversException();
+        return null;
     }
 
     /**

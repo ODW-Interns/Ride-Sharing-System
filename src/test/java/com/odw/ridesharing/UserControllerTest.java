@@ -6,9 +6,9 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
-import com.odw.ridesharing.model.exceptions.BadCustomerException;
-import com.odw.ridesharing.model.exceptions.BadDriverException;
-import com.odw.ridesharing.model.exceptions.BadUserException;
+import com.odw.ridesharing.model.exceptions.CustomerNotFoundException;
+import com.odw.ridesharing.model.exceptions.DriverNotFoundException;
+import com.odw.ridesharing.model.exceptions.UserNotFoundException;
 import com.odw.ridesharing.model.exceptions.InvalidUserArgumentsException;
 import com.odw.ridesharing.service.UserController;
 
@@ -80,9 +80,9 @@ public class UserControllerTest {
         _driverNewInfo.add("5");
         try {
             _userController.modifyUser(_driverNewInfo);
-        } catch (BadDriverException e_) {
+        } catch (DriverNotFoundException e_) {
             fail("Error modifying a valid driver.");
-        } catch (BadCustomerException e_) {
+        } catch (CustomerNotFoundException e_) {
             fail("Error modifying a valid driver.");
         } catch (InvalidUserArgumentsException e_) {
             fail("Error modifying a valid driver.");
@@ -106,9 +106,9 @@ public class UserControllerTest {
         _customerNewInfo.add("22");
         try {
             _userController.modifyUser(_customerNewInfo);
-        } catch (BadDriverException e_) {
+        } catch (DriverNotFoundException e_) {
             fail("Error modifying a valid customer.");
-        } catch (BadCustomerException e_) {
+        } catch (CustomerNotFoundException e_) {
             fail("Error modifying a valid customer.");
         } catch (InvalidUserArgumentsException e_) {
             fail("Error modifying a valid customer.");
@@ -121,9 +121,9 @@ public class UserControllerTest {
         _invalidModifyInfo.add("must include all fields");
         try {
             _userController.modifyUser(_invalidModifyInfo);
-        } catch (BadDriverException e_) {
+        } catch (DriverNotFoundException e_) {
             assertTrue(true);
-        } catch (BadCustomerException e_) {
+        } catch (CustomerNotFoundException e_) {
             assertTrue(true);
         } catch (InvalidUserArgumentsException e_) {
             assertTrue(true);
@@ -152,7 +152,7 @@ public class UserControllerTest {
         _driverDeleteInfo.add("0"); // Valid ID
         try {
             _userController.deleteUser(_driverDeleteInfo);
-        } catch (BadUserException e_) {
+        } catch (UserNotFoundException e_) {
             fail("Error deleting a valid user.");
         }
 
@@ -163,7 +163,7 @@ public class UserControllerTest {
         _invalidDeleteInfo.add("1000"); // Invalid ID
         try {
             _userController.deleteUser(_invalidDeleteInfo);
-        } catch (BadUserException e_) {
+        } catch (UserNotFoundException e_) {
             assertTrue(true);
         }
     }

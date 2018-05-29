@@ -18,15 +18,19 @@ public class PickupScheduler {
     private Queue<Pickup> unscheduledPickupQueue = new LinkedList<>();
 
     /**
-     * Assigns an available driver to the pickup.
+     * Schedules the specified available driver to the pickup.
      * 
      * @param pickupToSchedule_
+     *            The pickup to be scheduled.
      * @param driverForPickup_
-     * @return
+     *            The driver to be assigned to the pickup. Null if no available
+     *            driver.
+     * @return The pickup with the specified driver scheduled.
      * @throws CannotSchedulePickupException
      */
+    /* @formatter:off */
     public Pickup schedulePickup(Pickup pickupToSchedule_, Driver driverForPickup_)
-            throws CannotSchedulePickupException {
+     throws CannotSchedulePickupException {
         if (pickupToSchedule_ != null) {
             // If driver is null, no available driver is available to be scheduled.
             if (driverForPickup_ == null) {
@@ -37,6 +41,7 @@ public class PickupScheduler {
                     // Assigning the driver to the pickup.
                     pickupToSchedule_.setDriver(driverForPickup_);
 
+                    
                     return calculatePickupCost(pickupToSchedule_);
                 } else {
                     // Unscheduled pickups still exist. Scheduling oldest first in FCFS manner.
@@ -58,16 +63,19 @@ public class PickupScheduler {
         // Something went wrong..
         throw new CannotSchedulePickupException();
     }
+    /* @formatter:on */
 
-    // TODO: Finish these comments.
     /**
-     * Returns pickup with newly calculated cost.
+     * Returns the given pickup with its newly calculated cost.
      * 
      * @param currentPickup_
-     * @return
-     * @throws CannotSchedulePickupException
+     *            The pickup to calculate the cost from.
+     * @return The same pickup with it's cost field modified. Null if something went
+     *         wrong.
      */
-    private Pickup calculatePickupCost(Pickup currentPickup_) throws CannotSchedulePickupException {
+    private Pickup calculatePickupCost(Pickup currentPickup_) {
+        // currentPickup_ guaranteed to be not null because it is checked in
+        // schedulePickup(...)
         if (currentPickup_ != null) {
             Location _origin = currentPickup_.getOrigin();
             Location _destination = currentPickup_.getDestination();
@@ -79,6 +87,7 @@ public class PickupScheduler {
             return currentPickup_;
         }
 
-        throw new CannotSchedulePickupException();
+        // Something went wrong.. Should never reach this point.
+        return null;
     }
 }

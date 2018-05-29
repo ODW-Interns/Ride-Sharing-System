@@ -9,43 +9,41 @@ public class Pickup {
 
     private int pickupID;
     private Customer pickupCustomer;
-    private Driver pickupDriver; // To be assigned by the Scheduler.
+    private Driver pickupDriver;
     private Location origin;
     private Location destination;
     private MonetaryAmount pickupCost;
 
+    /**
+     * Creates a default pickup to be modified later.
+     */
     public Pickup() {
         this(-1, new Customer(), new Location(), new Location());
     }
 
-    
-    // TODO: Fix these comments
     /**
-     * Initialize a Pickup with IDs from car, driver, and customer
+     * Create a new pickup with a specified ID, customer, origin location, and
+     * destination location. Note that driver is to be assigned through
+     * PickupScheduler.
      * 
-     * Includes the ride to and from
+     * @param pickupID_
+     *            The pickup's identification number.
      * 
-     * @param carID_
-     *            This car's unique id
-     * 
-     * @param driverID_
-     *            This driver's unique id
-     * 
-     * @param customerID_
-     *            This customer's unique id
+     * @param pickupCustomer_
+     *            The customer associated with this pickup.
      * 
      * @param origin_
-     *            the starting location of the driver in longitude and latitude
+     *            The starting location of the pickup.
      * 
      * @param destination_
-     *            the destination location in longitude and latitude
+     *            The destination location of the pickup.
      */
     /* @formatter:off */
-    public Pickup(int pickupId__,
+    public Pickup(int pickupID_,
                   Customer pickupCustomer_,
                   Location origin_,
                   Location destination_) {
-        setPickupID(pickupId__);
+        setPickupID(pickupID_);
         setCustomer(pickupCustomer_);
         setOrigin(origin_);
         setDestination(destination_);
@@ -73,7 +71,7 @@ public class Pickup {
                "Total Cost: " + pickupCost.with(Monetary.getDefaultRounding()).toString() + " " + delimiter_;
     }
     /* @formatter:on */
-    
+
     /**
      * Returns the pickup's information in String format.
      * 

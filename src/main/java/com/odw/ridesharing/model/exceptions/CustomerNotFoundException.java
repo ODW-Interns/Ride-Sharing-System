@@ -1,6 +1,6 @@
 package com.odw.ridesharing.model.exceptions;
 
-public class BadCustomerException extends Exception {
+public class CustomerNotFoundException extends Exception {
 
     /**
      * 
@@ -10,13 +10,13 @@ public class BadCustomerException extends Exception {
     /**
     *
     */
-   public BadCustomerException() {
+   public CustomerNotFoundException() {
    }
 
    /**
     *
     */
-   public BadCustomerException(String message_) {
+   public CustomerNotFoundException(String message_) {
        super(message_);
 
    }
@@ -24,7 +24,7 @@ public class BadCustomerException extends Exception {
    /**
     *
     */
-   public BadCustomerException(Throwable cause_) {
+   public CustomerNotFoundException(Throwable cause_) {
        super(cause_);
 
    }
@@ -32,7 +32,7 @@ public class BadCustomerException extends Exception {
    /**
     *
     */
-   public BadCustomerException(String message_, Throwable cause_) {
+   public CustomerNotFoundException(String message_, Throwable cause_) {
        super(message_, cause_);
 
    }
@@ -40,7 +40,7 @@ public class BadCustomerException extends Exception {
    /**
     *
     */
-   public BadCustomerException(String message_, Throwable cause_, boolean enableSuppression_, boolean writableStackTrace_) {
+   public CustomerNotFoundException(String message_, Throwable cause_, boolean enableSuppression_, boolean writableStackTrace_) {
        super(message_, cause_, enableSuppression_, writableStackTrace_);
 
    }

@@ -29,7 +29,8 @@ public class PickupController {
      * the next available driver. See command controller.
      * 
      * @param typeValues_
-     *            String needed to create a pickup
+     *            Expected input values specified under CREATE_PICKUP_FORMAT in
+     *            RuntimeConstants.
      * @return _pickup pickup object to be used for logger
      * @throws InvalidPickupArgumentsException
      */

@@ -63,7 +63,7 @@ Events should be, at a minimum:
   * DESTINATION_LATITUDE (DOUBLE)
   * DESTINATION_LONGITUDE (DOUBLE)
   * AVAILABILITY (BOOLEAN)
-* Note, for the following formats bellow, any field in ALL_CAPS is meant to be replaced by actual field values in the input.
+* Note, for the following formats below, any field in ALL_CAPS is meant to be replaced by actual field values in the input.
   * Also, our system is NOT case sensitive.
    
 

@@ -12,7 +12,7 @@ import com.odw.ridesharing.model.exceptions.*;
 
 /**
  * The UserController is called by the CommandController to handle the commands
- * done on a User. UserController calls UserFactory to create a User 
+ * done on a User. UserController calls UserFactory to create a User
  * (Customer/Driver) and handles modifying and deleting of User object.
  */
 public class UserController {
@@ -103,11 +103,11 @@ public class UserController {
     public User deleteUser(ArrayList<String> typeValues_) throws BadUserException {
         if (typeValues_.size() == RuntimeConstants.DELETE_USER_FORMAT.length) {
             int _userID = Integer.parseInt(typeValues_.get(0));
-            try {
+
+            if (userDatabase.get(_userID) != null)
                 return userDatabase.remove(_userID);
-            } catch (NullPointerException e_) {
+            else
                 throw new BadUserException();
-            }
         }
 
         // Something went wrong..

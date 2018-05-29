@@ -12,9 +12,9 @@ import java.util.ArrayList;
 import java.util.Map;
 
 /**
- * CarController is called by CommandController to handle the commands done 
- * on Car. Car Controller calls CarFactory to create a Car and handles 
- * modifying and deleting of Car object.
+ * CarController is called by CommandController to handle the commands done on
+ * Car. Car Controller calls CarFactory to create a Car and handles modifying
+ * and deleting of Car object.
  */
 public class CarController {
 
@@ -28,7 +28,7 @@ public class CarController {
      * @param typeValues_
      *            Strings needed to create the car
      * @return _car To be used for logger
-     * @throws InvalidCarArgumentsException 
+     * @throws InvalidCarArgumentsException
      */
     public Car createCar(ArrayList<String> typeValues_) throws InvalidCarArgumentsException {
         if (typeValues_.size() == RuntimeConstants.CREATE_CAR_FORMAT.length) {
@@ -101,18 +101,18 @@ public class CarController {
     public Car deleteCar(ArrayList<String> typeValues_) throws BadCarException {
         if (typeValues_.size() == RuntimeConstants.DELETE_CAR_FORMAT.length) {
             int _carID = Integer.parseInt(typeValues_.get(0));
-            try {
+            
+            if (carInventory.get(_carID) != null)
                 return carInventory.remove(_carID);
-            } catch (NullPointerException e_) {
+            else
                 throw new BadCarException();
-            }
         }
 
         // Something went wrong..
         throw new BadCarException();
     }
-    
-    public Car getCarByID (int carID_) throws BadCarException{
+
+    public Car getCarByID(int carID_) throws BadCarException {
         Car _retrievedCar = carInventory.get(carID_);
 
         if (_retrievedCar != null) {

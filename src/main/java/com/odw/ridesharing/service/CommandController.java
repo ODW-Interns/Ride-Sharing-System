@@ -146,7 +146,7 @@ public class CommandController {
                     logger.info("No available driver for pickup: " + event_.typeValuesToString() + " (Will attempt to reschedule ASAP)");
                 } catch (InvalidPickupArgumentsException e_) {
                     logger.error("There was a problem with creating pickup: " + event_.typeValuesToString());
-                } catch (BadCustomerException e_) {
+                } catch (CustomerNotFoundException e_) {
                     logger.error("Pickup customerID " + event_.getTypeValues().get(0) + " does not exist in the user database.");
                 } catch (NumberFormatException e_) {
                     logger.error("CustomerID is not integer parseable. Check input format.");
@@ -174,7 +174,7 @@ public class CommandController {
                 try {
                     Car modifiedCar = carController.modifyCar(event_.getTypeValues());
                     logger.info("MODIFIED CAR = " + modifiedCar.toString());
-                } catch (BadCarException e_) {
+                } catch (CarNotFoundException e_) {
                     logger.error("There was a problem with modifying car: " + event_.typeValuesToString());
                 } catch (InvalidCarArgumentsException e_) {
                     logger.error("There was a problem with modifying car: " + event_.typeValuesToString());
@@ -187,13 +187,13 @@ public class CommandController {
                     carController.getCarByID(_carID);
                     User modifiedUser = userController.modifyUser(event_.getTypeValues());
                     logger.info("MODIFIED USER: " + modifiedUser.toString());
-                } catch (BadCarException e_) {
+                } catch (CarNotFoundException e_) {
                     logger.error("There was a problem with modifying driver's car; car does not exist: "
                             + event_.typeValuesToString("|"));
-                } catch (BadCustomerException e_) {
+                } catch (CustomerNotFoundException e_) {
                     logger.error("There was a problem with modifying customer; customer does not exist: "
                             + event_.typeValuesToString("|"));
-                } catch (BadDriverException e_) {
+                } catch (DriverNotFoundException e_) {
                     logger.error("There was a problem with modifying driver; driver does not exist: "
                             + event_.typeValuesToString("|"));
                 } catch (InvalidUserArgumentsException e_) {
@@ -232,7 +232,7 @@ public class CommandController {
                 try {
                     Car deletedCar = carController.deleteCar(event_.getTypeValues());
                     logger.info("DELETED CAR = " + deletedCar.toString());
-                } catch (BadCarException e_) {
+                } catch (CarNotFoundException e_) {
                     logger.error("There was a problem deleting car: " + event_.typeValuesToString());
                 }
                 break;
@@ -241,7 +241,7 @@ public class CommandController {
                 try {
                     User _deletedUser = userController.deleteUser(event_.getTypeValues());
                     logger.info("DELETED USER: " + _deletedUser.toString());
-                } catch (BadUserException e_) {
+                } catch (UserNotFoundException e_) {
                     logger.error("There was a problem deleting user: " + event_.typeValuesToString());
                 }
                 break;

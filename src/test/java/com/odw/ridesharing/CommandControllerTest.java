@@ -22,6 +22,10 @@ public class CommandControllerTest {
         _commandController = new CommandController();
         _commandController.processFile("src/main/resources/invalidInputTest.txt", "|");
         
+     // Separating executions. Not necessary.
+        _commandController = new CommandController();
+        _commandController.processFile("src/main/resources/test.txt", "|");
+        
         // File found and read with no exceptions.
         assertTrue(true); // See logger file to determine validity.
     }

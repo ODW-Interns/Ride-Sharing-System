@@ -12,7 +12,7 @@ import com.odw.ridesharing.model.exceptions.*;
 
 /**
  * The UserController is called by the CommandController to handle the commands
- * done on a User. UserController calls UserFactory to create a User 
+ * done on a User. UserController calls UserFactory to create a User
  * (Customer/Driver) and handles modifying and deleting of User object.
  */
 public class UserController {
@@ -24,7 +24,8 @@ public class UserController {
      * Add user to the userDatabase
      * 
      * @param typeValues_
-     *            String needed to create the user
+     *            Expected input values specified under CREATE_USER_FORMAT in
+     *            RuntimeConstants.
      * @return _user User object to be used for logger
      * @throws InvalidUserArgumentsException
      */
@@ -47,19 +48,18 @@ public class UserController {
      * Modify user that is currently in the userDatabase
      * 
      * @param typeValues_
-     *            ArrayList of string that should contain FirstName, LastName, Age,
-     *            and Sex for customer For Driver, the ArrayList will contain 3 more
-     *            fields: isAvailable, Rating, and CarID
+     *            Expected input values specified under MODIFY_USER_FORMAT in
+     *            RuntimeConstants.
      * @return modifyDriver(_userID, typeValues_) User object that contain driver's
      *         info
      * @return modifyCustomer(_userID, typeValues_) User object that contain
      *         customer's info
-     * @throws BadCustomerException
+     * @throws CustomerNotFoundException
      * @throws InvalidUserArgumentsException
-     * @throws BadDriverException
+     * @throws DriverNotFoundException
      */
     public User modifyUser(ArrayList<String> typeValues_)
-            throws BadCustomerException, InvalidUserArgumentsException, BadDriverException {
+            throws CustomerNotFoundException, InvalidUserArgumentsException, DriverNotFoundException {
         if (typeValues_.size() == RuntimeConstants.MODIFY_USER_DRIVER_FORMAT.length) {
             try {
                 int _userID = Integer.parseInt(typeValues_.get(0));
@@ -95,23 +95,24 @@ public class UserController {
      * Delete user from the database
      * 
      * @param typeValues
-     *            ArrayList of string that should contain userID
+     *            Expected input values specified under DELETE_USER_FORMAT in
+     *            RuntimeConstants.
      * @return userDatabase.remove(_userID) Object to be removed, will be used for
      *         logger
-     * @throws BadUserException
+     * @throws UserNotFoundException
      */
-    public User deleteUser(ArrayList<String> typeValues_) throws BadUserException {
+    public User deleteUser(ArrayList<String> typeValues_) throws UserNotFoundException {
         if (typeValues_.size() == RuntimeConstants.DELETE_USER_FORMAT.length) {
             int _userID = Integer.parseInt(typeValues_.get(0));
             try {
                 return userDatabase.remove(_userID);
             } catch (NullPointerException e_) {
-                throw new BadUserException();
+                throw new UserNotFoundException();
             }
         }
 
         // Something went wrong..
-        throw new BadUserException();
+        throw new UserNotFoundException();
     }
 
     /**
@@ -180,9 +181,9 @@ public class UserController {
      * @param userID_
      *            userID needed to search the database
      * @return userDatabase.get(userID_) return the user object
-     * @throws BadCustomerException
+     * @throws CustomerNotFoundException
      */
-    public Customer getCustomerByID(int userID_) throws BadCustomerException {
+    public Customer getCustomerByID(int userID_) throws CustomerNotFoundException {
 
         User _retrievedUser = userDatabase.get(userID_);
 
@@ -191,7 +192,7 @@ public class UserController {
         }
 
         // User was driver or does not exist.
-        throw new BadCustomerException();
+        throw new CustomerNotFoundException();
     }
 
     /**
@@ -203,12 +204,12 @@ public class UserController {
      *            ArrayList of string that should contain FirstName, LastName, Sex,
      *            Age, isAvailable, Rating, and CarID to be modified
      * @return _newDriver Object that contain new info of driver
-     * @throws BadDriverException
+     * @throws DriverNotFoundException
      * @throws InvalidUserArgumentsException
      */
     /* @formatter:off */
     private Driver modifyDriver(int userID_, ArrayList<String> newValues_)
-     throws BadDriverException, InvalidUserArgumentsException {
+     throws DriverNotFoundException, InvalidUserArgumentsException {
         try {
             String _newFirstName = newValues_.get(2);
             String _newLastName = newValues_.get(3);
@@ -232,7 +233,7 @@ public class UserController {
 
             return _newDriver;
         } catch (NullPointerException e_) {
-            throw new BadDriverException();
+            throw new DriverNotFoundException();
         } catch (NumberFormatException e_) {
             throw new InvalidUserArgumentsException();
         }
@@ -248,12 +249,12 @@ public class UserController {
      *            ArrayList of string that should contain first name, last name,
      *            sex, age
      * @return _newCustomer Object that contain new info of customer
-     * @throws BadCustomerException
+     * @throws CustomerNotFoundException
      * @throws InvalidUserArgumentsException
      */
     /* @formatter:off */
     private Customer modifyCustomer(int userID_, ArrayList<String> newValues_)
-     throws BadCustomerException, InvalidUserArgumentsException {
+     throws CustomerNotFoundException, InvalidUserArgumentsException {
         try {
             String _newFirstName = newValues_.get(2);
             String _newLastName = newValues_.get(3);
@@ -272,7 +273,7 @@ public class UserController {
 
             return _newCustomer;
         } catch (NullPointerException e_) {
-            throw new BadCustomerException();
+            throw new CustomerNotFoundException();
         } catch (NumberFormatException e_) {
             throw new InvalidUserArgumentsException();
         }

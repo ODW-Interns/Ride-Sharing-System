@@ -1,6 +1,6 @@
 package com.odw.ridesharing.model.exceptions;
 
-public class BadDriverException extends Exception {
+public class DriverNotFoundException extends Exception {
 
     /**
      * 
@@ -10,13 +10,13 @@ public class BadDriverException extends Exception {
     /**
      *
      */
-    public BadDriverException() {
+    public DriverNotFoundException() {
     }
 
     /**
      *
      */
-    public BadDriverException(String message_) {
+    public DriverNotFoundException(String message_) {
         super(message_);
 
     }
@@ -24,7 +24,7 @@ public class BadDriverException extends Exception {
     /**
      *
      */
-    public BadDriverException(Throwable cause_) {
+    public DriverNotFoundException(Throwable cause_) {
         super(cause_);
 
     }
@@ -32,7 +32,7 @@ public class BadDriverException extends Exception {
     /**
      *
      */
-    public BadDriverException(String message_, Throwable cause_) {
+    public DriverNotFoundException(String message_, Throwable cause_) {
         super(message_, cause_);
 
     }
@@ -40,7 +40,7 @@ public class BadDriverException extends Exception {
     /**
      *
      */
-    public BadDriverException(String message_, Throwable cause_, boolean enableSuppression_,
+    public DriverNotFoundException(String message_, Throwable cause_, boolean enableSuppression_,
             boolean writableStackTrace_) {
         super(message_, cause_, enableSuppression_, writableStackTrace_);
 

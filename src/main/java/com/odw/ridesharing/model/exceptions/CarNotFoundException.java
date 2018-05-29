@@ -1,6 +1,6 @@
 package com.odw.ridesharing.model.exceptions;
 
-public class BadCarException extends Exception {
+public class CarNotFoundException extends Exception {
 
     /**
      * 
@@ -10,13 +10,13 @@ public class BadCarException extends Exception {
     /**
      *
      */
-    public BadCarException() {
+    public CarNotFoundException() {
     }
 
     /**
      *
      */
-    public BadCarException(String message_) {
+    public CarNotFoundException(String message_) {
         super(message_);
 
     }
@@ -24,7 +24,7 @@ public class BadCarException extends Exception {
     /**
      *
      */
-    public BadCarException(Throwable cause_) {
+    public CarNotFoundException(Throwable cause_) {
         super(cause_);
 
     }
@@ -32,7 +32,7 @@ public class BadCarException extends Exception {
     /**
      *
      */
-    public BadCarException(String message_, Throwable cause_) {
+    public CarNotFoundException(String message_, Throwable cause_) {
         super(message_, cause_);
 
     }
@@ -40,7 +40,7 @@ public class BadCarException extends Exception {
     /**
      *
      */
-    public BadCarException(String message_, Throwable cause_, boolean enableSuppression_, boolean writableStackTrace_) {
+    public CarNotFoundException(String message_, Throwable cause_, boolean enableSuppression_, boolean writableStackTrace_) {
         super(message_, cause_, enableSuppression_, writableStackTrace_);
 
     }

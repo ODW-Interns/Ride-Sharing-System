@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
-import com.odw.ridesharing.model.exceptions.BadCarException;
+import com.odw.ridesharing.model.exceptions.CarNotFoundException;
 import com.odw.ridesharing.model.exceptions.InvalidCarArgumentsException;
 import com.odw.ridesharing.service.CarController;
 
@@ -62,7 +62,7 @@ public class CarControllerTest {
         _coupeNewInfo.add("2004");
         try {
             _carController.modifyCar(_coupeNewInfo);
-        } catch (BadCarException e_) {
+        } catch (CarNotFoundException e_) {
             fail("Error modifying a valid car.");
         } catch (InvalidCarArgumentsException e_) {
             fail("Error modifying arguments for a valid car.");
@@ -100,7 +100,7 @@ public class CarControllerTest {
         _coupeDeleteInfo.add("0"); // Valid ID
         try {
             _carController.deleteCar(_coupeDeleteInfo);
-        } catch (BadCarException e_) {
+        } catch (CarNotFoundException e_) {
             fail("Error deleting a valid car.");
         }
 
@@ -110,7 +110,7 @@ public class CarControllerTest {
         _invalidDeleteInfo.add("1000"); // Invalid ID
         try {
             _carController.deleteCar(_invalidDeleteInfo);
-        } catch (BadCarException e_) {
+        } catch (CarNotFoundException e_) {
             assertTrue(true);
         }
     }

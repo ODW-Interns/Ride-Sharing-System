@@ -52,56 +52,35 @@ Events should be, at a minimum:
 2. Create/Modify/Delete a driver
 3. Create/Modify/Delete a scheduled pickup
 
-```
-Create | TYPE | InfoOfType |  \n
-Modify | TYPE | Field1 | … | … | Fieldn | \n
-Delete | TYPE | Type_Id | \n
-```
-Note:
-```
-TYPE -> CAR, USER, DRIVER (RuntimeConstants)
-Order matters
-One car per driver
-Driver cannot take more than one pickup until he/she finishes the current pickup
-```
+* Note, all input fields are strings excluding the following:
+  * CAR_ID (INT)
+  * USER_ID (INT)
+  * CUSTOMER_ID (INT)
+  * YEAR (INT)
+  * AGE (INT)
+  * ORIGIN_LATITUDE (DOUBLE)
+  * ORIGIN_LONGITUDE (DOUBLE)
+  * DESTINATION_LATITUDE (DOUBLE)
+  * DESTINATION_LONGITUDE (DOUBLE)
+  * AVAILABILITY (BOOLEAN)
+* Note, for the following formats bellow, any field in ALL_CAPS is meant to be replaced by actual field values in the input.
+  * Also, our system is NOT case sensitive.
+   
 
-### CommandHandler
-CarInfo -> Make | Model | Year | Color |
-
-DriverInfo -> FirstName | LastName | Sex | Age |
-
-NewDriverInfo -> FirstName | LastName | Sex | Age | Status | Rating | Car_id |
-
-PickupInfo -> Driver_id | Origin | Dest |
-
-CustomerInfo -> FirstName | LastName | Sex | Age |
-
-- Create(InputType I)
+### Create Formats
 ```
-Create | CAR | CarType | CarInfo | \n
-Create | USER | UserType | DriverInfo or CustomerInfo| \n
-Create | PICKUP | PickupInfo | \n
+create|car|CAR_TYPE|MAKE|MODEL|COLOR|YEAR|\n
+create|user|USER_TYPE|FIRST_NAME|LAST_NAME|SEX|AGE|\n
+create|pickup|CUSTOMER_ID|ORIGIN_LATITUDE|ORIGIN_LONGITUDE|DESTINATION_LATITUDE|DESTINATION_LONGITUDE|\n
 ```
-- Modify(InputType I)
+### Modify Formats
 ```
-Modify | CAR | CarType | car_id | CarInfo | \n
-Modify | USER | user_id | NewDriverInfo or CustomerInfo | \n
-Modify | PICKUP | pickup_id | PickupInfo | \n
+modify|car|CAR_ID|CAR_TYPE|MAKE|MODEL|COLOR|YEAR|\n
+modify|user|USER_ID|driver|FIRST_NAME|LAST_NAME|SEX|AGE|AVAILABILITY|RATING|CAR_ID|\n
+modify|user|USER_ID|driver|FIRST_NAME|LAST_NAME|SEX|AGE|\n
 ```
-- Delete(InputType I)
+### Delete Formats
 ```
-Delete | CAR | car_id | \n
-Delete | USER | driver_id | \n
-Delete | PICKUP | pickup_id | \n
-```
-
-Note:
-```
-CarType -> Sedan, Coupe, SUV
-UserType -> Customer, Driver
-car_id, driver_id, and pickup_id is automatically assign when creating Car/Driver/Pickup
-DistanceTraveled -> Total distance traveled while working as a driver
-Car_id maybe null
-Origin -> origin_x|origin_y (double)
-Dest -> destination_x|destination_y (double)
+delete|car|CAR_ID|\n
+delete|user|USER_ID|\n
 ```

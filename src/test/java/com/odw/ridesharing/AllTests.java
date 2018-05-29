@@ -13,6 +13,7 @@ import org.junit.runners.Suite.SuiteClasses;
                 EventParserTest.class,
                 PickupControllerTest.class, 
                 PickupFactoryTest.class,
+                PickupSchedulerTest.class,
                 UserControllerTest.class,
                 UserFactoryTest.class })
 /* @formatter:on */

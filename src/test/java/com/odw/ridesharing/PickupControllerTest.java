@@ -58,6 +58,7 @@ public class PickupControllerTest {
         }
         
         // Creating a valid pickup. This is what we're testing.
+        // TODO: Figure out why this test isn't working.
         try {
             _pickup = _pickupController.createPickup(createValidPickupInfo(), _customer, _driver);
             

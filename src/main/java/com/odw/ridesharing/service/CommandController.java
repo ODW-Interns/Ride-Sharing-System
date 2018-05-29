@@ -131,7 +131,7 @@ public class CommandController {
                     // Obtained from input.
                     Customer _pickupCustomer = userController.getCustomerByID(_customerID);
                     
-                    // Chosen by the userController.
+                    // Driver to be scheduled is chosen by the userController.
                     Driver _scheduledDriver = userController.getNextAvailableDriver();
                     
                     Pickup _addedPickup = pickupController.createPickup(event_.getTypeValues(),
@@ -146,7 +146,7 @@ public class CommandController {
                     logger.error("Pickup customerID " + event_.getTypeValues().get(0)
                             + " does not exist in the user database.");
                 } catch (CannotSchedulePickupException e_) {
-                    logger.error("There was an issue scheduling the pickup: " + event_.typeValuesToString());
+                    logger.error("No available driver for pickup (Will attempt to reschedule ASAP): " + event_.typeValuesToString());
                 }
                 break;
             }

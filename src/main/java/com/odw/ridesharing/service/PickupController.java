@@ -35,16 +35,18 @@ public class PickupController {
      * @throws InvalidPickupArgumentsException
      */
     /* @formatter:off */
-    public Pickup createPickup(ArrayList<String> typeValues_, User pickupCustomer_, User pickupDriver_)
+    public Pickup createPickup(ArrayList<String> typeValues_, Customer pickupCustomer_, Driver pickupDriver_)
      throws InvalidPickupArgumentsException, CannotSchedulePickupException {
-        if ((typeValues_.size() == RuntimeConstants.CREATE_PICKUP_FORMAT.length)
-         && (pickupCustomer_ != null && pickupDriver_ != null)
-         && (pickupCustomer_ instanceof Customer && pickupDriver_ instanceof Driver)) {
+        if (typeValues_.size() == RuntimeConstants.CREATE_PICKUP_FORMAT.length && pickupCustomer_ != null) {
             
             try {
-                // Scheduling a pickup as soon as we get it from the factory.
-                Pickup _scheduledPickup = schedule(pickupFactory.createPickup(typeValues_, pickupCustomer_, pickupDriver_),
-                                                   pickupDriver_);
+                // Creating the pickup through the factory. No driver is assigned yet.
+                Pickup _newPickup = pickupFactory.createPickup(typeValues_, pickupCustomer_);
+                
+                // Scheduling the pickup obtained from the factory. Driver is assigned.
+                Pickup _scheduledPickup = PickupScheduler.schedulePickup(_newPickup, pickupDriver_);
+                
+                // Adding the scheduled pickup to the database. Pickup is done.
                 pickupDatabase.put(_scheduledPickup.getPickupID(), _scheduledPickup);
                 return _scheduledPickup;
             } catch (InvalidPickupArgumentsException e_) {
@@ -58,29 +60,6 @@ public class PickupController {
         throw new InvalidPickupArgumentsException();
     }
     /* @formatter:on */
-
-    /**
-     * Schedule the pickup based on the given pickup info. Called when a pickup is
-     * created.
-     * 
-     * @param current_
-     *            The current pickup info to be scheduled.
-     * @return current_ Pickup object to be used for logger.
-     */
-    private Pickup schedule(Pickup current_, User pickupDriver_) throws CannotSchedulePickupException {
-        if (pickupDriver_ != null && pickupDriver_ instanceof Driver) {
-            Location _origin = current_.getOrigin();
-            Location _destination = current_.getDestination();
-
-            double _tripCost = _origin.distanceTo(_destination) * RuntimeConstants.CHARGE_RATE_PER_MILE;
-
-            current_.setPickupCost(_tripCost + RuntimeConstants.FLAT_RATE_FEE);
-
-            return current_;
-        }
-
-        throw new CannotSchedulePickupException();
-    }
 
     /**
      * Returns a string of all the pickup in pickupDatabase.

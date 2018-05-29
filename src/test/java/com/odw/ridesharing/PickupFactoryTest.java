@@ -34,16 +34,11 @@ public class PickupFactoryTest {
         _pickupValues.add("36.0041386");
         _pickupValues.add("-115.1412292");
         try {
-            Pickup _firstPickup = _pickupFactory.createPickup(_pickupValues, _customer, _driver);
+            Pickup _firstPickup = _pickupFactory.createPickup(_pickupValues, _customer);
                   
             assertEquals(0, _firstPickup.getPickupID());
             
-            assertEquals(1, _firstPickup.getDriver().getUserID());
-            assertEquals("Mark", _firstPickup.getDriver().getFirstName());
-            assertEquals("Constantine", _firstPickup.getDriver().getLastName());
-            assertEquals("Male", _firstPickup.getDriver().getSex());
-            assertEquals(21,_firstPickup.getDriver().getAge());
-            assertEquals(50, _firstPickup.getDriver().getCarID());
+            assertNull(null, _firstPickup.getDriver());
             
             assertEquals(0, _firstPickup.getCustomer().getUserID());
             assertEquals("Wesley", _firstPickup.getCustomer().getFirstName());

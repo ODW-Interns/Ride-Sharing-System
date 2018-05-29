@@ -9,15 +9,17 @@ public class Pickup {
 
     private int pickupID;
     private Customer pickupCustomer;
-    private Driver pickupDriver;
+    private Driver pickupDriver; // To be assigned by the Scheduler.
     private Location origin;
     private Location destination;
     private MonetaryAmount pickupCost;
 
     public Pickup() {
-        this(-1, new Customer(), new Driver(), new Location(), new Location());
+        this(-1, new Customer(), new Location(), new Location());
     }
 
+    
+    // TODO: Fix these comments
     /**
      * Initialize a Pickup with IDs from car, driver, and customer
      * 
@@ -41,12 +43,10 @@ public class Pickup {
     /* @formatter:off */
     public Pickup(int pickupId__,
                   Customer pickupCustomer_,
-                  Driver pickupDriver_,
                   Location origin_,
                   Location destination_) {
         setPickupID(pickupId__);
         setCustomer(pickupCustomer_);
-        setDriver(pickupDriver_);
         setOrigin(origin_);
         setDestination(destination_);
 

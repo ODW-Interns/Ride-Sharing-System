@@ -32,7 +32,7 @@ public class CarFactory {
      * @return a Car Object
      */
     /* @formatter:on */
-    public Car createCar(ArrayList<String> typeValues_) throws InvalidCarArgumentsException {
+    public Car buildCar(ArrayList<String> typeValues_) throws InvalidCarArgumentsException {
 
         if (typeValues_.size() == RuntimeConstants.CREATE_CAR_FORMAT.length) {
             try {

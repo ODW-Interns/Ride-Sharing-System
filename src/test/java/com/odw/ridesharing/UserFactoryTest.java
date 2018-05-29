@@ -24,7 +24,7 @@ public class UserFactoryTest {
         // ---------------------------------------------
         // Creating a valid customer.
         try {
-            User _shouldBeCustomer = _userFactory.createUser(createValidCustomerInfo());
+            User _shouldBeCustomer = _userFactory.buildUser(createValidCustomerInfo());
             assertTrue(_shouldBeCustomer instanceof Customer);
         } catch (InvalidUserArgumentsException e) {
             fail("Error creating a valid customer.");
@@ -33,7 +33,7 @@ public class UserFactoryTest {
         // ---------------------------------------------
         // Creating a valid driver.
         try {
-            User _shouldBeDriver = _userFactory.createUser(createValidDriverInfo());
+            User _shouldBeDriver = _userFactory.buildUser(createValidDriverInfo());
             assertTrue(_shouldBeDriver instanceof Driver);
         } catch (InvalidUserArgumentsException e) {
             fail("Error creating a valid driver");
@@ -43,7 +43,7 @@ public class UserFactoryTest {
         // Creating an invalid user.
         try {
             @SuppressWarnings("unused") // Suppressed because this variable is not needed.
-            User _unknownUserType = _userFactory.createUser(createInvalidUserInfo());
+            User _unknownUserType = _userFactory.buildUser(createInvalidUserInfo());
         } catch (InvalidUserArgumentsException e) {
             assertTrue(true); // This is the desired outcome.
         }

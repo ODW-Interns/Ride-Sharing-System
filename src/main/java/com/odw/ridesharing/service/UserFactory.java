@@ -31,7 +31,7 @@ public class UserFactory {
      * @return
      */
     /* @formatter:on */
-    public User createUser(ArrayList<String> typeValues_) throws InvalidUserArgumentsException {
+    public User buildUser(ArrayList<String> typeValues_) throws InvalidUserArgumentsException {
 
         if (typeValues_.size() == RuntimeConstants.CREATE_USER_FORMAT.length) {
             try {

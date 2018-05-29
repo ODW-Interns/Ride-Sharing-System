@@ -33,7 +33,7 @@ public class CarController {
     public Car createCar(ArrayList<String> typeValues_) throws InvalidCarArgumentsException {
         if (typeValues_.size() == RuntimeConstants.CREATE_CAR_FORMAT.length) {
             try {
-                Car _car = carFactory.createCar(typeValues_);
+                Car _car = carFactory.buildCar(typeValues_);
                 carInventory.put(_car.getCarID(), _car);
                 return _car;
             } catch (NullPointerException e_) {

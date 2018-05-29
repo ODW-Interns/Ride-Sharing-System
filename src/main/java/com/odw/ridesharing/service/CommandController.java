@@ -16,7 +16,7 @@ import com.odw.ridesharing.model.exceptions.*;
 
 /**
  * CommandController is called by the Main function to process the events
- * CREATE, MODIFY, and DELETE on objects CAR, USER (Customer/Driver), or PICKUP.
+ * CREATE, MODIFY, and DELETE on objects CAR (Coupe/Sedan/SUV), USER (Customer/Driver), or PICKUP.
  * CommandController calls the respective controllers for each object to handle
  * the commands. CommandController calls EventParser to parse the file
  * line-by-line into events.
@@ -58,7 +58,7 @@ public class CommandController {
                 }
             }
 
-            // SUCCESS!
+            // File reading complete. Print out the inventory.
             logger.debug("FINAL CAR INVENTORY:" + carController.getCarInventoryAsString());
             logger.debug("FINAL USER DATABASE:" + userController.getUserDatabaseAsString());
             logger.debug("PICKUP HISTORY:" + pickupController.getPickupHistoryAsString());
@@ -126,8 +126,10 @@ public class CommandController {
             }
             /* @formatter:off */
             case RuntimeConstants.PICKUP: {
-                int _customerID = Integer.parseInt(event_.getTypeValues().get(0)); // TODO check for this
                 try {
+                    // Getting this input field early. Error handling handled in catch blocks.
+                    int _customerID = Integer.parseInt(event_.getTypeValues().get(0));
+                    
                     // Obtained from input.
                     Customer _pickupCustomer = userController.getCustomerByID(_customerID);
                     
@@ -140,13 +142,16 @@ public class CommandController {
 
                     logger.info("CREATED PICKUP = " + _addedPickup.toString());
 
+                } catch (CannotSchedulePickupException e_) {
+                    logger.info("No available driver for pickup: " + event_.typeValuesToString() + " (Will attempt to reschedule ASAP)");
                 } catch (InvalidPickupArgumentsException e_) {
                     logger.error("There was a problem with creating pickup: " + event_.typeValuesToString());
                 } catch (BadCustomerException e_) {
-                    logger.error("Pickup customerID " + event_.getTypeValues().get(0)
-                            + " does not exist in the user database.");
-                } catch (CannotSchedulePickupException e_) {
-                    logger.error("No available driver for pickup (Will attempt to reschedule ASAP): " + event_.typeValuesToString());
+                    logger.error("Pickup customerID " + event_.getTypeValues().get(0) + " does not exist in the user database.");
+                } catch (NumberFormatException e_) {
+                    logger.error("CustomerID is not integer parseable. Check input format.");
+                } catch (IndexOutOfBoundsException e_) {
+                    logger.error("Could not get customerID from input. Is it specified in the input?");
                 }
                 break;
             }

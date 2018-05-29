@@ -34,7 +34,7 @@ public class PickupFactoryTest {
         _pickupValues.add("36.0041386");
         _pickupValues.add("-115.1412292");
         try {
-            Pickup _firstPickup = _pickupFactory.createPickup(_pickupValues, _customer);
+            Pickup _firstPickup = _pickupFactory.buildPickup(_pickupValues, _customer);
                   
             assertEquals(0, _firstPickup.getPickupID());
             

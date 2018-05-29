@@ -32,7 +32,7 @@ public class CarFactoryTest {
         _coupeCarInfo.add("white");
         _coupeCarInfo.add("1986");
         try {
-            Car _coupe = _carFactory.createCar(_coupeCarInfo);
+            Car _coupe = _carFactory.buildCar(_coupeCarInfo);
             assertTrue(_coupe instanceof Coupe);
         } catch (InvalidCarArgumentsException e_) {
             fail("Invalid arguments creating a coupe.");
@@ -47,7 +47,7 @@ public class CarFactoryTest {
         _sedanCarInfo.add("grey");
         _sedanCarInfo.add("2014");
         try {
-            Car _sedan = _carFactory.createCar(_sedanCarInfo);
+            Car _sedan = _carFactory.buildCar(_sedanCarInfo);
             assertTrue(_sedan instanceof Sedan);
         } catch (InvalidCarArgumentsException e_) {
             fail("Invalid arguments creating a sedan.");
@@ -62,7 +62,7 @@ public class CarFactoryTest {
         _suvCarInfo.add("black");
         _suvCarInfo.add("2018");
         try {
-            Car _suv = _carFactory.createCar(_suvCarInfo);
+            Car _suv = _carFactory.buildCar(_suvCarInfo);
             assertTrue(_suv instanceof Suv);
         } catch (InvalidCarArgumentsException e_) {
             fail("Invalid arguments creating an SUV.");
@@ -77,7 +77,7 @@ public class CarFactoryTest {
         _invalidCarInfo.add("length");
         _invalidCarInfo.add("5");
         try {
-            Car _unknown = _carFactory.createCar(_invalidCarInfo);
+            Car _unknown = _carFactory.buildCar(_invalidCarInfo);
             assertNull(_unknown);
         } catch (InvalidCarArgumentsException e_) {
             fail("Invalid arguments creating a car");

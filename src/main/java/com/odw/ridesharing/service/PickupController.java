@@ -6,10 +6,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import com.odw.ridesharing.model.Customer;
 import com.odw.ridesharing.model.Driver;
-import com.odw.ridesharing.model.Location;
 import com.odw.ridesharing.model.Pickup;
 import com.odw.ridesharing.model.RuntimeConstants;
-import com.odw.ridesharing.model.abstractmodel.User;
 import com.odw.ridesharing.model.exceptions.CannotSchedulePickupException;
 import com.odw.ridesharing.model.exceptions.InvalidPickupArgumentsException;
 
@@ -42,7 +40,7 @@ public class PickupController {
             
             try {
                 // Creating the pickup through the factory. No driver is assigned yet.
-                Pickup _newPickup = pickupFactory.createPickup(typeValues_, pickupCustomer_);
+                Pickup _newPickup = pickupFactory.buildPickup(typeValues_, pickupCustomer_);
                 
                 // Scheduling the pickup obtained from the factory. Driver is assigned.
                 Pickup _scheduledPickup = pickupScheduler.schedulePickup(_newPickup, pickupDriver_);

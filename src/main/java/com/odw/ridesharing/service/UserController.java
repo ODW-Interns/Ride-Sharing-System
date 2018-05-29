@@ -31,7 +31,7 @@ public class UserController {
     public User createUser(ArrayList<String> typeValues_) throws InvalidUserArgumentsException {
         if (typeValues_.size() == RuntimeConstants.CREATE_USER_FORMAT.length) {
             try {
-                User _user = userFactory.createUser(typeValues_);
+                User _user = userFactory.buildUser(typeValues_);
                 userDatabase.put(_user.getUserID(), _user);
                 return _user;
             } catch (Exception e_) {

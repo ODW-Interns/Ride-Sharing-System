@@ -3,11 +3,9 @@ package com.odw.ridesharing.service;
 import java.util.ArrayList;
 
 import com.odw.ridesharing.model.Customer;
-import com.odw.ridesharing.model.Driver;
 import com.odw.ridesharing.model.Location;
 import com.odw.ridesharing.model.Pickup;
 import com.odw.ridesharing.model.RuntimeConstants;
-import com.odw.ridesharing.model.abstractmodel.User;
 import com.odw.ridesharing.model.exceptions.InvalidPickupArgumentsException;
 
 /**
@@ -34,7 +32,7 @@ public class PickupFactory {
      * @return a Pickup object with a pickupID attached to it
      * @throws InvalidPickupArgumentsException 
      */
-    public Pickup createPickup(ArrayList<String> typeValues_, Customer pickupCustomer_)
+    public Pickup buildPickup(ArrayList<String> typeValues_, Customer pickupCustomer_)
      throws InvalidPickupArgumentsException {
         if (typeValues_.size() == RuntimeConstants.CREATE_PICKUP_FORMAT.length && pickupCustomer_ != null) {
             try {

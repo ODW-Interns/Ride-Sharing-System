@@ -15,7 +15,7 @@ import com.odw.ridesharing.model.exceptions.CannotSchedulePickupException;
  */
 public class PickupScheduler {
 
-    private static Queue<Pickup> unscheduledPickupQueue = new LinkedList<>();
+    private Queue<Pickup> unscheduledPickupQueue = new LinkedList<>();
 
     /**
      * Assigns an available driver to the pickup.
@@ -25,7 +25,7 @@ public class PickupScheduler {
      * @return
      * @throws CannotSchedulePickupException
      */
-    public static Pickup schedulePickup(Pickup pickupToSchedule_, Driver driverForPickup_)
+    public Pickup schedulePickup(Pickup pickupToSchedule_, Driver driverForPickup_)
             throws CannotSchedulePickupException {
         if (pickupToSchedule_ != null) {
             // If driver is null, no available driver is available to be scheduled.
@@ -67,7 +67,7 @@ public class PickupScheduler {
      * @return
      * @throws CannotSchedulePickupException
      */
-    private static Pickup calculatePickupCost(Pickup currentPickup_) throws CannotSchedulePickupException {
+    private Pickup calculatePickupCost(Pickup currentPickup_) throws CannotSchedulePickupException {
         if (currentPickup_ != null) {
             Location _origin = currentPickup_.getOrigin();
             Location _destination = currentPickup_.getDestination();

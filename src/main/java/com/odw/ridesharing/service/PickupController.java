@@ -24,6 +24,7 @@ public class PickupController {
 
     private ConcurrentHashMap<Integer, Pickup> pickupDatabase = new ConcurrentHashMap<Integer, Pickup>();
     private PickupFactory pickupFactory = new PickupFactory();
+    private PickupScheduler pickupScheduler = new PickupScheduler();
 
     /**
      * Call PickupFactory to create a pickup. Immediately schedules the pickup to
@@ -44,7 +45,7 @@ public class PickupController {
                 Pickup _newPickup = pickupFactory.createPickup(typeValues_, pickupCustomer_);
                 
                 // Scheduling the pickup obtained from the factory. Driver is assigned.
-                Pickup _scheduledPickup = PickupScheduler.schedulePickup(_newPickup, pickupDriver_);
+                Pickup _scheduledPickup = pickupScheduler.schedulePickup(_newPickup, pickupDriver_);
                 
                 // Adding the scheduled pickup to the database. Pickup is done.
                 pickupDatabase.put(_scheduledPickup.getPickupID(), _scheduledPickup);

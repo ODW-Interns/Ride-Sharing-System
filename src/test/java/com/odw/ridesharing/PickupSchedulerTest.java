@@ -193,18 +193,4 @@ public class PickupSchedulerTest {
         return _validPickupInfo;
     }
 
-    /**
-     * Helper function to generate invalid pickup info.
-     * 
-     * @return An ArrayList of Strings containing invalid pickup info.
-     */
-    private ArrayList<String> createInvalidPickupInfo() {
-        ArrayList<String> _invalidPickupInfo = new ArrayList<String>();
-        _invalidPickupInfo.add("1");
-        _invalidPickupInfo.add("2");
-        _invalidPickupInfo.add("150.11");
-        _invalidPickupInfo.add("180.32");
-        return _invalidPickupInfo;
-    }
-
 }

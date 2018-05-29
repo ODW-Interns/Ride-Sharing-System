@@ -68,5 +68,4 @@ public class Scheduler {
 
         throw new CannotSchedulePickupException();
     }
-
 }

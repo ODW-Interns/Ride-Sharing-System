@@ -15,11 +15,11 @@ import com.odw.ridesharing.model.abstractmodel.User;
 import com.odw.ridesharing.model.exceptions.*;
 
 /**
- * CommandController is called by the Main function to process the events 
- * CREATE, MODIFY, and DELETE on objects CAR, USER (Customer/Driver), or
- * PICKUP. CommandController calls the respective controllers for each object
- * to handle the commands. CommandController calls EventParser to parse the
- * file line-by-line into events.
+ * CommandController is called by the Main function to process the events
+ * CREATE, MODIFY, and DELETE on objects CAR, USER (Customer/Driver), or PICKUP.
+ * CommandController calls the respective controllers for each object to handle
+ * the commands. CommandController calls EventParser to parse the file
+ * line-by-line into events.
  */
 public class CommandController {
 
@@ -38,11 +38,10 @@ public class CommandController {
      * @param delimiter_
      *            The delimiter used in the file to separate values.
      */
+    /* @formatter:off */
     public void processFile(String fileName_, String delimiter_) {
         EventParser _eventParser = new EventParser();
 
-        /* @formatter:off */
-        
         try (BufferedReader _inputReader = new BufferedReader(
                                             new InputStreamReader(
                                              new FileInputStream(fileName_)))) {    
@@ -67,9 +66,9 @@ public class CommandController {
             logger.error("Could not find the specified file.");
         } catch (IOException e_) {
             logger.error("Something went wrong while reading the file.");
-        }
-        /* @formatter:on */
+        }        
     }
+    /* @formatter:on */
 
     /**
      * Helper function for processFile. Decodes the current event's command.
@@ -125,14 +124,19 @@ public class CommandController {
                 }
                 break;
             }
+            /* @formatter:off */
             case RuntimeConstants.PICKUP: {
                 int _customerID = Integer.parseInt(event_.getTypeValues().get(0)); // TODO check for this
                 try {
+                    // Obtained from input.
                     Customer _pickupCustomer = userController.getCustomerByID(_customerID);
-
+                    
+                    // Chosen by the userController.
                     Driver _scheduledDriver = userController.getNextAvailableDriver();
-                    Pickup _addedPickup = pickupController.createPickup(event_.getTypeValues(), _pickupCustomer,
-                            _scheduledDriver);
+                    
+                    Pickup _addedPickup = pickupController.createPickup(event_.getTypeValues(),
+                                                                        _pickupCustomer,
+                                                                        _scheduledDriver);
 
                     logger.info("CREATED PICKUP = " + _addedPickup.toString());
 
@@ -143,11 +147,10 @@ public class CommandController {
                             + " does not exist in the user database.");
                 } catch (CannotSchedulePickupException e_) {
                     logger.error("There was an issue scheduling the pickup: " + event_.typeValuesToString());
-                } catch (NoAvailableDriversException e_) {
-                    logger.warn("There are no available drivers to schedule pickup: " + event_.typeValuesToString());
                 }
                 break;
             }
+            /* @formatter:on */
             default:
                 logger.error("Error: Invalid input type.");
                 break;

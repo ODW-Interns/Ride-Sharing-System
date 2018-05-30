@@ -58,8 +58,11 @@ public class UserController {
      * @throws InvalidUserArgumentsException
      * @throws DriverNotFoundException
      */
+    /* @formatter:off */
     public User modifyUser(ArrayList<String> typeValues_)
-            throws CustomerNotFoundException, InvalidUserArgumentsException, DriverNotFoundException {
+     throws CustomerNotFoundException, InvalidUserArgumentsException, DriverNotFoundException {
+        // CAREFUL! The assumption here is that the driver format is always NOT the same as the customer format.
+        // This will require changing if MODIFY_USER_DRIVER_FORMAT == MODIFY_USER_CUSTOMER_FORMAT.
         if (typeValues_.size() == RuntimeConstants.MODIFY_USER_DRIVER_FORMAT.length) {
             try {
                 int _userID = Integer.parseInt(typeValues_.get(0));
@@ -67,9 +70,9 @@ public class UserController {
                 if (_userType.equals(RuntimeConstants.DRIVER)) {
                     return modifyDriver(_userID, typeValues_);
                 }
-            } catch (NullPointerException e_) {
-                throw new InvalidUserArgumentsException();
-            } catch (NumberFormatException e_) {
+            } catch (DriverNotFoundException e_) {
+                throw new DriverNotFoundException();
+            } catch (Exception e_) {
                 throw new InvalidUserArgumentsException();
             }
 
@@ -80,9 +83,9 @@ public class UserController {
                 if (_userType.equals(RuntimeConstants.CUSTOMER)) {
                     return modifyCustomer(_userID, typeValues_);
                 }
-            } catch (NullPointerException e_) {
-                throw new InvalidUserArgumentsException();
-            } catch (NumberFormatException e_) {
+            } catch (CustomerNotFoundException e_) {
+                throw new CustomerNotFoundException();
+            } catch (Exception e_) {
                 throw new InvalidUserArgumentsException();
             }
         }
@@ -90,6 +93,7 @@ public class UserController {
         // Something went wrong..
         throw new InvalidUserArgumentsException();
     }
+    /* @formatter:on */
 
     /**
      * Delete user from the database
@@ -107,8 +111,7 @@ public class UserController {
 
             if (userDatabase.get(_userID) != null) {
                 return userDatabase.remove(_userID);
-            }
-            else {
+            } else {
                 throw new UserNotFoundException();
             }
         }
@@ -187,7 +190,6 @@ public class UserController {
      * @throws CustomerNotFoundException
      */
     public Customer getCustomerByID(int userID_) throws CustomerNotFoundException {
-
         User _retrievedUser = userDatabase.get(userID_);
 
         if (_retrievedUser != null && _retrievedUser instanceof Customer) {
@@ -199,14 +201,14 @@ public class UserController {
     }
 
     /**
-     * Private method to modify a specific driver from the database.
+     * Helper method to modify a specific driver from the database.
      * 
      * @param userID_
-     *            The userID to be modify
+     *            The ID of the user to be modified.
      * @param newValues_
-     *            ArrayList of string that should contain FirstName, LastName, Sex,
-     *            Age, isAvailable, Rating, and CarID to be modified
-     * @return _newDriver Object that contain new info of driver
+     *            Expected input values specified under MODIFY_USER_DRIVER_FORMAT in
+     *            RuntimeConstants.
+     * @return _newDriver The newly modified driver.
      * @throws DriverNotFoundException
      * @throws InvalidUserArgumentsException
      */
@@ -214,6 +216,8 @@ public class UserController {
     private Driver modifyDriver(int userID_, ArrayList<String> newValues_)
      throws DriverNotFoundException, InvalidUserArgumentsException {
         try {
+            // Getting the values from input.
+            // userID and userType obtained from modifyUser. (i.e. .get(0) and .get(1))
             String _newFirstName = newValues_.get(2);
             String _newLastName = newValues_.get(3);
             String _newSex = newValues_.get(4);
@@ -221,37 +225,38 @@ public class UserController {
             Boolean _newIsAvailable = Boolean.parseBoolean(newValues_.get(6));
             int _newRating = Integer.parseInt(newValues_.get(7));
             int _newCarID = Integer.parseInt(newValues_.get(8));
-            User _modifiedUser = userDatabase.remove(userID_);
+            
+            // Setting the modified driver values. Should be driver (ClassCastException otherwise).
+            Driver _modifiedDriver = (Driver) userDatabase.remove(userID_);
+            _modifiedDriver.setFirstName(_newFirstName);
+            _modifiedDriver.setLastName(_newLastName);
+            _modifiedDriver.setSex(_newSex);
+            _modifiedDriver.setAge(_newAge);
+            _modifiedDriver.setIsAvailable(_newIsAvailable);
+            _modifiedDriver.setCarID(_newCarID);
+            _modifiedDriver.setRating(_newRating);
 
-            Driver _newDriver = (Driver) _modifiedUser; // TODO: error handle this downcasting
-            _newDriver.setFirstName(_newFirstName);
-            _newDriver.setLastName(_newLastName);
-            _newDriver.setSex(_newSex);
-            _newDriver.setAge(_newAge);
-            _newDriver.setIsAvailable(_newIsAvailable);
-            _newDriver.setCarID(_newCarID);
-            _newDriver.setRating(_newRating);
+            // Storing the newly modified driver under the same ID.
+            userDatabase.put(userID_, _modifiedDriver);
 
-            userDatabase.put(userID_, _newDriver);
-
-            return _newDriver;
+            return _modifiedDriver;
         } catch (NullPointerException e_) {
             throw new DriverNotFoundException();
-        } catch (NumberFormatException e_) {
+        } catch (Exception e_) {
             throw new InvalidUserArgumentsException();
         }
     }
     /* @formatter:on */
 
     /**
-     * Private method to modify a specific customer from the database.
+     * Helper method to modify a specific customer from the database.
      * 
      * @param userID_
-     *            The userID to be modify
+     *            The ID of the user to be modified.
      * @param newValues_
-     *            ArrayList of string that should contain first name, last name,
-     *            sex, age
-     * @return _newCustomer Object that contain new info of customer
+     *            Expected input values specified under MODIFY_USER_CUSTOMER_FORMAT
+     *            in RuntimeConstants.
+     * @return _newCustomer The newly modified customer.
      * @throws CustomerNotFoundException
      * @throws InvalidUserArgumentsException
      */
@@ -259,25 +264,27 @@ public class UserController {
     private Customer modifyCustomer(int userID_, ArrayList<String> newValues_)
      throws CustomerNotFoundException, InvalidUserArgumentsException {
         try {
+            // Getting the values from input.
+            // userID and userType obtained from modifyUser. (i.e. .get(0) and .get(1))
             String _newFirstName = newValues_.get(2);
             String _newLastName = newValues_.get(3);
             String _newSex = newValues_.get(4);
             int _newAge = Integer.parseInt(newValues_.get(5));
 
-            User _modifiedUser = userDatabase.remove(userID_);
+            // Setting the modified customer values. Should be customer (ClassCastException otherwise).
+            Customer _modifiedCustomer = (Customer) userDatabase.remove(userID_);
+            _modifiedCustomer.setFirstName(_newFirstName);
+            _modifiedCustomer.setLastName(_newLastName);
+            _modifiedCustomer.setSex(_newSex);
+            _modifiedCustomer.setAge(_newAge);
 
-            Customer _newCustomer = (Customer) _modifiedUser; // TODO: error handle this downcasting
-            _newCustomer.setFirstName(_newFirstName);
-            _newCustomer.setLastName(_newLastName);
-            _newCustomer.setSex(_newSex);
-            _newCustomer.setAge(_newAge);
+            // Storing the newly modified customer under the same ID.
+            userDatabase.put(userID_, _modifiedCustomer);
 
-            userDatabase.put(userID_, _newCustomer);
-
-            return _newCustomer;
+            return _modifiedCustomer;
         } catch (NullPointerException e_) {
             throw new CustomerNotFoundException();
-        } catch (NumberFormatException e_) {
+        } catch (Exception e_) {
             throw new InvalidUserArgumentsException();
         }
     }

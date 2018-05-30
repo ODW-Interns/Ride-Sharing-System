@@ -33,7 +33,16 @@ public class CommandControllerTest {
         // LargeInputExample.txt
         _commandController.processFile("src/main/resources/LargeInputExample.txt", "|");
         
-        assertTrue(true); // See logger file to determine validity.
+        // Resetting the databases.
+        _commandController = new CommandController();
+      
+        // SimpleInputExample.txt
+        _commandController.processFile("src/main/resources/SimpleInputExample.txt", "|");
+        
+        
+        
+        // See logger file to determine validity.
+        assertTrue(true);
     }
 
 }

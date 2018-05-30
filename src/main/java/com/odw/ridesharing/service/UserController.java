@@ -67,10 +67,12 @@ public class UserController {
             try {
                 int _userID = Integer.parseInt(typeValues_.get(0));
                 String _userType = typeValues_.get(1);
+                
                 if (_userType.equals(RuntimeConstants.DRIVER)) {
                     return modifyDriver(_userID, typeValues_);
                 }
             } catch (DriverNotFoundException e_) {
+                // There is no such driver in the database.
                 throw new DriverNotFoundException();
             } catch (Exception e_) {
                 throw new InvalidUserArgumentsException();
@@ -80,10 +82,12 @@ public class UserController {
             try {
                 int _userID = Integer.parseInt(typeValues_.get(0));
                 String _userType = typeValues_.get(1);
+                
                 if (_userType.equals(RuntimeConstants.CUSTOMER)) {
                     return modifyCustomer(_userID, typeValues_);
                 }
             } catch (CustomerNotFoundException e_) {
+                // There is no such customer in the database.
                 throw new CustomerNotFoundException();
             } catch (Exception e_) {
                 throw new InvalidUserArgumentsException();

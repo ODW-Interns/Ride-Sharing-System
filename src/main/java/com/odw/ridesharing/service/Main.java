@@ -23,6 +23,12 @@ public class Main {
       
         // LargeInputExample.txt
         _commandController.processFile("src/main/resources/LargeInputExample.txt", "|");
+        
+        // Resetting the databases.
+        _commandController = new CommandController();
+      
+        // SimpleInputExample.txt
+        _commandController.processFile("src/main/resources/SimpleInputExample.txt", "|");
     }
 
 }

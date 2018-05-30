@@ -125,7 +125,7 @@ public class CarController {
      * @return A list string of all the cars currently in inventory.
      */
     public String getCarInventoryAsString() {
-        if (carInventory.size() > 0) {
+        if (!carInventory.isEmpty()) {
             StringBuilder _result = new StringBuilder();
 
             for (Map.Entry<Integer, Car> _entry : carInventory.entrySet()) {

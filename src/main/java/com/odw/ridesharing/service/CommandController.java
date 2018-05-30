@@ -188,7 +188,7 @@ public class CommandController {
                     }
 
                     User _modifiedUser = userController.modifyUser(event_.getTypeValues());
-                    logger.info("MODIFIED USER: " + _modifiedUser.toString());
+                    logger.info("MODIFIED USER = " + _modifiedUser.toString());
                     
                     // If a driver has been made available try to schedule an unscheduled pickup.
                     /* @formatter:off */
@@ -198,7 +198,7 @@ public class CommandController {
                         
                         if (_scheduledPickup != null) {
                             pickupController.storePickupInDatabase(_scheduledPickup);
-                            logger.info("MODIFIED DRIVER WAS SCHEDULED TO PICKUP: " + _scheduledPickup.toString());
+                            logger.info("MODIFIED DRIVER SCHEDULED TO PICKUP =" + _scheduledPickup.toString());
                         }   
                     }
                     /* @formatter:on */
@@ -257,7 +257,7 @@ public class CommandController {
             case RuntimeConstants.USER: {
                 try {
                     User _deletedUser = userController.deleteUser(event_.getTypeValues());
-                    logger.info("DELETED USER: " + _deletedUser.toString());
+                    logger.info("DELETED USER = " + _deletedUser.toString());
                 } catch (UserNotFoundException e_) {
                     logger.error("There was a problem deleting user: " + event_.typeValuesToString());
                 }

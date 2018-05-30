@@ -19,8 +19,8 @@ import com.odw.ridesharing.service.UserController;
 public class PickupSchedulerTest {
 
     /**
-     * Tests PickupScheduler's schedulePickup method. Ensures that all of the 
-     * if and else statements are considered.
+     * Tests PickupScheduler's schedulePickup method. Ensures that all of the if and
+     * else statements are considered.
      */
     @Test
     public void schedulePickupTest() {
@@ -54,7 +54,7 @@ public class PickupSchedulerTest {
         }
 
         // Modifying the driver to be available for pickup.
-        
+
         try {
             _userController.modifyUser(modifyValidDriverInfo());
         } catch (Exception e_) {
@@ -64,13 +64,13 @@ public class PickupSchedulerTest {
         // Create a valid pickup and check to see if calculatePickupCost is working
         try {
             _pickup = _pickupController.createPickup(createValidPickupInfo(), _customer, _driver);
-            
+
             // Check to see if schedule() is correct
-            assertEquals(12.5 , _pickup.getPickupCost(), 0.01d);
+            assertEquals(12.5, _pickup.getPickupCost(), 0.01d);
         } catch (Exception e_) {
             fail("Error creating a valid pickup.");
         }
-        
+
         // Schedule a good pickup.
         try {
             _scheduler.schedulePickup(_pickup, _driver);
@@ -84,7 +84,7 @@ public class PickupSchedulerTest {
 
         } catch (CannotSchedulePickupException e_) {
             // This should cause an exception to be thrown.
-            assert(true);
+            assert (true);
         }
 
         // Schedule a null pickup.
@@ -95,9 +95,9 @@ public class PickupSchedulerTest {
 
         } catch (Exception e_) {
             // This should cause an exception to be thrown.
-            assert(true);
+            assert (true);
         }
-        
+
         // Schedule multiple pickups for queue.
         try {
             _scheduler.schedulePickup(_pickup, null);
@@ -108,23 +108,78 @@ public class PickupSchedulerTest {
             _scheduler.schedulePickup(_pickup, _driver);
 
         } catch (Exception e_) {
-            // Scheduler should have added 3 pickups to queue with the fourth 
+            // Scheduler should have added 3 pickups to queue with the fourth
             // pickup causing the first pickup to be scheduled.
-            assert(true);
-        }
-        
-        //Test getUnscheduledPickup
-        try {
-            _driver = (Driver) _userController.createUser(createValidDriverInfo());
-            _userController.modifyUser(modifyValidDriverInfo());
-            _scheduler.getUnscheduledPickup(_driver);
-        } catch (Exception e_) {
-            assert(true);
+            assert (true);
         }
 
     }
 
+    @Test
+    public void getUnscheduledPickupTest() {
+        CarController _carController = new CarController();
+        UserController _userController = new UserController();
+        PickupController _pickupController = new PickupController();
+        Customer _customer = new Customer();
+        Driver _driver = new Driver();
+        Pickup _pickup = new Pickup();
+        PickupScheduler _scheduler = new PickupScheduler();
+
+        // Creating a valid car for the driver.
+        try {
+            _carController.createCar(createValidCarInfo());
+        } catch (Exception e_) {
+            fail("Error creating a valid car.");
+        }
+
+        // Creating a valid driver for the pickup.
+        try {
+            _driver = (Driver) _userController.createUser(createValidDriverInfo());
+        } catch (Exception e_) {
+            fail("Error creating a valid driver user.");
+        }
+
+        // Creating a valid customer for the pickup.
+        try {
+            _customer = (Customer) (_userController.createUser(createValidCustomerInfo()));
+        } catch (InvalidUserArgumentsException e_) {
+            fail("Error creating a valid driver user.");
+        }
+
+        // Create a valid pickup and check to see if calculatePickupCost is working
+        try {
+            _pickup = _pickupController.createPickup(createValidPickupInfo(), _customer, _driver);
+
+            // Check to see if schedule() is correct
+            assertEquals(12.5, _pickup.getPickupCost(), 0.01d);
+        } catch (Exception e_) {
+            fail("Error creating a valid pickup.");
+        }
+
+        // Schedule a good pickup.
+        try {
+            _scheduler.schedulePickup(_pickup, _driver);
+        } catch (Exception e_) {
+            fail("Error creating a valid pickup.");
+        }
         
+        // Modifying the driver to be available for pickup.
+
+        try {
+            _userController.modifyUser(modifyValidDriverInfo());
+        } catch (Exception e_) {
+            fail("Error modifying a valid driver");
+        }
+        
+        // Test getUnscheduledPickup
+        try {
+            _scheduler.getUnscheduledPickup(_driver);
+        } catch (Exception e_) {
+            assert (true);
+        }
+
+    }
+
     /**
      * Helper function to generate valid car info.
      * 

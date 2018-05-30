@@ -30,38 +30,48 @@ public class PickupScheduler {
      */
     /* @formatter:off */
     public Pickup schedulePickup(Pickup pickupToSchedule_, Driver driverForPickup_)
-     throws CannotSchedulePickupException {
+            throws CannotSchedulePickupException {
         if (pickupToSchedule_ != null) {
             // If driver is null, no available driver is available to be scheduled.
             if (driverForPickup_ == null) {
                 // Storing unscheduled pickup.
                 unscheduledPickupQueue.add(pickupToSchedule_);
+                return null;
             } else {
-                if (unscheduledPickupQueue.isEmpty()) {
-                    // Assigning the driver to the pickup.
-                    pickupToSchedule_.setDriver(driverForPickup_);
-
-                    
-                    return calculatePickupCost(pickupToSchedule_);
-                } else {
-                    // Unscheduled pickups still exist. Scheduling oldest first in FCFS manner.
-
-                    // Storing current pickup for later scheduling.
-                    unscheduledPickupQueue.add(pickupToSchedule_);
-
-                    // Getting the oldest unscheduled pickup.
-                    Pickup _nextPickup = unscheduledPickupQueue.remove();
-
-                    // Pickup's original driver was unavailable. Setting to current.
-                    _nextPickup.setDriver(driverForPickup_);
-
-                    return calculatePickupCost(_nextPickup);
-                }
+                // Assigning the driver to the pickup.
+                schedule(pickupToSchedule_, driverForPickup_);
             }
         }
-
         // Something went wrong..
         throw new CannotSchedulePickupException();
+    }
+
+    /**
+     * Called iff driver isAvailable is modified to true
+     * 
+     * @param d_
+     *            the driver whose isAvailable was modified to true
+     * @return schedule the new driver
+     */
+    public Pickup getUnscheduledPickup(Driver d_) {
+        if (!unscheduledPickupQueue.isEmpty())
+            return schedule(unscheduledPickupQueue.remove(), d_);
+        return null;
+    }
+
+    /**
+     * Helper function to set the updated driver and calculate trip cost.
+     * 
+     * @param p_
+     *            the pickup to be scheduled
+     * @param d_
+     *            the driver to be updated for the pickup
+     * @return the pickup cost
+     */
+    private Pickup schedule(Pickup p_, Driver d_) {
+        p_.setDriver(d_);
+
+        return calculatePickupCost(p_);
     }
     /* @formatter:on */
 

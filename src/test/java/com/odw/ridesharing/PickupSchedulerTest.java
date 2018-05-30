@@ -54,7 +54,7 @@ public class PickupSchedulerTest {
         }
 
         // Modifying the driver to be available for pickup.
-        /*
+        
         try {
             _userController.modifyUser(modifyValidDriverInfo());
         } catch (Exception e_) {
@@ -112,7 +112,16 @@ public class PickupSchedulerTest {
             // pickup causing the first pickup to be scheduled.
             assert(true);
         }
-*/
+        
+        //Test getUnscheduledPickup
+        try {
+            _driver = (Driver) _userController.createUser(createValidDriverInfo());
+            _userController.modifyUser(modifyValidDriverInfo());
+            _scheduler.getUnscheduledPickup(_driver);
+        } catch (Exception e_) {
+            assert(true);
+        }
+
     }
 
         

@@ -10,15 +10,15 @@ import com.odw.ridesharing.model.RuntimeConstants;
 import com.odw.ridesharing.model.exceptions.CannotSchedulePickupException;
 
 /**
- * 
- *
+ * TODO
  */
 public class PickupScheduler {
 
     private Queue<Pickup> unscheduledPickupQueue = new LinkedList<>();
 
     /**
-     * Schedules the specified available driver to the pickup.
+     * Schedules the specified pickup to the specified driver. Called when a pickup
+     * is created.
      * 
      * @param pickupToSchedule_
      *            The pickup to be scheduled.
@@ -30,74 +30,68 @@ public class PickupScheduler {
      */
     /* @formatter:off */
     public Pickup schedulePickup(Pickup pickupToSchedule_, Driver driverForPickup_)
-            throws CannotSchedulePickupException {
+     throws CannotSchedulePickupException {
+        // pickupToSchedule_ should always be non-null.
         if (pickupToSchedule_ != null) {
+            
             // If driver is null, no available driver is available to be scheduled.
             if (driverForPickup_ == null) {
+                
                 // Storing unscheduled pickup.
                 unscheduledPickupQueue.add(pickupToSchedule_);
+                
+                // Pickup will be scheduled as soon as a driver is made available.
+                // Do not schedule for now.
                 return null;
             } else {
                 // Assigning the driver to the pickup.
-                schedule(pickupToSchedule_, driverForPickup_);
+                return schedule(pickupToSchedule_, driverForPickup_);
             }
         }
+        
         // Something went wrong..
         throw new CannotSchedulePickupException();
-    }
-
-    /**
-     * Called iff driver isAvailable is modified to true
-     * 
-     * @param d_
-     *            the driver whose isAvailable was modified to true
-     * @return schedule the new driver
-     */
-    public Pickup getUnscheduledPickup(Driver d_) {
-        if (!unscheduledPickupQueue.isEmpty())
-            return schedule(unscheduledPickupQueue.remove(), d_);
-        return null;
-    }
-
-    /**
-     * Helper function to set the updated driver and calculate trip cost.
-     * 
-     * @param p_
-     *            the pickup to be scheduled
-     * @param d_
-     *            the driver to be updated for the pickup
-     * @return the pickup cost
-     */
-    private Pickup schedule(Pickup p_, Driver d_) {
-        p_.setDriver(d_);
-
-        return calculatePickupCost(p_);
     }
     /* @formatter:on */
 
     /**
-     * Returns the given pickup with its newly calculated cost.
+     * Called if and only if a driver has been set to available.
      * 
-     * @param currentPickup_
-     *            The pickup to calculate the cost from.
-     * @return The same pickup with it's cost field modified. Null if something went
-     *         wrong.
+     * @param driverForPickup_
+     *            The the most recent driver that has been made available for
+     *            pickup.
+     * @return An unscheduled pickup scheduled to a driver.
      */
-    private Pickup calculatePickupCost(Pickup currentPickup_) {
-        // currentPickup_ guaranteed to be not null because it is checked in
-        // schedulePickup(...)
-        if (currentPickup_ != null) {
-            Location _origin = currentPickup_.getOrigin();
-            Location _destination = currentPickup_.getDestination();
-
-            double _tripCost = _origin.distanceTo(_destination) * RuntimeConstants.CHARGE_RATE_PER_MILE;
-
-            currentPickup_.setPickupCost(_tripCost + RuntimeConstants.FLAT_RATE_FEE);
-
-            return currentPickup_;
+    public Pickup getUnscheduledPickup(Driver driverForPickup_) {
+        if (!unscheduledPickupQueue.isEmpty()) {
+            // Scheduling an unscheduled pickup.
+            return schedule(unscheduledPickupQueue.remove(), driverForPickup_);
         }
 
-        // Something went wrong.. Should never reach this point.
+        // Currently, no unscheduled pickups to be scheduled.
         return null;
+    }
+
+    /**
+     * Helper function to schedule a pickup. Parameters are always expected to be
+     * non-null.
+     * 
+     * @param pickupToSchedule_
+     *            The pickup to be scheduled.
+     * @param driverForPickup_
+     *            The driver to be assigned for the pickup.
+     * @return The newly scheduled pickup.
+     */
+    private Pickup schedule(Pickup pickupToSchedule_, Driver driverForPickup_) {
+        // Assigning a driver to the pickup.
+        pickupToSchedule_.setDriver(driverForPickup_);
+
+        // Setting the pickup cost based on our pre-defined formula.
+        Location _origin = pickupToSchedule_.getOrigin();
+        Location _destination = pickupToSchedule_.getDestination();
+        double _tripCost = _origin.distanceTo(_destination) * RuntimeConstants.CHARGE_RATE_PER_MILE;
+        pickupToSchedule_.setPickupCost(_tripCost + RuntimeConstants.FLAT_RATE_FEE);
+
+        return pickupToSchedule_;
     }
 }

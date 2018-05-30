@@ -51,10 +51,12 @@ public class PickupController {
                     // Adding the scheduled pickup to the database. Pickup is done.
                     return storePickupInDatabase(_scheduledPickup);
                 }
+                
+                // Pickup was unable to be scheduled.
+                throw new CannotSchedulePickupException();
+            
             } catch (InvalidPickupArgumentsException e_) {
                 throw new InvalidPickupArgumentsException();
-            } catch (CannotSchedulePickupException e_) {
-                throw new CannotSchedulePickupException();
             }
         }
 

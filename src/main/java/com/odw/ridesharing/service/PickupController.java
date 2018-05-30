@@ -87,17 +87,17 @@ public class PickupController {
     }
     
     /**
-     * TODO
-     * @return
+     * Returns the pickupScheduler object.
+     * @return pickupScheduler object
      */
     public PickupScheduler getPickupScheduler() {
         return pickupScheduler;
     }
     
     /**
-     * TODO
+     * Stores the pickup into the pickup database
      * @param pickupToStore_
-     * @return
+     * @return the pickup that was stored in the database
      */
     public Pickup storePickupInDatabase(Pickup pickupToStore_) {
         pickupDatabase.put(pickupToStore_.getPickupID(), pickupToStore_);

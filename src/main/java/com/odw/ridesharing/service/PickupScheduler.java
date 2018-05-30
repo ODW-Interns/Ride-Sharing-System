@@ -10,7 +10,11 @@ import com.odw.ridesharing.model.RuntimeConstants;
 import com.odw.ridesharing.model.exceptions.CannotSchedulePickupException;
 
 /**
- * TODO
+ * PickupScheduler is called by PickupController to perform the scheduling
+ * of trips. PickupScheduler has a queue for pickups where there is no
+ * available driver and will be accessed when a modify driver event is finished.
+ * Once a pickup is scheduled, the driver is assigned to the pickup and the
+ * trip cost is calculated.
  */
 public class PickupScheduler {
 

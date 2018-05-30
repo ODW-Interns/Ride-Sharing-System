@@ -45,7 +45,7 @@ public class PickupScheduler {
                 return null;
             } else {
                 // Assigning the driver to the pickup.
-                schedule(pickupToSchedule_, driverForPickup_);
+                return schedule(pickupToSchedule_, driverForPickup_);
             }
         }
         

@@ -196,8 +196,6 @@ public class CommandController {
                         Pickup _scheduledPickup =
                          pickupController.getPickupScheduler().getUnscheduledPickup((Driver) _modifiedUser);
                         
-                        logger.info("MODIFIED USER: " + _modifiedUser.toString());
-                        
                         if (_scheduledPickup != null) {
                             pickupController.storePickupInDatabase(_scheduledPickup);
                             logger.info("MODIFIED DRIVER WAS SCHEDULED TO PICKUP: " + _scheduledPickup.toString());

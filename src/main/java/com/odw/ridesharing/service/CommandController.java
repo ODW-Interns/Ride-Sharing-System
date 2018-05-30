@@ -186,9 +186,26 @@ public class CommandController {
                         int _carID = Integer.parseInt(event_.getTypeValues().get(8));
                         carController.getCarByID(_carID);
                     }
-                    
+
                     User _modifiedUser = userController.modifyUser(event_.getTypeValues());
                     logger.info("MODIFIED USER: " + _modifiedUser.toString());
+                    
+                    // If a driver has been made available try to schedule an unscheduled pickup.
+                    /* @formatter:off */
+                    if (_modifiedUser instanceof Driver && ((Driver) _modifiedUser).getIsAvailable()) {
+                        Pickup _scheduledPickup =
+                         pickupController.getPickupScheduler().getUnscheduledPickup((Driver) _modifiedUser);
+                        
+                        logger.info("MODIFIED USER: " + _modifiedUser.toString());
+                        
+                        if (_scheduledPickup != null) {
+                            pickupController.storePickupInDatabase(_scheduledPickup);
+                            logger.info("MODIFIED DRIVER WAS SCHEDULED TO PICKUP: " + _scheduledPickup.toString());
+                        }   
+                    }
+                    /* @formatter:on */
+
+                    
                 } catch (CarNotFoundException e_) {
                     logger.error("There was a problem with modifying driver's car; car does not exist: "
                             + event_.typeValuesToString("|"));

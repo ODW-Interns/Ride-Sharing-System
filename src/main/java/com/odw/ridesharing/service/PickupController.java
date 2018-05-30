@@ -38,17 +38,19 @@ public class PickupController {
     public Pickup createPickup(ArrayList<String> typeValues_, Customer pickupCustomer_, Driver pickupDriver_)
      throws InvalidPickupArgumentsException, CannotSchedulePickupException {
         if (typeValues_.size() == RuntimeConstants.CREATE_PICKUP_FORMAT.length && pickupCustomer_ != null) {
-            
             try {
                 // Creating the pickup through the factory. No driver is assigned yet.
                 Pickup _newPickup = pickupFactory.buildPickup(typeValues_, pickupCustomer_);
                 
-                // Scheduling the pickup obtained from the factory. Driver is assigned.
+                // Scheduling the pickup obtained from the factory.
+                // If a driver is available he/she is immediately assigned.
+                // Otherwise the pickup is null.
                 Pickup _scheduledPickup = pickupScheduler.schedulePickup(_newPickup, pickupDriver_);
                 
-                // Adding the scheduled pickup to the database. Pickup is done.
-                pickupDatabase.put(_scheduledPickup.getPickupID(), _scheduledPickup);
-                return _scheduledPickup;
+                if (_scheduledPickup != null) {
+                    // Adding the scheduled pickup to the database. Pickup is done.
+                    return storePickupInDatabase(_scheduledPickup);
+                }
             } catch (InvalidPickupArgumentsException e_) {
                 throw new InvalidPickupArgumentsException();
             } catch (CannotSchedulePickupException e_) {
@@ -80,6 +82,24 @@ public class PickupController {
         }
 
         return "";
+    }
+    
+    /**
+     * TODO
+     * @return
+     */
+    public PickupScheduler getPickupScheduler() {
+        return pickupScheduler;
+    }
+    
+    /**
+     * TODO
+     * @param pickupToStore_
+     * @return
+     */
+    public Pickup storePickupInDatabase(Pickup pickupToStore_) {
+        pickupDatabase.put(pickupToStore_.getPickupID(), pickupToStore_);
+        return pickupToStore_;
     }
 
     // DEPRECATED!

@@ -1,4 +1,4 @@
-package com.odw.ridesharing;
+package com.odw.ridesharing.tests;
 
 import org.junit.Test;
 import junit.framework.TestCase;

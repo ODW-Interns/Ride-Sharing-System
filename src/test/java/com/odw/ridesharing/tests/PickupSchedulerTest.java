@@ -1,4 +1,4 @@
-package com.odw.ridesharing;
+package com.odw.ridesharing.tests;
 
 import static org.junit.Assert.*;
 

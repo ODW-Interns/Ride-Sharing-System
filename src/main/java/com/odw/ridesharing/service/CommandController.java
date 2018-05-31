@@ -103,9 +103,9 @@ public class CommandController {
             case RuntimeConstants.CAR: {
                 try {
                     Car _addedCar = carController.createCar(event_.getTypeValues());
-                    logger.info("CREATED CAR = " + _addedCar.toString());
+                    logger.info("CREATED CAR = {}", _addedCar.toString());
                 } catch (InvalidCarArgumentsException e_) {
-                    logger.error("There was a problem with adding car: " + event_.typeValuesToString());
+                    logger.error("There was a problem with adding car: {}", event_.typeValuesToString());
                 }
                 break;
             }
@@ -113,13 +113,13 @@ public class CommandController {
                 try {
                     User _addedUser = userController.createUser(event_.getTypeValues());
                     if (_addedUser instanceof Driver) {
-                        logger.info("CREATED DRIVER = " + _addedUser.toString());
+                        logger.info("CREATED DRIVER = {}", _addedUser.toString());
                     } else if (_addedUser instanceof Customer) {
-                        logger.info("CREATED CUSTOMER = " + _addedUser.toString());
+                        logger.info("CREATED CUSTOMER = {}", _addedUser.toString());
                     }
                 } catch (InvalidUserArgumentsException e_) {
                     logger.error(
-                            "The argument passed are not valid; unable to add user: " + event_.typeValuesToString());
+                            "The argument passed are not valid; unable to add user: {}", event_.typeValuesToString());
                 }
                 break;
             }
@@ -144,14 +144,14 @@ public class CommandController {
                     // set scheduledDriver
                     // update database
 
-                    logger.info("CREATED PICKUP = " + _addedPickup.toString());
+                    logger.info("CREATED PICKUP = {}", _addedPickup.toString());
 
                 } catch (CannotSchedulePickupException e_) {
-                    logger.info("No available driver for pickup: " + event_.typeValuesToString() + " (Will attempt to reschedule ASAP)");
+                    logger.info("No available driver for pickup: {} (Will attempt to reschedule ASAP)", event_.typeValuesToString());
                 } catch (InvalidPickupArgumentsException e_) {
-                    logger.error("There was a problem with creating pickup: " + event_.typeValuesToString());
+                    logger.error("There was a problem with creating pickup: {}", event_.typeValuesToString());
                 } catch (CustomerNotFoundException e_) {
-                    logger.error("Pickup customerID " + event_.getTypeValues().get(0) + " does not exist in the user database.");
+                    logger.error("Pickup customerID {} does not exist in the user database.", event_.getTypeValues().get(0));
                 } catch (NumberFormatException e_) {
                     logger.error("CustomerID is not integer parseable. Check input format.");
                 } catch (IndexOutOfBoundsException e_) {

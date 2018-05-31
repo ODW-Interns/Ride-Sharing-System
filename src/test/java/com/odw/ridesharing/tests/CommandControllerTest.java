@@ -6,6 +6,9 @@ import org.junit.Test;
 
 import com.odw.ridesharing.service.CommandController;
 
+/**
+ * Tests all the public methods inside CommandController.
+ */
 public class CommandControllerTest {
 
     /**

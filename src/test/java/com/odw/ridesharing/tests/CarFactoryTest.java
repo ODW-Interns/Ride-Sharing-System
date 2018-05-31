@@ -13,6 +13,9 @@ import com.odw.ridesharing.model.abstractmodel.Car;
 import com.odw.ridesharing.model.exceptions.InvalidCarArgumentsException;
 import com.odw.ridesharing.service.CarFactory;
 
+/**
+ * Tests all the public methods inside CarFactory.
+ */
 public class CarFactoryTest {
 
     /**

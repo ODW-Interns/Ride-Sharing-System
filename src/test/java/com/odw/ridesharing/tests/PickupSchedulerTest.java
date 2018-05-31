@@ -16,6 +16,9 @@ import com.odw.ridesharing.service.PickupController;
 import com.odw.ridesharing.service.PickupScheduler;
 import com.odw.ridesharing.service.UserController;
 
+/**
+ * Tests all the public methods inside PickupScheduler.
+ */
 public class PickupSchedulerTest {
 
     /**

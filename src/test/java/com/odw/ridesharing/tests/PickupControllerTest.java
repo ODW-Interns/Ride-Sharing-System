@@ -14,6 +14,9 @@ import com.odw.ridesharing.service.CarController;
 import com.odw.ridesharing.service.PickupController;
 import com.odw.ridesharing.service.UserController;
 
+/**
+ * Tests all the public methods inside PickupController.
+ */
 public class PickupControllerTest {
     
     /**

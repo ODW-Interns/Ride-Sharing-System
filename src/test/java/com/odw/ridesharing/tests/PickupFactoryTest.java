@@ -11,6 +11,9 @@ import com.odw.ridesharing.model.Driver;
 import com.odw.ridesharing.model.Pickup;
 import com.odw.ridesharing.service.PickupFactory;
 
+/**
+ * Tests all the public methods inside PickupFactory.
+ */
 public class PickupFactoryTest {
 
     /**

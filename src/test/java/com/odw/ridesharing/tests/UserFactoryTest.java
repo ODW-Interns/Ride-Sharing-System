@@ -11,6 +11,9 @@ import com.odw.ridesharing.model.abstractmodel.User;
 import com.odw.ridesharing.model.exceptions.InvalidUserArgumentsException;
 import com.odw.ridesharing.service.UserFactory;
 
+/**
+ * Tests all the public methods inside UserFactory.
+ */
 public class UserFactoryTest {
 
     /**

@@ -9,6 +9,9 @@ import com.odw.ridesharing.model.exceptions.CarNotFoundException;
 import com.odw.ridesharing.model.exceptions.InvalidCarArgumentsException;
 import com.odw.ridesharing.service.CarController;
 
+/**
+ * Tests all the public methods inside CarController.
+ */
 public class CarControllerTest {
 
     /**
@@ -43,7 +46,7 @@ public class CarControllerTest {
     @Test
     public void testModifyCar() {
         CarController _carController = new CarController();
-        
+
         // ---------------------------------------------
         // Creating a valid car to later be modified.
         try {
@@ -86,7 +89,7 @@ public class CarControllerTest {
     @Test
     public void testDeleteCar() {
         CarController _carController = new CarController();
-        
+
         // ---------------------------------------------
         // Creating a valid car to later be modified.
         try {
@@ -114,7 +117,7 @@ public class CarControllerTest {
             assertTrue(true);
         }
     }
-    
+
     /**
      * Helper function to generate valid car info.
      * 
@@ -129,7 +132,7 @@ public class CarControllerTest {
         _validCarInfo.add("1986");
         return _validCarInfo;
     }
-    
+
     /**
      * Helper function to generate invalid car info.
      * 

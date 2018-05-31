@@ -7,6 +7,9 @@ import com.odw.ridesharing.model.Event;
 import com.odw.ridesharing.model.exceptions.InvalidEventException;
 import com.odw.ridesharing.service.EventParser;
 
+/**
+ * Tests all the public methods inside EventParser.
+ */
 public class EventParserTest extends TestCase {
 
     /**

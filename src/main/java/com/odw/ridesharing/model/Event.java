@@ -2,6 +2,10 @@ package com.odw.ridesharing.model;
 
 import java.util.ArrayList;
 
+/**
+ * Event class is used to separate an input line of command and will be
+ * parsed to do commands upon the inputTypes and typeValues.
+ */
 public class Event {
 
     private String commandType;

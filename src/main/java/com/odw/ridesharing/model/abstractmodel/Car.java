@@ -1,5 +1,11 @@
 package com.odw.ridesharing.model.abstractmodel;
 
+/**
+ * Car class is an abstract class that has three concrete classes: Coupe, 
+ * Sedan, Suv. The concrete classes are separated as carTypes so we do not 
+ * need to keep track of a database of Makers and have to create a 
+ * MakerFactory for each of the Makes we wish to have. 
+ */
 public abstract class Car {
 
     private int carID;

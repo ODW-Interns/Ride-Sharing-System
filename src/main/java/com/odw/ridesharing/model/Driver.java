@@ -2,6 +2,12 @@ package com.odw.ridesharing.model;
 
 import com.odw.ridesharing.model.abstractmodel.User;
 
+/**
+ * Driver is a concrete User that acts as an employee who uses the program
+ * to pick up a Customer. Driver has an availability field that defaults to
+ * false and modified to true to pick up a Customer. Each Driver must have a
+ * valid car to pick up a Customer.
+ */
 public class Driver extends User {
 
     private int carID;

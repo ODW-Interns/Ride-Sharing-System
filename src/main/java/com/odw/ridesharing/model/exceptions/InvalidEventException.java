@@ -1,5 +1,10 @@
 package com.odw.ridesharing.model.exceptions;
 
+/**
+ * 
+ * Throw when Event cannot be parsed 
+ *
+ */
 public class InvalidEventException extends Exception {
 
     /**

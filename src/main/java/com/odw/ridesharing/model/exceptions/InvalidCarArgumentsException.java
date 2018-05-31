@@ -1,5 +1,10 @@
 package com.odw.ridesharing.model.exceptions;
 
+/**
+ * 
+ * Throw when the argument passed for create/modify/delete car is not valid
+ *
+ */
 public class InvalidCarArgumentsException extends Exception {
 
     /**

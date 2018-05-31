@@ -1,5 +1,10 @@
 package com.odw.ridesharing.model.exceptions;
 
+/**
+ * 
+ *Throw when the argument passed for create/modify/delete pickup is not valid
+ *
+ */
 public class InvalidPickupArgumentsException extends Exception {
 
     /**

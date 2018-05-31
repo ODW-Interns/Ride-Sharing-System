@@ -1,5 +1,10 @@
 package com.odw.ridesharing.model.exceptions;
 
+/**
+ * 
+ * Throw when pickup is not found in the database
+ *
+ */
 public class PickupNotFoundException extends Exception {
 
     /**

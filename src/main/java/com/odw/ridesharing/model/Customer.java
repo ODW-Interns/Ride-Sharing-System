@@ -2,6 +2,10 @@ package com.odw.ridesharing.model;
 
 import com.odw.ridesharing.model.abstractmodel.User;
 
+/**
+ * Customer is a concrete User that represents the User requesting a
+ * Pickup.
+ */
 public class Customer extends User {
    
     private User customer;

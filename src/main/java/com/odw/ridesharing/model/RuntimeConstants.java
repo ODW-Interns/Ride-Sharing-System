@@ -1,5 +1,8 @@
 package com.odw.ridesharing.model;
 
+/**
+ * All runtime constants in the program.
+ */
 public class RuntimeConstants {
 
     // Available Commands

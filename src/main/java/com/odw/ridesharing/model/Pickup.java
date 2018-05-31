@@ -5,6 +5,11 @@ import javax.money.MonetaryAmount;
 
 import org.javamoney.moneta.Money;
 
+/**
+ * Pickup class is an inputType that relates the Customer to the Driver 
+ * and contains a Location object for the Driver to pick up and drop off
+ * the Customer. Pickup also stores the ride cost.
+ */
 public class Pickup {
 
     private int pickupID;

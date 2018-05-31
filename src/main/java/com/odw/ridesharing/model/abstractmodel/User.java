@@ -1,5 +1,11 @@
 package com.odw.ridesharing.model.abstractmodel;
 
+/**
+ * User class is an abstract class that has two concrete classes: Customer
+ * and Driver. As Customer and Drivers share many attributes and are both
+ * Users of the system, they share the same base frame. This class allows 
+ * for scalable approach to add Admin User or other forms.
+ */
 public abstract class User {
 
     protected int userID;

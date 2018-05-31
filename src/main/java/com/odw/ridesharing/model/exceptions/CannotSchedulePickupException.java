@@ -1,5 +1,10 @@
 package com.odw.ridesharing.model.exceptions;
 
+/**
+ * 
+ * Throw when SchedulePickup cannot be scheduled
+ *
+ */
 public class CannotSchedulePickupException extends Exception {
 
     /**

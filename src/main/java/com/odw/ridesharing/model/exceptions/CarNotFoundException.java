@@ -1,5 +1,10 @@
 package com.odw.ridesharing.model.exceptions;
 
+/**
+ * 
+ * Throw when car is not found in the database
+ *
+ */
 public class CarNotFoundException extends Exception {
 
     /**
@@ -40,7 +45,8 @@ public class CarNotFoundException extends Exception {
     /**
      *
      */
-    public CarNotFoundException(String message_, Throwable cause_, boolean enableSuppression_, boolean writableStackTrace_) {
+    public CarNotFoundException(String message_, Throwable cause_, boolean enableSuppression_,
+            boolean writableStackTrace_) {
         super(message_, cause_, enableSuppression_, writableStackTrace_);
 
     }

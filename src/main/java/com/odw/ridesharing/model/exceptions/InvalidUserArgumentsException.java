@@ -1,5 +1,10 @@
 package com.odw.ridesharing.model.exceptions;
 
+/**
+ * 
+ * Throw when Throw when the argument passed for create/modify/delete user is not valid
+ *
+ */
 public class InvalidUserArgumentsException extends Exception{
    
     /**

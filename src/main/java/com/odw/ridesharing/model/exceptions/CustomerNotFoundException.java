@@ -1,5 +1,10 @@
 package com.odw.ridesharing.model.exceptions;
 
+/**
+ * 
+ * Throw when customer is not found in the database
+ *
+ */
 public class CustomerNotFoundException extends Exception {
 
     /**

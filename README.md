@@ -56,6 +56,7 @@ Events should be, at a minimum:
   * CAR_ID (INT)
   * USER_ID (INT)
   * CUSTOMER_ID (INT)
+  * PICKUP_ID (INT)
   * YEAR (INT)
   * AGE (INT)
   * ORIGIN_LATITUDE (DOUBLE)
@@ -65,6 +66,9 @@ Events should be, at a minimum:
   * AVAILABILITY (BOOLEAN)
 * Note, for the following formats below, any field in ALL_CAPS is meant to be replaced by actual field values in the input.
   * Also, our system is NOT case sensitive.
+  * CAR_TYPE can be either Coupe/Sedan/Suv
+  * USER_TYPE can be either Customer/Driver
+  * It is expected that the ID is known ahead of time for any event requiring an ID.
    
 
 ### Create Formats
@@ -77,10 +81,11 @@ create|pickup|CUSTOMER_ID|ORIGIN_LATITUDE|ORIGIN_LONGITUDE|DESTINATION_LATITUDE|
 ```
 modify|car|CAR_ID|CAR_TYPE|MAKE|MODEL|COLOR|YEAR|\n
 modify|user|USER_ID|driver|FIRST_NAME|LAST_NAME|SEX|AGE|AVAILABILITY|RATING|CAR_ID|\n
-modify|user|USER_ID|driver|FIRST_NAME|LAST_NAME|SEX|AGE|\n
+modify|user|USER_ID|customer|FIRST_NAME|LAST_NAME|SEX|AGE|\n
 ```
 ### Delete Formats
 ```
 delete|car|CAR_ID|\n
 delete|user|USER_ID|\n
+delete|pickup|PICKUP_ID|\n
 ```

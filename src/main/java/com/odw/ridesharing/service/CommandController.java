@@ -189,7 +189,7 @@ public class CommandController {
 
                     User _modifiedUser = userController.modifyUser(event_.getTypeValues());
                     logger.info("MODIFIED USER = " + _modifiedUser.toString());
-                    
+
                     // If a driver has been made available try to schedule an unscheduled pickup.
                     /* @formatter:off */
                     if (_modifiedUser instanceof Driver && ((Driver) _modifiedUser).getIsAvailable()) {
@@ -203,7 +203,6 @@ public class CommandController {
                     }
                     /* @formatter:on */
 
-                    
                 } catch (CarNotFoundException e_) {
                     logger.error("There was a problem with modifying driver's car; car does not exist: "
                             + event_.typeValuesToString("|"));
@@ -263,18 +262,15 @@ public class CommandController {
                 }
                 break;
             }
-
-            // ----- DEPRECATED! -----
-            /*
-             * case RuntimeConstants.PICKUP: { try { Pickup deletedPickup =
-             * pickupController.deletePickup(event_.getTypeValues());
-             * logger.debug("DELETED PICKUP: " + deletedPickup.toString()); } catch
-             * (BadPickupException e_) {
-             * logger.error("There was a problem with deleting pickup: " +
-             * event_.typeValuesToString("|")); } break; }
-             */
-            // -----------------------
-
+            case RuntimeConstants.PICKUP: {
+                try {
+                    Pickup deletedPickup = pickupController.deletePickup(event_.getTypeValues());
+                    logger.debug("DELETED PICKUP: " + deletedPickup.toString());
+                } catch (PickupNotFoundException e_) {
+                    logger.error("There was a problem with deleting pickup: " + event_.typeValuesToString("|"));
+                }
+                break;
+            }
             default:
                 logger.error("Error: Invalid input type.");
                 break;

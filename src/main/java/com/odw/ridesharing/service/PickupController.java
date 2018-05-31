@@ -10,13 +10,13 @@ import com.odw.ridesharing.model.Pickup;
 import com.odw.ridesharing.model.RuntimeConstants;
 import com.odw.ridesharing.model.exceptions.CannotSchedulePickupException;
 import com.odw.ridesharing.model.exceptions.InvalidPickupArgumentsException;
+import com.odw.ridesharing.model.exceptions.PickupNotFoundException;
 
 /**
- * PickupController is called by CommandController to handle the
- * commands done on Pickup. PickupController calls PickupFactory to 
- * create a Pickup. PickupController also handles scheduling of the 
- * Pickups and calculates the rate/fees associated with the Pickup based
- * off of the distance traveled.
+ * PickupController is called by CommandController to handle the commands done
+ * on Pickup. PickupController calls PickupFactory to create a Pickup.
+ * PickupController also handles scheduling of the Pickups and calculates the
+ * rate/fees associated with the Pickup based off of the distance traveled.
  */
 public class PickupController {
 
@@ -85,23 +85,50 @@ public class PickupController {
 
         return "";
     }
-    
+
     /**
      * Returns the pickupScheduler object.
+     * 
      * @return pickupScheduler object
      */
     public PickupScheduler getPickupScheduler() {
         return pickupScheduler;
     }
-    
+
     /**
      * Stores the pickup into the pickup database
+     * 
      * @param pickupToStore_
      * @return the pickup that was stored in the database
      */
     public Pickup storePickupInDatabase(Pickup pickupToStore_) {
         pickupDatabase.put(pickupToStore_.getPickupID(), pickupToStore_);
         return pickupToStore_;
+    }
+
+    /**
+     * Delete Pickup's info from the database.
+     * 
+     * @param typeValues_
+     *            Expected input values specified under DELETE_PICKUP_FORMAT in
+     *            RuntimeConstants.
+     * @return The pickup that was removed from the database.
+     * @throws BadPickupException
+     */
+    public Pickup deletePickup(ArrayList<String> typeValues_) throws PickupNotFoundException {
+        if (typeValues_.size() == RuntimeConstants.DELETE_PICKUP_FORMAT.length) {
+            try {
+                // Get the pickup ID from input.
+                int _pickupID = Integer.parseInt(typeValues_.get(0));
+
+                return pickupDatabase.remove(_pickupID);
+            } catch (Exception e_) {
+                throw new PickupNotFoundException();
+            }
+        }
+
+        // Something went wrong..
+        throw new PickupNotFoundException();
     }
 
     // DEPRECATED!
@@ -139,32 +166,6 @@ public class PickupController {
             } else
                 throw new BadPickupException();
     
-        }
-    
-        // Something went wrong..
-        throw new BadPickupException();
-    }
-    ----------------------------------------------------------------------------------------------------*/
-
-    // DEPRECATED!
-    /**
-     * Delete Pickup's info in the database
-     * 
-     * @param typeValues_
-     *            ArrayList of of input in string Should Contain PickupID
-     * @return pickupDatabase.remove(_idx) The object to be removed, will be used
-     *         for logger
-     * @throws BadPickupException
-     */
-    /*----------------------------------------------------------------------------------------------------
-    public Pickup deletePickup(ArrayList<String> typeValues_) throws BadPickupException {
-        if (typeValues_.size() == RuntimeConstants.DELETE_PICKUP_FORMAT.length) {
-            int _idx = Integer.parseInt(typeValues_.get(0));
-            try {
-                return pickupDatabase.remove(_idx);
-            } catch (NullPointerException e_) {
-                throw new BadPickupException();
-            }
         }
     
         // Something went wrong..

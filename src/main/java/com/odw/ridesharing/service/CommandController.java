@@ -249,7 +249,7 @@ public class CommandController {
                     Car deletedCar = carController.deleteCar(event_.getTypeValues());
                     logger.info("DELETED CAR = " + deletedCar.toString());
                 } catch (CarNotFoundException e_) {
-                    logger.error("There was a problem deleting car: " + event_.typeValuesToString());
+                    logger.error("There was a problem deleting car: {}", event_.typeValuesToString());
                 }
                 break;
             }
@@ -258,7 +258,7 @@ public class CommandController {
                     User _deletedUser = userController.deleteUser(event_.getTypeValues());
                     logger.info("DELETED USER = " + _deletedUser.toString());
                 } catch (UserNotFoundException e_) {
-                    logger.error("There was a problem deleting user: " + event_.typeValuesToString());
+                    logger.error("There was a problem deleting user: {}", event_.typeValuesToString());
                 }
                 break;
             }
@@ -267,7 +267,7 @@ public class CommandController {
                     Pickup deletedPickup = pickupController.deletePickup(event_.getTypeValues());
                     logger.debug("DELETED PICKUP: " + deletedPickup.toString());
                 } catch (PickupNotFoundException e_) {
-                    logger.error("There was a problem with deleting pickup: " + event_.typeValuesToString("|"));
+                    logger.error("There was a problem with deleting pickup: {}", event_.typeValuesToString("|"));
                 }
                 break;
             }

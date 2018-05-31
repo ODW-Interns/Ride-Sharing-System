@@ -138,6 +138,11 @@ public class CommandController {
                     Pickup _addedPickup = pickupController.createPickup(event_.getTypeValues(),
                                                                         _pickupCustomer,
                                                                         _scheduledDriver);
+                    
+                    // TODO: pickup get rating, distance traveled, money made
+                    // get scheduledDriver
+                    // set scheduledDriver
+                    // update database
 
                     logger.info("CREATED PICKUP = " + _addedPickup.toString());
 
@@ -172,11 +177,11 @@ public class CommandController {
             case RuntimeConstants.CAR: {
                 try {
                     Car _modifiedCar = carController.modifyCar(event_.getTypeValues());
-                    logger.info("MODIFIED CAR = " + _modifiedCar.toString());
+                    logger.info("MODIFIED CAR = {}", _modifiedCar.toString());
                 } catch (CarNotFoundException e_) {
-                    logger.error("There was a problem with modifying car: " + event_.typeValuesToString());
+                    logger.error("There was a problem with modifying car: {}", event_.typeValuesToString());
                 } catch (InvalidCarArgumentsException e_) {
-                    logger.error("There was a problem with modifying car: " + event_.typeValuesToString());
+                    logger.error("There was a problem with modifying car: {}", event_.typeValuesToString());
                 }
                 break;
             }
@@ -188,7 +193,7 @@ public class CommandController {
                     }
 
                     User _modifiedUser = userController.modifyUser(event_.getTypeValues());
-                    logger.info("MODIFIED USER = " + _modifiedUser.toString());
+                    logger.info("MODIFIED USER = {}", _modifiedUser.toString());
 
                     // If a driver has been made available try to schedule an unscheduled pickup.
                     /* @formatter:off */
@@ -198,23 +203,23 @@ public class CommandController {
                         
                         if (_scheduledPickup != null) {
                             pickupController.storePickupInDatabase(_scheduledPickup);
-                            logger.info("MODIFIED DRIVER SCHEDULED TO PICKUP =" + _scheduledPickup.toString());
+                            logger.info("MODIFIED DRIVER SCHEDULED TO PICKUP = {}", _scheduledPickup.toString());
                         }   
                     }
                     /* @formatter:on */
 
                 } catch (CarNotFoundException e_) {
-                    logger.error("There was a problem with modifying driver's car; car does not exist: "
-                            + event_.typeValuesToString("|"));
+                    logger.error("There was a problem with modifying driver's car; car does not exist: {}",
+                                 event_.typeValuesToString());
                 } catch (CustomerNotFoundException e_) {
-                    logger.error("There was a problem with modifying customer; customer does not exist: "
-                            + event_.typeValuesToString("|"));
+                    logger.error("There was a problem with modifying customer; customer does not exist: {}",
+                                 event_.typeValuesToString());
                 } catch (DriverNotFoundException e_) {
-                    logger.error("There was a problem with modifying driver; driver does not exist: "
-                            + event_.typeValuesToString("|"));
+                    logger.error("There was a problem with modifying driver; driver does not exist: {}",
+                                 event_.typeValuesToString());
                 } catch (InvalidUserArgumentsException e_) {
-                    logger.error(
-                            "The argument passed are not valid; unable to modify user: " + event_.typeValuesToString());
+                    logger.error("The argument passed are not valid; unable to modify user: {}",
+                                 event_.typeValuesToString());
                 }
                 break;
             }

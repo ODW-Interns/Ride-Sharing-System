@@ -44,7 +44,7 @@ public class CommandController {
         try (BufferedReader _inputReader = new BufferedReader(
                                             new InputStreamReader(
                                              new FileInputStream(fileName_)))) {    
-            logger.trace("=============== Processing File: " + fileName_ + " ===============");
+            logger.trace("=============== Processing File: {} ===============", fileName_);
             
             // Process each event line-by-line.
             String _nextLine = null;
@@ -53,18 +53,18 @@ public class CommandController {
                     Event _nextEvent = _eventParser.parseEvent(_nextLine, delimiter_);
                     processEvent(_nextEvent);
                 } catch (InvalidEventException e_) {
-                    logger.error("Could not parse the given event: \"" + _nextLine + "\"");
+                    logger.error("Could not parse the given event: \"{}\"", _nextLine);
                 }
             }
 
             // File reading complete. Print out the inventory.
-            logger.debug("FINAL CAR INVENTORY:" + carController.getCarInventoryAsString());
-            logger.debug("FINAL USER DATABASE:" + userController.getUserDatabaseAsString());
-            logger.debug("PICKUP HISTORY:" + pickupController.getPickupHistoryAsString());
+            logger.debug("FINAL CAR INVENTORY: {}", carController.getCarInventoryAsString());
+            logger.debug("FINAL USER DATABASE: {}", userController.getUserDatabaseAsString());
+            logger.debug("PICKUP HISTORY: {}", pickupController.getPickupHistoryAsString());
         } catch (FileNotFoundException e_) {
-            logger.error("Could not find the specified file.");
+            logger.error("Could not find the specified file. ");
         } catch (IOException e_) {
-            logger.error("Something went wrong while reading the file.");
+            logger.error("Something went wrong while reading the file. ");
         }        
     }
     /* @formatter:on */

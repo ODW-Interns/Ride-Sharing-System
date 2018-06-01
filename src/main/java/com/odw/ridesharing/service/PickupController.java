@@ -35,26 +35,13 @@ public class PickupController {
      * @throws InvalidPickupArgumentsException
      */
     /* @formatter:off */
-    public Pickup createPickup(ArrayList<String> typeValues_, Customer pickupCustomer_, Driver pickupDriver_)
-            throws InvalidPickupArgumentsException, CannotSchedulePickupException {
+    public Pickup createPickup(ArrayList<String> typeValues_, Customer pickupCustomer_)
+     throws InvalidPickupArgumentsException, CannotSchedulePickupException {
         if (typeValues_.size() == RuntimeConstants.CREATE_PICKUP_FORMAT.length && pickupCustomer_ != null) {
             try {
                 // Creating the pickup through the factory. No driver is assigned yet.
                 Pickup _newPickup = pickupFactory.buildPickup(typeValues_, pickupCustomer_);
-
-                // Scheduling the pickup obtained from the factory.
-                // If a driver is available he/she is immediately assigned.
-                // Otherwise the pickup is null.
-                Pickup _scheduledPickup = pickupScheduler.schedule(_newPickup, pickupDriver_);
-
-                if (_scheduledPickup != null) {
-                    // Adding the scheduled pickup to the database. Pickup is done.
-                    return storePickupInDatabase(_scheduledPickup);
-                }
-
-                // Pickup was unable to be scheduled.
-                throw new CannotSchedulePickupException();
-
+                return _newPickup;
             } catch (InvalidPickupArgumentsException e_) {
                 throw new InvalidPickupArgumentsException();
             }
@@ -96,14 +83,14 @@ public class PickupController {
     }
 
     /**
-     * Stores the pickup into the pickup database
+     * Stores the pickup into the pickup history database. Should only store
+     * scheduled pickups.
      * 
      * @param pickupToStore_
-     * @return the pickup that was stored in the database
+     *            The scheduled pickup to store in the database.
      */
-    public Pickup storePickupInDatabase(Pickup pickupToStore_) {
+    public void storePickupInDatabase(Pickup pickupToStore_) {
         pickupDatabase.put(pickupToStore_.getPickupID(), pickupToStore_);
-        return pickupToStore_;
     }
 
     /**

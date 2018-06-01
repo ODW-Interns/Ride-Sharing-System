@@ -25,7 +25,8 @@ public class CommandController {
     private CarController carController = new CarController();
     private UserController userController = new UserController();
     private PickupController pickupController = new PickupController();
-    private Logger logger = LoggerFactory.getLogger(getClass().getSimpleName());
+    private PickupScheduler pickupScheduler = new PickupScheduler();
+    private Logger logger = LoggerFactory.getLogger("Main Logger");
 
     /**
      * Processes a file line-by-line by parsing each line into an event and
@@ -118,8 +119,8 @@ public class CommandController {
                         logger.info("CREATED CUSTOMER = {}", _addedUser.toString());
                     }
                 } catch (InvalidUserArgumentsException e_) {
-                    logger.error(
-                            "The argument passed are not valid; unable to add user: {}", event_.typeValuesToString());
+                    logger.error("The argument passed are not valid; unable to add user: {}",
+                            event_.typeValuesToString());
                 }
                 break;
             }
@@ -132,19 +133,21 @@ public class CommandController {
                     // Obtained from input.
                     Customer _pickupCustomer = userController.getCustomerByID(_customerID);
                     
-                    // Driver to be scheduled is chosen by the userController.
-                    Driver _scheduledDriver = userController.getNextAvailableDriver();
+                    // Create a pickup but do not schedule it yet. 
+                    Pickup _createdPickup = pickupController.createPickup(event_.getTypeValues(), _pickupCustomer);
                     
-                    Pickup _addedPickup = pickupController.createPickup(event_.getTypeValues(),
-                                                                        _pickupCustomer,
-                                                                        _scheduledDriver);
+                    logger.info("CREATED PICKUP = {}", _createdPickup.toString());
                     
-                    // TODO: pickup get rating, distance traveled, money made
-                    // get scheduledDriver
-                    // set scheduledDriver
-                    // update database
-
-                    logger.info("CREATED PICKUP = {}", _addedPickup.toString());
+                    // ---- Trying to schedule the pickup ---- //
+                    // Driver available for the pickup. Null if no available drivers.
+                    Driver _availableDriver = userController.getNextAvailableDriver();
+                    
+                    // If a driver is available schedule the created pickup.
+                    if (_availableDriver != null) {
+                        //Pickup _scheduledPickup = pickupController.schedulePickup(_createdPickup, _availableDriver);
+                        //pickupController.storePickupInDatabase(_scheduledPickup);
+                        //logger.info("SCHEDULED PICKUP = {}", _scheduledPickup);
+                    }
 
                 } catch (CannotSchedulePickupException e_) {
                     logger.info("No available driver for pickup: {} (Will attempt to reschedule ASAP)", event_.typeValuesToString());
@@ -193,33 +196,40 @@ public class CommandController {
                     }
 
                     User _modifiedUser = userController.modifyUser(event_.getTypeValues());
-                    logger.info("MODIFIED USER = {}", _modifiedUser.toString());
 
-                    // If a driver has been made available try to schedule an unscheduled pickup.
-                    /* @formatter:off */
-                    if (_modifiedUser instanceof Driver && ((Driver) _modifiedUser).getIsAvailable()) {
-                        Pickup _scheduledPickup =
-                         pickupController.getPickupScheduler().getUnscheduledPickup((Driver) _modifiedUser);
-                        
-                        if (_scheduledPickup != null) {
-                            pickupController.storePickupInDatabase(_scheduledPickup);
-                            logger.info("MODIFIED DRIVER SCHEDULED TO PICKUP = {}", _scheduledPickup.toString());
-                        }   
+                    if (_modifiedUser instanceof Driver) {
+                        // Modified user was a driver. Specify as a driver.
+                        logger.info("MODIFIED DRIVER = {}", _modifiedUser.toString());
+
+                        // If a driver has been made available try to schedule an unscheduled pickup.
+                        /* @formatter:off */
+                        if (((Driver)_modifiedUser).getIsAvailable()) {
+                            Pickup _scheduledPickup = pickupController.getPickupScheduler()
+                                                                      .getUnscheduledPickup((Driver)_modifiedUser);
+
+                            if (_scheduledPickup != null) {
+                                pickupController.storePickupInDatabase(_scheduledPickup);
+                                logger.info("MODIFIED DRIVER SCHEDULED TO PICKUP = {}", _scheduledPickup.toString());
+                            }
+                        }
+                        /* @formatter:on */
+                    } else {
+                        // Modified user was a customer. Specify as a customer.
+                        logger.info("MODIFIED CUSTOMER = {}", _modifiedUser.toString());
                     }
-                    /* @formatter:on */
 
                 } catch (CarNotFoundException e_) {
                     logger.error("There was a problem with modifying driver's car; car does not exist: {}",
-                                 event_.typeValuesToString());
+                            event_.typeValuesToString());
                 } catch (CustomerNotFoundException e_) {
                     logger.error("There was a problem with modifying customer; customer does not exist: {}",
-                                 event_.typeValuesToString());
+                            event_.typeValuesToString());
                 } catch (DriverNotFoundException e_) {
                     logger.error("There was a problem with modifying driver; driver does not exist: {}",
-                                 event_.typeValuesToString());
+                            event_.typeValuesToString());
                 } catch (InvalidUserArgumentsException e_) {
                     logger.error("The argument passed are not valid; unable to modify user: {}",
-                                 event_.typeValuesToString());
+                            event_.typeValuesToString());
                 }
                 break;
             }

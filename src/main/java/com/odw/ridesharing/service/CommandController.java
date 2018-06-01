@@ -57,7 +57,7 @@ public class CommandController {
                     Event _nextEvent = _eventParser.parseEvent(_nextLine, delimiter_);
                     processEvent(_nextEvent);
                 } catch (InvalidEventException e_) {
-                    logger.error("ERROR: Could not parse the given event: \"{}\"", _nextLine);
+                    logger.error("ERROR PARSING EVENT = \"{}\"", _nextLine);
                 }
             }
 
@@ -157,13 +157,13 @@ public class CommandController {
                     logger.error("ERROR ASSIGNING PICKUP CUSTOMER = {} (Does not exist in database)",
                             event_.getTypeValues().get(0));
                 } catch (NumberFormatException e_) {
-                    logger.error("ERROR: CustomerID is not integer parseable. Check input format.");
+                    logger.error("ERROR PARSING CUSTOMER_ID: CustomerID is not integer parseable. Check input format.");
                 } catch (IndexOutOfBoundsException e_) {
-                    logger.error("ERROR: Could not get customerID from input. Is it specified in the input?");
+                    logger.error("ERROR GETTING CUSTOMER_ID: Could not get customerID from input. Is it specified in the input?");
                 }
                 break;
             default:
-                logger.error("ERROR: Invalid input type.");
+                logger.error("ERROR PROCESSING INPUT_TYPE: \"{}\" is not a valid input type.", event_.getInputType());
                 break;
         }
     }
@@ -237,7 +237,7 @@ public class CommandController {
              */
             // -----------------------
             default:
-                logger.error("ERROR: Invalid input type.");
+                logger.error("ERROR PROCESSING INPUT_TYPE: \"{}\" is not a valid input type.", event_.getInputType());
                 break;
         }
     }
@@ -278,7 +278,7 @@ public class CommandController {
                 }
                 break;
             default:
-                logger.error("ERROR: Invalid input type.");
+                logger.error("ERROR PROCESSING INPUT_TYPE: \"{}\" is not a valid input type.", event_.getInputType());
                 break;
         }
     }

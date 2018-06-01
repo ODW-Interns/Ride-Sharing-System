@@ -117,6 +117,11 @@ public class CarControllerTest {
             assertTrue(true);
         }
     }
+    
+    @Test
+    public void testIsCarInInventory() {
+        // [TODO]
+    }
 
     /**
      * Helper function to generate valid car info.

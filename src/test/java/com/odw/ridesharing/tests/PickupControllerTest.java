@@ -29,8 +29,6 @@ public class PickupControllerTest {
 		UserController _userController = new UserController();
 		PickupController _pickupController = new PickupController();
 		Customer _customer = new Customer();
-		Driver _driver = new Driver();
-		Pickup _pickup = new Pickup();
 
 		// Creating a valid car for the driver.
 		try {
@@ -41,7 +39,7 @@ public class PickupControllerTest {
 
 		// Creating a valid driver for the pickup.
 		try {
-		  _driver = (Driver)_userController.createUser(createValidDriverInfo());
+		  _userController.createUser(createValidDriverInfo());
 		} catch (Exception e_) {
 			fail("Error creating a valid driver user.");
 		}
@@ -66,6 +64,21 @@ public class PickupControllerTest {
         } catch (Exception e_) {
             assertTrue(true); // This is the desired outcome.
         }
+	}
+	
+	@Test
+	public void testDeletePickup() {
+	    // [TODO]
+	}
+	
+	@Test
+	public void testSchedulePickup() {
+	    // [TODO]
+	}
+	
+	@Test
+	public void testScheduleUnscheduledPickup() {
+	    // [TODO]
 	}
 	
 	/**

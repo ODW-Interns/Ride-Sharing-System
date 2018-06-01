@@ -20,7 +20,7 @@ import com.odw.ridesharing.model.exceptions.PickupNotFoundException;
  */
 public class PickupController {
 
-    private ConcurrentHashMap<Integer, Pickup> pickupDatabase = new ConcurrentHashMap<Integer, Pickup>();
+    private ConcurrentHashMap<Integer, Pickup> pickupHistory = new ConcurrentHashMap<Integer, Pickup>();
     private PickupFactory pickupFactory = new PickupFactory();
     private PickupScheduler pickupScheduler = new PickupScheduler();
 
@@ -40,8 +40,7 @@ public class PickupController {
         if (typeValues_.size() == RuntimeConstants.CREATE_PICKUP_FORMAT.length && pickupCustomer_ != null) {
             try {
                 // Creating the pickup through the factory. No driver is assigned yet.
-                Pickup _newPickup = pickupFactory.buildPickup(typeValues_, pickupCustomer_);
-                return _newPickup;
+                return pickupFactory.buildPickup(typeValues_, pickupCustomer_);
             } catch (InvalidPickupArgumentsException e_) {
                 throw new InvalidPickupArgumentsException();
             }
@@ -51,47 +50,6 @@ public class PickupController {
         throw new InvalidPickupArgumentsException();
     }
     /* @formatter:on */
-
-    /**
-     * Returns a string of all the pickup in pickupDatabase.
-     * 
-     * @return A list string of all the pickup in the database
-     */
-    public String getPickupHistoryAsString() {
-        if (!pickupDatabase.isEmpty()) {
-            StringBuilder _result = new StringBuilder();
-
-            for (Map.Entry<Integer, Pickup> _entry : pickupDatabase.entrySet()) {
-                Pickup _currentPickup = _entry.getValue();
-
-                _result.append(System.lineSeparator() + _currentPickup.toString());
-            }
-
-            return _result.toString();
-        }
-
-        return "";
-    }
-
-    /**
-     * Returns the pickupScheduler object.
-     * 
-     * @return pickupScheduler object
-     */
-    public PickupScheduler getPickupScheduler() {
-        return pickupScheduler;
-    }
-
-    /**
-     * Stores the pickup into the pickup history database. Should only store
-     * scheduled pickups.
-     * 
-     * @param pickupToStore_
-     *            The scheduled pickup to store in the database.
-     */
-    public void storePickupInDatabase(Pickup pickupToStore_) {
-        pickupDatabase.put(pickupToStore_.getPickupID(), pickupToStore_);
-    }
 
     /**
      * Delete Pickup's info from the database.
@@ -108,7 +66,7 @@ public class PickupController {
                 // Get the pickup ID from input.
                 int _pickupID = Integer.parseInt(typeValues_.get(0));
 
-                return pickupDatabase.remove(_pickupID);
+                return pickupHistory.remove(_pickupID);
             } catch (Exception e_) {
                 throw new PickupNotFoundException();
             }
@@ -119,7 +77,39 @@ public class PickupController {
     }
 
     /**
-     * A function to be called in CommandController to schedule a pickup
+     * Returns a string of all the pickup in pickupDatabase.
+     * 
+     * @return A list string of all the pickup in the database
+     */
+    public String getPickupHistoryAsString() {
+        if (!pickupHistory.isEmpty()) {
+            StringBuilder _result = new StringBuilder();
+
+            for (Map.Entry<Integer, Pickup> _entry : pickupHistory.entrySet()) {
+                Pickup _currentPickup = _entry.getValue();
+
+                _result.append(System.lineSeparator() + _currentPickup.toString());
+            }
+
+            return _result.toString();
+        }
+
+        return "";
+    }
+
+    /**
+     * Stores the pickup into the pickup history database. Should only store
+     * scheduled pickups.
+     * 
+     * @param pickupToStore_
+     *            The scheduled pickup to store in the database.
+     */
+    public void storePickupInDatabase(Pickup pickupToStore_) {
+        pickupHistory.put(pickupToStore_.getPickupID(), pickupToStore_);
+    }
+
+    /**
+     * A function to be called in CommandController to schedule a pickup.
      * 
      * @param pickup_
      *            The pickup that was created.
@@ -138,11 +128,13 @@ public class PickupController {
      * 
      * @param driver_
      *            The driver whose availability was modified from false to true
-     * @return A pickup with its driver set to driver_ and fees calculated
+     * @return A pickup with its driver set to driver_ and fees calculated. Null if
+     *         there are no unscheduledPickups
      */
     public Pickup scheduleUnscheduledPickup(Driver driver_) {
         return pickupScheduler.getUnscheduledPickup(driver_);
     }
+
     // DEPRECATED!
     /**
      * Modify Pickup's info in the database

@@ -71,7 +71,7 @@ public class CarController {
 
                 // Replacing the old car with the new car.
                 carInventory.put(_newlyModifiedCar.getCarID(), _newlyModifiedCar);
-                
+
                 return _newlyModifiedCar;
             } catch (NullPointerException e_) {
                 throw new CarNotFoundException();
@@ -96,7 +96,7 @@ public class CarController {
     public Car deleteCar(ArrayList<String> typeValues_) throws CarNotFoundException {
         if (typeValues_.size() == RuntimeConstants.DELETE_CAR_FORMAT.length) {
             int _carID = Integer.parseInt(typeValues_.get(0));
-            
+
             if (carInventory.get(_carID) != null) {
                 return carInventory.remove(_carID);
             } else {
@@ -108,15 +108,15 @@ public class CarController {
         throw new CarNotFoundException();
     }
 
-    public Car getCarByID(int carID_) throws CarNotFoundException {
-        Car _retrievedCar = carInventory.get(carID_);
-
-        if (_retrievedCar != null) {
-            return _retrievedCar;
-        }
-
-        // Car does not exist.
-        throw new CarNotFoundException();
+    /**
+     * Check to see if a car is in inventory.
+     * 
+     * @param carID_
+     *            The ID used to lookup the car.
+     * @return Returns true if the car is inventory. False otherwise.
+     */
+    public boolean isCarInInventory(int carID_) {
+        return carInventory.get(carID_) != null; // If null then car doesn't exist in inventory.
     }
 
     /**

@@ -25,7 +25,6 @@ public class CommandController {
     private CarController carController = new CarController();
     private UserController userController = new UserController();
     private PickupController pickupController = new PickupController();
-    private PickupScheduler pickupScheduler = new PickupScheduler();
     private Logger logger = LoggerFactory.getLogger("Main Logger");
 
     /**
@@ -88,7 +87,7 @@ public class CommandController {
                 delete(newEvent_);
                 break;
             default:
-                logger.error("Error: Invalid command.");
+                logger.error("ERROR: Invalid command.");
                 break;
         }
     }
@@ -104,7 +103,7 @@ public class CommandController {
             case RuntimeConstants.CAR: {
                 try {
                     Car _addedCar = carController.createCar(event_.getTypeValues());
-                    logger.info("CREATED CAR = {}", _addedCar.toString());
+                    logger.info("CREATED CAR = {}", _addedCar);
                 } catch (InvalidCarArgumentsException e_) {
                     logger.error("There was a problem with adding car: {}", event_.typeValuesToString());
                 }
@@ -114,9 +113,9 @@ public class CommandController {
                 try {
                     User _addedUser = userController.createUser(event_.getTypeValues());
                     if (_addedUser instanceof Driver) {
-                        logger.info("CREATED DRIVER = {}", _addedUser.toString());
+                        logger.info("CREATED DRIVER = {}", _addedUser);
                     } else if (_addedUser instanceof Customer) {
-                        logger.info("CREATED CUSTOMER = {}", _addedUser.toString());
+                        logger.info("CREATED CUSTOMER = {}", _addedUser);
                     }
                 } catch (InvalidUserArgumentsException e_) {
                     logger.error("The argument passed are not valid; unable to add user: {}",
@@ -124,37 +123,38 @@ public class CommandController {
                 }
                 break;
             }
-            /* @formatter:off */
             case RuntimeConstants.PICKUP: {
                 try {
                     // Getting this input field early. Error handling handled in catch blocks.
                     int _customerID = Integer.parseInt(event_.getTypeValues().get(0));
-                    
+
                     // Obtained from input.
                     Customer _pickupCustomer = userController.getCustomerByID(_customerID);
-                    
-                    // Create a pickup but do not schedule it yet. 
+
+                    // Create a pickup but do not schedule it yet.
                     Pickup _createdPickup = pickupController.createPickup(event_.getTypeValues(), _pickupCustomer);
-                    
-                    logger.info("CREATED PICKUP = {}", _createdPickup.toString());
-                    
+
+                    logger.info("CREATED PICKUP = {}", _createdPickup.toStringWithoutDriver("|"));
+
                     // ---- Trying to schedule the pickup ---- //
                     // Driver available for the pickup. Null if no available drivers.
                     Driver _availableDriver = userController.getNextAvailableDriver();
-                    
-                    // If a driver is available schedule the created pickup.
-                    if (_availableDriver != null) {
-                        //Pickup _scheduledPickup = pickupController.schedulePickup(_createdPickup, _availableDriver);
-                        //pickupController.storePickupInDatabase(_scheduledPickup);
-                        //logger.info("SCHEDULED PICKUP = {}", _scheduledPickup);
+
+                    Pickup _scheduledPickup = pickupController.schedulePickup(_createdPickup, _availableDriver);
+
+                    if (_scheduledPickup != null) {
+                        // Scheduling the pickup was successful!
+                        pickupController.storePickupInDatabase(_scheduledPickup);
+                        logger.info("SCHEDULED PICKUP = {}", _scheduledPickup);
                     }
 
                 } catch (CannotSchedulePickupException e_) {
-                    logger.info("No available driver for pickup: {} (Will attempt to reschedule ASAP)", event_.typeValuesToString());
+                    logger.info("There was a problem scheduling pickup: {}", event_.typeValuesToString());
                 } catch (InvalidPickupArgumentsException e_) {
                     logger.error("There was a problem with creating pickup: {}", event_.typeValuesToString());
                 } catch (CustomerNotFoundException e_) {
-                    logger.error("Pickup customerID {} does not exist in the user database.", event_.getTypeValues().get(0));
+                    logger.error("Pickup customerID {} does not exist in the user database.",
+                            event_.getTypeValues().get(0));
                 } catch (NumberFormatException e_) {
                     logger.error("CustomerID is not integer parseable. Check input format.");
                 } catch (IndexOutOfBoundsException e_) {
@@ -162,9 +162,8 @@ public class CommandController {
                 }
                 break;
             }
-            /* @formatter:on */
             default:
-                logger.error("Error: Invalid input type.");
+                logger.error("ERROR: Invalid input type.");
                 break;
         }
     }
@@ -180,47 +179,49 @@ public class CommandController {
             case RuntimeConstants.CAR: {
                 try {
                     Car _modifiedCar = carController.modifyCar(event_.getTypeValues());
-                    logger.info("MODIFIED CAR = {}", _modifiedCar.toString());
-                } catch (CarNotFoundException e_) {
-                    logger.error("There was a problem with modifying car: {}", event_.typeValuesToString());
-                } catch (InvalidCarArgumentsException e_) {
+                    logger.info("MODIFIED CAR = {}", _modifiedCar);
+                } catch (Exception e_) {
                     logger.error("There was a problem with modifying car: {}", event_.typeValuesToString());
                 }
                 break;
             }
             case RuntimeConstants.USER: {
                 try {
+                    // TODO: Change the way this check is handled.
+                    // Check to see if the driver's new carID is valid before modifying.
                     if (event_.getTypeValues().get(1).equals(RuntimeConstants.DRIVER)) {
-                        int _carID = Integer.parseInt(event_.getTypeValues().get(8));
-                        carController.getCarByID(_carID);
+                        int _newCarID = Integer.parseInt(event_.getTypeValues().get(8));
+                        if (!carController.isCarInInventory(_newCarID)) {
+                            logger.error("There was a problem with modifying driver's car; car does not exist: {}",
+                                    event_.typeValuesToString());
+                        }
                     }
 
+                    // TODO: Divide modify user and modify driver here.
                     User _modifiedUser = userController.modifyUser(event_.getTypeValues());
 
                     if (_modifiedUser instanceof Driver) {
                         // Modified user was a driver. Specify as a driver.
-                        logger.info("MODIFIED DRIVER = {}", _modifiedUser.toString());
+                        Driver _modifiedDriver = (Driver) _modifiedUser;
+                        logger.info("MODIFIED DRIVER = {}", _modifiedUser);
 
                         // If a driver has been made available try to schedule an unscheduled pickup.
-                        /* @formatter:off */
-                        if (((Driver)_modifiedUser).getIsAvailable()) {
-                            Pickup _scheduledPickup = pickupController.getPickupScheduler()
-                                                                      .getUnscheduledPickup((Driver)_modifiedUser);
+                        if (_modifiedDriver.getIsAvailable()) {
+                            Pickup _scheduledPickup = pickupController.scheduleUnscheduledPickup(_modifiedDriver);
 
                             if (_scheduledPickup != null) {
                                 pickupController.storePickupInDatabase(_scheduledPickup);
-                                logger.info("MODIFIED DRIVER SCHEDULED TO PICKUP = {}", _scheduledPickup.toString());
+                                logger.info("SCHEDULED PICKUP = {}", _scheduledPickup);
                             }
+
+                            // _scheduledPickup was null. Do nothing (no unscheduled pickups).
                         }
-                        /* @formatter:on */
                     } else {
                         // Modified user was a customer. Specify as a customer.
-                        logger.info("MODIFIED CUSTOMER = {}", _modifiedUser.toString());
+                        Customer _modifiedCustomer = (Customer) _modifiedUser;
+                        logger.info("MODIFIED CUSTOMER = {}", _modifiedCustomer);
                     }
 
-                } catch (CarNotFoundException e_) {
-                    logger.error("There was a problem with modifying driver's car; car does not exist: {}",
-                            event_.typeValuesToString());
                 } catch (CustomerNotFoundException e_) {
                     logger.error("There was a problem with modifying customer; customer does not exist: {}",
                             event_.typeValuesToString());
@@ -246,7 +247,7 @@ public class CommandController {
             // -----------------------
 
             default:
-                logger.error("Error: Invalid input type.");
+                logger.error("ERROR: Invalid input type.");
                 break;
         }
     }
@@ -262,7 +263,7 @@ public class CommandController {
             case RuntimeConstants.CAR: {
                 try {
                     Car deletedCar = carController.deleteCar(event_.getTypeValues());
-                    logger.info("DELETED CAR = " + deletedCar.toString());
+                    logger.info("DELETED CAR = " + deletedCar);
                 } catch (CarNotFoundException e_) {
                     logger.error("There was a problem deleting car: {}", event_.typeValuesToString());
                 }
@@ -271,7 +272,7 @@ public class CommandController {
             case RuntimeConstants.USER: {
                 try {
                     User _deletedUser = userController.deleteUser(event_.getTypeValues());
-                    logger.info("DELETED USER = " + _deletedUser.toString());
+                    logger.info("DELETED USER = " + _deletedUser);
                 } catch (UserNotFoundException e_) {
                     logger.error("There was a problem deleting user: {}", event_.typeValuesToString());
                 }
@@ -280,14 +281,14 @@ public class CommandController {
             case RuntimeConstants.PICKUP: {
                 try {
                     Pickup deletedPickup = pickupController.deletePickup(event_.getTypeValues());
-                    logger.debug("DELETED PICKUP: " + deletedPickup.toString());
+                    logger.debug("DELETED PICKUP: " + deletedPickup);
                 } catch (PickupNotFoundException e_) {
                     logger.error("There was a problem with deleting pickup: {}", event_.typeValuesToString("|"));
                 }
                 break;
             }
             default:
-                logger.error("Error: Invalid input type.");
+                logger.error("ERROR: Invalid input type.");
                 break;
         }
     }

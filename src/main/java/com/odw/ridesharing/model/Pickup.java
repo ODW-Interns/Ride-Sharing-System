@@ -6,9 +6,9 @@ import javax.money.MonetaryAmount;
 import org.javamoney.moneta.Money;
 
 /**
- * Pickup class is an inputType that relates the Customer to the Driver 
- * and contains a Location object for the Driver to pick up and drop off
- * the Customer. Pickup also stores the ride cost.
+ * Pickup class is an inputType that relates the Customer to the Driver and
+ * contains a Location object for the Driver to pick up and drop off the
+ * Customer. Pickup also stores the ride cost.
  */
 public class Pickup {
 
@@ -58,12 +58,31 @@ public class Pickup {
     /* @formatter:on */
 
     /**
-     * Returns the pickup's information in String format.
+     * Returns the pickup's information in String format excluding the pickup's
+     * driver information. Used for created pickups that are not scheduled yet.
      * 
      * @return The pickup information as a String.
      */
     /* @formatter:off */
-    public String toString(String delimiter_) {
+    public String toStringWithoutDriver(String delimiter_) {
+        return "PickupID: " + getPickupID() + " " + delimiter_ + " " +
+               "Customer First Name: " + pickupCustomer.getFirstName() + " " + delimiter_ + " " +
+               "Customer Last Name: " + pickupCustomer.getLastName() + " " + delimiter_ + " " + 
+               "CustomerID: " + pickupCustomer.getUserID() + " " + delimiter_ + " " +
+               "Origin (latitude, longitude): " + origin.toString() + " " + delimiter_ + " " +
+               "Destination (latitude, longitude): " + destination.toString() + " " + delimiter_ + " " +
+               "Total Cost: " + pickupCost.with(Monetary.getDefaultRounding()).toString() + " " + delimiter_;
+    }
+    /* @formatter:on */
+
+    /**
+     * Returns the pickup's information in String format including the pickup's
+     * driver information. Used for created pickups that have been scheduled.
+     * 
+     * @return The pickup information as a String.
+     */
+    /* @formatter:off */
+    public String toStringWithDriver(String delimiter_) {
         return "PickupID: " + getPickupID() + " " + delimiter_ + " " +
                "Customer First Name: " + pickupCustomer.getFirstName() + " " + delimiter_ + " " +
                "Customer Last Name: " + pickupCustomer.getLastName() + " " + delimiter_ + " " + 
@@ -78,13 +97,13 @@ public class Pickup {
     /* @formatter:on */
 
     /**
-     * Returns the pickup's information in String format.
+     * Returns all of the pickup's information in String format.
      * 
      * @return The pickup information as a String.
      */
     @Override
     public String toString() {
-        return toString("|");
+        return toStringWithDriver("|");
     }
 
     /**

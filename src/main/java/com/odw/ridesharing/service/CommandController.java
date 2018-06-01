@@ -127,7 +127,7 @@ public class CommandController {
             case RuntimeConstants.PICKUP:
                 try {
                     // Getting this input field early. Error handling handled in catch blocks.
-                    int _customerID = Integer.parseInt(event_.getTypeValues().get(0));
+                    int _customerID = Integer.parseInt(event_.getTypeValues().get(RuntimeConstants.CREATE_PICKUP_FORMAT.CUSTOMER_ID.value()));
 
                     // Obtained from input.
                     Customer _pickupCustomer = userController.getCustomerByID(_customerID);
@@ -190,7 +190,7 @@ public class CommandController {
 
                     // Check to see if the driver's new carID is valid before modifying.
                     if (_userType.equals(RuntimeConstants.DRIVER)) {
-                        int _newCarID = Integer.parseInt(event_.getTypeValues().get(7));
+                        int _newCarID = Integer.parseInt(event_.getTypeValues().get(RuntimeConstants.MODIFY_USER_DRIVER_FORMAT.CAR_ID.value()));
                         if (!carController.isCarInInventory(_newCarID)) {
                             throw new CarNotFoundException();
                         }

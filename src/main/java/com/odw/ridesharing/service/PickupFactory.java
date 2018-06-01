@@ -38,10 +38,11 @@ public class PickupFactory {
             try {
                 // Get the values from input
                 // Ignoring .get(0) because the userID is a field of pickupCustomer_
-                double _originLongitude = Double.parseDouble(typeValues_.get(1));
-                double _originLatitude = Double.parseDouble(typeValues_.get(2));
-                double _destinationLongitude = Double.parseDouble(typeValues_.get(3));
-                double _destinationLatitude = Double.parseDouble(typeValues_.get(4));
+                double _originLatitude = Double.parseDouble(typeValues_.get(RuntimeConstants.CREATE_PICKUP_FORMAT.ORIGIN_LATITUDE.value()));
+                double _originLongitude = Double.parseDouble(typeValues_.get(RuntimeConstants.CREATE_PICKUP_FORMAT.ORIGIN_LONGITUDE.value()));
+                double _destinationLatitude = Double.parseDouble(typeValues_.get(RuntimeConstants.CREATE_PICKUP_FORMAT.DESTINATION_LATITUDE.value()));
+                double _destinationLongitude = Double.parseDouble(typeValues_.get(RuntimeConstants.CREATE_PICKUP_FORMAT.DESTINATION_LONGITUDE.value()));
+                
 
                 // Set the origin and destination to be used for Pickup.
                 Location _origin = new Location(_originLongitude, _originLatitude);

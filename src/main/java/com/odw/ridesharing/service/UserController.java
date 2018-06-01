@@ -65,6 +65,7 @@ public class UserController {
         // This will require changing if MODIFY_USER_DRIVER_FORMAT == MODIFY_USER_CUSTOMER_FORMAT.
         if (typeValues_.size() == RuntimeConstants.MODIFY_USER_DRIVER_FORMAT.length()) {
             try {
+                // TODO: index from enum.
                 int _userID = Integer.parseInt(typeValues_.get(0));
                 String _userType = typeValues_.get(1);
                 
@@ -80,6 +81,7 @@ public class UserController {
 
         } else if (typeValues_.size() == RuntimeConstants.MODIFY_USER_CUSTOMER_FORMAT.length()) {
             try {
+                // TODO: index from enum.
                 int _userID = Integer.parseInt(typeValues_.get(0));
                 String _userType = typeValues_.get(1);
                 
@@ -111,7 +113,7 @@ public class UserController {
      */
     public User deleteUser(ArrayList<String> typeValues_) throws UserNotFoundException {
         if (typeValues_.size() == RuntimeConstants.DELETE_USER_FORMAT.length()) {
-            int _userID = Integer.parseInt(typeValues_.get(0));
+            int _userID = Integer.parseInt(typeValues_.get(RuntimeConstants.DELETE_USER_FORMAT.USER_ID.value()));
 
             if (userDatabase.get(_userID) != null) {
                 return userDatabase.remove(_userID);
@@ -222,12 +224,12 @@ public class UserController {
         try {
             // Getting the values from input.
             // userID and userType obtained from modifyUser. (i.e. .get(0) and .get(1))
-            String _newFirstName = newValues_.get(2);
-            String _newLastName = newValues_.get(3);
-            String _newSex = newValues_.get(4);
-            int _newAge = Integer.parseInt(newValues_.get(5));
-            Boolean _newIsAvailable = Boolean.parseBoolean(newValues_.get(6));
-            int _newCarID = Integer.parseInt(newValues_.get(7));
+            String _newFirstName = newValues_.get(RuntimeConstants.MODIFY_USER_DRIVER_FORMAT.FIRST_NAME.value());
+            String _newLastName = newValues_.get(RuntimeConstants.MODIFY_USER_DRIVER_FORMAT.LAST_NAME.value());
+            String _newSex = newValues_.get(RuntimeConstants.MODIFY_USER_DRIVER_FORMAT.SEX.value());
+            int _newAge = Integer.parseInt(newValues_.get(RuntimeConstants.MODIFY_USER_DRIVER_FORMAT.AGE.value()));
+            Boolean _newIsAvailable = Boolean.parseBoolean(newValues_.get(RuntimeConstants.MODIFY_USER_DRIVER_FORMAT.AVAILABILITY.value()));
+            int _newCarID = Integer.parseInt(newValues_.get(RuntimeConstants.MODIFY_USER_DRIVER_FORMAT.CAR_ID.value()));
             
             // Setting the modified driver values. Should be driver (ClassCastException otherwise).
             Driver _modifiedDriver = (Driver) userDatabase.remove(userID_);
@@ -268,10 +270,10 @@ public class UserController {
         try {
             // Getting the values from input.
             // userID and userType obtained from modifyUser. (i.e. .get(0) and .get(1))
-            String _newFirstName = newValues_.get(2);
-            String _newLastName = newValues_.get(3);
-            String _newSex = newValues_.get(4);
-            int _newAge = Integer.parseInt(newValues_.get(5));
+            String _newFirstName = newValues_.get(RuntimeConstants.MODIFY_USER_CUSTOMER_FORMAT.FIRST_NAME.value());
+            String _newLastName = newValues_.get(RuntimeConstants.MODIFY_USER_CUSTOMER_FORMAT.LAST_NAME.value());
+            String _newSex = newValues_.get(RuntimeConstants.MODIFY_USER_CUSTOMER_FORMAT.SEX.value());
+            int _newAge = Integer.parseInt(newValues_.get(RuntimeConstants.MODIFY_USER_CUSTOMER_FORMAT.AGE.value()));
 
             // Setting the modified customer values. Should be customer (ClassCastException otherwise).
             Customer _modifiedCustomer = (Customer) userDatabase.remove(userID_);

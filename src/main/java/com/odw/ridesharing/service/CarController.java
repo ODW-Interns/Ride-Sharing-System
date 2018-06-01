@@ -58,7 +58,7 @@ public class CarController {
             try {
                 // Removing the carID from typeValues_ so that it is properly formatted
                 // to CREATE_CAR_FORMAT (see RuntimeConstants) buildCar (in carFactory).
-                int _carID = Integer.parseInt(typeValues_.remove(0));
+                int _carID = Integer.parseInt(typeValues_.remove(RuntimeConstants.MODIFY_CAR_FORMAT.CAR_ID.value()));
 
                 // Removing the old car from the system.
                 Car _oldCar = carInventory.remove(_carID);
@@ -95,7 +95,7 @@ public class CarController {
      */
     public Car deleteCar(ArrayList<String> typeValues_) throws CarNotFoundException {
         if (typeValues_.size() == RuntimeConstants.DELETE_USER_FORMAT.length()) {
-            int _carID = Integer.parseInt(typeValues_.get(0));
+            int _carID = Integer.parseInt(typeValues_.get(RuntimeConstants.DELETE_CAR_FORMAT.CAR_ID.value()));
 
             if (carInventory.get(_carID) != null) {
                 return carInventory.remove(_carID);

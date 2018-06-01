@@ -34,6 +34,7 @@ public class RuntimeConstants {
     public static final int MINIMUM_EVENT_LENGTH = 3;
 
     // -- Predetermined Input Formats (Excludes COMMAND and INPUT_TYPES) --
+    // NOTE: Order is important per enum.
     public static enum CREATE_CAR_FORMAT {
 
         // Specify input order here.

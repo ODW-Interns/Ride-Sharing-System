@@ -37,11 +37,11 @@ public class CarFactory {
         if (typeValues_.size() == RuntimeConstants.CREATE_CAR_FORMAT.length()) {
             try {
                 // store the values from ArrayList
-                String _carType = typeValues_.get(0);
-                String _make = typeValues_.get(1);
-                String _model = typeValues_.get(2);
-                String _color = typeValues_.get(3);
-                int _year = Integer.parseInt(typeValues_.get(4));
+                String _carType = typeValues_.get(RuntimeConstants.CREATE_CAR_FORMAT.CAR_TYPE.value());
+                String _make = typeValues_.get(RuntimeConstants.CREATE_CAR_FORMAT.MAKE.value());
+                String _model = typeValues_.get(RuntimeConstants.CREATE_CAR_FORMAT.MODEL.value());
+                String _color = typeValues_.get(RuntimeConstants.CREATE_CAR_FORMAT.COLOR.value());
+                int _year = Integer.parseInt(typeValues_.get(RuntimeConstants.CREATE_CAR_FORMAT.YEAR.value()));
 
                 // create a Car object based off of its carType
                 switch (_carType) {

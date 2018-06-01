@@ -34,11 +34,11 @@ public class UserFactory {
     public User buildUser(ArrayList<String> typeValues_) throws InvalidUserArgumentsException {
         if (typeValues_.size() == RuntimeConstants.CREATE_USER_FORMAT.length()) {
             try {
-                String _userType = typeValues_.get(0);
-                String _firstName = typeValues_.get(1);
-                String _lastName = typeValues_.get(2);
-                String _sex = typeValues_.get(3);
-                int _age = Integer.parseInt(typeValues_.get(4));
+                String _userType = typeValues_.get(RuntimeConstants.CREATE_USER_FORMAT.USER_TYPE.value());
+                String _firstName = typeValues_.get(RuntimeConstants.CREATE_USER_FORMAT.FIRST_NAME.value());
+                String _lastName = typeValues_.get(RuntimeConstants.CREATE_USER_FORMAT.LAST_NAME.value());
+                String _sex = typeValues_.get(RuntimeConstants.CREATE_USER_FORMAT.SEX.value());
+                int _age = Integer.parseInt(typeValues_.get(RuntimeConstants.CREATE_USER_FORMAT.AGE.value()));
 
                 // Create a concrete implementation of User based on userType input.
                 switch (_userType) {

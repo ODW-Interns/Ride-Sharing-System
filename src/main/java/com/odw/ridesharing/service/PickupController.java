@@ -64,7 +64,7 @@ public class PickupController {
         if (typeValues_.size() == RuntimeConstants.DELETE_PICKUP_FORMAT.length()) {
             try {
                 // Get the pickup ID from input.
-                int _pickupID = Integer.parseInt(typeValues_.get(0));
+                int _pickupID = Integer.parseInt(typeValues_.get(RuntimeConstants.DELETE_PICKUP_FORMAT.PICKUP_ID.value()));
 
                 return pickupHistory.remove(_pickupID);
             } catch (Exception e_) {

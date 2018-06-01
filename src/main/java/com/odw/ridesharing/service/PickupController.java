@@ -45,7 +45,7 @@ public class PickupController {
                 // Scheduling the pickup obtained from the factory.
                 // If a driver is available he/she is immediately assigned.
                 // Otherwise the pickup is null.
-                Pickup _scheduledPickup = pickupScheduler.schedulePickup(_newPickup, pickupDriver_);
+                Pickup _scheduledPickup = pickupScheduler.schedule(_newPickup, pickupDriver_);
                 
                 if (_scheduledPickup != null) {
                     // Adding the scheduled pickup to the database. Pickup is done.

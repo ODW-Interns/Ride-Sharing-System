@@ -33,7 +33,7 @@ public class PickupScheduler {
      * @throws CannotSchedulePickupException
      */
     /* @formatter:off */
-    public Pickup schedulePickup(Pickup pickupToSchedule_, Driver driverForPickup_)
+    public Pickup schedule(Pickup pickupToSchedule_, Driver driverForPickup_)
      throws CannotSchedulePickupException {
         // pickupToSchedule_ should always be non-null.
         if (pickupToSchedule_ != null) {
@@ -49,7 +49,7 @@ public class PickupScheduler {
                 return null;
             } else {
                 // Assigning the driver to the pickup.
-                return schedule(pickupToSchedule_, driverForPickup_);
+                return performPickup(pickupToSchedule_, driverForPickup_);
             }
         }
         
@@ -69,7 +69,7 @@ public class PickupScheduler {
     public Pickup getUnscheduledPickup(Driver driverForPickup_) {
         if (!unscheduledPickupQueue.isEmpty()) {
             // Scheduling an unscheduled pickup.
-            return schedule(unscheduledPickupQueue.remove(), driverForPickup_);
+            return performPickup(unscheduledPickupQueue.remove(), driverForPickup_);
         }
 
         // Currently, no unscheduled pickups to be scheduled.
@@ -86,7 +86,7 @@ public class PickupScheduler {
      *            The driver to be assigned for the pickup.
      * @return The newly scheduled pickup.
      */
-    private Pickup schedule(Pickup pickupToSchedule_, Driver driverForPickup_) {
+    private Pickup performPickup(Pickup pickupToSchedule_, Driver driverForPickup_) {
         // Assigning a driver to the pickup.
         pickupToSchedule_.setDriver(driverForPickup_);
 

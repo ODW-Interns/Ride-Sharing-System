@@ -36,25 +36,25 @@ public class PickupController {
      */
     /* @formatter:off */
     public Pickup createPickup(ArrayList<String> typeValues_, Customer pickupCustomer_, Driver pickupDriver_)
-     throws InvalidPickupArgumentsException, CannotSchedulePickupException {
+            throws InvalidPickupArgumentsException, CannotSchedulePickupException {
         if (typeValues_.size() == RuntimeConstants.CREATE_PICKUP_FORMAT.length && pickupCustomer_ != null) {
             try {
                 // Creating the pickup through the factory. No driver is assigned yet.
                 Pickup _newPickup = pickupFactory.buildPickup(typeValues_, pickupCustomer_);
-                
+
                 // Scheduling the pickup obtained from the factory.
                 // If a driver is available he/she is immediately assigned.
                 // Otherwise the pickup is null.
                 Pickup _scheduledPickup = pickupScheduler.schedule(_newPickup, pickupDriver_);
-                
+
                 if (_scheduledPickup != null) {
                     // Adding the scheduled pickup to the database. Pickup is done.
                     return storePickupInDatabase(_scheduledPickup);
                 }
-                
+
                 // Pickup was unable to be scheduled.
                 throw new CannotSchedulePickupException();
-            
+
             } catch (InvalidPickupArgumentsException e_) {
                 throw new InvalidPickupArgumentsException();
             }
@@ -131,6 +131,31 @@ public class PickupController {
         throw new PickupNotFoundException();
     }
 
+    /**
+     * A function to be called in CommandController to schedule a pickup
+     * 
+     * @param pickup_
+     *            The pickup that was created.
+     * @param driver_
+     *            The next available driver if there is one.
+     * @return A pickup with its driver set to driver_ and fees calculated
+     * @throws CannotSchedulePickupException
+     */
+    public Pickup schedulePickup(Pickup pickup_, Driver driver_) throws CannotSchedulePickupException {
+        return pickupScheduler.schedule(pickup_, driver_);
+    }
+
+    /**
+     * A function to be called in CommandController to schedule a pickup that is in
+     * the pickup queue.
+     * 
+     * @param driver_
+     *            The driver whose availability was modified from false to true
+     * @return A pickup with its driver set to driver_ and fees calculated
+     */
+    public Pickup scheduleUnscheduledPickup(Driver driver_) {
+        return pickupScheduler.getUnscheduledPickup(driver_);
+    }
     // DEPRECATED!
     /**
      * Modify Pickup's info in the database

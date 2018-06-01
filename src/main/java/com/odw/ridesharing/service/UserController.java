@@ -130,7 +130,7 @@ public class UserController {
      * @return A list string of all the users currently in database.
      */
     public String getUserDatabaseAsString() {
-        if (userDatabase.size() > 0) {
+        if (!userDatabase.isEmpty()) {
             StringBuilder _result = new StringBuilder();
 
             for (Map.Entry<Integer, User> _entry : userDatabase.entrySet()) {

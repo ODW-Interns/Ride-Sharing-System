@@ -32,18 +32,15 @@ public class UserFactory {
      */
     /* @formatter:on */
     public User buildUser(ArrayList<String> typeValues_) throws InvalidUserArgumentsException {
-
         if (typeValues_.size() == RuntimeConstants.CREATE_USER_FORMAT.length) {
             try {
-                // store the values from ArrayList
                 String _userType = typeValues_.get(0);
                 String _firstName = typeValues_.get(1);
                 String _lastName = typeValues_.get(2);
                 String _sex = typeValues_.get(3);
                 int _age = Integer.parseInt(typeValues_.get(4));
 
-                // create a User object based off of its userType
-                // Driver changed to instantiating rating and isAvailable in class constructor
+                // Create a concrete implementation of User based on userType input.
                 switch (_userType) {
                     case RuntimeConstants.CUSTOMER:
                         return new Customer(nextUserID++, _firstName, _lastName, _sex, _age);
@@ -52,9 +49,7 @@ public class UserFactory {
                     default:
                         return null;
                 }
-            } catch (NullPointerException e_) {
-                throw new InvalidUserArgumentsException();
-            } catch (NumberFormatException e_) {
+            } catch (Exception e_) {
                 throw new InvalidUserArgumentsException();
             }
 

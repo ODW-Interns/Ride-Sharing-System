@@ -190,7 +190,7 @@ public class CommandController {
 
                     // Check to see if the driver's new carID is valid before modifying.
                     if (_userType.equals(RuntimeConstants.DRIVER)) {
-                        int _newCarID = Integer.parseInt(event_.getTypeValues().get(8));
+                        int _newCarID = Integer.parseInt(event_.getTypeValues().get(7));
                         if (!carController.isCarInInventory(_newCarID)) {
                             throw new CarNotFoundException();
                         }

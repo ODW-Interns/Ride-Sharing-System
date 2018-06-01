@@ -38,7 +38,6 @@ public class Driver extends User {
         super(userID_, firstName_, lastName_, sex_, age_);
 
         // These fields must be assigned using modify.
-        setRating(-1);
         setIsAvailable(false);
         setCarID(-1);
     }

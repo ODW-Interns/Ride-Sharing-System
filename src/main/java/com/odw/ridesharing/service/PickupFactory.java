@@ -34,7 +34,7 @@ public class PickupFactory {
      */
     public Pickup buildPickup(ArrayList<String> typeValues_, Customer pickupCustomer_)
      throws InvalidPickupArgumentsException {
-        if (typeValues_.size() == RuntimeConstants.CREATE_PICKUP_FORMAT.length && pickupCustomer_ != null) {
+        if (typeValues_.size() == RuntimeConstants.CREATE_PICKUP_FORMAT.length() && pickupCustomer_ != null) {
             try {
                 // Get the values from input
                 // Ignoring .get(0) because the userID is a field of pickupCustomer_

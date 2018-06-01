@@ -30,7 +30,7 @@ public class UserController {
      * @throws InvalidUserArgumentsException
      */
     public User createUser(ArrayList<String> typeValues_) throws InvalidUserArgumentsException {
-        if (typeValues_.size() == RuntimeConstants.CREATE_USER_FORMAT.length) {
+        if (typeValues_.size() == RuntimeConstants.CREATE_USER_FORMAT.length()) {
             try {
                 User _user = userFactory.buildUser(typeValues_);
                 userDatabase.put(_user.getUserID(), _user);
@@ -63,7 +63,7 @@ public class UserController {
      throws CustomerNotFoundException, InvalidUserArgumentsException, DriverNotFoundException {
         // CAREFUL! The assumption here is that the driver format is always NOT the same as the customer format.
         // This will require changing if MODIFY_USER_DRIVER_FORMAT == MODIFY_USER_CUSTOMER_FORMAT.
-        if (typeValues_.size() == RuntimeConstants.MODIFY_USER_DRIVER_FORMAT.length) {
+        if (typeValues_.size() == RuntimeConstants.MODIFY_USER_DRIVER_FORMAT.length()) {
             try {
                 int _userID = Integer.parseInt(typeValues_.get(0));
                 String _userType = typeValues_.get(1);
@@ -78,7 +78,7 @@ public class UserController {
                 throw new InvalidUserArgumentsException();
             }
 
-        } else if (typeValues_.size() == RuntimeConstants.MODIFY_USER_CUSTOMER_FORMAT.length) {
+        } else if (typeValues_.size() == RuntimeConstants.MODIFY_USER_CUSTOMER_FORMAT.length()) {
             try {
                 int _userID = Integer.parseInt(typeValues_.get(0));
                 String _userType = typeValues_.get(1);
@@ -110,7 +110,7 @@ public class UserController {
      * @throws UserNotFoundException
      */
     public User deleteUser(ArrayList<String> typeValues_) throws UserNotFoundException {
-        if (typeValues_.size() == RuntimeConstants.DELETE_USER_FORMAT.length) {
+        if (typeValues_.size() == RuntimeConstants.DELETE_USER_FORMAT.length()) {
             int _userID = Integer.parseInt(typeValues_.get(0));
 
             if (userDatabase.get(_userID) != null) {

@@ -32,7 +32,7 @@ public class CarController {
      * @throws InvalidCarArgumentsException
      */
     public Car createCar(ArrayList<String> typeValues_) throws InvalidCarArgumentsException {
-        if (typeValues_.size() == RuntimeConstants.CREATE_CAR_FORMAT.length) {
+        if (typeValues_.size() == RuntimeConstants.CREATE_CAR_FORMAT.length()) {
             try {
                 Car _car = carFactory.buildCar(typeValues_);
                 carInventory.put(_car.getCarID(), _car);
@@ -54,7 +54,7 @@ public class CarController {
      *            RuntimeConstants.
      */
     public Car modifyCar(ArrayList<String> typeValues_) throws CarNotFoundException, InvalidCarArgumentsException {
-        if (typeValues_.size() == RuntimeConstants.MODIFY_CAR_FORMAT.length) {
+        if (typeValues_.size() == RuntimeConstants.MODIFY_CAR_FORMAT.length()) {
             try {
                 // Removing the carID from typeValues_ so that it is properly formatted
                 // to CREATE_CAR_FORMAT (see RuntimeConstants) buildCar (in carFactory).
@@ -94,7 +94,7 @@ public class CarController {
      * @throws CarNotFoundException
      */
     public Car deleteCar(ArrayList<String> typeValues_) throws CarNotFoundException {
-        if (typeValues_.size() == RuntimeConstants.DELETE_CAR_FORMAT.length) {
+        if (typeValues_.size() == RuntimeConstants.DELETE_USER_FORMAT.length()) {
             int _carID = Integer.parseInt(typeValues_.get(0));
 
             if (carInventory.get(_carID) != null) {

@@ -37,7 +37,7 @@ public class PickupController {
     /* @formatter:off */
     public Pickup createPickup(ArrayList<String> typeValues_, Customer pickupCustomer_)
      throws InvalidPickupArgumentsException {
-        if (typeValues_.size() == RuntimeConstants.CREATE_PICKUP_FORMAT.length && pickupCustomer_ != null) {
+        if (typeValues_.size() == RuntimeConstants.CREATE_PICKUP_FORMAT.length() && pickupCustomer_ != null) {
             try {
                 // Creating the pickup through the factory. No driver is assigned yet.
                 return pickupFactory.buildPickup(typeValues_, pickupCustomer_);
@@ -61,7 +61,7 @@ public class PickupController {
      * @throws BadPickupException
      */
     public Pickup deletePickup(ArrayList<String> typeValues_) throws PickupNotFoundException {
-        if (typeValues_.size() == RuntimeConstants.DELETE_PICKUP_FORMAT.length) {
+        if (typeValues_.size() == RuntimeConstants.DELETE_PICKUP_FORMAT.length()) {
             try {
                 // Get the pickup ID from input.
                 int _pickupID = Integer.parseInt(typeValues_.get(0));

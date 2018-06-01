@@ -32,7 +32,7 @@ public class UserFactory {
      */
     /* @formatter:on */
     public User buildUser(ArrayList<String> typeValues_) throws InvalidUserArgumentsException {
-        if (typeValues_.size() == RuntimeConstants.CREATE_USER_FORMAT.length) {
+        if (typeValues_.size() == RuntimeConstants.CREATE_USER_FORMAT.length()) {
             try {
                 String _userType = typeValues_.get(0);
                 String _firstName = typeValues_.get(1);

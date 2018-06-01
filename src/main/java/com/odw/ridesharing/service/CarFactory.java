@@ -34,7 +34,7 @@ public class CarFactory {
     /* @formatter:on */
     public Car buildCar(ArrayList<String> typeValues_) throws InvalidCarArgumentsException {
 
-        if (typeValues_.size() == RuntimeConstants.CREATE_CAR_FORMAT.length) {
+        if (typeValues_.size() == RuntimeConstants.CREATE_CAR_FORMAT.length()) {
             try {
                 // store the values from ArrayList
                 String _carType = typeValues_.get(0);

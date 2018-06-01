@@ -9,6 +9,7 @@ import org.junit.Test;
 import com.odw.ridesharing.model.Customer;
 import com.odw.ridesharing.model.Driver;
 import com.odw.ridesharing.model.Pickup;
+import com.odw.ridesharing.model.exceptions.InvalidPickupArgumentsException;
 import com.odw.ridesharing.model.exceptions.InvalidUserArgumentsException;
 import com.odw.ridesharing.service.CarController;
 import com.odw.ridesharing.service.PickupController;
@@ -56,6 +57,13 @@ public class PickupControllerTest {
             _userController.modifyUser(modifyValidDriverInfo());
         } catch (Exception e_) {
             fail("Error modifying a valid driver");
+        }
+
+     // Creating an invalid pickup.
+        try {
+            _pickupController.createPickup(createValidPickupInfo(), _customer);
+        } catch (InvalidPickupArgumentsException e_) {
+            fail("Error creating a valid pickup."); // This is the desired outcome.
         }
 
         // Creating an invalid pickup.

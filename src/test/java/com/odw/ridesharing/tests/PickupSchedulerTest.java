@@ -66,8 +66,8 @@ public class PickupSchedulerTest {
 
         // Create a valid pickup and check to see if calculatePickupCost is working
         try {
-            _pickup = _pickupController.createPickup(createValidPickupInfo(), _customer, _driver);
-
+            _pickup = _pickupController.createPickup(createValidPickupInfo(), _customer);
+            _pickupController.schedulePickup(_pickup, _driver);
             // Check to see if schedule() is correct
             assertEquals(12.5, _pickup.getPickupCost(), 0.01d);
         } catch (Exception e_) {
@@ -151,8 +151,10 @@ public class PickupSchedulerTest {
 
         // Create a valid pickup and check to see if calculatePickupCost is working
         try {
-            _pickup = _pickupController.createPickup(createValidPickupInfo(), _customer, _driver);
+            _pickup = _pickupController.createPickup(createValidPickupInfo(), _customer);
 
+            _pickupController.schedulePickup(_pickup, _driver);
+            
             // Check to see if schedule() is correct
             assertEquals(12.5, _pickup.getPickupCost(), 0.01d);
         } catch (Exception e_) {

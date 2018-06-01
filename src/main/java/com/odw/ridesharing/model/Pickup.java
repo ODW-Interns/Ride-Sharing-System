@@ -59,31 +59,33 @@ public class Pickup {
 
     /**
      * Returns the pickup's information in String format excluding the pickup's
-     * driver information. Used for created pickups that are not scheduled yet.
+     * driver information, pickup cost information, and origin/destination
+     * locations. Used for created pickups that are not scheduled yet.
      * 
      * @return The pickup information as a String.
      */
     /* @formatter:off */
-    public String toStringWithoutDriver(String delimiter_) {
-        return "PickupID: " + getPickupID() + " " + delimiter_ + " " +
-               "Customer First Name: " + pickupCustomer.getFirstName() + " " + delimiter_ + " " +
-               "Customer Last Name: " + pickupCustomer.getLastName() + " " + delimiter_ + " " + 
+    public String toStringPreScheduled(String delimiter_) {
+        return delimiter_ + " " +
+               "PickupID: " + getPickupID() + " " + delimiter_ + " " +
                "CustomerID: " + pickupCustomer.getUserID() + " " + delimiter_ + " " +
-               "Origin (latitude, longitude): " + origin.toString() + " " + delimiter_ + " " +
-               "Destination (latitude, longitude): " + destination.toString() + " " + delimiter_ + " " +
-               "Total Cost: " + pickupCost.with(Monetary.getDefaultRounding()).toString() + " " + delimiter_;
+               "Customer First Name: " + pickupCustomer.getFirstName() + " " + delimiter_ + " " +
+               "Customer Last Name: " + pickupCustomer.getLastName() + " " + delimiter_; 
     }
     /* @formatter:on */
 
     /**
-     * Returns the pickup's information in String format including the pickup's
-     * driver information. Used for created pickups that have been scheduled.
+     * Gets all of the pickup's information as a string separated by a specified
+     * delimiter.
      * 
-     * @return The pickup information as a String.
+     * @param delimiter_
+     *            The specified delimiter to separate the values.
+     * @return Returns all the information related to the current pickup.
      */
     /* @formatter:off */
-    public String toStringWithDriver(String delimiter_) {
-        return "PickupID: " + getPickupID() + " " + delimiter_ + " " +
+    public String toString(String delimiter_) {
+        return delimiter_ + " " +
+               "PickupID: " + getPickupID() + " " + delimiter_ + " " +
                "Customer First Name: " + pickupCustomer.getFirstName() + " " + delimiter_ + " " +
                "Customer Last Name: " + pickupCustomer.getLastName() + " " + delimiter_ + " " + 
                "CustomerID: " + pickupCustomer.getUserID() + " " + delimiter_ + " " + 
@@ -103,7 +105,7 @@ public class Pickup {
      */
     @Override
     public String toString() {
-        return toStringWithDriver("|");
+        return toString("|");
     }
 
     /**

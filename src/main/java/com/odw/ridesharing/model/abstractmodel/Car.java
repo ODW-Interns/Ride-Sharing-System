@@ -13,7 +13,6 @@ public abstract class Car {
     private String model;
     private String color;
     private int year;
-    private double distanceTraveled;
 
     /**
      * Creates a default, empty car.
@@ -40,7 +39,6 @@ public abstract class Car {
         setModel(model_);
         setColor(color_);
         setYear(year_);
-        distanceTraveled = 0;
     }
 
     /**
@@ -52,12 +50,12 @@ public abstract class Car {
      */
     /* @formatter:off */
     public String toString(String delimiter_) {
-        return "CarID: " + getCarID() + " " + delimiter_ + " " + 
+        return delimiter_ + " " +
+               "CarID: " + getCarID() + " " + delimiter_ + " " + 
                "Maker: " + getMake() + " " + delimiter_ + " " +
                "Model: " + getModel() + " " + delimiter_ + " " +
                "Color: " + getColor() + " " + delimiter_ + " " +
-               "Year: " + getYear() + " " + delimiter_ + " " +
-               "Distance Traveled: " + getDistanceTraveled() + " " + delimiter_ + " ";
+               "Year: " + getYear() + " " + delimiter_ + " ";
     }
     /* @formatter:on */
 
@@ -165,24 +163,5 @@ public abstract class Car {
      */
     public void setYear(int year_) {
         year = year_;
-    }
-
-    /**
-     * Gets the total distance traveled by the car
-     * 
-     * @return The total distance traveled by the car.
-     */
-    public double getDistanceTraveled() {
-        return distanceTraveled;
-    }
-
-    /**
-     * Sets the distance traveled by the car
-     * 
-     * @param distanceTraveled_
-     *            The new distance traveled by the car.
-     */
-    public void setDistanceTraveled(double distanceTraveled_) {
-        distanceTraveled = distanceTraveled_;
     }
 }

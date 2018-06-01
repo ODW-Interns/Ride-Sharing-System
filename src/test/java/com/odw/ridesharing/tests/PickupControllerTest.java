@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import org.junit.Test;
 
 import com.odw.ridesharing.model.Customer;
-import com.odw.ridesharing.model.Driver;
-import com.odw.ridesharing.model.Pickup;
 import com.odw.ridesharing.model.exceptions.InvalidPickupArgumentsException;
 import com.odw.ridesharing.model.exceptions.InvalidUserArgumentsException;
 import com.odw.ridesharing.service.CarController;

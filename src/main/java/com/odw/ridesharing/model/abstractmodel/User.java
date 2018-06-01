@@ -50,7 +50,8 @@ public abstract class User {
      */
     /* @formatter:off */
     public String toString(String delimiter_) {
-        return "UserID: " + getUserID() + " " + delimiter_ + " " +
+        return delimiter_ + " " +
+               "UserID: " + getUserID() + " " + delimiter_ + " " +
                "First Name: " + getFirstName() + " " + delimiter_ + " " + 
                "Last Name: " + getLastName() + " " + delimiter_ + " " +
                "Sex: " + getSex() + " " + delimiter_ + " " +

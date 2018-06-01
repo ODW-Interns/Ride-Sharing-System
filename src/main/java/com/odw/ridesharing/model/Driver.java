@@ -55,7 +55,6 @@ public class Driver extends User {
     public String toString(String delimiter_) {
         return super.toString(delimiter_) + " " +
                "CarID: " + getCarID() + " " + delimiter_ + " " +
-               "Rating: " + getRating() + " " + delimiter_ + " " +
                "isAvailable: " + getIsAvailable() + " " + delimiter_;
     }
     /* @formatter:on */

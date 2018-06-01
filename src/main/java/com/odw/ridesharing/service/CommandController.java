@@ -135,7 +135,7 @@ public class CommandController {
                     // Create a pickup but do not schedule it yet.
                     Pickup _createdPickup = pickupController.createPickup(event_.getTypeValues(), _pickupCustomer);
 
-                    logger.info("REQUESTED PICKUP = {}", _createdPickup.toStringPreScheduled("|"));
+                    logger.info("PICKUP REQUEST = {}", _createdPickup.toStringPreScheduled("|"));
 
                     // ---- Trying to schedule the pickup ---- //
                     // Driver available for the pickup. Null if no available drivers.

@@ -41,7 +41,6 @@ public class PickupController {
             try {
                 // Creating the pickup through the factory. No driver is assigned yet.
                 Pickup _newPickup = pickupFactory.buildPickup(typeValues_, pickupCustomer_);
-                
                 return _newPickup;
             } catch (InvalidPickupArgumentsException e_) {
                 throw new InvalidPickupArgumentsException();
@@ -119,6 +118,31 @@ public class PickupController {
         throw new PickupNotFoundException();
     }
 
+    /**
+     * A function to be called in CommandController to schedule a pickup
+     * 
+     * @param pickup_
+     *            The pickup that was created.
+     * @param driver_
+     *            The next available driver if there is one.
+     * @return A pickup with its driver set to driver_ and fees calculated
+     * @throws CannotSchedulePickupException
+     */
+    public Pickup schedulePickup(Pickup pickup_, Driver driver_) throws CannotSchedulePickupException {
+        return pickupScheduler.schedule(pickup_, driver_);
+    }
+
+    /**
+     * A function to be called in CommandController to schedule a pickup that is in
+     * the pickup queue.
+     * 
+     * @param driver_
+     *            The driver whose availability was modified from false to true
+     * @return A pickup with its driver set to driver_ and fees calculated
+     */
+    public Pickup scheduleUnscheduledPickup(Driver driver_) {
+        return pickupScheduler.getUnscheduledPickup(driver_);
+    }
     // DEPRECATED!
     /**
      * Modify Pickup's info in the database

@@ -227,8 +227,7 @@ public class UserController {
             String _newSex = newValues_.get(4);
             int _newAge = Integer.parseInt(newValues_.get(5));
             Boolean _newIsAvailable = Boolean.parseBoolean(newValues_.get(6));
-            int _newRating = Integer.parseInt(newValues_.get(7));
-            int _newCarID = Integer.parseInt(newValues_.get(8));
+            int _newCarID = Integer.parseInt(newValues_.get(7));
             
             // Setting the modified driver values. Should be driver (ClassCastException otherwise).
             Driver _modifiedDriver = (Driver) userDatabase.remove(userID_);
@@ -238,7 +237,6 @@ public class UserController {
             _modifiedDriver.setAge(_newAge);
             _modifiedDriver.setIsAvailable(_newIsAvailable);
             _modifiedDriver.setCarID(_newCarID);
-            _modifiedDriver.setRating(_newRating);
 
             // Storing the newly modified driver under the same ID.
             userDatabase.put(userID_, _modifiedDriver);

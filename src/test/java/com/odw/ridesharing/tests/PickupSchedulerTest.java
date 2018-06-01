@@ -229,7 +229,6 @@ public class PickupSchedulerTest {
         _modifyValidDriverInfo.add("male");
         _modifyValidDriverInfo.add("21");
         _modifyValidDriverInfo.add("true");
-        _modifyValidDriverInfo.add("-1");
         _modifyValidDriverInfo.add("0");
         return _modifyValidDriverInfo;
     }

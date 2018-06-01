@@ -79,15 +79,10 @@ public class UserControllerTest {
         _driverNewInfo.add("male");
         _driverNewInfo.add("21");
         _driverNewInfo.add("false");
-        _driverNewInfo.add("0");
         _driverNewInfo.add("5");
         try {
             _userController.modifyUser(_driverNewInfo);
-        } catch (DriverNotFoundException e_) {
-            fail("Error modifying a valid driver.");
-        } catch (CustomerNotFoundException e_) {
-            fail("Error modifying a valid driver.");
-        } catch (InvalidUserArgumentsException e_) {
+        } catch (Exception e_) {
             fail("Error modifying a valid driver.");
         }
 

@@ -78,7 +78,6 @@ public class RuntimeConstants {
             "SEX (STRING)",
             "AGE (INT)",
             "AVAILABILITY (BOOLEAN)",
-            "RATING (INT)",
             "CAR_ID (INT)"
     };
     

@@ -36,7 +36,7 @@ public class PickupController {
      */
     /* @formatter:off */
     public Pickup createPickup(ArrayList<String> typeValues_, Customer pickupCustomer_)
-     throws InvalidPickupArgumentsException, CannotSchedulePickupException {
+     throws InvalidPickupArgumentsException {
         if (typeValues_.size() == RuntimeConstants.CREATE_PICKUP_FORMAT.length && pickupCustomer_ != null) {
             try {
                 // Creating the pickup through the factory. No driver is assigned yet.

@@ -1,6 +1,4 @@
 # Notes
-
-- Function parameters should not contain underscore in name. Same goes for constructors.
 - Factories should be moved in their own package instead in same package with controllers
 - Will input parameters have validation?
 

@@ -169,7 +169,6 @@ public class CarControllerTest {
 	 */
 	@Test
 	public void testIsCarInInventory() {
-		// [TODO]
 		CarController _carController = new CarController();
 
 		// ---------------------------------------------
@@ -185,6 +184,8 @@ public class CarControllerTest {
 
 	}
 
+	// ==========================================================================================
+    // Helper Functions
 
 	/**
 	 * Helper function to generate valid car info.

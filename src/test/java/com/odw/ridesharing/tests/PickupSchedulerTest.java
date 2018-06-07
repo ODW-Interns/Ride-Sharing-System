@@ -26,7 +26,7 @@ public class PickupSchedulerTest {
      * else statements are considered.
      */
     @Test
-    public void schedulePickupTest() {
+    public void scheduleValidPickupTest() {
         CarController _carController = new CarController();
         UserController _userController = new UserController();
         PickupController _pickupController = new PickupController();
@@ -79,7 +79,25 @@ public class PickupSchedulerTest {
         } catch (Exception e_) {
             fail("Error creating a valid pickup.");
         }
+    }
 
+    /**
+     * Tests PickupScheduler's schedulePickup method. Ensures that all of the if and
+     * else statements are considered.
+     */
+    @Test
+    public void scheduleNoDriverPickupTest() {
+    	CarController _carController = new CarController();
+        Pickup _pickup = new Pickup();
+        PickupScheduler _scheduler = new PickupScheduler();
+
+        // Creating a valid car for the driver.
+        try {
+            _carController.createCar(createValidCarInfo());
+        } catch (Exception e_) {
+            fail("Error creating a valid car.");
+        }
+        
         // Schedule a null driver.
         try {
             // Passing null means no available driver to be scheduled.
@@ -87,9 +105,38 @@ public class PickupSchedulerTest {
 
         } catch (CannotSchedulePickupException e_) {
             // This should cause an exception to be thrown.
-            assert (true);
+        }
+    }
+    
+    @Test
+    public void scheduleNullPickupTest() {
+    	CarController _carController = new CarController();
+        UserController _userController = new UserController();
+        Driver _driver = new Driver();
+        Pickup _pickup = new Pickup();
+        PickupScheduler _scheduler = new PickupScheduler();
+
+        // Creating a valid car for the driver.
+        try {
+            _carController.createCar(createValidCarInfo());
+        } catch (Exception e_) {
+            fail("Error creating a valid car.");
         }
 
+        // Creating a valid driver for the pickup.
+        try {
+            _driver = (Driver) _userController.createUser(createValidDriverInfo());
+        } catch (Exception e_) {
+            fail("Error creating a valid driver user.");
+        }
+
+        // Modifying the driver to be available for pickup.
+        try {
+            _userController.modifyUser(modifyValidDriverInfo());
+        } catch (Exception e_) {
+            fail("Error modifying a valid driver");
+        }
+         
         // Schedule a null pickup.
         try {
             _driver = (Driver) _userController.createUser(createValidDriverInfo());
@@ -100,7 +147,36 @@ public class PickupSchedulerTest {
             // This should cause an exception to be thrown.
             assert (true);
         }
+    }
+    @Test
+    public void scheduleMultiplePickupTest() {
+    	CarController _carController = new CarController();
+        UserController _userController = new UserController();
+        Driver _driver = new Driver();
+        Pickup _pickup = new Pickup();
+        PickupScheduler _scheduler = new PickupScheduler();
 
+        // Creating a valid car for the driver.
+        try {
+            _carController.createCar(createValidCarInfo());
+        } catch (Exception e_) {
+            fail("Error creating a valid car.");
+        }
+
+        // Creating a valid driver for the pickup.
+        try {
+            _driver = (Driver) _userController.createUser(createValidDriverInfo());
+        } catch (Exception e_) {
+            fail("Error creating a valid driver user.");
+        }
+
+        // Modifying the driver to be available for pickup.
+        try {
+            _userController.modifyUser(modifyValidDriverInfo());
+        } catch (Exception e_) {
+            fail("Error modifying a valid driver");
+        }
+        
         // Schedule multiple pickups for queue.
         try {
             _scheduler.schedule(_pickup, null);
@@ -113,7 +189,6 @@ public class PickupSchedulerTest {
         } catch (Exception e_) {
             // Scheduler should have added 3 pickups to queue with the fourth
             // pickup causing the first pickup to be scheduled.
-            assert (true);
         }
 
     }
@@ -167,7 +242,7 @@ public class PickupSchedulerTest {
         } catch (Exception e_) {
             fail("Error creating a valid pickup.");
         }
-        
+    
         // Modifying the driver to be available for pickup.
 
         try {

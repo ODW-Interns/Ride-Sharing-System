@@ -1,4 +1,4 @@
-package com.odw.ridesharing.tests;
+package com.odw.ridesharing.tests.factories;
 
 import static org.junit.Assert.*;
 
@@ -6,10 +6,10 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
+import com.odw.ridesharing.factories.PickupFactory;
 import com.odw.ridesharing.model.Customer;
 import com.odw.ridesharing.model.Driver;
 import com.odw.ridesharing.model.Pickup;
-import com.odw.ridesharing.service.PickupFactory;
 
 /**
  * Tests all the public methods inside PickupFactory.

@@ -2,6 +2,7 @@ package com.odw.ridesharing.service;
 
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.odw.ridesharing.factories.CarFactory;
 import com.odw.ridesharing.model.RuntimeConstants;
 import com.odw.ridesharing.model.abstractmodel.Car;
 

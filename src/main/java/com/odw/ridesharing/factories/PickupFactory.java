@@ -1,4 +1,4 @@
-package com.odw.ridesharing.service;
+package com.odw.ridesharing.factories;
 
 import java.util.ArrayList;
 

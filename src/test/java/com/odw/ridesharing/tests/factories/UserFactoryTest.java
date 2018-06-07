@@ -1,15 +1,15 @@
-package com.odw.ridesharing.tests;
+package com.odw.ridesharing.tests.factories;
 
 import static org.junit.Assert.*;
 import java.util.ArrayList;
 
 import org.junit.Test;
 
+import com.odw.ridesharing.factories.UserFactory;
 import com.odw.ridesharing.model.Customer;
 import com.odw.ridesharing.model.Driver;
 import com.odw.ridesharing.model.abstractmodel.User;
 import com.odw.ridesharing.model.exceptions.InvalidUserArgumentsException;
-import com.odw.ridesharing.service.UserFactory;
 
 /**
  * Tests all the public methods inside UserFactory.

@@ -43,7 +43,7 @@ public class UserControllerTest {
         try {
             _userController.createUser(createValidCustomerInfo());
         } catch (InvalidUserArgumentsException e_) {
-            fail("Error creating a valid driver user.");
+            fail("Error creating a valid customer user.");
         }
     }
     
@@ -57,6 +57,7 @@ public class UserControllerTest {
         // Test invalid driver creation.
         try {
             _userController.createUser(createInvalidDriverInfo());
+            fail("Created an invalid driver without issues.");
         } catch (InvalidUserArgumentsException e_) {
             // Execution SHOULD reach inside the catch statement.
         }
@@ -73,6 +74,7 @@ public class UserControllerTest {
         // Test invalid customer creation.
         try {
             _userController.createUser(createInvalidCustomerInfo());
+            fail("Created an invalid customer without issues.");
         } catch (InvalidUserArgumentsException e_) {
             // Execution SHOULD reach inside the catch statement.
         }
@@ -160,6 +162,7 @@ public class UserControllerTest {
         _invalidModifyInfo.add("must include all fields");
         try {
             _userController.modifyUser(_invalidModifyInfo);
+            fail("Modified with invalid input without issues.");
         } catch (Exception e_) {
             // Execution SHOULD reach inside the catch statement.
         }
@@ -205,8 +208,9 @@ public class UserControllerTest {
         _invalidDeleteInfo.add("1000"); // Invalid ID
         try {
             _userController.deleteUser(_invalidDeleteInfo);
+            fail("Deleted with invalid input without issues.");
         } catch (UserNotFoundException e_) {
-            assertTrue(true);
+            // Execution SHOULD reach inside the catch statement.
         }
     }
 

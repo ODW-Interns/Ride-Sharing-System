@@ -20,7 +20,7 @@ import com.odw.ridesharing.service.PickupScheduler;
  * Tests all the public methods inside PickupScheduler.
  */
 public class PickupSchedulerTest {
-
+    
     /**
      * Tests PickupScheduler's schedulePickup method. Ensures that all of the if and
      * else statements are considered.
@@ -57,7 +57,6 @@ public class PickupSchedulerTest {
         }
 
         // Modifying the driver to be available for pickup.
-
         try {
             _userController.modifyUser(modifyValidDriverInfo());
         } catch (Exception e_) {
@@ -83,6 +82,7 @@ public class PickupSchedulerTest {
 
         // Schedule a null driver.
         try {
+            // Passing null means no available driver to be scheduled.
             _scheduler.schedule(_pickup, null);
 
         } catch (CannotSchedulePickupException e_) {
@@ -184,6 +184,9 @@ public class PickupSchedulerTest {
         }
 
     }
+    
+    // ==========================================================================================
+    // Helper Functions
 
     /**
      * Helper function to generate valid car info.

@@ -17,11 +17,10 @@ import com.odw.ridesharing.model.exceptions.InvalidUserArgumentsException;
 public class UserFactoryTest {
 
     /**
-     * Tests UserFactory's createUser method. Ensures that the proper concrete user
-     * is being generated.
+     * Test to see if a customer is created through the factory based on the given input.
      */
     @Test
-    public void testCreateUser() {
+    public void testBuildCustomer() {
         UserFactory _userFactory = new UserFactory();
 
         // ---------------------------------------------
@@ -32,7 +31,15 @@ public class UserFactoryTest {
         } catch (InvalidUserArgumentsException e) {
             fail("Error creating a valid customer.");
         }
-
+    }
+    
+    /**
+     * Test to see if a driver is created through the factory based on the given input.
+     */
+    @Test
+    public void testBuildDriver() {
+        UserFactory _userFactory = new UserFactory();
+        
         // ---------------------------------------------
         // Creating a valid driver.
         try {
@@ -41,16 +48,28 @@ public class UserFactoryTest {
         } catch (InvalidUserArgumentsException e) {
             fail("Error creating a valid driver");
         }
-
+    }
+    
+    /**
+     * 
+     */
+    @Test
+    public void testInvalidBuildInput() {
+        UserFactory _userFactory = new UserFactory();
+        
         // ---------------------------------------------
         // Creating an invalid user.
         try {
             @SuppressWarnings("unused") // Suppressed because this variable is not needed.
             AbstractUser _unknownUserType = _userFactory.buildUser(createInvalidUserInfo());
+            fail("Built a user with invalid input without issues.");
         } catch (InvalidUserArgumentsException e) {
-            assertTrue(true); // This is the desired outcome.
+            // Execution SHOULD reach inside the catch statement.
         }
     }
+
+    // ==========================================================================================
+    // Helper Functions
 
     /**
      * Helper function to generate valid customer info.

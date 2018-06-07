@@ -6,12 +6,12 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
+import com.odw.ridesharing.controllers.CarController;
+import com.odw.ridesharing.controllers.PickupController;
+import com.odw.ridesharing.controllers.UserController;
 import com.odw.ridesharing.model.Customer;
 import com.odw.ridesharing.model.exceptions.InvalidPickupArgumentsException;
 import com.odw.ridesharing.model.exceptions.InvalidUserArgumentsException;
-import com.odw.ridesharing.service.CarController;
-import com.odw.ridesharing.service.PickupController;
-import com.odw.ridesharing.service.UserController;
 
 /**
  * Tests all the public methods inside PickupController.

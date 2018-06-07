@@ -1,13 +1,13 @@
 package com.odw.ridesharing.model;
 
-import com.odw.ridesharing.model.abstractmodel.Car;
+import com.odw.ridesharing.model.abstractmodel.AbstractCar;
 
 /**
  * Sedan is a concrete implementation of Car class and is used to help 
  * parse the different carTypes. Sedan class refers to cars that have
  * four doors and generally a total rider capacity of 5.
  */
-public class Sedan extends Car {
+public class Sedan extends AbstractCar {
 
     /**
      * Creates a default, empty sedan.

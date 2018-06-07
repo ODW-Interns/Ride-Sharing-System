@@ -6,7 +6,7 @@ package com.odw.ridesharing.model.abstractmodel;
  * need to keep track of a database of Makers and have to create a 
  * MakerFactory for each of the Makes we wish to have. 
  */
-public abstract class Car {
+public abstract class AbstractCar {
 
     private int carID;
     private String make;
@@ -17,7 +17,7 @@ public abstract class Car {
     /**
      * Creates a default, empty car.
      */
-    public Car() {
+    public AbstractCar() {
         this(-1, "", "", "", -1);
     }
 
@@ -33,7 +33,7 @@ public abstract class Car {
      * @param year_
      *            The car model's year.
      */
-    public Car(int carID_, String make_, String model_, String color_, int year_) {
+    public AbstractCar(int carID_, String make_, String model_, String color_, int year_) {
         setCarID(carID_);
         setMake(make_);
         setModel(model_);

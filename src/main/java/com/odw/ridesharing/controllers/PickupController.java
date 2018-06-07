@@ -1,4 +1,4 @@
-package com.odw.ridesharing.service;
+package com.odw.ridesharing.controllers;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -12,6 +12,7 @@ import com.odw.ridesharing.model.RuntimeConstants;
 import com.odw.ridesharing.model.exceptions.CannotSchedulePickupException;
 import com.odw.ridesharing.model.exceptions.InvalidPickupArgumentsException;
 import com.odw.ridesharing.model.exceptions.PickupNotFoundException;
+import com.odw.ridesharing.service.PickupScheduler;
 
 /**
  * PickupController is called by CommandController to handle the commands done

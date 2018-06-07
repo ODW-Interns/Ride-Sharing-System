@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import com.odw.ridesharing.model.Coupe;
 import com.odw.ridesharing.model.RuntimeConstants;
 import com.odw.ridesharing.model.Suv;
-import com.odw.ridesharing.model.abstractmodel.Car;
+import com.odw.ridesharing.model.abstractmodel.AbstractCar;
 import com.odw.ridesharing.model.exceptions.InvalidCarArgumentsException;
 import com.odw.ridesharing.model.Sedan;
 
@@ -32,7 +32,7 @@ public class CarFactory {
      * @return a Car Object
      */
     /* @formatter:on */
-    public Car buildCar(ArrayList<String> typeValues_) throws InvalidCarArgumentsException {
+    public AbstractCar buildCar(ArrayList<String> typeValues_) throws InvalidCarArgumentsException {
 
         if (typeValues_.size() == RuntimeConstants.CREATE_CAR_FORMAT.length) {
             try {

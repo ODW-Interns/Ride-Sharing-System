@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.odw.ridesharing.service.CommandController;
+import com.odw.ridesharing.controllers.CommandController;
 
 /**
  * Tests all the public methods inside CommandController.

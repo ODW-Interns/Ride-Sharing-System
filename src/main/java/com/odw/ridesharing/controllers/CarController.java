@@ -1,10 +1,10 @@
-package com.odw.ridesharing.service;
+package com.odw.ridesharing.controllers;
 
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.odw.ridesharing.factories.CarFactory;
 import com.odw.ridesharing.model.RuntimeConstants;
-import com.odw.ridesharing.model.abstractmodel.Car;
+import com.odw.ridesharing.model.abstractmodel.AbstractCar;
 
 import com.odw.ridesharing.model.exceptions.CarNotFoundException;
 import com.odw.ridesharing.model.exceptions.InvalidCarArgumentsException;
@@ -19,7 +19,7 @@ import java.util.Map;
  */
 public class CarController {
 
-    private ConcurrentHashMap<Integer, Car> carInventory = new ConcurrentHashMap<Integer, Car>();
+    private ConcurrentHashMap<Integer, AbstractCar> carInventory = new ConcurrentHashMap<Integer, AbstractCar>();
     private CarFactory carFactory = new CarFactory();
 
     /**
@@ -32,10 +32,10 @@ public class CarController {
      * @return _car To be used for logger
      * @throws InvalidCarArgumentsException
      */
-    public Car createCar(ArrayList<String> typeValues_) throws InvalidCarArgumentsException {
+    public AbstractCar createCar(ArrayList<String> typeValues_) throws InvalidCarArgumentsException {
         if (typeValues_.size() == RuntimeConstants.CREATE_CAR_FORMAT.length) {
             try {
-                Car _car = carFactory.buildCar(typeValues_);
+                AbstractCar _car = carFactory.buildCar(typeValues_);
                 carInventory.put(_car.getCarID(), _car);
                 return _car;
             } catch (Exception e_) {
@@ -54,7 +54,7 @@ public class CarController {
      *            Expected input values specified under MODIFY_CAR_FORMAT in
      *            RuntimeConstants.
      */
-    public Car modifyCar(ArrayList<String> typeValues_) throws CarNotFoundException, InvalidCarArgumentsException {
+    public AbstractCar modifyCar(ArrayList<String> typeValues_) throws CarNotFoundException, InvalidCarArgumentsException {
         if (typeValues_.size() == RuntimeConstants.MODIFY_CAR_FORMAT.length) {
             try {
                 // Removing the carID from typeValues_ so that it is properly formatted
@@ -62,10 +62,10 @@ public class CarController {
                 int _carID = Integer.parseInt(typeValues_.remove(0));
 
                 // Removing the old car from the system.
-                Car _oldCar = carInventory.remove(_carID);
+                AbstractCar _oldCar = carInventory.remove(_carID);
 
                 // Modifying the existing car by replacing it with a new car.
-                Car _newlyModifiedCar = carFactory.buildCar(typeValues_);
+                AbstractCar _newlyModifiedCar = carFactory.buildCar(typeValues_);
 
                 // Setting this car ID to _oldCar's ID. NullPointerException if _oldCar is null.
                 _newlyModifiedCar.setCarID(_oldCar.getCarID());
@@ -94,7 +94,7 @@ public class CarController {
      * @return carInventory.remove(_carID) The object to be removed
      * @throws CarNotFoundException
      */
-    public Car deleteCar(ArrayList<String> typeValues_) throws CarNotFoundException {
+    public AbstractCar deleteCar(ArrayList<String> typeValues_) throws CarNotFoundException {
         if (typeValues_.size() == RuntimeConstants.DELETE_CAR_FORMAT.length) {
             int _carID = Integer.parseInt(typeValues_.get(0));
 
@@ -129,8 +129,8 @@ public class CarController {
         if (!carInventory.isEmpty()) {
             StringBuilder _result = new StringBuilder();
 
-            for (Map.Entry<Integer, Car> _entry : carInventory.entrySet()) {
-                Car _currentCar = _entry.getValue();
+            for (Map.Entry<Integer, AbstractCar> _entry : carInventory.entrySet()) {
+                AbstractCar _currentCar = _entry.getValue();
 
                 _result.append(System.lineSeparator() + _currentCar.toString());
             }

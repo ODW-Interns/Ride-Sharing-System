@@ -1,4 +1,4 @@
-package com.odw.ridesharing.service;
+package com.odw.ridesharing.controllers;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -8,7 +8,7 @@ import com.odw.ridesharing.factories.UserFactory;
 import com.odw.ridesharing.model.Customer;
 import com.odw.ridesharing.model.Driver;
 import com.odw.ridesharing.model.RuntimeConstants;
-import com.odw.ridesharing.model.abstractmodel.User;
+import com.odw.ridesharing.model.abstractmodel.AbstractUser;
 import com.odw.ridesharing.model.exceptions.*;
 
 /**
@@ -18,7 +18,7 @@ import com.odw.ridesharing.model.exceptions.*;
  */
 public class UserController {
 
-    private ConcurrentHashMap<Integer, User> userDatabase = new ConcurrentHashMap<Integer, User>();
+    private ConcurrentHashMap<Integer, AbstractUser> userDatabase = new ConcurrentHashMap<Integer, AbstractUser>();
     private UserFactory userFactory = new UserFactory();
 
     /**
@@ -30,10 +30,10 @@ public class UserController {
      * @return _user User object to be used for logger
      * @throws InvalidUserArgumentsException
      */
-    public User createUser(ArrayList<String> typeValues_) throws InvalidUserArgumentsException {
+    public AbstractUser createUser(ArrayList<String> typeValues_) throws InvalidUserArgumentsException {
         if (typeValues_.size() == RuntimeConstants.CREATE_USER_FORMAT.length) {
             try {
-                User _user = userFactory.buildUser(typeValues_);
+                AbstractUser _user = userFactory.buildUser(typeValues_);
                 userDatabase.put(_user.getUserID(), _user);
                 return _user;
             } catch (Exception e_) {
@@ -60,7 +60,7 @@ public class UserController {
      * @throws DriverNotFoundException
      */
     /* @formatter:off */
-    public User modifyUser(ArrayList<String> typeValues_)
+    public AbstractUser modifyUser(ArrayList<String> typeValues_)
      throws CustomerNotFoundException, InvalidUserArgumentsException, DriverNotFoundException {
         // CAREFUL! The assumption here is that the driver format is always NOT the same as the customer format.
         // This will require changing if MODIFY_USER_DRIVER_FORMAT == MODIFY_USER_CUSTOMER_FORMAT.
@@ -110,7 +110,7 @@ public class UserController {
      *         logger
      * @throws UserNotFoundException
      */
-    public User deleteUser(ArrayList<String> typeValues_) throws UserNotFoundException {
+    public AbstractUser deleteUser(ArrayList<String> typeValues_) throws UserNotFoundException {
         if (typeValues_.size() == RuntimeConstants.DELETE_USER_FORMAT.length) {
             int _userID = Integer.parseInt(typeValues_.get(0));
 
@@ -134,9 +134,9 @@ public class UserController {
         if (!userDatabase.isEmpty()) {
             StringBuilder _result = new StringBuilder();
 
-            for (Map.Entry<Integer, User> _entry : userDatabase.entrySet()) {
+            for (Map.Entry<Integer, AbstractUser> _entry : userDatabase.entrySet()) {
 
-                User _currentUser = _entry.getValue();
+                AbstractUser _currentUser = _entry.getValue();
                 if (_currentUser instanceof Driver) {
                     Driver _currentDriver = (Driver) _currentUser;
                     _result.append(System.lineSeparator() + _currentDriver.toString());
@@ -160,8 +160,8 @@ public class UserController {
      */
     public Driver getNextAvailableDriver() {
         if (!userDatabase.isEmpty()) {
-            for (Map.Entry<Integer, User> _entry : userDatabase.entrySet()) {
-                User _currentUser = _entry.getValue();
+            for (Map.Entry<Integer, AbstractUser> _entry : userDatabase.entrySet()) {
+                AbstractUser _currentUser = _entry.getValue();
 
                 if (_currentUser instanceof Driver) {
                     Driver _currentDriver = (Driver) _currentUser;
@@ -195,7 +195,7 @@ public class UserController {
      * @throws CustomerNotFoundException
      */
     public Customer getCustomerByID(int userID_) throws CustomerNotFoundException {
-        User _retrievedUser = userDatabase.get(userID_);
+        AbstractUser _retrievedUser = userDatabase.get(userID_);
 
         if (_retrievedUser != null && _retrievedUser instanceof Customer) {
             return (Customer) _retrievedUser;

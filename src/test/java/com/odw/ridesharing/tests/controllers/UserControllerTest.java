@@ -6,11 +6,11 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
+import com.odw.ridesharing.controllers.UserController;
 import com.odw.ridesharing.model.exceptions.CustomerNotFoundException;
 import com.odw.ridesharing.model.exceptions.DriverNotFoundException;
 import com.odw.ridesharing.model.exceptions.UserNotFoundException;
 import com.odw.ridesharing.model.exceptions.InvalidUserArgumentsException;
-import com.odw.ridesharing.service.UserController;
 
 /**
  * Tests all the public methods inside UserController.

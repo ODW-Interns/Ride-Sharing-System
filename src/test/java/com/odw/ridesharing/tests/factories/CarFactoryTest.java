@@ -10,7 +10,7 @@ import com.odw.ridesharing.factories.CarFactory;
 import com.odw.ridesharing.model.Coupe;
 import com.odw.ridesharing.model.Sedan;
 import com.odw.ridesharing.model.Suv;
-import com.odw.ridesharing.model.abstractmodel.Car;
+import com.odw.ridesharing.model.abstractmodel.AbstractCar;
 import com.odw.ridesharing.model.exceptions.InvalidCarArgumentsException;
 
 /**
@@ -35,7 +35,7 @@ public class CarFactoryTest {
         _coupeCarInfo.add("white");
         _coupeCarInfo.add("1986");
         try {
-            Car _coupe = _carFactory.buildCar(_coupeCarInfo);
+            AbstractCar _coupe = _carFactory.buildCar(_coupeCarInfo);
             assertTrue(_coupe instanceof Coupe);
         } catch (InvalidCarArgumentsException e_) {
             fail("Invalid arguments creating a coupe.");
@@ -50,7 +50,7 @@ public class CarFactoryTest {
         _sedanCarInfo.add("grey");
         _sedanCarInfo.add("2014");
         try {
-            Car _sedan = _carFactory.buildCar(_sedanCarInfo);
+            AbstractCar _sedan = _carFactory.buildCar(_sedanCarInfo);
             assertTrue(_sedan instanceof Sedan);
         } catch (InvalidCarArgumentsException e_) {
             fail("Invalid arguments creating a sedan.");
@@ -65,7 +65,7 @@ public class CarFactoryTest {
         _suvCarInfo.add("black");
         _suvCarInfo.add("2018");
         try {
-            Car _suv = _carFactory.buildCar(_suvCarInfo);
+            AbstractCar _suv = _carFactory.buildCar(_suvCarInfo);
             assertTrue(_suv instanceof Suv);
         } catch (InvalidCarArgumentsException e_) {
             fail("Invalid arguments creating an SUV.");
@@ -80,7 +80,7 @@ public class CarFactoryTest {
         _invalidCarInfo.add("length");
         _invalidCarInfo.add("5");
         try {
-            Car _unknown = _carFactory.buildCar(_invalidCarInfo);
+            AbstractCar _unknown = _carFactory.buildCar(_invalidCarInfo);
             assertNull(_unknown);
         } catch (InvalidCarArgumentsException e_) {
             fail("Invalid arguments creating a car");

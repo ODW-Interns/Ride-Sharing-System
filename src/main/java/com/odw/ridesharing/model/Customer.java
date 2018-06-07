@@ -1,14 +1,14 @@
 package com.odw.ridesharing.model;
 
-import com.odw.ridesharing.model.abstractmodel.User;
+import com.odw.ridesharing.model.abstractmodel.AbstractUser;
 
 /**
  * Customer is a concrete User that represents the User requesting a
  * Pickup.
  */
-public class Customer extends User {
+public class Customer extends AbstractUser {
    
-    private User customer;
+    private AbstractUser customer;
     
     /**
      * default constructor: Creates a new customer which is an empty Person
@@ -38,7 +38,7 @@ public class Customer extends User {
      * 
      * @return The customer to be executed
      */
-    public User getCustomer() {
+    public AbstractUser getCustomer() {
         return customer;
     }
     
@@ -47,7 +47,7 @@ public class Customer extends User {
      * 
      * @param The new customer to be set
      */
-    public void setCustomer(User customer_) {
+    public void setCustomer(AbstractUser customer_) {
         this.customer = customer_;
     }
 

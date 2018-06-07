@@ -1,6 +1,6 @@
 package com.odw.ridesharing.model;
 
-import com.odw.ridesharing.model.abstractmodel.User;
+import com.odw.ridesharing.model.abstractmodel.AbstractUser;
 
 /**
  * Driver is a concrete User that acts as an employee who uses the program
@@ -8,11 +8,11 @@ import com.odw.ridesharing.model.abstractmodel.User;
  * false and modified to true to pick up a Customer. Each Driver must have a
  * valid car to pick up a Customer.
  */
-public class Driver extends User {
+public class Driver extends AbstractUser {
 
     private int carID;
     private int rating;
-    private User driver;
+    private AbstractUser driver;
     private boolean isAvailable;
 
     public Driver() {
@@ -76,7 +76,7 @@ public class Driver extends User {
      * 
      * @return driver this driver's info
      */
-    public User getDriver() {
+    public AbstractUser getDriver() {
         return driver;
     }
 
@@ -87,7 +87,7 @@ public class Driver extends User {
      *            This is driver's info to be set It should includes Firstname,
      *            Lastname, Sex, and Age
      */
-    public void setDriver(User driver_) {
+    public void setDriver(AbstractUser driver_) {
         driver = driver_;
     }
 

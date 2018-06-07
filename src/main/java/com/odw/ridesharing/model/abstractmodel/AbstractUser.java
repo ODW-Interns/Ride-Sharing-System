@@ -6,7 +6,7 @@ package com.odw.ridesharing.model.abstractmodel;
  * Users of the system, they share the same base frame. This class allows 
  * for scalable approach to add Admin User or other forms.
  */
-public abstract class User {
+public abstract class AbstractUser {
 
     protected int userID;
     protected String firstName;
@@ -14,7 +14,7 @@ public abstract class User {
     protected String sex;
     protected int age;
 
-    public User() {
+    public AbstractUser() {
         this(-1, "", "", "", -1);
     }
 
@@ -33,7 +33,7 @@ public abstract class User {
      * @param age_
      *            This user's age
      */
-    public User(int userID_, String firstName_, String lastName_, String sex_, int age_) {
+    public AbstractUser(int userID_, String firstName_, String lastName_, String sex_, int age_) {
         setFirstName(firstName_);
         setLastName(lastName_);
         setSex(sex_);

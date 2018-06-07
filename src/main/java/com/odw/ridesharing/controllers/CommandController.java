@@ -1,4 +1,4 @@
-package com.odw.ridesharing.service;
+package com.odw.ridesharing.controllers;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import com.odw.ridesharing.model.*;
 import com.odw.ridesharing.model.abstractmodel.*;
 import com.odw.ridesharing.model.exceptions.*;
+import com.odw.ridesharing.service.EventParser;
 
 /**
  * CommandController is called by the Main function to process the events
@@ -106,7 +107,7 @@ public class CommandController {
         switch (event_.getInputType()) {
             case RuntimeConstants.CAR:
                 try {
-                    Car _addedCar = carController.createCar(event_.getTypeValues());
+                    AbstractCar _addedCar = carController.createCar(event_.getTypeValues());
                     logger.info("CREATED CAR = {}", _addedCar);
                 } catch (InvalidCarArgumentsException e_) {
                     logger.error("ERROR CREATING CAR = {} (Invalid input arguments)", event_.typeValuesToString());
@@ -114,7 +115,7 @@ public class CommandController {
                 break;
             case RuntimeConstants.USER:
                 try {
-                    User _addedUser = userController.createUser(event_.getTypeValues());
+                    AbstractUser _addedUser = userController.createUser(event_.getTypeValues());
                     if (_addedUser instanceof Driver) {
                         logger.info("CREATED DRIVER = {}", _addedUser);
                     } else if (_addedUser instanceof Customer) {
@@ -178,7 +179,7 @@ public class CommandController {
         switch (event_.getInputType()) {
             case RuntimeConstants.CAR:
                 try {
-                    Car _modifiedCar = carController.modifyCar(event_.getTypeValues());
+                    AbstractCar _modifiedCar = carController.modifyCar(event_.getTypeValues());
                     logger.info("MODIFIED CAR = {}", _modifiedCar);
                 } catch (Exception e_) {
                     logger.error("ERROR MODIFYING CAR = {}", event_.typeValuesToString());
@@ -196,7 +197,7 @@ public class CommandController {
                         }
                     }
 
-                    User _modifiedUser = userController.modifyUser(event_.getTypeValues());
+                    AbstractUser _modifiedUser = userController.modifyUser(event_.getTypeValues());
 
                     if (_modifiedUser instanceof Driver) {
                         // Modified user was a driver. Specify as a driver.
@@ -252,7 +253,7 @@ public class CommandController {
         switch (event_.getInputType()) {
             case RuntimeConstants.CAR:
                 try {
-                    Car deletedCar = carController.deleteCar(event_.getTypeValues());
+                    AbstractCar deletedCar = carController.deleteCar(event_.getTypeValues());
                     logger.info("DELETED CAR = " + deletedCar);
                 } catch (CarNotFoundException e_) {
                     logger.error("ERROR DELETING CAR = ID: {} (Does not exist in inventory)",
@@ -261,7 +262,7 @@ public class CommandController {
                 break;
             case RuntimeConstants.USER:
                 try {
-                    User _deletedUser = userController.deleteUser(event_.getTypeValues());
+                    AbstractUser _deletedUser = userController.deleteUser(event_.getTypeValues());
                     logger.info("DELETED USER = " + _deletedUser);
                 } catch (UserNotFoundException e_) {
                     logger.error("ERROR DELETING USER = ID: {} (Does not exist in database)",

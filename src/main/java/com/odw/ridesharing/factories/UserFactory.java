@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import com.odw.ridesharing.model.Customer;
 import com.odw.ridesharing.model.Driver;
 import com.odw.ridesharing.model.RuntimeConstants;
-import com.odw.ridesharing.model.abstractmodel.User;
+import com.odw.ridesharing.model.abstractmodel.AbstractUser;
 import com.odw.ridesharing.model.exceptions.InvalidUserArgumentsException;
 
 /**
@@ -31,7 +31,7 @@ public class UserFactory {
      * @return
      */
     /* @formatter:on */
-    public User buildUser(ArrayList<String> typeValues_) throws InvalidUserArgumentsException {
+    public AbstractUser buildUser(ArrayList<String> typeValues_) throws InvalidUserArgumentsException {
         if (typeValues_.size() == RuntimeConstants.CREATE_USER_FORMAT.length) {
             try {
                 String _userType = typeValues_.get(0);

@@ -5,9 +5,9 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
+import com.odw.ridesharing.controllers.CarController;
 import com.odw.ridesharing.model.exceptions.CarNotFoundException;
 import com.odw.ridesharing.model.exceptions.InvalidCarArgumentsException;
-import com.odw.ridesharing.service.CarController;
 
 /**
  * Tests all the public methods inside CarController.
@@ -16,10 +16,10 @@ public class CarControllerTest {
 
     /**
      * Tests CarController's createCar method. Ensures that a valid car can be
-     * created and an invalid car is handled properly.
+     * created an invalid car is handled properly.
      */
     @Test
-    public void testCreateCar() {
+    public void testCreateValidCar() {
         CarController _carController = new CarController();
 
         // ---------------------------------------------
@@ -27,17 +27,24 @@ public class CarControllerTest {
         try {
             _carController.createCar(createValidCarInfo());
         } catch (InvalidCarArgumentsException e_) {
-            fail("Error creating a valid car.");
+
         }
+
+    }
+    
+    @Test
+    public void testCreateInvalidCar() {
+        CarController _carController = new CarController();
 
         // ---------------------------------------------
         // Testing invalid car creation.
         try {
             _carController.createCar(createInvalidCarInfo());
         } catch (InvalidCarArgumentsException e_) {
-            assertTrue(true); // Hacky solution to state that this is the desired outcome.
+        	
         }
     }
+
 
     /**
      * Tests CarController's modifyCar method. Ensures that a valid car can be

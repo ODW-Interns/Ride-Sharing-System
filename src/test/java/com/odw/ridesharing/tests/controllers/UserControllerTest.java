@@ -18,48 +18,71 @@ import com.odw.ridesharing.model.exceptions.InvalidUserArgumentsException;
 public class UserControllerTest {
 
     /**
-     * Tests UserController's createUser method. Ensures that a valid customer and
-     * driver can be created and an invalid user is handled properly.
+     * Test to see if a valid driver can be created.
      */
     @Test
-    public void testCreateUser() {
+    public void testCreatingValidDriver() {
         UserController _userController = new UserController();
-
-        // Testing valid driver creation.
+        
+        // Test valid driver creation.
         try {
             _userController.createUser(createValidDriverInfo());
         } catch (InvalidUserArgumentsException e_) {
             fail("Error creating a valid driver user.");
         }
-
-        // Testing valid customer creation.
+    }
+    
+    /**
+     * Test to see if a valid customer can be created.
+     */
+    @Test
+    public void testCreatingValidCustomer() {
+        UserController _userController = new UserController();
+        
+        // Test valid customer creation.
         try {
             _userController.createUser(createValidCustomerInfo());
         } catch (InvalidUserArgumentsException e_) {
             fail("Error creating a valid driver user.");
         }
+    }
+    
+    /**
+     * Test to see if an invalid driver is not created.
+     */
+    @Test
+    public void testCreatingInvalidDriver() {
+        UserController _userController = new UserController();
 
-        // Testing invalid driver creation.
+        // Test invalid driver creation.
         try {
             _userController.createUser(createInvalidDriverInfo());
         } catch (InvalidUserArgumentsException e_) {
-            assertTrue(true); // Hacky solution to state that this is the desired outcome.
+            // Execution SHOULD reach inside the catch statement.
         }
 
-        // Testing invalid customer creation.
+    }
+    
+    /**
+     * Test to see if an invalid customer is not created.
+     */
+    @Test
+    public void testCreatingInvalidCustomer() {
+        UserController _userController = new UserController();
+        
+        // Test invalid customer creation.
         try {
             _userController.createUser(createInvalidCustomerInfo());
         } catch (InvalidUserArgumentsException e_) {
-            assertTrue(true); // Hacky solution to state that this is the desired outcome.
+            // Execution SHOULD reach inside the catch statement.
         }
     }
-
+    
     /**
-     * Tests UserController's modifyUser method. Ensures that a valid customer and
-     * driver can be modified and an invalid user is handled properly.
+     * Test to see if a driver can be modified.
      */
     @Test
-    public void testModifyUser() {
+    public void testModifyingDriver() {
         UserController _userController = new UserController();
 
         // ---------------------------------------------
@@ -70,7 +93,8 @@ public class UserControllerTest {
             fail("Error creating a valid driver.");
         }
 
-        // Testing valid driver modification.
+        // ---------------------------------------------
+        // Test valid driver modification.
         ArrayList<String> _driverNewInfo = new ArrayList<String>();
         _driverNewInfo.add("0");
         _driverNewInfo.add("driver");
@@ -85,7 +109,15 @@ public class UserControllerTest {
         } catch (Exception e_) {
             fail("Error modifying a valid driver.");
         }
-
+    }
+    
+    /**
+     * Test to see if a customer can be modified.
+     */
+    @Test
+    public void testModifyingCustomer() {
+        UserController _userController = new UserController();
+        
         // ---------------------------------------------
         // Creating a valid customer to be later modified.
         try {
@@ -94,9 +126,10 @@ public class UserControllerTest {
             fail("Error creating a valid driver user.");
         }
 
-        // Testing valid customer modification.
+        // ---------------------------------------------
+        // Test valid customer modification.
         ArrayList<String> _customerNewInfo = new ArrayList<String>();
-        _customerNewInfo.add("1");
+        _customerNewInfo.add("0");
         _customerNewInfo.add("customer");
         _customerNewInfo.add("Pete");
         _customerNewInfo.add("Tanthmanatham");
@@ -111,30 +144,32 @@ public class UserControllerTest {
         } catch (InvalidUserArgumentsException e_) {
             fail("Error modifying a valid customer.");
         }
-
+    }
+    
+    /**
+     * Test to see if invalid modify input fails to modify a user.
+     */
+    @Test
+    public void testInvalidModifyingInput() {
+        UserController _userController = new UserController();
+        
         // ---------------------------------------------
-        // Testing invalid user modification.
+        // Test invalid user modification.
         ArrayList<String> _invalidModifyInfo = new ArrayList<String>();
-        _invalidModifyInfo.add("0"); // Modifying the first created user (Mark Constantine)
+        _invalidModifyInfo.add("0");
         _invalidModifyInfo.add("must include all fields");
         try {
             _userController.modifyUser(_invalidModifyInfo);
-        } catch (DriverNotFoundException e_) {
-            assertTrue(true);
-        } catch (CustomerNotFoundException e_) {
-            assertTrue(true);
-        } catch (InvalidUserArgumentsException e_) {
-            assertTrue(true);
+        } catch (Exception e_) {
+            // Execution SHOULD reach inside the catch statement.
         }
-
     }
-
+    
     /**
-     * Tests UserController's deleteUser method. Ensures that a valid user can be
-     * deleted and an invalid user is handled properly.
+     * Test to see if an existing user can be deleted.
      */
     @Test
-    public void testDeleteUser() {
+    public void testDeletingExistingUser() {
         UserController _userController = new UserController();
 
         // ---------------------------------------------
@@ -145,17 +180,26 @@ public class UserControllerTest {
             fail("Error creating a valid driver user.");
         }
 
-        // Testing valid user deletion. (User and Driver work the same)
+        // ---------------------------------------------
+        // Test valid user deletion. (User and Driver work the same)
         ArrayList<String> _driverDeleteInfo = new ArrayList<String>();
-        _driverDeleteInfo.add("0"); // Valid ID
+        _driverDeleteInfo.add("0"); // ID of the user created above.
         try {
             _userController.deleteUser(_driverDeleteInfo);
         } catch (UserNotFoundException e_) {
             fail("Error deleting a valid user.");
         }
-
+    }
+    
+    /**
+     * Test to see if invalid delete input fails to delete a user.
+     */
+    @Test
+    public void testInvalidDeletingInput() {
+        UserController _userController = new UserController();
+        
         // ---------------------------------------------
-        // Testing invalid user deletion.
+        // Test invalid user deletion.
         ArrayList<String> _invalidDeleteInfo = new ArrayList<String>();
         _invalidDeleteInfo.add("driver");
         _invalidDeleteInfo.add("1000"); // Invalid ID
@@ -166,6 +210,9 @@ public class UserControllerTest {
         }
     }
 
+    // ==========================================================================================
+    // Helper Functions
+    
     /**
      * Helper function to generate valid driver info.
      * 

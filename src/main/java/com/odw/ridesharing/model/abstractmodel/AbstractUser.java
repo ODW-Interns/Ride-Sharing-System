@@ -1,23 +1,22 @@
 package com.odw.ridesharing.model.abstractmodel;
 
 /**
- * User class is an abstract class that has two concrete classes: Customer
- * and Driver. As Customer and Drivers share many attributes and are both
- * Users of the system, they share the same base frame. This class allows 
- * for scalable approach to add Admin User or other forms.
+ * User class is an abstract class that has two concrete classes: Customer and Driver. As Customer and Drivers share
+ * many attributes and are both Users of the system, they share the same base frame. This class allows for scalable
+ * approach to add Admin User or other forms.
  */
 public abstract class AbstractUser {
-
+    
     protected int userID;
     protected String firstName;
     protected String lastName;
     protected String sex;
     protected int age;
-
+    
     public AbstractUser() {
         this(-1, "", "", "", -1);
     }
-
+    
     /**
      * Store the information of this user
      * 
@@ -40,7 +39,7 @@ public abstract class AbstractUser {
         setAge(age_);
         setUserID(userID_);
     }
-
+    
     /**
      * Returns the user's information in String format using a specified delimiter.
      * 
@@ -58,10 +57,9 @@ public abstract class AbstractUser {
                "Age: " + getAge() + " " + delimiter_;
     }
     /* @formatter:on */
-
+    
     /**
-     * Returns the user's information in String format. Using pipes ("|") as the
-     * default delimiter.
+     * Returns the user's information in String format. Using pipes ("|") as the default delimiter.
      * 
      * @return The user information as a String.
      */
@@ -69,7 +67,7 @@ public abstract class AbstractUser {
     public String toString() {
         return toString("|");
     }
-
+    
     /**
      * Get the first name of this user
      * 
@@ -78,7 +76,7 @@ public abstract class AbstractUser {
     public String getFirstName() {
         return firstName;
     }
-
+    
     /**
      * Set the first name of this user
      * 
@@ -88,24 +86,35 @@ public abstract class AbstractUser {
     public void setFirstName(String firstName_) {
         firstName = firstName_;
     }
-
+    
+    /**
+     * Get the user's ID.
+     * 
+     * @return The id of the user.
+     */
     public int getUserID() {
         return userID;
     }
-
+    
+    /**
+     * Set the user's ID.
+     * 
+     * @param userID_
+     *            The ID to set.
+     */
     public void setUserID(int userID_) {
         userID = userID_;
     }
-
+    
     /**
-     * Get the last name of this user
+     * Get the last name of this user.
      * 
-     * @return lastName This user's last name
+     * @return lastName This user's last name.
      */
     public String getLastName() {
         return lastName;
     }
-
+    
     /**
      * Set the last name of this user
      * 
@@ -115,7 +124,7 @@ public abstract class AbstractUser {
     public void setLastName(String lastName_) {
         lastName = lastName_;
     }
-
+    
     /**
      * Get the gender of this user
      * 
@@ -124,7 +133,7 @@ public abstract class AbstractUser {
     public String getSex() {
         return sex;
     }
-
+    
     /**
      * Set the gender of this user
      * 
@@ -134,7 +143,7 @@ public abstract class AbstractUser {
     public void setSex(String sex_) {
         sex = sex_;
     }
-
+    
     /**
      * Get the age of this user
      * 
@@ -143,7 +152,7 @@ public abstract class AbstractUser {
     public int getAge() {
         return age;
     }
-
+    
     /**
      * Set the age of this user
      * 
@@ -153,5 +162,5 @@ public abstract class AbstractUser {
     public void setAge(int age_) {
         age = age_;
     }
-
+    
 }

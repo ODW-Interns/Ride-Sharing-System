@@ -21,7 +21,7 @@ public class PickupFactoryTest {
      * pickup is being generated.
      */
     @Test
-    public void testCreatePickup() {
+    public void testBuildPickup() {
         PickupFactory _pickupFactory = new PickupFactory();
 
         // ---------------------------------------------

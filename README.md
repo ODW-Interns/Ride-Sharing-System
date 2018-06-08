@@ -52,6 +52,24 @@ Events should be, at a minimum:
 2. Create/Modify/Delete a driver
 3. Create/Modify/Delete a scheduled pickup
 
+### Create Formats
+```
+create|car|CAR_TYPE|MAKE|MODEL|COLOR|YEAR|\n
+create|user|USER_TYPE|FIRST_NAME|LAST_NAME|SEX|AGE|\n
+create|pickup|CUSTOMER_ID|ORIGIN_LATITUDE|ORIGIN_LONGITUDE|DESTINATION_LATITUDE|DESTINATION_LONGITUDE|\n
+```
+### Modify Formats
+```
+modify|car|CAR_ID|CAR_TYPE|MAKE|MODEL|COLOR|YEAR|\n
+modify|user|USER_ID|driver|FIRST_NAME|LAST_NAME|SEX|AGE|AVAILABILITY|CAR_ID|\n
+modify|user|USER_ID|customer|FIRST_NAME|LAST_NAME|SEX|AGE|\n
+```
+### Delete Formats
+```
+delete|car|CAR_ID|\n
+delete|user|USER_ID|\n
+delete|pickup|PICKUP_ID|\n
+```
 * Note, all input fields are strings excluding the following:
   * CAR_ID (INT)
   * USER_ID (INT)
@@ -70,22 +88,11 @@ Events should be, at a minimum:
   * USER_TYPE can be either Customer/Driver
   * It is expected that the ID is known ahead of time for any event requiring an ID.
    
-
-### Create Formats
+### How to run
 ```
-create|car|CAR_TYPE|MAKE|MODEL|COLOR|YEAR|\n
-create|user|USER_TYPE|FIRST_NAME|LAST_NAME|SEX|AGE|\n
-create|pickup|CUSTOMER_ID|ORIGIN_LATITUDE|ORIGIN_LONGITUDE|DESTINATION_LATITUDE|DESTINATION_LONGITUDE|\n
-```
-### Modify Formats
-```
-modify|car|CAR_ID|CAR_TYPE|MAKE|MODEL|COLOR|YEAR|\n
-modify|user|USER_ID|driver|FIRST_NAME|LAST_NAME|SEX|AGE|AVAILABILITY|CAR_ID|\n
-modify|user|USER_ID|customer|FIRST_NAME|LAST_NAME|SEX|AGE|\n
-```
-### Delete Formats
-```
-delete|car|CAR_ID|\n
-delete|user|USER_ID|\n
-delete|pickup|PICKUP_ID|\n
+change directory to ride-sharing-service/
+mvn package 
+change directory to target/
+java -jar ride-sharing-service-1.0.0-jar-with-dependencies.jar [INPUT_FILE_AND_PATH] 
+java -jar ride-sharing-service-1.0.0-jar-with-dependencies.jar [INPUT_FILE_AND_PATH] [OUTPUT_FILES_DIRECTORY]
 ```

@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
 import com.odw.ridesharing.factories.PickupFactory;
 import com.odw.ridesharing.model.Customer;
 import com.odw.ridesharing.model.Driver;
@@ -20,10 +25,16 @@ import com.odw.ridesharing.service.PickupScheduler;
  * PickupController also handles scheduling of the Pickups and calculates the
  * rate/fees associated with the Pickup based off of the distance traveled.
  */
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class PickupController {
 
     private ConcurrentHashMap<Integer, Pickup> pickupHistory = new ConcurrentHashMap<Integer, Pickup>();
+    
+    @XmlTransient
     private PickupFactory pickupFactory = new PickupFactory();
+    
+    @XmlTransient
     private PickupScheduler pickupScheduler = new PickupScheduler();
 
     /**

@@ -5,7 +5,7 @@
 
 	<groupId>com.odw</groupId>
 	<artifactId>ride-sharing-service</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<packaging>jar</packaging>
 
 	<name>ride-sharing-service</name>

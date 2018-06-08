@@ -11,41 +11,59 @@ import com.odw.ridesharing.controllers.CommandController;
  */
 public class CommandControllerTest {
 
+    // [TODO] : Test export
+    
     /**
-     * Tests CommandController's processFile method. Takes the given input file,
-     * processes it, and logs it to console and the specified log file in
-     * log4j.properties.
+     * Runs the service with the ScheduleWithNoAvailableDriver.txt example input.
      */
     @Test
-    public void testProcessFile() {
-        CommandController _commandController = new CommandController();
-        
-        // ScheduleWithNoAvailableDriver.txt
-        _commandController.processFile("src/main/resources/ScheduleWithNoAvailableDriver.txt", "|");
-        
-        // Resetting the databases. (Note: This is not necessary)
-        _commandController = new CommandController();
-   
-        // InvalidInputFormats.txt
-        _commandController.processFile("src/main/resources/InvalidInputFormats.txt", "|");
-        // File found and read with no exceptions.
-      
-        // Resetting the databases.
-        _commandController = new CommandController();
-      
-        // LargeInputExample.txt
-        _commandController.processFile("src/main/resources/LargeInputExample.txt", "|");
-        
-        // Resetting the databases.
-        _commandController = new CommandController();
-      
-        // SimpleInputExample.txt
-        _commandController.processFile("src/main/resources/SimpleInputExample.txt", "|");
-        
-        
-        
-        // See logger file to determine validity.
-        assertTrue(true);
+    public void testProcessingScheduleWithNoAvailableDriver() {
+        try {
+            CommandController _commandController = new CommandController();
+            _commandController.processFile("src/main/resources/ScheduleWithNoAvailableDriver.txt", "|");
+        } catch (Exception e_) {
+            fail("There was a problem processing ScheduleWithNoAvailableDriver.txt");
+        }
+    }
+    
+    /**
+     * Runs the service with the InvalidInputFormats.txt example input.
+     */
+    @Test
+    public void testProcessingInvalidInputFormats() {
+        try {
+            CommandController _commandController = new CommandController();
+            _commandController.processFile("src/main/resources/InvalidInputFormats.txt", "|");
+        } catch (Exception e_) {
+            fail("There was a problem processing InvalidInputFormats.txt");
+
+        }
+    }
+    
+    /**
+     * Runs the service with the LargeInputExample.txt example input.
+     */
+    @Test
+    public void testProcessingLargeInputExample() {
+        try {
+            CommandController _commandController = new CommandController();
+            _commandController.processFile("src/main/resources/LargeInputExample.txt", "|");
+        } catch (Exception e_) {
+            fail("There was a problem processing LargeInputExample.txt");
+        }
+    }
+    
+    /**
+     * Runs the service with the SimpleInputExample.txt example input.
+     */
+    @Test
+    public void testProcessingSimpleInputExample() {
+        try {
+            CommandController _commandController = new CommandController();
+            _commandController.processFile("src/main/resources/SimpleInputExample.txt", "|");
+        } catch (Exception e_) {
+            fail("There was a problem processing SimpleInputExample.txt");
+        }
     }
 
 }

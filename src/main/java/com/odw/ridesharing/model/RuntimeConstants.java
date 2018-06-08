@@ -5,6 +5,9 @@ package com.odw.ridesharing.model;
  */
 public class RuntimeConstants {
 
+    // Default Output Directory
+    public static final String DEFAULT_OUTPUT_DIRECTORY = "/tmp/";
+    
     // Available Commands
     public static final String CREATE = "create";
     public static final String MODIFY = "modify";

@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
 import com.odw.ridesharing.factories.UserFactory;
 import com.odw.ridesharing.model.Customer;
 import com.odw.ridesharing.model.Driver;
@@ -16,9 +21,13 @@ import com.odw.ridesharing.model.exceptions.*;
  * done on a User. UserController calls UserFactory to create a User
  * (Customer/Driver) and handles modifying and deleting of User object.
  */
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class UserController {
 
     private ConcurrentHashMap<Integer, AbstractUser> userDatabase = new ConcurrentHashMap<Integer, AbstractUser>();
+    
+    @XmlTransient
     private UserFactory userFactory = new UserFactory();
 
     /**

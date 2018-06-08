@@ -1,10 +1,15 @@
 package com.odw.ridesharing.controllers;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,41 +20,37 @@ import com.odw.ridesharing.model.exceptions.*;
 import com.odw.ridesharing.service.EventParser;
 
 /**
- * CommandController is called by the Main function to process the events
- * CREATE, MODIFY, and DELETE on objects CAR (Coupe/Sedan/SUV), USER
- * (Customer/Driver), or PICKUP. CommandController calls the respective
- * controllers for each object to handle the commands. CommandController calls
- * EventParser to parse the file line-by-line into events.
+ * CommandController is called by the Main function to process the events CREATE, MODIFY, and DELETE on objects CAR
+ * (Coupe/Sedan/SUV), USER (Customer/Driver), or PICKUP. CommandController calls the respective controllers for each
+ * object to handle the commands. CommandController calls EventParser to parse the file line-by-line into events.
  */
 public class CommandController {
-
+    
     private CarController carController = new CarController();
     private UserController userController = new UserController();
     private PickupController pickupController = new PickupController();
     private Logger logger = LoggerFactory.getLogger("Main Logger");
-
-    // Used for output formatting.
-    private static final String majorLineSeparator = "===============";
-    private static final String minorLineSeparator = "~~~~~~~~~~~~~~~~~~~~";
-
+    
     /**
-     * Processes a file line-by-line by parsing each line into an event and
-     * performing each event. Can be considered as the application's "starting
-     * point".
+     * Processes a file line-by-line by parsing each line into an event and performing each event. Information is stored
+     * internally in the controllers.
      * 
-     * @param fileName_
-     *            The file name and path to process.
+     * @param inputFile_
+     *            The input file name and path to process.
      * @param delimiter_
      *            The delimiter used in the file to separate values.
      */
-    /* @formatter:off */
-    public void processFile(String fileName_, String delimiter_) {
+    
+    public void processFile(String inputFile_, String delimiter_) {
         EventParser _eventParser = new EventParser();
-
+        
+        /* @formatter:off */
         try (BufferedReader _inputReader = new BufferedReader(
                                             new InputStreamReader(
-                                             new FileInputStream(fileName_)))) {    
-            logger.trace(majorLineSeparator + "Processing File: {}" + majorLineSeparator, fileName_);
+                                             new FileInputStream(inputFile_)))) {
+        /* @formatter:on */
+            
+            logger.trace("PROCESSING FILE: {}", inputFile_);
             
             // Process each event line-by-line.
             String _nextLine = null;
@@ -61,19 +62,62 @@ public class CommandController {
                     logger.error("ERROR PARSING EVENT = \"{}\"", _nextLine);
                 }
             }
-
+            
             // File reading complete. Print out the inventory.
-            logger.debug(minorLineSeparator + "FINAL CAR INVENTORY" + minorLineSeparator + "{}", carController.getCarInventoryAsString());
-            logger.debug(minorLineSeparator + "FINAL USER DATABASE" + minorLineSeparator + "{}", userController.getUserDatabaseAsString());
-            logger.debug(minorLineSeparator + "FINAL PICKUP HISTORY" + minorLineSeparator + "{}", pickupController.getPickupHistoryAsString());
+            logger.debug("FINAL CAR INVENTORY" + "{}", carController.getCarInventoryAsString());
+            logger.debug("FINAL USER DATABASE" + "{}", userController.getUserDatabaseAsString());
+            logger.debug("FINAL PICKUP HISTORY" + "{}", pickupController.getPickupHistoryAsString());
+            
         } catch (FileNotFoundException e_) {
             logger.error("ERROR READING FILE (Could not find the specified file)");
         } catch (IOException e_) {
             logger.error("ERROR READING FILE (Something went wrong while reading the file)");
-        }        
+        }
     }
-    /* @formatter:on */
-
+    
+    /**
+     * Exports the current state of the databases in XML format to the specified output directory.
+     * 
+     * @param outputDirectory_
+     *            The output directory to export the databases to.
+     */
+    public void exportDatabasesToXML(String outputDirectory_) {
+        if (outputDirectory_ == null) {
+            outputDirectory_ = RuntimeConstants.DEFAULT_OUTPUT_DIRECTORY;
+        }
+        
+        try {
+            // Note: We're using JAXB here mainly for educational purposes and experience.
+            // Whether or not this is a good application for JAXB is not considered for this project.
+            
+            // File reading complete. Use JAXB to generate XML to the specified files below.
+            File carInventoryOutput = new File(outputDirectory_ + "car-inventory.xml");
+            File userDatabaseOutput = new File(outputDirectory_ + "user-database.xml");
+            File pickupHistoryOutput = new File(outputDirectory_ + "pickup-history.xml");
+            
+            /* @formatter:off */
+            JAXBContext jaxbContext = JAXBContext.newInstance(CarController.class,
+                                                              UserController.class,
+                                                              PickupController.class);
+            /* @formatter:on */
+            
+            Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+            jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+            
+            // Exporting the current database's state in XML format to the files specified above.
+            jaxbMarshaller.marshal(carController, carInventoryOutput);
+            jaxbMarshaller.marshal(userController, userDatabaseOutput);
+            jaxbMarshaller.marshal(pickupController, pickupHistoryOutput);
+            
+            logger.info("EXPORTED DATABASE TO FILE: {}", carInventoryOutput.getAbsolutePath());
+            logger.info("EXPORTED DATABASE TO FILE: {}", userDatabaseOutput.getAbsolutePath());
+            logger.info("EXPORTED DATABASE TO FILE: {}", pickupHistoryOutput.getAbsolutePath());
+        } catch (JAXBException e_) {
+            logger.error("ERROR MARSHALLING DATABASE");
+            e_.printStackTrace();
+        }
+    }
+    
     /**
      * Helper function for processFile. Decodes the current event's command.
      * 
@@ -96,7 +140,7 @@ public class CommandController {
                 break;
         }
     }
-
+    
     /**
      * Helper function for processEvent. Decodes the input type to create.
      * 
@@ -129,34 +173,34 @@ public class CommandController {
                 try {
                     // Getting this input field early. Error handling handled in catch blocks.
                     int _customerID = Integer.parseInt(event_.getTypeValues().get(0));
-
+                    
                     // Obtained from input.
                     Customer _pickupCustomer = userController.getCustomerByID(_customerID);
-
+                    
                     // Create a pickup but do not schedule it yet.
                     Pickup _createdPickup = pickupController.createPickup(event_.getTypeValues(), _pickupCustomer);
-
+                    
                     logger.info("PICKUP REQUEST = {}", _createdPickup.toStringPreScheduled("|"));
-
+                    
                     // ---- Trying to schedule the pickup ---- //
                     // Driver available for the pickup. Null if no available drivers.
                     Driver _availableDriver = userController.getNextAvailableDriver();
-
+                    
                     Pickup _scheduledPickup = pickupController.schedulePickup(_createdPickup, _availableDriver);
-
+                    
                     if (_scheduledPickup != null) {
                         // Scheduling the pickup was successful!
                         pickupController.storePickupInDatabase(_scheduledPickup);
                         logger.info("SCHEDULED PICKUP = {}", _scheduledPickup);
                     }
-
+                    
                 } catch (CannotSchedulePickupException e_) {
                     logger.error("ERROR SCHEDULING PICKUP = {}", event_.typeValuesToString());
                 } catch (InvalidPickupArgumentsException e_) {
                     logger.error("ERROR CREATING PICKUP = {} (Invalid input arguments)", event_.typeValuesToString());
                 } catch (CustomerNotFoundException e_) {
                     logger.error("ERROR ASSIGNING PICKUP CUSTOMER = {} (Does not exist in database)",
-                            event_.getTypeValues().get(0));
+                                 event_.getTypeValues().get(0));
                 } catch (NumberFormatException e_) {
                     logger.error("ERROR PARSING CUSTOMER_ID: CustomerID is not integer parseable. Check input format.");
                 } catch (IndexOutOfBoundsException e_) {
@@ -168,7 +212,7 @@ public class CommandController {
                 break;
         }
     }
-
+    
     /**
      * Helper function for processEvent. Decodes the input type to modify.
      * 
@@ -188,7 +232,7 @@ public class CommandController {
             case RuntimeConstants.USER:
                 try {
                     String _userType = event_.getTypeValues().get(1);
-
+                    
                     // Check to see if the driver's new carID is valid before modifying.
                     if (_userType.equals(RuntimeConstants.DRIVER)) {
                         int _newCarID = Integer.parseInt(event_.getTypeValues().get(7));
@@ -196,32 +240,32 @@ public class CommandController {
                             throw new CarNotFoundException();
                         }
                     }
-
+                    
                     AbstractUser _modifiedUser = userController.modifyUser(event_.getTypeValues());
-
+                    
                     if (_modifiedUser instanceof Driver) {
                         // Modified user was a driver. Specify as a driver.
                         Driver _modifiedDriver = (Driver) _modifiedUser;
                         logger.info("MODIFIED DRIVER = {}", _modifiedUser);
-
+                        
                         // If a driver has been made available try to schedule an unscheduled pickup.
                         if (_modifiedDriver.getIsAvailable()) {
                             Pickup _scheduledPickup = pickupController.scheduleUnscheduledPickup(_modifiedDriver);
-
+                            
                             if (_scheduledPickup != null) {
                                 pickupController.storePickupInDatabase(_scheduledPickup);
                                 logger.info("SCHEDULED PICKUP = {}", _scheduledPickup);
                             }
-
+                            
                             // _scheduledPickup was null. Do nothing (no unscheduled pickups).
                         }
-
+                        
                     } else {
                         // Modified user was a customer. Specify as a customer.
                         Customer _modifiedCustomer = (Customer) _modifiedUser;
                         logger.info("MODIFIED CUSTOMER = {}", _modifiedCustomer);
                     }
-
+                    
                 } catch (Exception e_) {
                     // [TODO] More useful error messages. Support multiple exceptions
                     logger.error("ERROR MODIFYING USER = {}", event_.typeValuesToString());
@@ -230,11 +274,9 @@ public class CommandController {
             // ----- DEPRECATED! -----
             /*
              * case RuntimeConstants.PICKUP: { try { Pickup modifiedPickup =
-             * pickupController.modifyPickup(event_.getTypeValues());
-             * logger.debug("MODIFIED PICKUP: " + modifiedPickup.toString()); } catch
-             * (BadPickupException e_) {
-             * logger.error("There was a problem with modifying pickup: " +
-             * event_.typeValuesToString("|")); } break; }
+             * pickupController.modifyPickup(event_.getTypeValues()); logger.debug("MODIFIED PICKUP: " +
+             * modifiedPickup.toString()); } catch (BadPickupException e_) {
+             * logger.error("There was a problem with modifying pickup: " + event_.typeValuesToString("|")); } break; }
              */
             // -----------------------
             default:
@@ -242,7 +284,7 @@ public class CommandController {
                 break;
         }
     }
-
+    
     /**
      * Helper function for processEvent. Decodes the input type to delete.
      * 
@@ -257,7 +299,7 @@ public class CommandController {
                     logger.info("DELETED CAR = " + deletedCar);
                 } catch (CarNotFoundException e_) {
                     logger.error("ERROR DELETING CAR = ID: {} (Does not exist in inventory)",
-                            event_.typeValuesToString());
+                                 event_.typeValuesToString());
                 }
                 break;
             case RuntimeConstants.USER:
@@ -266,7 +308,7 @@ public class CommandController {
                     logger.info("DELETED USER = " + _deletedUser);
                 } catch (UserNotFoundException e_) {
                     logger.error("ERROR DELETING USER = ID: {} (Does not exist in database)",
-                            event_.typeValuesToString());
+                                 event_.typeValuesToString());
                 }
                 break;
             case RuntimeConstants.PICKUP:
@@ -275,7 +317,7 @@ public class CommandController {
                     logger.debug("DELETED PICKUP: " + deletedPickup);
                 } catch (PickupNotFoundException e_) {
                     logger.error("ERROR DELTING PICKUP = ID: {} (Does not exist in history)",
-                            event_.typeValuesToString("|"));
+                                 event_.typeValuesToString("|"));
                 }
                 break;
             default:

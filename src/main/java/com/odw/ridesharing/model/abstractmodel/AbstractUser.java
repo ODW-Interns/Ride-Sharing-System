@@ -1,10 +1,16 @@
 package com.odw.ridesharing.model.abstractmodel;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * User class is an abstract class that has two concrete classes: Customer and Driver. As Customer and Drivers share
  * many attributes and are both Users of the system, they share the same base frame. This class allows for scalable
  * approach to add Admin User or other forms.
  */
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public abstract class AbstractUser {
     
     protected int userID;

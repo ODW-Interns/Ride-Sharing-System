@@ -2,6 +2,10 @@ package com.odw.ridesharing.model;
 
 import javax.money.Monetary;
 import javax.money.MonetaryAmount;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 import org.javamoney.moneta.Money;
 
@@ -10,6 +14,8 @@ import org.javamoney.moneta.Money;
  * contains a Location object for the Driver to pick up and drop off the
  * Customer. Pickup also stores the ride cost.
  */
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Pickup {
 
     private int pickupID;
@@ -17,6 +23,8 @@ public class Pickup {
     private Driver pickupDriver;
     private Location origin;
     private Location destination;
+    
+    @XmlTransient
     private MonetaryAmount pickupCost;
 
     /**

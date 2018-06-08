@@ -2,6 +2,11 @@ package com.odw.ridesharing.controllers;
 
 import java.util.concurrent.ConcurrentHashMap;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
 import com.odw.ridesharing.factories.CarFactory;
 import com.odw.ridesharing.model.RuntimeConstants;
 import com.odw.ridesharing.model.abstractmodel.AbstractCar;
@@ -17,9 +22,13 @@ import java.util.Map;
  * Car. Car Controller calls CarFactory to create a Car and handles modifying
  * and deleting of Car object.
  */
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class CarController {
 
     private ConcurrentHashMap<Integer, AbstractCar> carInventory = new ConcurrentHashMap<Integer, AbstractCar>();
+    
+    @XmlTransient
     private CarFactory carFactory = new CarFactory();
 
     /**
@@ -119,7 +128,7 @@ public class CarController {
     public boolean isCarInInventory(int carID_) {
         return carInventory.get(carID_) != null; // If null then car doesn't exist in inventory.
     }
-
+    
     /**
      * Returns a string of all the cars in inventory.
      * 

@@ -63,6 +63,11 @@ public class CommandController {
                 }
             }
             
+            // File reading complete. Print out the inventory.
+            logger.debug("FINAL CAR INVENTORY" + "{}", carController.getCarInventoryAsString());
+            logger.debug("FINAL USER DATABASE" + "{}", userController.getUserDatabaseAsString());
+            logger.debug("FINAL PICKUP HISTORY" + "{}", pickupController.getPickupHistoryAsString());
+            
         } catch (FileNotFoundException e_) {
             logger.error("ERROR READING FILE (Could not find the specified file)");
         } catch (IOException e_) {

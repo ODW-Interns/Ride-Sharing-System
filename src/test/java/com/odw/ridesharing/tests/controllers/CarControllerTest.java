@@ -164,11 +164,11 @@ public class CarControllerTest {
 	}
 
 	/**
-	 * Tests CarController's isCarInInventory method. Ensures that a car is in the
-	 * inventory.
+	 * Tests CarController's isCarInDatabase method. Ensures that a car is in the
+	 * database.
 	 */
 	@Test
-	public void testIsCarInInventory() {
+	public void testIsCarInDatabase() {
 		CarController _carController = new CarController();
 
 		// ---------------------------------------------
@@ -179,8 +179,8 @@ public class CarControllerTest {
 			fail("Error creating a valid car.");
 		}
 
-		assertTrue(_carController.isCarInInventory(0));
-		assertFalse(_carController.isCarInInventory(1));
+		assertTrue(_carController.isCarInDatabase(0));
+		assertFalse(_carController.isCarInDatabase(1));
 
 	}
 

@@ -63,10 +63,10 @@ public class CommandController {
                 }
             }
             
-            // File reading complete. Print out the inventory.
-            logger.debug("FINAL CAR INVENTORY" + "{}", carController.getCarInventoryAsString());
+            // File reading complete. Print out the database.
+            logger.debug("FINAL CAR DATABASE" + "{}", carController.getCarDatabaseAsString());
             logger.debug("FINAL USER DATABASE" + "{}", userController.getUserDatabaseAsString());
-            logger.debug("FINAL PICKUP HISTORY" + "{}", pickupController.getPickupHistoryAsString());
+            logger.debug("FINAL PICKUP HISTORY" + "{}", pickupController.getPickupDatabaseAsString());
             
         } catch (FileNotFoundException e_) {
             logger.error("ERROR READING FILE (Could not find the specified file)");
@@ -91,9 +91,9 @@ public class CommandController {
             // Whether or not this is a good application for JAXB is not considered for this project.
             
             // File reading complete. Use JAXB to generate XML to the specified files below.
-            File carInventoryOutput = new File(outputDirectory_ + "car-inventory.xml");
+            File carDatabaseOutput = new File(outputDirectory_ + "car-database.xml");
             File userDatabaseOutput = new File(outputDirectory_ + "user-database.xml");
-            File pickupHistoryOutput = new File(outputDirectory_ + "pickup-history.xml");
+            File pickupDatabaseOutput = new File(outputDirectory_ + "pickup-database.xml");
             
             /* @formatter:off */
             JAXBContext jaxbContext = JAXBContext.newInstance(CarController.class,
@@ -105,13 +105,13 @@ public class CommandController {
             jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
             
             // Exporting the current database's state in XML format to the files specified above.
-            jaxbMarshaller.marshal(carController, carInventoryOutput);
+            jaxbMarshaller.marshal(carController, carDatabaseOutput);
             jaxbMarshaller.marshal(userController, userDatabaseOutput);
-            jaxbMarshaller.marshal(pickupController, pickupHistoryOutput);
+            jaxbMarshaller.marshal(pickupController, pickupDatabaseOutput);
             
-            logger.info("EXPORTED DATABASE TO FILE: {}", carInventoryOutput.getAbsolutePath());
+            logger.info("EXPORTED DATABASE TO FILE: {}", carDatabaseOutput.getAbsolutePath());
             logger.info("EXPORTED DATABASE TO FILE: {}", userDatabaseOutput.getAbsolutePath());
-            logger.info("EXPORTED DATABASE TO FILE: {}", pickupHistoryOutput.getAbsolutePath());
+            logger.info("EXPORTED DATABASE TO FILE: {}", pickupDatabaseOutput.getAbsolutePath());
         } catch (JAXBException e_) {
             logger.error("ERROR MARSHALLING DATABASE");
             e_.printStackTrace();
@@ -236,7 +236,7 @@ public class CommandController {
                     // Check to see if the driver's new carID is valid before modifying.
                     if (_userType.equals(RuntimeConstants.DRIVER)) {
                         int _newCarID = Integer.parseInt(event_.getTypeValues().get(7));
-                        if (!carController.isCarInInventory(_newCarID)) {
+                        if (!carController.isCarInDatabase(_newCarID)) {
                             throw new CarNotFoundException();
                         }
                     }
@@ -298,7 +298,7 @@ public class CommandController {
                     AbstractCar deletedCar = carController.deleteCar(event_.getTypeValues());
                     logger.info("DELETED CAR = " + deletedCar);
                 } catch (CarNotFoundException e_) {
-                    logger.error("ERROR DELETING CAR = ID: {} (Does not exist in inventory)",
+                    logger.error("ERROR DELETING CAR = ID: {} (Does not exist in database)",
                                  event_.typeValuesToString());
                 }
                 break;
@@ -316,7 +316,7 @@ public class CommandController {
                     Pickup deletedPickup = pickupController.deletePickup(event_.getTypeValues());
                     logger.debug("DELETED PICKUP: " + deletedPickup);
                 } catch (PickupNotFoundException e_) {
-                    logger.error("ERROR DELTING PICKUP = ID: {} (Does not exist in history)",
+                    logger.error("ERROR DELETING PICKUP = ID: {} (Does not exist in database)",
                                  event_.typeValuesToString("|"));
                 }
                 break;

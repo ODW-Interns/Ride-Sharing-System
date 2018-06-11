@@ -29,7 +29,7 @@ import com.odw.ridesharing.service.PickupScheduler;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class PickupController {
 
-    private ConcurrentHashMap<Integer, Pickup> pickupHistory = new ConcurrentHashMap<Integer, Pickup>();
+    private ConcurrentHashMap<Integer, Pickup> pickupDatabase = new ConcurrentHashMap<Integer, Pickup>();
     
     @XmlTransient
     private PickupFactory pickupFactory = new PickupFactory();
@@ -79,7 +79,7 @@ public class PickupController {
                 // Get the pickup ID from input.
                 int _pickupID = Integer.parseInt(typeValues_.get(0));
 
-                return pickupHistory.remove(_pickupID);
+                return pickupDatabase.remove(_pickupID);
             } catch (Exception e_) {
                 throw new PickupNotFoundException();
             }
@@ -94,11 +94,11 @@ public class PickupController {
      * 
      * @return A list string of all the pickup in the database
      */
-    public String getPickupHistoryAsString() {
-        if (!pickupHistory.isEmpty()) {
+    public String getPickupDatabaseAsString() {
+        if (!pickupDatabase.isEmpty()) {
             StringBuilder _result = new StringBuilder();
 
-            for (Map.Entry<Integer, Pickup> _entry : pickupHistory.entrySet()) {
+            for (Map.Entry<Integer, Pickup> _entry : pickupDatabase.entrySet()) {
                 Pickup _currentPickup = _entry.getValue();
 
                 _result.append(System.lineSeparator() + _currentPickup.toString());
@@ -118,7 +118,7 @@ public class PickupController {
      *            The scheduled pickup to store in the database.
      */
     public void storePickupInDatabase(Pickup pickupToStore_) {
-        pickupHistory.put(pickupToStore_.getPickupID(), pickupToStore_);
+        pickupDatabase.put(pickupToStore_.getPickupID(), pickupToStore_);
     }
 
     /**

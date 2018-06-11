@@ -26,7 +26,7 @@ import java.util.Map;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class CarController {
 
-    private ConcurrentHashMap<Integer, AbstractCar> carInventory = new ConcurrentHashMap<Integer, AbstractCar>();
+    private ConcurrentHashMap<Integer, AbstractCar> carDatabase = new ConcurrentHashMap<Integer, AbstractCar>();
     
     @XmlTransient
     private CarFactory carFactory = new CarFactory();
@@ -45,7 +45,7 @@ public class CarController {
         if (typeValues_.size() == RuntimeConstants.CREATE_CAR_FORMAT.length) {
             try {
                 AbstractCar _car = carFactory.buildCar(typeValues_);
-                carInventory.put(_car.getCarID(), _car);
+                carDatabase.put(_car.getCarID(), _car);
                 return _car;
             } catch (Exception e_) {
                 throw new InvalidCarArgumentsException();
@@ -71,7 +71,7 @@ public class CarController {
                 int _carID = Integer.parseInt(typeValues_.remove(0));
 
                 // Removing the old car from the system.
-                AbstractCar _oldCar = carInventory.remove(_carID);
+                AbstractCar _oldCar = carDatabase.remove(_carID);
 
                 // Modifying the existing car by replacing it with a new car.
                 AbstractCar _newlyModifiedCar = carFactory.buildCar(typeValues_);
@@ -80,7 +80,7 @@ public class CarController {
                 _newlyModifiedCar.setCarID(_oldCar.getCarID());
 
                 // Replacing the old car with the new car.
-                carInventory.put(_newlyModifiedCar.getCarID(), _newlyModifiedCar);
+                carDatabase.put(_newlyModifiedCar.getCarID(), _newlyModifiedCar);
 
                 return _newlyModifiedCar;
             } catch (NullPointerException e_) {
@@ -95,20 +95,20 @@ public class CarController {
     }
 
     /**
-     * Delete the car's info from the inventory
+     * Delete the car's info from the database
      * 
      * @param typeValues_
      *            Expected input values specified under DELETE_CAR_FORMAT in
      *            RuntimeConstants.
-     * @return carInventory.remove(_carID) The object to be removed
+     * @return carDatabase.remove(_carID) The object to be removed
      * @throws CarNotFoundException
      */
     public AbstractCar deleteCar(ArrayList<String> typeValues_) throws CarNotFoundException {
         if (typeValues_.size() == RuntimeConstants.DELETE_CAR_FORMAT.length) {
             int _carID = Integer.parseInt(typeValues_.get(0));
 
-            if (carInventory.get(_carID) != null) {
-                return carInventory.remove(_carID);
+            if (carDatabase.get(_carID) != null) {
+                return carDatabase.remove(_carID);
             } else {
                 throw new CarNotFoundException();
             }
@@ -119,26 +119,26 @@ public class CarController {
     }
 
     /**
-     * Check to see if a car is in inventory.
+     * Check to see if a car is in database.
      * 
      * @param carID_
      *            The ID used to lookup the car.
-     * @return Returns true if the car is inventory. False otherwise.
+     * @return Returns true if the car is in database. False otherwise.
      */
-    public boolean isCarInInventory(int carID_) {
-        return carInventory.get(carID_) != null; // If null then car doesn't exist in inventory.
+    public boolean isCarInDatabase(int carID_) {
+        return carDatabase.get(carID_) != null; // If null then car doesn't exist in database.
     }
     
     /**
-     * Returns a string of all the cars in inventory.
+     * Returns a string of all the cars in database.
      * 
-     * @return A list string of all the cars currently in inventory.
+     * @return A list string of all the cars currently in database.
      */
-    public String getCarInventoryAsString() {
-        if (!carInventory.isEmpty()) {
+    public String getCarDatabaseAsString() {
+        if (!carDatabase.isEmpty()) {
             StringBuilder _result = new StringBuilder();
 
-            for (Map.Entry<Integer, AbstractCar> _entry : carInventory.entrySet()) {
+            for (Map.Entry<Integer, AbstractCar> _entry : carDatabase.entrySet()) {
                 AbstractCar _currentCar = _entry.getValue();
 
                 _result.append(System.lineSeparator() + _currentCar.toString());

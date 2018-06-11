@@ -91,9 +91,9 @@ public class CommandController {
             // Whether or not this is a good application for JAXB is not considered for this project.
             
             // File reading complete. Use JAXB to generate XML to the specified files below.
-            File carDatabaseOutput = new File(outputDirectory_ + "car-database.xml");
-            File userDatabaseOutput = new File(outputDirectory_ + "user-database.xml");
-            File pickupDatabaseOutput = new File(outputDirectory_ + "pickup-database.xml");
+            File carDatabaseOutputFile = new File(outputDirectory_ + "car-database.xml");
+            File userDatabaseOutputFile = new File(outputDirectory_ + "user-database.xml");
+            File pickupDatabaseOutputFile = new File(outputDirectory_ + "pickup-database.xml");
             
             /* @formatter:off */
             JAXBContext jaxbContext = JAXBContext.newInstance(CarController.class,
@@ -105,13 +105,13 @@ public class CommandController {
             jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
             
             // Exporting the current database's state in XML format to the files specified above.
-            jaxbMarshaller.marshal(carController, carDatabaseOutput);
-            jaxbMarshaller.marshal(userController, userDatabaseOutput);
-            jaxbMarshaller.marshal(pickupController, pickupDatabaseOutput);
+            jaxbMarshaller.marshal(carController, carDatabaseOutputFile);
+            jaxbMarshaller.marshal(userController, userDatabaseOutputFile);
+            jaxbMarshaller.marshal(pickupController, pickupDatabaseOutputFile);
             
-            logger.info("EXPORTED DATABASE TO FILE: {}", carDatabaseOutput.getAbsolutePath());
-            logger.info("EXPORTED DATABASE TO FILE: {}", userDatabaseOutput.getAbsolutePath());
-            logger.info("EXPORTED DATABASE TO FILE: {}", pickupDatabaseOutput.getAbsolutePath());
+            logger.info("EXPORTED DATABASE TO FILE: {}", carDatabaseOutputFile.getAbsolutePath());
+            logger.info("EXPORTED DATABASE TO FILE: {}", userDatabaseOutputFile.getAbsolutePath());
+            logger.info("EXPORTED DATABASE TO FILE: {}", pickupDatabaseOutputFile.getAbsolutePath());
         } catch (JAXBException e_) {
             logger.error("ERROR MARSHALLING DATABASE");
             e_.printStackTrace();

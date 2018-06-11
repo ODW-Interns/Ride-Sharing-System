@@ -113,7 +113,6 @@ public class PickupSchedulerTest {
     	CarController _carController = new CarController();
         UserController _userController = new UserController();
         Driver _driver = new Driver();
-        Pickup _pickup = new Pickup();
         PickupScheduler _scheduler = new PickupScheduler();
 
         // Creating a valid car for the driver.

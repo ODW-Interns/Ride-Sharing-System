@@ -13,6 +13,7 @@ import com.odw.ridesharing.factories.UserFactory;
 import com.odw.ridesharing.model.Customer;
 import com.odw.ridesharing.model.Driver;
 import com.odw.ridesharing.model.RuntimeConstants;
+import com.odw.ridesharing.model.UserType;
 import com.odw.ridesharing.model.abstractmodel.AbstractUser;
 import com.odw.ridesharing.model.exceptions.*;
 
@@ -42,7 +43,13 @@ public class UserController {
     public AbstractUser createUser(ArrayList<String> typeValues_) throws InvalidUserArgumentsException {
         if (typeValues_.size() == RuntimeConstants.CREATE_USER_FORMAT.length) {
             try {
-                AbstractUser _user = userFactory.buildUser(typeValues_);
+            	 UserType _userType = UserType.valueOf(typeValues_.get(0).toUpperCase());
+                 String _firstName = typeValues_.get(1);
+                 String _lastName = typeValues_.get(2);
+                 String _sex = typeValues_.get(3);
+                 int _age = Integer.parseInt(typeValues_.get(4));
+                 
+                AbstractUser _user = userFactory.buildUser(_userType, _firstName, _lastName, _sex, _age);
                 userDatabase.put(_user.getUserID(), _user);
                 return _user;
             } catch (Exception e_) {

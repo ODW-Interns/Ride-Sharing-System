@@ -1,11 +1,9 @@
 package com.odw.ridesharing.factories;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 import com.odw.ridesharing.model.CarType;
 import com.odw.ridesharing.model.Coupe;
-import com.odw.ridesharing.model.RuntimeConstants;
 import com.odw.ridesharing.model.Sedan;
 import com.odw.ridesharing.model.Suv;
 import com.odw.ridesharing.model.abstractmodel.AbstractCar;
@@ -74,22 +72,22 @@ public class CarFactory {
 
     public AbstractCar buildCar(CarType carType_, String make_, String model_, String color_, int year_) throws InvalidCarArgumentsException {
         if (year_ > LocalDateTime.now().getYear() || year_ < FIRST_YEAR_CARS_EXISTED) {
-            throw new InvalidCarArgumentsException("invalid arguments, bad year. Value passed: " + Integer.toString(year_));
+            throw new InvalidCarArgumentsException("Invalid arguments, bad year. Value passed: " + Integer.toString(year_));
         }
 
 
         if (color_ == null || "".equals(color_)) {
-            throw new InvalidCarArgumentsException("invalid arguments, bad color. Value passed: " + color_ == null ? "NULL" : color_);
+            throw new InvalidCarArgumentsException("Invalid arguments, bad color. Value passed: " + color_ == null ? "NULL" : color_);
         }
 
 
         if (model_ == null || "".equals(model_)) {
-            throw new InvalidCarArgumentsException("invalid arguments, bad model. Value passed: " + model_ == null ? "NULL" : model_);
+            throw new InvalidCarArgumentsException("Invalid arguments, bad model. Value passed: " + model_ == null ? "NULL" : model_);
         }
 
 
         if (make_ == null || "".equals(make_)) {
-            throw new InvalidCarArgumentsException("invalid arguments, bad make. Value passed: " + make_ == null ? "NULL" : make_);
+            throw new InvalidCarArgumentsException("Invalid arguments, bad make. Value passed: " + make_ == null ? "NULL" : make_);
         }
 
 

@@ -8,6 +8,7 @@ import org.junit.Test;
 import com.odw.ridesharing.factories.UserFactory;
 import com.odw.ridesharing.model.Customer;
 import com.odw.ridesharing.model.Driver;
+import com.odw.ridesharing.model.UserType;
 import com.odw.ridesharing.model.abstractmodel.AbstractUser;
 import com.odw.ridesharing.model.exceptions.InvalidUserArgumentsException;
 
@@ -26,7 +27,13 @@ public class UserFactoryTest {
         // ---------------------------------------------
         // Creating a valid customer.
         try {
-            AbstractUser _shouldBeCustomer = _userFactory.buildUser(createValidCustomerInfo());
+        	ArrayList<String> _validCustomerInfo = createValidCustomerInfo();
+        	UserType _userType = UserType.valueOf(_validCustomerInfo.get(0).toUpperCase());
+            String _firstName = _validCustomerInfo.get(1);
+            String _lastName = _validCustomerInfo.get(2);
+            String _sex = _validCustomerInfo.get(3);
+            int _age = Integer.parseInt(_validCustomerInfo.get(4));
+            AbstractUser _shouldBeCustomer = _userFactory.buildUser(_userType, _firstName, _lastName, _sex, _age);
             assertTrue(_shouldBeCustomer instanceof Customer);
         } catch (InvalidUserArgumentsException e) {
             fail("Error creating a valid customer.");
@@ -43,7 +50,13 @@ public class UserFactoryTest {
         // ---------------------------------------------
         // Creating a valid driver.
         try {
-            AbstractUser _shouldBeDriver = _userFactory.buildUser(createValidDriverInfo());
+        	ArrayList<String> _validDriverInfo = createValidDriverInfo();
+        	UserType _userType = UserType.valueOf(_validDriverInfo.get(0).toUpperCase());
+            String _firstName = _validDriverInfo.get(1);
+            String _lastName = _validDriverInfo.get(2);
+            String _sex = _validDriverInfo.get(3);
+            int _age = Integer.parseInt(_validDriverInfo.get(4));
+            AbstractUser _shouldBeDriver = _userFactory.buildUser(_userType, _firstName, _lastName, _sex, _age);
             assertTrue(_shouldBeDriver instanceof Driver);
         } catch (InvalidUserArgumentsException e) {
             fail("Error creating a valid driver");
@@ -60,11 +73,19 @@ public class UserFactoryTest {
         // ---------------------------------------------
         // Creating an invalid user.
         try {
+        	ArrayList<String>  _invalidUserInfo = createInvalidUserInfo();
+        	UserType _userType = UserType.valueOf( _invalidUserInfo.get(0).toUpperCase());
+            String _firstName =  _invalidUserInfo.get(1);
+            String _lastName =  _invalidUserInfo.get(2);
+            String _sex =  _invalidUserInfo.get(3);
+            int _age = Integer.parseInt( _invalidUserInfo.get(4));
             @SuppressWarnings("unused") // Suppressed because this variable is not needed.
-            AbstractUser _unknownUserType = _userFactory.buildUser(createInvalidUserInfo());
+            AbstractUser _unknownUserType = _userFactory.buildUser(_userType, _firstName, _lastName, _sex, _age);
             fail("Built a user with invalid input without issues.");
         } catch (InvalidUserArgumentsException e) {
             // Execution SHOULD reach inside the catch statement.
+        } catch (IllegalArgumentException e_) {
+        	
         }
     }
 
@@ -112,6 +133,7 @@ public class UserFactoryTest {
         _invalidUserInfo.add("and");
         _invalidUserInfo.add("bad");
         _invalidUserInfo.add("length");
+        _invalidUserInfo.add("too");
         return _invalidUserInfo;
     }
 }

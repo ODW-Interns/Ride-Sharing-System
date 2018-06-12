@@ -52,13 +52,15 @@ public class UserController {
                 AbstractUser _user = userFactory.buildUser(_userType, _firstName, _lastName, _sex, _age);
                 userDatabase.put(_user.getUserID(), _user);
                 return _user;
-            } catch (Exception e_) {
-                throw new InvalidUserArgumentsException();
+            } catch (InvalidUserArgumentsException e_) {
+                throw new InvalidUserArgumentsException(e_.getMessage());
+            } catch (NumberFormatException e_) {
+                throw new InvalidUserArgumentsException("Cannot parse age as an Integer.");
             }
         }
 
         // Something went wrong..
-        throw new InvalidUserArgumentsException();
+        throw new InvalidUserArgumentsException("Invalid arguments for createUser.");
     }
 
     /**
@@ -76,8 +78,8 @@ public class UserController {
      * @throws DriverNotFoundException
      */
     /* @formatter:off */
-    public AbstractUser modifyUser(ArrayList<String> typeValues_)
-     throws CustomerNotFoundException, InvalidUserArgumentsException, DriverNotFoundException {
+    public AbstractUser modifyUser(ArrayList<String> typeValues_) 
+            throws CustomerNotFoundException, InvalidUserArgumentsException, DriverNotFoundException {
         // CAREFUL! The assumption here is that the driver format is always NOT the same as the customer format.
         // This will require changing if MODIFY_USER_DRIVER_FORMAT == MODIFY_USER_CUSTOMER_FORMAT.
         if (typeValues_.size() == RuntimeConstants.MODIFY_USER_DRIVER_FORMAT.length) {
@@ -90,9 +92,9 @@ public class UserController {
                 }
             } catch (DriverNotFoundException e_) {
                 // There is no such driver in the database.
-                throw new DriverNotFoundException();
+                throw new DriverNotFoundException("Driver not found in the database. DriverID Value = " + typeValues_.get(0));
             } catch (Exception e_) {
-                throw new InvalidUserArgumentsException();
+                throw new InvalidUserArgumentsException(e_.getMessage());
             }
 
         } else if (typeValues_.size() == RuntimeConstants.MODIFY_USER_CUSTOMER_FORMAT.length) {
@@ -105,14 +107,14 @@ public class UserController {
                 }
             } catch (CustomerNotFoundException e_) {
                 // There is no such customer in the database.
-                throw new CustomerNotFoundException();
+                throw new CustomerNotFoundException("Customer not found in the database. UserID Value = " + typeValues_.get(0));
             } catch (Exception e_) {
-                throw new InvalidUserArgumentsException();
+                throw new InvalidUserArgumentsException(e_.getMessage());
             }
         }
 
         // Something went wrong..
-        throw new InvalidUserArgumentsException();
+        throw new InvalidUserArgumentsException("Invalid number of arguments passed in ModifyUser.");
     }
     /* @formatter:on */
 
@@ -126,19 +128,20 @@ public class UserController {
      *         logger
      * @throws UserNotFoundException
      */
-    public AbstractUser deleteUser(ArrayList<String> typeValues_) throws UserNotFoundException {
+    public AbstractUser deleteUser(ArrayList<String> typeValues_) 
+            throws UserNotFoundException, InvalidUserArgumentsException {
         if (typeValues_.size() == RuntimeConstants.DELETE_USER_FORMAT.length) {
             int _userID = Integer.parseInt(typeValues_.get(0));
 
             if (userDatabase.get(_userID) != null) {
                 return userDatabase.remove(_userID);
             } else {
-                throw new UserNotFoundException();
+                throw new UserNotFoundException("User not found in the database. UserID Value = " + typeValues_.get(0));
             }
         }
 
         // Something went wrong..
-        throw new UserNotFoundException();
+        throw new InvalidUserArgumentsException("Invalid number of arguments passed in DeleteUser.");
     }
 
     /**
@@ -151,7 +154,6 @@ public class UserController {
             StringBuilder _result = new StringBuilder();
 
             for (Map.Entry<Integer, AbstractUser> _entry : userDatabase.entrySet()) {
-
                 AbstractUser _currentUser = _entry.getValue();
                 if (_currentUser instanceof Driver) {
                     Driver _currentDriver = (Driver) _currentUser;
@@ -159,9 +161,7 @@ public class UserController {
                 } else {
                     _result.append(System.lineSeparator() + _currentUser.toString());
                 }
-
             }
-
             return _result.toString();
         }
 
@@ -218,7 +218,7 @@ public class UserController {
         }
 
         // User was driver or does not exist.
-        throw new CustomerNotFoundException();
+        throw new CustomerNotFoundException("User not found in the database. UserID Value = " + userID_);
     }
 
     /**
@@ -234,8 +234,8 @@ public class UserController {
      * @throws InvalidUserArgumentsException
      */
     /* @formatter:off */
-    private Driver modifyDriver(int userID_, ArrayList<String> newValues_)
-     throws DriverNotFoundException, InvalidUserArgumentsException {
+    private Driver modifyDriver(int userID_, ArrayList<String> newValues_) 
+            throws DriverNotFoundException, InvalidUserArgumentsException {
         try {
             // Getting the values from input.
             // userID and userType obtained from modifyUser. (i.e. .get(0) and .get(1))
@@ -260,9 +260,9 @@ public class UserController {
 
             return _modifiedDriver;
         } catch (NullPointerException e_) {
-            throw new DriverNotFoundException();
+            throw new DriverNotFoundException("Driver not found in database. UserID = " + userID_);
         } catch (Exception e_) {
-            throw new InvalidUserArgumentsException();
+            throw new InvalidUserArgumentsException("Invalid number of arguments passed in ModifyDriver.");
         }
     }
     /* @formatter:on */
@@ -280,8 +280,8 @@ public class UserController {
      * @throws InvalidUserArgumentsException
      */
     /* @formatter:off */
-    private Customer modifyCustomer(int userID_, ArrayList<String> newValues_)
-     throws CustomerNotFoundException, InvalidUserArgumentsException {
+    private Customer modifyCustomer(int userID_, ArrayList<String> newValues_) 
+            throws CustomerNotFoundException, InvalidUserArgumentsException {
         try {
             // Getting the values from input.
             // userID and userType obtained from modifyUser. (i.e. .get(0) and .get(1))
@@ -302,9 +302,9 @@ public class UserController {
 
             return _modifiedCustomer;
         } catch (NullPointerException e_) {
-            throw new CustomerNotFoundException();
+            throw new CustomerNotFoundException("Customer not found in database. UserID = " + userID_);
         } catch (Exception e_) {
-            throw new InvalidUserArgumentsException();
+            throw new InvalidUserArgumentsException("Invalid number of arguments passed in ModifyCustomer.");
         }
     }
     /* @formatter:on */

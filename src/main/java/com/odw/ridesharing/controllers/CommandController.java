@@ -158,7 +158,7 @@ public class CommandController {
                         logger.info("CREATED CUSTOMER = {}", _addedUser);
                     }
                 } catch (InvalidUserArgumentsException e_) {
-                    logger.error("ERROR CREATING USER = {} (Invalid input arguments)", event_.typeValuesToString());
+                    logger.error("ERROR CREATING USER: {}", e_.getMessage());
                 }
                 break;
             case RuntimeConstants.PICKUP:
@@ -228,7 +228,7 @@ public class CommandController {
                     if (_userType.equals(RuntimeConstants.DRIVER)) {
                         int _newCarID = Integer.parseInt(event_.getTypeValues().get(7));
                         if (!carController.isCarInDatabase(_newCarID)) {
-                            throw new CarNotFoundException();
+                            throw new CarNotFoundException("Car not found in database. CarID Value = " + _newCarID);
                         }
                     }
                     
@@ -258,8 +258,7 @@ public class CommandController {
                     }
                     
                 } catch (Exception e_) {
-                    // [TODO] More useful error messages. Support multiple exceptions
-                    logger.error("ERROR MODIFYING USER = {}", event_.typeValuesToString());
+                    logger.error("ERROR MODIFYING USER: ", e_.getMessage());
                 }
                 break;
             // ----- DEPRECATED! -----
@@ -287,7 +286,7 @@ public class CommandController {
             case RuntimeConstants.CAR:
                 try {
                     AbstractCar deletedCar = carController.deleteCar(event_.getTypeValues());
-                    logger.info("DELETED CAR = " + deletedCar);
+                    logger.info("DELETED CAR = {}", deletedCar);
                 } catch (CarNotFoundException e_) {
                     logger.error("ERROR DELETING CAR: " + e_.getMessage());
                 } catch (InvalidCarArgumentsException e_) {
@@ -297,10 +296,9 @@ public class CommandController {
             case RuntimeConstants.USER:
                 try {
                     AbstractUser _deletedUser = userController.deleteUser(event_.getTypeValues());
-                    logger.info("DELETED USER = " + _deletedUser);
-                } catch (UserNotFoundException e_) {
-                    logger.error("ERROR DELETING USER = ID: {} (Does not exist in database)",
-                                 event_.typeValuesToString());
+                    logger.info("DELETED USER = {}", _deletedUser);
+                } catch (Exception e_) {
+                    logger.error("ERROR DELETING USER: {}", e_.getMessage());
                 }
                 break;
             case RuntimeConstants.PICKUP:

@@ -28,7 +28,7 @@ public class UserControllerTest {
         try {
             _userController.createUser(createValidDriverInfo());
         } catch (InvalidUserArgumentsException e_) {
-            fail("Error creating a valid driver user.");
+            fail("Error creating a valid driver user. " + e_.getMessage());
         }
     }
     
@@ -43,7 +43,7 @@ public class UserControllerTest {
         try {
             _userController.createUser(createValidCustomerInfo());
         } catch (InvalidUserArgumentsException e_) {
-            fail("Error creating a valid customer user.");
+            fail("Error creating a valid customer user. " + e_.getMessage());
         }
     }
     
@@ -92,7 +92,7 @@ public class UserControllerTest {
         try {
             _userController.createUser(createValidDriverInfo());
         } catch (InvalidUserArgumentsException e_) {
-            fail("Error creating a valid driver.");
+            fail("Error creating a valid driver. " + e_.getMessage());
         }
 
         // ---------------------------------------------
@@ -109,7 +109,7 @@ public class UserControllerTest {
         try {
             _userController.modifyUser(_driverNewInfo);
         } catch (Exception e_) {
-            fail("Error modifying a valid driver.");
+            fail("Error modifying a valid driver. " + e_.getMessage());
         }
     }
     
@@ -125,7 +125,7 @@ public class UserControllerTest {
         try {
             _userController.createUser(createValidCustomerInfo());
         } catch (InvalidUserArgumentsException e_) {
-            fail("Error creating a valid driver user.");
+            fail("Error creating a valid driver user. " + e_.getMessage());
         }
 
         // ---------------------------------------------
@@ -140,11 +140,11 @@ public class UserControllerTest {
         try {
             _userController.modifyUser(_customerNewInfo);
         } catch (DriverNotFoundException e_) {
-            fail("Error modifying a valid customer.");
+            fail("Error modifying a valid customer. " + e_.getMessage());
         } catch (CustomerNotFoundException e_) {
-            fail("Error modifying a valid customer.");
+            fail("Error modifying a valid customer. " + e_.getMessage());
         } catch (InvalidUserArgumentsException e_) {
-            fail("Error modifying a valid customer.");
+            fail("Error modifying a valid customer. " + e_.getMessage());
         }
     }
     
@@ -180,7 +180,7 @@ public class UserControllerTest {
         try {
             _userController.createUser(createValidDriverInfo());
         } catch (InvalidUserArgumentsException e_) {
-            fail("Error creating a valid driver user.");
+            fail("Error creating a valid driver user. " + e_.getMessage());
         }
 
         // ---------------------------------------------
@@ -190,7 +190,9 @@ public class UserControllerTest {
         try {
             _userController.deleteUser(_driverDeleteInfo);
         } catch (UserNotFoundException e_) {
-            fail("Error deleting a valid user.");
+            fail("Error deleting a valid user. " + e_.getMessage());
+        } catch (InvalidUserArgumentsException e_) {
+            fail("Invalid number of arguments in deleteUser. " + e_.getMessage());
         }
     }
     
@@ -204,13 +206,14 @@ public class UserControllerTest {
         // ---------------------------------------------
         // Test invalid user deletion.
         ArrayList<String> _invalidDeleteInfo = new ArrayList<String>();
-        _invalidDeleteInfo.add("driver");
         _invalidDeleteInfo.add("1000"); // Invalid ID
         try {
             _userController.deleteUser(_invalidDeleteInfo);
             fail("Deleted with invalid input without issues.");
         } catch (UserNotFoundException e_) {
             // Execution SHOULD reach inside the catch statement.
+        } catch (InvalidUserArgumentsException e_) {
+            fail("Invalid number of arguments passed in deleteUser. " + e_.getMessage());
         }
     }
 

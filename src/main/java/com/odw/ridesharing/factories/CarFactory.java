@@ -35,7 +35,6 @@ public class CarFactory {
     
     // Deprecated!
     /*
-
     public AbstractCar buildCar(ArrayList<String> typeValues_) throws InvalidCarArgumentsException {
 
         if (typeValues_.size() == RuntimeConstants.CREATE_CAR_FORMAT.length) {
@@ -68,7 +67,8 @@ public class CarFactory {
         }
         // something went wrong creating a car...
         throw new InvalidCarArgumentsException();
-    }*/
+    }*
+    /
     
     /**
      * Creates a specific Car instance object and sets its values.

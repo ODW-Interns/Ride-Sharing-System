@@ -40,16 +40,10 @@ public class CommandController {
      * @param delimiter_
      *            The delimiter used in the file to separate values.
      */
-    
     public void processFile(String inputFile_, String delimiter_) {
         EventParser _eventParser = new EventParser();
         
-        /* @formatter:off */
-        try (BufferedReader _inputReader = new BufferedReader(
-                                            new InputStreamReader(
-                                             new FileInputStream(inputFile_)))) {
-        /* @formatter:on */
-            
+        try (BufferedReader _inputReader = new BufferedReader(new InputStreamReader(new FileInputStream(inputFile_)))) {
             logger.trace("PROCESSING FILE: {}", inputFile_);
             
             // Process each event line-by-line.
@@ -67,11 +61,10 @@ public class CommandController {
             logger.debug("FINAL CAR DATABASE" + "{}", carController.getCarDatabaseAsString());
             logger.debug("FINAL USER DATABASE" + "{}", userController.getUserDatabaseAsString());
             logger.debug("FINAL PICKUP HISTORY" + "{}", pickupController.getPickupDatabaseAsString());
-            
         } catch (FileNotFoundException e_) {
-            logger.error("ERROR READING FILE (Could not find the specified file)");
+            logger.error("ERROR READING FILE: {}", e_.getMessage());
         } catch (IOException e_) {
-            logger.error("ERROR READING FILE (Something went wrong while reading the file)");
+            logger.error("ERROR READING FILE: {}", e_.getMessage());
         }
     }
     
@@ -113,8 +106,7 @@ public class CommandController {
             logger.info("EXPORTED DATABASE TO FILE: {}", userDatabaseOutputFile.getAbsolutePath());
             logger.info("EXPORTED DATABASE TO FILE: {}", pickupDatabaseOutputFile.getAbsolutePath());
         } catch (JAXBException e_) {
-            logger.error("ERROR MARSHALLING DATABASE");
-            e_.printStackTrace();
+            logger.error("ERROR MARSHALLING DATABASE: {}", e_.getMessage());
         }
     }
     
@@ -154,7 +146,7 @@ public class CommandController {
                     AbstractCar _addedCar = carController.createCar(event_.getTypeValues());
                     logger.info("CREATED CAR = {}", _addedCar);
                 } catch (Exception e_) {
-                    logger.error(e_.getMessage(), event_.typeValuesToString());
+                    logger.error("ERROR CREATING CAR: " + e_.getMessage());
                 }
                 break;
             case RuntimeConstants.USER:
@@ -195,12 +187,11 @@ public class CommandController {
                     }
                     
                 } catch (CannotSchedulePickupException e_) {
-                    logger.error("ERROR SCHEDULING PICKUP = {}", event_.typeValuesToString());
+                    logger.error("ERROR SCHEDULING PICKUP: {}", e_.getMessage());
                 } catch (InvalidPickupArgumentsException e_) {
-                    logger.error("ERROR CREATING PICKUP = {} (Invalid input arguments)", event_.typeValuesToString());
+                    logger.error("ERROR CREATING PICKUP: {}", e_.getMessage());
                 } catch (CustomerNotFoundException e_) {
-                    logger.error("ERROR ASSIGNING PICKUP CUSTOMER = {} (Does not exist in database)",
-                                 event_.getTypeValues().get(0));
+                    logger.error("ERROR ASSIGNING PICKUP CUSTOMER: {}", e_.getMessage());
                 } catch (NumberFormatException e_) {
                     logger.error("ERROR PARSING CUSTOMER_ID: CustomerID is not integer parseable. Check input format.");
                 } catch (IndexOutOfBoundsException e_) {
@@ -226,7 +217,7 @@ public class CommandController {
                     AbstractCar _modifiedCar = carController.modifyCar(event_.getTypeValues());
                     logger.info("MODIFIED CAR = {}", _modifiedCar);
                 } catch (Exception e_) {
-                    logger.error("ERROR MODIFYING CAR = {}", event_.typeValuesToString());
+                    logger.error("ERROR MODIFYING CAR: " + e_.getMessage());
                 }
                 break;
             case RuntimeConstants.USER:
@@ -297,8 +288,9 @@ public class CommandController {
                     AbstractCar deletedCar = carController.deleteCar(event_.getTypeValues());
                     logger.info("DELETED CAR = {}", deletedCar);
                 } catch (CarNotFoundException e_) {
-                    logger.error("ERROR DELETING CAR = ID: {} (Does not exist in database)",
-                                 event_.typeValuesToString());
+                    logger.error("ERROR DELETING CAR: " + e_.getMessage());
+                } catch (InvalidCarArgumentsException e_) {
+                	logger.error("ERROR DELETING CAR: " + e_.getMessage());
                 }
                 break;
             case RuntimeConstants.USER:
@@ -313,9 +305,8 @@ public class CommandController {
                 try {
                     Pickup deletedPickup = pickupController.deletePickup(event_.getTypeValues());
                     logger.debug("DELETED PICKUP: {}", deletedPickup);
-                } catch (PickupNotFoundException e_) {
-                    logger.error("ERROR DELETING PICKUP = ID: {} (Does not exist in database)",
-                                 event_.typeValuesToString("|"));
+                } catch (Exception e_) {
+                    logger.error("ERROR DELETING PICKUP: {}", e_.getMessage());
                 }
                 break;
             default:

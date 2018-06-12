@@ -20,15 +20,14 @@ import com.odw.ridesharing.model.exceptions.PickupNotFoundException;
 import com.odw.ridesharing.service.PickupScheduler;
 
 /**
- * PickupController is called by CommandController to handle the commands done
- * on Pickup. PickupController calls PickupFactory to create a Pickup.
- * PickupController also handles scheduling of the Pickups and calculates the
+ * PickupController is called by CommandController to handle the commands done on Pickup. PickupController calls
+ * PickupFactory to create a Pickup. PickupController also handles scheduling of the Pickups and calculates the
  * rate/fees associated with the Pickup based off of the distance traveled.
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public class PickupController {
-
+    
     private ConcurrentHashMap<Integer, Pickup> pickupDatabase = new ConcurrentHashMap<Integer, Pickup>();
     
     @XmlTransient
@@ -36,59 +35,69 @@ public class PickupController {
     
     @XmlTransient
     private PickupScheduler pickupScheduler = new PickupScheduler();
-
+    
     /**
-     * Call PickupFactory to create a pickup. Immediately schedules the pickup to
-     * the next available driver. See command controller.
+     * Creates a pickup by calling PickupFactory.
      * 
      * @param typeValues_
-     *            Expected input values specified under CREATE_PICKUP_FORMAT in
-     *            RuntimeConstants.
-     * @return _pickup pickup object to be used for logger
+     *            Expected input values specified under CREATE_PICKUP_FORMAT in RuntimeConstants.
+     * @return Returns the newly created pickup object.
      * @throws InvalidPickupArgumentsException
      */
-    /* @formatter:off */
-    public Pickup createPickup(ArrayList<String> typeValues_, Customer pickupCustomer_)
-     throws InvalidPickupArgumentsException {
-        if (typeValues_.size() == RuntimeConstants.CREATE_PICKUP_FORMAT.length && pickupCustomer_ != null) {
+    public Pickup createPickup(ArrayList<String> typeValues_,
+                               Customer pickupCustomer_) throws InvalidPickupArgumentsException {
+        if (typeValues_.size() == RuntimeConstants.CREATE_PICKUP_FORMAT.length) {
             try {
+                double _originLatitude = Double.parseDouble(typeValues_.get(1));
+                double _originLongitude = Double.parseDouble(typeValues_.get(2));
+                double _destinationLatitude = Double.parseDouble(typeValues_.get(3));
+                double _destinationLongitude = Double.parseDouble(typeValues_.get(4));
+                
                 // Creating the pickup through the factory. No driver is assigned yet.
-                return pickupFactory.buildPickup(typeValues_, pickupCustomer_);
-            } catch (InvalidPickupArgumentsException e_) {
-                throw new InvalidPickupArgumentsException();
+                return pickupFactory.buildPickup(_originLatitude, _originLongitude, _destinationLatitude,
+                                                 _destinationLongitude, pickupCustomer_);
+            } catch (Exception e_) {
+                throw new InvalidPickupArgumentsException(e_.getMessage());
             }
         }
-
-        // Something went wrong creating a pickup..
-        throw new InvalidPickupArgumentsException();
+        
+        throw new InvalidPickupArgumentsException("Invalid number of arguments for creating a pickup.");
     }
-    /* @formatter:on */
-
+    
     /**
      * Delete Pickup's info from the database.
      * 
      * @param typeValues_
-     *            Expected input values specified under DELETE_PICKUP_FORMAT in
-     *            RuntimeConstants.
+     *            Expected input values specified under DELETE_PICKUP_FORMAT in RuntimeConstants.
      * @return The pickup that was removed from the database.
+     * @throws InvalidPickupArgumentsException
      * @throws BadPickupException
      */
-    public Pickup deletePickup(ArrayList<String> typeValues_) throws PickupNotFoundException {
+    public Pickup deletePickup(ArrayList<String> typeValues_) throws PickupNotFoundException,
+                                                              InvalidPickupArgumentsException {
         if (typeValues_.size() == RuntimeConstants.DELETE_PICKUP_FORMAT.length) {
             try {
                 // Get the pickup ID from input.
                 int _pickupID = Integer.parseInt(typeValues_.get(0));
-
-                return pickupDatabase.remove(_pickupID);
-            } catch (Exception e_) {
-                throw new PickupNotFoundException();
+                
+                Pickup _deletedPickup = pickupDatabase.remove(_pickupID);
+                
+                if (_deletedPickup == null) {
+                    throw new PickupNotFoundException("Cannot delete a pickup that does not exist. PickupID = "
+                            + _pickupID);
+                }
+                
+                return _deletedPickup;
+                
+            } catch (NumberFormatException e_) {
+                throw new InvalidPickupArgumentsException(e_.getMessage());
             }
         }
-
+        
         // Something went wrong..
-        throw new PickupNotFoundException();
+        throw new InvalidPickupArgumentsException("Invalid number of arguments for deleting a pickup.");
     }
-
+    
     /**
      * Returns a string of all the pickup in pickupDatabase.
      * 
@@ -97,30 +106,31 @@ public class PickupController {
     public String getPickupDatabaseAsString() {
         if (!pickupDatabase.isEmpty()) {
             StringBuilder _result = new StringBuilder();
-
+            
             for (Map.Entry<Integer, Pickup> _entry : pickupDatabase.entrySet()) {
                 Pickup _currentPickup = _entry.getValue();
-
+                
                 _result.append(System.lineSeparator() + _currentPickup.toString());
             }
-
+            
             return _result.toString();
         }
-
+        
         return "";
     }
-
+    
     /**
-     * Stores the pickup into the pickup history database. Should only store
-     * scheduled pickups.
+     * Stores the pickup into the pickup history database. Should only store scheduled pickups.
      * 
      * @param pickupToStore_
      *            The scheduled pickup to store in the database.
      */
     public void storePickupInDatabase(Pickup pickupToStore_) {
-        pickupDatabase.put(pickupToStore_.getPickupID(), pickupToStore_);
+        if (pickupToStore_ != null) {
+            pickupDatabase.put(pickupToStore_.getPickupID(), pickupToStore_);
+        }
     }
-
+    
     /**
      * A function to be called in CommandController to schedule a pickup.
      * 
@@ -134,27 +144,24 @@ public class PickupController {
     public Pickup schedulePickup(Pickup pickup_, Driver driver_) throws CannotSchedulePickupException {
         return pickupScheduler.schedule(pickup_, driver_);
     }
-
+    
     /**
-     * A function to be called in CommandController to schedule a pickup that is in
-     * the pickup queue.
+     * A function to be called in CommandController to schedule a pickup that is in the pickup queue.
      * 
      * @param driver_
      *            The driver whose availability was modified from false to true
-     * @return A pickup with its driver set to driver_ and fees calculated. Null if
-     *         there are no unscheduledPickups
+     * @return A pickup with its driver set to driver_ and fees calculated. Null if there are no unscheduledPickups
      */
     public Pickup scheduleUnscheduledPickup(Driver driver_) {
         return pickupScheduler.getUnscheduledPickup(driver_);
     }
-
+    
     // DEPRECATED!
     /**
      * Modify Pickup's info in the database
      * 
      * @param typeValues_
-     *            ArrayList of of input in string Should Contain PickupID,
-     *            CustomerID, DriverID, Origin, and Destination
+     *            ArrayList of of input in string Should Contain PickupID, CustomerID, DriverID, Origin, and Destination
      * 
      * @return _currentPickup Object to be used for logger
      * @throws BadPickupException
@@ -189,5 +196,5 @@ public class PickupController {
         throw new BadPickupException();
     }
     ----------------------------------------------------------------------------------------------------*/
-
+    
 }

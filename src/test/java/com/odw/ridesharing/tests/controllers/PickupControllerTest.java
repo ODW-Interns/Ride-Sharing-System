@@ -60,19 +60,20 @@ public class PickupControllerTest {
      */
     @Test
     public void testDeletePickup() {
-        UserController _userController = new UserController();
         PickupController _pickupController = new PickupController();
-        Customer _customer = new Customer();
-        ArrayList<String> _pickupList = new ArrayList<>();
-        _pickupList.add(Integer.toString(0));
-
+        UserController _userController = new UserController();
+        
         try {
-            _customer = (Customer) (_userController.createUser(createValidCustomerInfo()));
-            _pickupController.createPickup(createValidPickupInfo(), _customer);
+            Customer _customerForPickup = (Customer) _userController.createUser(createValidCustomerInfo());
+            Pickup _createdPickup = _pickupController.createPickup(createValidPickupInfo(), _customerForPickup);
+            
+            _pickupController.storePickupInDatabase(_createdPickup);
 
-            _pickupController.deletePickup(_pickupList);
+            ArrayList<String> _deletePickupInput = new ArrayList<>();
+            _deletePickupInput.add("0");
+            _pickupController.deletePickup(_deletePickupInput);
         } catch (Exception e_) {
-            fail("Error deleting a valid pickup.");
+            fail("Error deleting a valid pickup. " + e_.getMessage());
         }
     }
 
@@ -94,7 +95,7 @@ public class PickupControllerTest {
 
             _pickupController.schedulePickup(_pickup, _driver);
         } catch (Exception e_) {
-            fail("Error scheduling a pickup.");
+            fail("Error scheduling a pickup. " + e_.getMessage());
         }
     }
 
@@ -120,7 +121,7 @@ public class PickupControllerTest {
 
             _pickupController.scheduleUnscheduledPickup(_driver);
         } catch (Exception e_) {
-            fail("Error scheduling an unscheduled pickup.");
+            fail("Error scheduling an unscheduled pickup. " + e_.getMessage());
         }
     }
 

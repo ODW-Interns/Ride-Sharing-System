@@ -33,6 +33,9 @@ public class RuntimeConstants {
     // The minimum event instruction length needed to process an event.
     public static final int MINIMUM_EVENT_LENGTH = 3;
     
+    // The first year 
+    public static final int FIRST_YEAR_CARS_EXISTED = 1902;
+    
     // -- Predetermined Input Formats (Excludes COMMAND and INPUT_TYPES) --
     // Mainly used for checking input lengths. However, it can be expanded to be
     // used for other things. Can be used as a reference for when creating input.

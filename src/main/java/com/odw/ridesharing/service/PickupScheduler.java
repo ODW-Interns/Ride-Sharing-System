@@ -49,8 +49,7 @@ public class PickupScheduler {
             }
         }
         
-        // Something went wrong..
-        throw new CannotSchedulePickupException();
+        throw new CannotSchedulePickupException("No pickup to schedule.");
     }
     /* @formatter:on */
     

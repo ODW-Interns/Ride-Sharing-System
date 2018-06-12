@@ -1,9 +1,9 @@
 package com.odw.ridesharing.factories;
 
+import com.odw.ridesharing.exceptions.InvalidPickupArgumentsException;
 import com.odw.ridesharing.model.Customer;
 import com.odw.ridesharing.model.Location;
 import com.odw.ridesharing.model.Pickup;
-import com.odw.ridesharing.model.exceptions.InvalidPickupArgumentsException;
 
 /**
  * PickupFactory is called by CommandController to create a Pickup object. PickupFactory is passed in a Customer and

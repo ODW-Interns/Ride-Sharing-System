@@ -6,13 +6,13 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
+import com.odw.ridesharing.exceptions.InvalidCarArgumentsException;
 import com.odw.ridesharing.factories.CarFactory;
 import com.odw.ridesharing.model.CarType;
 import com.odw.ridesharing.model.Coupe;
 import com.odw.ridesharing.model.Sedan;
 import com.odw.ridesharing.model.Suv;
 import com.odw.ridesharing.model.abstractmodel.AbstractCar;
-import com.odw.ridesharing.model.exceptions.InvalidCarArgumentsException;
 
 /**
  * Tests all the public methods inside CarFactory.

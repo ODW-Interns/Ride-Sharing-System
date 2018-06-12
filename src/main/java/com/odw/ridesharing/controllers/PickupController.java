@@ -9,14 +9,14 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import com.odw.ridesharing.exceptions.CannotSchedulePickupException;
+import com.odw.ridesharing.exceptions.InvalidPickupArgumentsException;
+import com.odw.ridesharing.exceptions.PickupNotFoundException;
 import com.odw.ridesharing.factories.PickupFactory;
 import com.odw.ridesharing.model.Customer;
 import com.odw.ridesharing.model.Driver;
 import com.odw.ridesharing.model.Pickup;
 import com.odw.ridesharing.model.RuntimeConstants;
-import com.odw.ridesharing.model.exceptions.CannotSchedulePickupException;
-import com.odw.ridesharing.model.exceptions.InvalidPickupArgumentsException;
-import com.odw.ridesharing.model.exceptions.PickupNotFoundException;
 import com.odw.ridesharing.service.PickupScheduler;
 
 /**

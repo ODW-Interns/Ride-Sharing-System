@@ -5,12 +5,12 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
+import com.odw.ridesharing.exceptions.InvalidUserArgumentsException;
 import com.odw.ridesharing.factories.UserFactory;
 import com.odw.ridesharing.model.Customer;
 import com.odw.ridesharing.model.Driver;
 import com.odw.ridesharing.model.UserType;
 import com.odw.ridesharing.model.abstractmodel.AbstractUser;
-import com.odw.ridesharing.model.exceptions.InvalidUserArgumentsException;
 
 /**
  * Tests all the public methods inside UserFactory.

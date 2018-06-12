@@ -3,11 +3,11 @@ package com.odw.ridesharing.service;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import com.odw.ridesharing.exceptions.CannotSchedulePickupException;
 import com.odw.ridesharing.model.Driver;
 import com.odw.ridesharing.model.Location;
 import com.odw.ridesharing.model.Pickup;
 import com.odw.ridesharing.model.RuntimeConstants;
-import com.odw.ridesharing.model.exceptions.CannotSchedulePickupException;
 
 /**
  * PickupScheduler is called by PickupController to perform the scheduling of trips. PickupScheduler has a queue for

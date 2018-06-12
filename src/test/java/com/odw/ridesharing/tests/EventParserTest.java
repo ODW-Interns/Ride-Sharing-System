@@ -3,8 +3,8 @@ package com.odw.ridesharing.tests;
 import org.junit.Test;
 import junit.framework.TestCase;
 
+import com.odw.ridesharing.exceptions.InvalidEventException;
 import com.odw.ridesharing.model.Event;
-import com.odw.ridesharing.model.exceptions.InvalidEventException;
 import com.odw.ridesharing.service.EventParser;
 
 /**

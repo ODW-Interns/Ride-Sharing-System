@@ -1,10 +1,10 @@
 package com.odw.ridesharing.factories;
 
+import com.odw.ridesharing.exceptions.InvalidUserArgumentsException;
 import com.odw.ridesharing.model.Customer;
 import com.odw.ridesharing.model.Driver;
 import com.odw.ridesharing.model.UserType;
 import com.odw.ridesharing.model.abstractmodel.AbstractUser;
-import com.odw.ridesharing.model.exceptions.InvalidUserArgumentsException;
 
 /**
  * UserFactory is called by UserController to create a User object which can

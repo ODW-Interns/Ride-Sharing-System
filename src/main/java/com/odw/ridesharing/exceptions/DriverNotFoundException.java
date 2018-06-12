@@ -1,4 +1,4 @@
-package com.odw.ridesharing.model.exceptions;
+package com.odw.ridesharing.exceptions;
 
 public class DriverNotFoundException extends Exception {
 

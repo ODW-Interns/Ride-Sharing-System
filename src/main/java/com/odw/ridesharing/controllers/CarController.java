@@ -7,13 +7,12 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import com.odw.ridesharing.exceptions.CarNotFoundException;
+import com.odw.ridesharing.exceptions.InvalidCarArgumentsException;
 import com.odw.ridesharing.factories.CarFactory;
 import com.odw.ridesharing.model.CarType;
 import com.odw.ridesharing.model.RuntimeConstants;
 import com.odw.ridesharing.model.abstractmodel.AbstractCar;
-
-import com.odw.ridesharing.model.exceptions.CarNotFoundException;
-import com.odw.ridesharing.model.exceptions.InvalidCarArgumentsException;
 
 import java.util.ArrayList;
 import java.util.Map;

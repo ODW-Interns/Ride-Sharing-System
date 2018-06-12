@@ -9,13 +9,13 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import com.odw.ridesharing.exceptions.*;
 import com.odw.ridesharing.factories.UserFactory;
 import com.odw.ridesharing.model.Customer;
 import com.odw.ridesharing.model.Driver;
 import com.odw.ridesharing.model.RuntimeConstants;
 import com.odw.ridesharing.model.UserType;
 import com.odw.ridesharing.model.abstractmodel.AbstractUser;
-import com.odw.ridesharing.model.exceptions.*;
 
 /**
  * The UserController is called by the CommandController to handle the commands

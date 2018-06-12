@@ -9,11 +9,11 @@ import org.junit.Test;
 import com.odw.ridesharing.controllers.CarController;
 import com.odw.ridesharing.controllers.PickupController;
 import com.odw.ridesharing.controllers.UserController;
+import com.odw.ridesharing.exceptions.CannotSchedulePickupException;
+import com.odw.ridesharing.exceptions.InvalidUserArgumentsException;
 import com.odw.ridesharing.model.Customer;
 import com.odw.ridesharing.model.Driver;
 import com.odw.ridesharing.model.Pickup;
-import com.odw.ridesharing.model.exceptions.CannotSchedulePickupException;
-import com.odw.ridesharing.model.exceptions.InvalidUserArgumentsException;
 import com.odw.ridesharing.service.PickupScheduler;
 
 /**

@@ -2,13 +2,13 @@ package com.odw.ridesharing.factories;
 
 import java.time.LocalDateTime;
 
+import com.odw.ridesharing.exceptions.InvalidCarArgumentsException;
 import com.odw.ridesharing.model.CarType;
 import com.odw.ridesharing.model.Coupe;
 import com.odw.ridesharing.model.RuntimeConstants;
 import com.odw.ridesharing.model.Sedan;
 import com.odw.ridesharing.model.Suv;
 import com.odw.ridesharing.model.abstractmodel.AbstractCar;
-import com.odw.ridesharing.model.exceptions.InvalidCarArgumentsException;
 
 /**
  * CarFactory is called by CarController to create a Car object. The carID is instantiated in this class and is assigned

@@ -14,9 +14,9 @@ import javax.xml.bind.Marshaller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.odw.ridesharing.exceptions.*;
 import com.odw.ridesharing.model.*;
 import com.odw.ridesharing.model.abstractmodel.*;
-import com.odw.ridesharing.model.exceptions.*;
 import com.odw.ridesharing.service.EventParser;
 
 /**

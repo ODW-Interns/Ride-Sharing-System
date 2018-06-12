@@ -6,8 +6,8 @@ import org.junit.Test;
 import java.util.ArrayList;
 
 import com.odw.ridesharing.controllers.CarController;
-import com.odw.ridesharing.model.exceptions.CarNotFoundException;
-import com.odw.ridesharing.model.exceptions.InvalidCarArgumentsException;
+import com.odw.ridesharing.exceptions.CarNotFoundException;
+import com.odw.ridesharing.exceptions.InvalidCarArgumentsException;
 
 /**
  * Tests all the public methods inside CarController.

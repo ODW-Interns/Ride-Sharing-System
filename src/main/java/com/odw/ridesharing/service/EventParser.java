@@ -2,9 +2,9 @@ package com.odw.ridesharing.service;
 
 import java.util.StringTokenizer;
 
+import com.odw.ridesharing.exceptions.InvalidEventException;
 import com.odw.ridesharing.model.Event;
 import com.odw.ridesharing.model.RuntimeConstants;
-import com.odw.ridesharing.model.exceptions.InvalidEventException;
 
 /**
  * EventParser parses a string into an event and is called by the 

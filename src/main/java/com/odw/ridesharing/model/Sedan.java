@@ -37,6 +37,6 @@ public class Sedan extends AbstractCar {
      */
     @Override
     public String getCarTypeAsString() {
-        return RuntimeConstants.SEDAN;
+        return CarType.SEDAN.toString();
     }
 }

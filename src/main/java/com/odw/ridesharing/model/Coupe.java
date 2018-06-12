@@ -37,7 +37,7 @@ public class Coupe extends AbstractCar {
      */
     @Override
     public String getCarTypeAsString() {
-        return RuntimeConstants.COUPE;
+        return CarType.COUPE.toString();
     }
     
 }

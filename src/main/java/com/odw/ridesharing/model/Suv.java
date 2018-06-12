@@ -37,6 +37,6 @@ public class Suv extends AbstractCar {
      */
     @Override
     public String getCarTypeAsString() {
-        return RuntimeConstants.SUV;
+        return CarType.SUV.toString();
     }
 }

@@ -21,10 +21,6 @@ public class CarFactory {
     private static final int FIRST_YEAR_CARS_EXISTED = 1902;
     private int nextCarID = 0;
 
-
-
-
-
     /* @formatter:off */
     /**
      * Creates a specific Car instance object and sets its values. Assumes that the
@@ -39,6 +35,9 @@ public class CarFactory {
      * @return a Car Object
      */
     /* @formatter:on */
+    
+    /* DEPRECATED
+     * 
     public AbstractCar buildCar(ArrayList<String> typeValues_) throws InvalidCarArgumentsException {
 
         if (typeValues_.size() == RuntimeConstants.CREATE_CAR_FORMAT.length) {
@@ -71,11 +70,7 @@ public class CarFactory {
         }
         // something went wrong creating a car...
         throw new InvalidCarArgumentsException();
-    }
-
-
-
-
+    }*/
 
     public AbstractCar buildCar(CarType carType_, String make_, String model_, String color_, int year_) throws InvalidCarArgumentsException {
         if (year_ > LocalDateTime.now().getYear() || year_ < FIRST_YEAR_CARS_EXISTED) {
@@ -106,7 +101,7 @@ public class CarFactory {
             case SUV:
                 return new Suv(nextCarID++, make_, model_, color_, year_);
             default:
-                throw new InvalidCarArgumentsException("invalid arguments, unable to determine car type. Value passed: " + carType_.toString());
+                throw new InvalidCarArgumentsException("Invalid arguments, unable to determine car type. Value passed: " + carType_.toString());
         }
     }
 

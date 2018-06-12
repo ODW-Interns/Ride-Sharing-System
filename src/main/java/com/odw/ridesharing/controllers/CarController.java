@@ -8,6 +8,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import com.odw.ridesharing.factories.CarFactory;
+import com.odw.ridesharing.model.CarType;
 import com.odw.ridesharing.model.RuntimeConstants;
 import com.odw.ridesharing.model.abstractmodel.AbstractCar;
 
@@ -38,11 +39,18 @@ public class CarController {
      *            Expected input values specified under CREATE_CAR_FORMAT in RuntimeConstants.
      * @return _car To be used for logger
      * @throws InvalidCarArgumentsException
-     */
+     */    
+
     public AbstractCar createCar(ArrayList<String> typeValues_) throws InvalidCarArgumentsException {
         if (typeValues_.size() == RuntimeConstants.CREATE_CAR_FORMAT.length) {
             try {
-                AbstractCar _car = carFactory.buildCar(typeValues_);
+            	CarType _carType = CarType.valueOf((typeValues_.get(0).toUpperCase()));
+                String _make = typeValues_.get(1);
+                String _model = typeValues_.get(2);
+                String _color = typeValues_.get(3);
+                int _year = Integer.parseInt(typeValues_.get(4));
+            
+                AbstractCar _car = carFactory.buildCar(_carType, _make, _model, _color, _year);
                 carDatabase.put(_car.getCarID(), _car);
                 return _car;
             } catch (Exception e_) {

@@ -1,5 +1,6 @@
 package com.odw.ridesharing.factories;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import com.odw.ridesharing.model.CarType;
@@ -17,11 +18,8 @@ import com.odw.ridesharing.model.exceptions.InvalidCarArgumentsException;
  */
 public class CarFactory {
 
+    private static final int FIRST_YEAR_CARS_EXISTED = 1902;
     private int nextCarID = 0;
-
-
-
-
 
     /* @formatter:off */
     /**
@@ -37,6 +35,9 @@ public class CarFactory {
      * @return a Car Object
      */
     /* @formatter:on */
+    
+    /* DEPRECATED
+     * 
     public AbstractCar buildCar(ArrayList<String> typeValues_) throws InvalidCarArgumentsException {
 
         if (typeValues_.size() == RuntimeConstants.CREATE_CAR_FORMAT.length) {
@@ -69,13 +70,29 @@ public class CarFactory {
         }
         // something went wrong creating a car...
         throw new InvalidCarArgumentsException();
-    }
-
-
-
-
+    }*/
 
     public AbstractCar buildCar(CarType carType_, String make_, String model_, String color_, int year_) throws InvalidCarArgumentsException {
+        if (year_ > LocalDateTime.now().getYear() || year_ < FIRST_YEAR_CARS_EXISTED) {
+            throw new InvalidCarArgumentsException("invalid arguments, bad year. Value passed: " + Integer.toString(year_));
+        }
+
+
+        if (color_ == null || "".equals(color_)) {
+            throw new InvalidCarArgumentsException("invalid arguments, bad color. Value passed: " + color_ == null ? "NULL" : color_);
+        }
+
+
+        if (model_ == null || "".equals(model_)) {
+            throw new InvalidCarArgumentsException("invalid arguments, bad model. Value passed: " + model_ == null ? "NULL" : model_);
+        }
+
+
+        if (make_ == null || "".equals(make_)) {
+            throw new InvalidCarArgumentsException("invalid arguments, bad make. Value passed: " + make_ == null ? "NULL" : make_);
+        }
+
+
         switch (carType_) {
             case COUPE:
                 return new Coupe(nextCarID++, make_, model_, color_, year_);
@@ -84,7 +101,7 @@ public class CarFactory {
             case SUV:
                 return new Suv(nextCarID++, make_, model_, color_, year_);
             default:
-                throw new InvalidCarArgumentsException("invalid arguments, unable to determine car type. Value passed: " + carType_.toString());
+                throw new InvalidCarArgumentsException("Invalid arguments, unable to determine car type. Value passed: " + carType_.toString());
         }
     }
 

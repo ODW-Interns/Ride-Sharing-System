@@ -1,5 +1,6 @@
 # Notes
-## Exceptiosn should never be empty. Explain what the problem is so you can diagnose it quickly.
+## Exceptiosn should never be empty. 
+Explain what the problem is so you can diagnose it quickly.
 
 ```java
  	} catch (NullPointerException e_) {
@@ -11,7 +12,8 @@ should be:
  	} catch (NullPointerException e_) {
                 throw new InvalidCarArgumentsException(e_.toString());
 ```
-## Build car is a very "C" like approch: an array of values, where you implicitly know what the values are. Instead use more descriptive methods:
+## "C" like approch: 
+The buildCar factory has a very "C" like approcat - an array of values, where you implicitly know what the values are. Instead use more descriptive methods:
 
 ```java
 	public AbstractCar buildCar(ArrayList<String> typeValues_) throws InvalidCarArgumentsException
@@ -42,4 +44,22 @@ then, the above method signature becomes:
 ```
 
 and you code becomes
-	
+
+
+```java
+    public AbstractCar buildCar(CarType carType_, String make_, String model_, String color_, int year_) throws InvalidCarArgumentsException {
+        switch (carType_) {
+            case COUPE:
+                return new Coupe(nextCarID++, make_, model_, color_, year_);
+            case SEDAN:
+                return new Sedan(nextCarID++, make_, model_, color_, year_);
+            case SUV:
+                return new Suv(nextCarID++, make_, model_, color_, year_);
+            default:
+                throw new InvalidCarArgumentsException("invalid arguments, unable to determine car type. Value passed: " + carType_.toString());
+        }
+    }
+```
+
+
+plus I added some more testing in the code - please have a look

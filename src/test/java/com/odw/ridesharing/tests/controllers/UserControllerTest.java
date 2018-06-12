@@ -206,7 +206,6 @@ public class UserControllerTest {
         // ---------------------------------------------
         // Test invalid user deletion.
         ArrayList<String> _invalidDeleteInfo = new ArrayList<String>();
-        _invalidDeleteInfo.add("driver");
         _invalidDeleteInfo.add("1000"); // Invalid ID
         try {
             _userController.deleteUser(_invalidDeleteInfo);
@@ -214,7 +213,7 @@ public class UserControllerTest {
         } catch (UserNotFoundException e_) {
             // Execution SHOULD reach inside the catch statement.
         } catch (InvalidUserArgumentsException e_) {
-            fail("Invalid number of arguments in deleteUser. " + e_.getMessage());
+            fail("Invalid number of arguments passed in deleteUser. " + e_.getMessage());
         }
     }
 

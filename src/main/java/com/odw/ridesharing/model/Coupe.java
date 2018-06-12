@@ -32,4 +32,12 @@ public class Coupe extends AbstractCar {
         super(carID_, make_, model_, color_, year_);
     }
     
+    /**
+     * Get the carType as a string.
+     */
+    @Override
+    public String getCarTypeAsString() {
+        return RuntimeConstants.COUPE;
+    }
+    
 }

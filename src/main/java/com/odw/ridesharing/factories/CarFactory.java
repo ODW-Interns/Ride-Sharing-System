@@ -2,12 +2,13 @@ package com.odw.ridesharing.factories;
 
 import java.util.ArrayList;
 
+import com.odw.ridesharing.model.CarType;
 import com.odw.ridesharing.model.Coupe;
 import com.odw.ridesharing.model.RuntimeConstants;
+import com.odw.ridesharing.model.Sedan;
 import com.odw.ridesharing.model.Suv;
 import com.odw.ridesharing.model.abstractmodel.AbstractCar;
 import com.odw.ridesharing.model.exceptions.InvalidCarArgumentsException;
-import com.odw.ridesharing.model.Sedan;
 
 /**
  * CarFactory is called by CarController to create a Car object.
@@ -17,6 +18,10 @@ import com.odw.ridesharing.model.Sedan;
 public class CarFactory {
 
     private int nextCarID = 0;
+
+
+
+
 
     /* @formatter:off */
     /**
@@ -45,22 +50,42 @@ public class CarFactory {
 
                 // create a Car object based off of its carType
                 switch (_carType) {
-                case RuntimeConstants.COUPE:
-                    return new Coupe(nextCarID++, _make, _model, _color, _year);
-                case RuntimeConstants.SEDAN:
-                    return new Sedan(nextCarID++, _make, _model, _color, _year);
-                case RuntimeConstants.SUV:
-                    return new Suv(nextCarID++, _make, _model, _color, _year);
-                default:
-                    return null;
+                    case RuntimeConstants.COUPE:
+                        return new Coupe(nextCarID++, _make, _model, _color, _year);
+                    case RuntimeConstants.SEDAN:
+                        return new Sedan(nextCarID++, _make, _model, _color, _year);
+                    case RuntimeConstants.SUV:
+                        return new Suv(nextCarID++, _make, _model, _color, _year);
+                    default:
+                        return null;
                 }
-            } catch (NullPointerException e_) {
+            }
+            catch (NullPointerException e_) {
                 throw new InvalidCarArgumentsException();
-            } catch (NumberFormatException e_) {
+            }
+            catch (NumberFormatException e_) {
                 throw new InvalidCarArgumentsException();
             }
         }
         // something went wrong creating a car...
         throw new InvalidCarArgumentsException();
     }
+
+
+
+
+
+    public AbstractCar buildCar(CarType carType_, String make_, String model_, String color_, int year_) throws InvalidCarArgumentsException {
+        switch (carType_) {
+            case COUPE:
+                return new Coupe(nextCarID++, make_, model_, color_, year_);
+            case SEDAN:
+                return new Sedan(nextCarID++, make_, model_, color_, year_);
+            case SUV:
+                return new Suv(nextCarID++, make_, model_, color_, year_);
+            default:
+                throw new InvalidCarArgumentsException("invalid arguments, unable to determine car type. Value passed: " + carType_.toString());
+        }
+    }
+
 }

@@ -56,11 +56,11 @@ public class CarController {
             } catch (InvalidCarArgumentsException e_) {
                 throw new InvalidCarArgumentsException(e_.getMessage());
             } catch (NumberFormatException e_) {
-                throw new InvalidCarArgumentsException("Cannot parse year as an Integer.");
+                throw new InvalidCarArgumentsException("Cannot parse year as an Integer." + typeValues_.get(4));
             }
         }
         // Something went wrong..
-        throw new InvalidCarArgumentsException("Invalid number of arguments for createCar.");
+        throw new InvalidCarArgumentsException("Invalid number of arguments for createCar." + typeValues_);
     }
     
     /**
@@ -117,9 +117,9 @@ public class CarController {
                 
                 return _modifiedCar;
             } catch (NullPointerException e_) {
-                throw new CarNotFoundException("Car was not found in the database. CarID Value: " + typeValues_.get(0));
+                throw new CarNotFoundException("Invalid car was not found in the database. CarID Value = " + typeValues_.get(0));
             } catch (NumberFormatException e_) {
-                throw new CarNotFoundException("Cannot get the carID from input. CarID Value: " + typeValues_.get(0));
+                throw new InvalidCarArgumentsException("Invalid cannot get the carID from input. CarID Value = " + typeValues_.get(0));
             }
         }
         
@@ -134,20 +134,21 @@ public class CarController {
      *            Expected input values specified under DELETE_CAR_FORMAT in RuntimeConstants.
      * @return carDatabase.remove(_carID) The object to be removed
      * @throws CarNotFoundException
+     * @throws InvalidCarArgumentsException 
      */
-    public AbstractCar deleteCar(ArrayList<String> typeValues_) throws CarNotFoundException {
+    public AbstractCar deleteCar(ArrayList<String> typeValues_) throws CarNotFoundException, InvalidCarArgumentsException {
         if (typeValues_.size() == RuntimeConstants.DELETE_CAR_FORMAT.length) {
             int _carID = Integer.parseInt(typeValues_.get(0));
             
             if (carDatabase.get(_carID) != null) {
                 return carDatabase.remove(_carID);
             } else {
-                throw new CarNotFoundException();
+                throw new CarNotFoundException("Invalid car was not found in the database. CarID Value = " + typeValues_.get(0));
             }
         }
         
         // Something went wrong..
-        throw new CarNotFoundException();
+        throw new InvalidCarArgumentsException("Invalid number of arguments passed in to deleteCar." + typeValues_.get(0));
     }
     
     /**

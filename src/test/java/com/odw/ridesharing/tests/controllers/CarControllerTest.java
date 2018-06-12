@@ -27,7 +27,7 @@ public class CarControllerTest {
 		try {
 			_carController.createCar(createValidCarInfo());
 		} catch (InvalidCarArgumentsException e_) {
-			fail("Error creating a valid car.");
+			fail("Error creating a valid car." + e_.getMessage());
 		}
 
 	}
@@ -62,7 +62,7 @@ public class CarControllerTest {
 		try {
 			_carController.createCar(createValidCarInfo());
 		} catch (InvalidCarArgumentsException e_) {
-			fail("Error creating a valid car.");
+			fail("Error creating a valid car." + e_.getMessage());
 		}
 
 		// Testing valid car modification.
@@ -111,6 +111,7 @@ public class CarControllerTest {
 	/**
 	 * Tests CarController's deleteCar method. Ensures that a valid car can be
 	 * deleted.
+	 * @throws InvalidCarArgumentsException 
 	 */
 	@Test
 	public void testDeleteValidCar() {
@@ -121,7 +122,7 @@ public class CarControllerTest {
 		try {
 			_carController.createCar(createValidCarInfo());
 		} catch (InvalidCarArgumentsException e_) {
-			fail("Error creating a valid car.");
+			fail("Error creating a valid car." + e_.getMessage());
 		}
 
 		// Testing valid car deletion.
@@ -130,7 +131,9 @@ public class CarControllerTest {
 		try {
 			_carController.deleteCar(_coupeDeleteInfo);
 		} catch (CarNotFoundException e_) {
-			fail("Error deleting a valid car.");
+			fail("Error deleting a valid car." + e_.getMessage());
+		} catch (InvalidCarArgumentsException e_) {
+			fail("Error deleting a valid car." + e_.getMessage());
 		}
 	}
 
@@ -147,7 +150,7 @@ public class CarControllerTest {
 		try {
 			_carController.createCar(createValidCarInfo());
 		} catch (InvalidCarArgumentsException e_) {
-			fail("Error creating a valid car.");
+			fail("Error creating a valid car." + e_.getMessage());
 		}
 
 		// ---------------------------------------------
@@ -157,7 +160,9 @@ public class CarControllerTest {
 		try {
 			_carController.deleteCar(_invalidDeleteInfo);
 		} catch (CarNotFoundException e_) {
-			assertTrue(true);
+
+		} catch (InvalidCarArgumentsException e_) {
+
 		}
 	}
 

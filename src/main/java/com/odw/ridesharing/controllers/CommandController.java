@@ -154,7 +154,7 @@ public class CommandController {
                     AbstractCar _addedCar = carController.createCar(event_.getTypeValues());
                     logger.info("CREATED CAR = {}", _addedCar);
                 } catch (Exception e_) {
-                    logger.error(e_.getMessage());
+                    logger.error("ERROR CREATING CAR: " + e_.getMessage());
                 }
                 break;
             case RuntimeConstants.USER:
@@ -226,7 +226,7 @@ public class CommandController {
                     AbstractCar _modifiedCar = carController.modifyCar(event_.getTypeValues());
                     logger.info("MODIFIED CAR = {}", _modifiedCar);
                 } catch (Exception e_) {
-                    logger.error("ERROR MODIFYING CAR = {}", event_.typeValuesToString());
+                    logger.error("ERROR MODIFYING CAR: " + e_.getMessage());
                 }
                 break;
             case RuntimeConstants.USER:
@@ -298,8 +298,9 @@ public class CommandController {
                     AbstractCar deletedCar = carController.deleteCar(event_.getTypeValues());
                     logger.info("DELETED CAR = " + deletedCar);
                 } catch (CarNotFoundException e_) {
-                    logger.error("ERROR DELETING CAR = ID: {} (Does not exist in database)",
-                                 event_.typeValuesToString());
+                    logger.error("ERROR DELETING CAR: " + e_.getMessage());
+                } catch (InvalidCarArgumentsException e_) {
+                	logger.error("ERROR DELETING CAR: " + e_.getMessage());
                 }
                 break;
             case RuntimeConstants.USER:

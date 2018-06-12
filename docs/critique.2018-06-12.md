@@ -42,4 +42,19 @@ then, the above method signature becomes:
 ```
 
 and you code becomes
-	
+
+
+```java
+    public AbstractCar buildCar(CarType carType_, String make_, String model_, String color_, int year_) throws InvalidCarArgumentsException {
+        switch (carType_) {
+            case COUPE:
+                return new Coupe(nextCarID++, make_, model_, color_, year_);
+            case SEDAN:
+                return new Sedan(nextCarID++, make_, model_, color_, year_);
+            case SUV:
+                return new Suv(nextCarID++, make_, model_, color_, year_);
+            default:
+                throw new InvalidCarArgumentsException("invalid arguments, unable to determine car type. Value passed: " + carType_.toString());
+        }
+    }
+```

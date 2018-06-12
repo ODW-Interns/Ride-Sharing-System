@@ -5,28 +5,27 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * Car class is an abstract class that has three concrete classes: Coupe, 
- * Sedan, Suv. The concrete classes are separated as carTypes so we do not 
- * need to keep track of a database of Makers and have to create a 
- * MakerFactory for each of the Makes we wish to have. 
+ * Car class is an abstract class that has three concrete classes: Coupe, Sedan, Suv. The concrete classes are separated
+ * as carTypes so we do not need to keep track of a database of Makers and have to create a MakerFactory for each of the
+ * Makes we wish to have.
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public abstract class AbstractCar {
-
+    
     private int carID;
     private String make;
     private String model;
     private String color;
     private int year;
-
+    
     /**
      * Creates a default, empty car.
      */
     public AbstractCar() {
         this(-1, "", "", "", -1);
     }
-
+    
     /**
      * Creates a new car based on the given make, model, color, and year.
      * 
@@ -46,7 +45,7 @@ public abstract class AbstractCar {
         setColor(color_);
         setYear(year_);
     }
-
+    
     /**
      * Returns the car's information in String format using a specified delimiter.
      * 
@@ -64,10 +63,9 @@ public abstract class AbstractCar {
                "Year: " + getYear() + " " + delimiter_ + " ";
     }
     /* @formatter:on */
-
+    
     /**
-     * Returns the car's information in String format using pipes ("|") as the
-     * default delimiter.
+     * Returns the car's information in String format using pipes ("|") as the default delimiter.
      * 
      * @return The car information as a String.
      */
@@ -75,7 +73,14 @@ public abstract class AbstractCar {
     public String toString() {
         return toString("|");
     }
-
+    
+    /**
+     * Method to be overridden by AbstractCar's subclasses.
+     * 
+     * @return The carType of the AbstractCar instance.
+     */
+    public abstract String getCarTypeAsString();
+    
     /**
      * Gets the current car's id that was assigned
      * 
@@ -84,7 +89,7 @@ public abstract class AbstractCar {
     public int getCarID() {
         return carID;
     }
-
+    
     /**
      * Sets the unique ID of the car. Determining if unique is not handled here.
      * 
@@ -94,7 +99,7 @@ public abstract class AbstractCar {
     public void setCarID(int carID_) {
         carID = carID_;
     }
-
+    
     /**
      * Gets the color of the car.
      * 
@@ -103,7 +108,7 @@ public abstract class AbstractCar {
     public String getColor() {
         return color;
     }
-
+    
     /**
      * Sets the color of the car.
      * 
@@ -113,7 +118,7 @@ public abstract class AbstractCar {
     public void setColor(String color_) {
         color = color_;
     }
-
+    
     /**
      * Gets the car's maker.
      * 
@@ -122,7 +127,7 @@ public abstract class AbstractCar {
     public String getMake() {
         return make;
     }
-
+    
     /**
      * Sets the make of the car.
      * 
@@ -132,7 +137,7 @@ public abstract class AbstractCar {
     public void setMake(String make_) {
         make = make_;
     }
-
+    
     /**
      * Gets the model of the car.
      * 
@@ -141,7 +146,7 @@ public abstract class AbstractCar {
     public String getModel() {
         return model;
     }
-
+    
     /**
      * Sets the model of the car.
      * 
@@ -151,7 +156,7 @@ public abstract class AbstractCar {
     public void setModel(String model_) {
         model = model_;
     }
-
+    
     /**
      * Gets the year of the car.
      * 
@@ -160,7 +165,7 @@ public abstract class AbstractCar {
     public int getYear() {
         return year;
     }
-
+    
     /**
      * Sets the year of the car.
      * 

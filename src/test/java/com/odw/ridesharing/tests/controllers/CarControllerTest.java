@@ -70,15 +70,13 @@ public class CarControllerTest {
 		_coupeNewInfo.add("0"); // ID
 		_coupeNewInfo.add("coupe");
 		_coupeNewInfo.add("toyota");
-		_coupeNewInfo.add("camry");
+		_coupeNewInfo.add("trueno");
 		_coupeNewInfo.add("black");
-		_coupeNewInfo.add("2004");
+		_coupeNewInfo.add("1986");
 		try {
 			_carController.modifyCar(_coupeNewInfo);
-		} catch (CarNotFoundException e_) {
-			fail("Error modifying a valid car.");
-		} catch (InvalidCarArgumentsException e_) {
-			fail("Error modifying arguments for a valid car.");
+		} catch (Exception e_) {
+			fail(e_.getMessage());
 		}
 
 	}

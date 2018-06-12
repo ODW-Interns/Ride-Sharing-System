@@ -31,4 +31,12 @@ public class Suv extends AbstractCar {
     public Suv(int carID_, String make_, String model_, String color_, int year_) {
         super(carID_, make_, model_, color_, year_);
     }
+    
+    /**
+     * Get the carType as a string.
+     */
+    @Override
+    public String getCarTypeAsString() {
+        return CarType.SUV.toString();
+    }
 }

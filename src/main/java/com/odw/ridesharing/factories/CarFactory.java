@@ -1,11 +1,9 @@
 package com.odw.ridesharing.factories;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 import com.odw.ridesharing.model.CarType;
 import com.odw.ridesharing.model.Coupe;
-import com.odw.ridesharing.model.RuntimeConstants;
 import com.odw.ridesharing.model.Sedan;
 import com.odw.ridesharing.model.Suv;
 import com.odw.ridesharing.model.abstractmodel.AbstractCar;

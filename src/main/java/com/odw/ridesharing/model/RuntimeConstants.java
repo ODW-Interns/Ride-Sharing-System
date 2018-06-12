@@ -21,11 +21,9 @@ public class RuntimeConstants {
     public static final String PICKUP = "pickup";
 
     // Available Cars
-    /*
     public static final String COUPE = "coupe";
     public static final String SEDAN = "sedan";
     public static final String SUV = "suv";
-    */
 
     // Money Stuff
     public static final String USD_CURRENCY_CODE = "USD";

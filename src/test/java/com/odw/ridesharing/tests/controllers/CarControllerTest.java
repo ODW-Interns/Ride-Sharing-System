@@ -75,10 +75,8 @@ public class CarControllerTest {
 		_coupeNewInfo.add("1986");
 		try {
 			_carController.modifyCar(_coupeNewInfo);
-		} catch (CarNotFoundException e_) {
-			fail("Error modifying a valid car.");
-		} catch (InvalidCarArgumentsException e_) {
-			fail("Error modifying arguments for a valid car.");
+		} catch (Exception e_) {
+			fail(e_.getMessage());
 		}
 
 	}

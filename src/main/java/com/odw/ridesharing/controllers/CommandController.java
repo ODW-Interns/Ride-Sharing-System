@@ -153,8 +153,8 @@ public class CommandController {
                 try {
                     AbstractCar _addedCar = carController.createCar(event_.getTypeValues());
                     logger.info("CREATED CAR = {}", _addedCar);
-                } catch (InvalidCarArgumentsException e_) {
-                    logger.error("ERROR CREATING CAR = {} (Invalid input arguments)", event_.typeValuesToString());
+                } catch (Exception e_) {
+                    logger.error(e_.getMessage());
                 }
                 break;
             case RuntimeConstants.USER:

@@ -53,12 +53,14 @@ public class CarController {
                 AbstractCar _car = carFactory.buildCar(_carType, _make, _model, _color, _year);
                 carDatabase.put(_car.getCarID(), _car);
                 return _car;
-            } catch (Exception e_) {
-                throw new InvalidCarArgumentsException();
+            } catch (InvalidCarArgumentsException e_) {
+                throw new InvalidCarArgumentsException(e_.getMessage());
+            } catch (NumberFormatException e_) {
+                throw new InvalidCarArgumentsException("Cannot parse year as an Integer.");
             }
         }
         // Something went wrong..
-        throw new InvalidCarArgumentsException();
+        throw new InvalidCarArgumentsException("Invalid number of arguments for createCar.");
     }
     
     /**
@@ -93,13 +95,13 @@ public class CarController {
                 int _oldYear = Integer.parseInt(typeValues_.get(5));
                 
                 // Cannot modify these values.
-                if (!_newCarType.equals(_oldCarType)) {
+                if (!_newCarType.equalsIgnoreCase(_oldCarType)) {
                     throw new InvalidCarArgumentsException("Cannot modify a car's type.");
                 }
-                if (!_newMake.equals(_oldMake)) {
+                if (!_newMake.equalsIgnoreCase(_oldMake)) {
                     throw new InvalidCarArgumentsException("Cannot modify a car's make.");
                 }
-                if (!_newModel.equals(_oldModel)) {
+                if (!_newModel.equalsIgnoreCase(_oldModel)) {
                     throw new InvalidCarArgumentsException("Cannot modify a car's model.");
                 }
                 if (_newYear != _oldYear) {

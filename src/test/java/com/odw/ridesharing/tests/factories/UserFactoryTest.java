@@ -15,14 +15,14 @@ import com.odw.ridesharing.model.abstractmodel.AbstractUser;
  * Tests all the public methods inside UserFactory.
  */
 public class UserFactoryTest {
-
+    
     /**
      * Test to see if a customer is created through the factory based on the given input.
      */
     @Test
     public void testBuildCustomer() {
         UserFactory _userFactory = new UserFactory();
-
+        
         // ---------------------------------------------
         // Creating a valid customer.
         try {
@@ -45,7 +45,7 @@ public class UserFactoryTest {
     @Test
     public void testBuildDriver() {
         UserFactory _userFactory = new UserFactory();
-
+        
         // ---------------------------------------------
         // Creating a valid driver.
         try {
@@ -63,7 +63,7 @@ public class UserFactoryTest {
     }
     
     /**
-     * 
+     * Test to see if an invalid user gets created through the factory. The user should not get created.
      */
     @Test
     public void testInvalidBuildInput() {
@@ -72,10 +72,10 @@ public class UserFactoryTest {
         // ---------------------------------------------
         // Creating an invalid user.
         try {
-        	UserType _userType = UserType.valueOf("unknown".toUpperCase());
-            String _firstName =  "and";
-            String _lastName =  "super";
-            String _sex =  "bad";
+            UserType _userType = UserType.valueOf("unknown".toUpperCase());
+            String _firstName = "and";
+            String _lastName = "super";
+            String _sex = "bad";
             int _age = 22;
             
             @SuppressWarnings("unused") // Suppressed because this variable is not needed.
@@ -85,8 +85,8 @@ public class UserFactoryTest {
         } catch (InvalidUserArgumentsException e) {
             // Execution SHOULD reach inside the catch statement.
         } catch (IllegalArgumentException e_) {
-        	
+            
         }
     }
-
+    
 }

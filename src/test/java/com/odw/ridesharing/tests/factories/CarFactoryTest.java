@@ -96,7 +96,7 @@ public class CarFactoryTest {
 	public void testCreateInvalidCar() {
 		CarFactory _carFactory = new CarFactory();
 
-		CarType _carType = CarType.valueOf(("unknown_type".toUpperCase()));
+		//CarType _carType = CarType.valueOf(("unknown_type".toUpperCase()));
         String _make = "invalid_make";
         String _model = "invalid_model";
         String _color = "invalid_color";
@@ -105,6 +105,7 @@ public class CarFactoryTest {
 		// ---------------------------------------------
 		// Creating a invalid car.
 		try {
+			CarType _carType = CarType.valueOf(("unknown_type".toUpperCase()));
 			@SuppressWarnings("unused")
             AbstractCar _unknown = _carFactory.buildCar(_carType, _make, _model, _color, _year);
 			

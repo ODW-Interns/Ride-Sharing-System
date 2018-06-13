@@ -29,7 +29,7 @@ public class CommandController {
     private CarController carController = new CarController();
     private UserController userController = new UserController();
     private PickupController pickupController = new PickupController();
-    private Logger logger = LoggerFactory.getLogger("Main Logger");
+    private Logger logger = LoggerFactory.getLogger(CommandController.class);
     
     /**
      * Processes a file line-by-line by parsing each line into an event and performing each event. Information is stored
@@ -166,7 +166,7 @@ public class CommandController {
                     // Getting this input field early. Error handling handled in catch blocks.
                     int _customerID = Integer.parseInt(event_.getTypeValues().get(0));
                     
-                    // Obtained from input.
+                    // Obtained from input. Exception if customer does not exist.
                     Customer _pickupCustomer = userController.getCustomerByID(_customerID);
                     
                     // Create a pickup but do not schedule it yet.
@@ -222,10 +222,10 @@ public class CommandController {
                 break;
             case RuntimeConstants.USER:
                 try {
-                    String _userType = event_.getTypeValues().get(1);
+                    UserType _userType = UserType.valueOf(event_.getTypeValues().get(1).toUpperCase());
                     
                     // Check to see if the driver's new carID is valid before modifying.
-                    if (_userType.equals(RuntimeConstants.DRIVER)) {
+                    if (_userType.equals(UserType.DRIVER)) {
                         int _newCarID = Integer.parseInt(event_.getTypeValues().get(7));
                         if (!carController.isCarInDatabase(_newCarID)) {
                             throw new CarNotFoundException("Car not found in database. CarID Value = " + _newCarID);
@@ -290,7 +290,7 @@ public class CommandController {
                 } catch (CarNotFoundException e_) {
                     logger.error("ERROR DELETING CAR: " + e_.getMessage());
                 } catch (InvalidCarArgumentsException e_) {
-                	logger.error("ERROR DELETING CAR: " + e_.getMessage());
+                    logger.error("ERROR DELETING CAR: " + e_.getMessage());
                 }
                 break;
             case RuntimeConstants.USER:

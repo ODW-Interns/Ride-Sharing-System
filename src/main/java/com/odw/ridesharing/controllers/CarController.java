@@ -38,28 +38,30 @@ public class CarController {
      *            Expected input values specified under CREATE_CAR_FORMAT in RuntimeConstants.
      * @return _car To be used for logger
      * @throws InvalidCarArgumentsException
-     */    
-
+     */
+    
     public AbstractCar createCar(ArrayList<String> typeValues_) throws InvalidCarArgumentsException {
         if (typeValues_.size() == RuntimeConstants.CREATE_CAR_FORMAT.length) {
             try {
-            	CarType _carType = CarType.valueOf((typeValues_.get(0).toUpperCase()));
+                CarType _carType = CarType.valueOf((typeValues_.get(0).toUpperCase()));
                 String _make = typeValues_.get(1);
                 String _model = typeValues_.get(2);
                 String _color = typeValues_.get(3);
                 int _year = Integer.parseInt(typeValues_.get(4));
-            
+                
                 AbstractCar _car = carFactory.buildCar(_carType, _make, _model, _color, _year);
                 carDatabase.put(_car.getCarID(), _car);
                 return _car;
             } catch (InvalidCarArgumentsException e_) {
                 throw new InvalidCarArgumentsException(e_.getMessage());
             } catch (NumberFormatException e_) {
-                throw new InvalidCarArgumentsException("Cannot parse year as an Integer." + typeValues_.get(4));
+                throw new InvalidCarArgumentsException("Cannot parse year to integer. Year: " + typeValues_.get(4));
             }
         }
-        // Something went wrong..
-        throw new InvalidCarArgumentsException("Invalid number of arguments for createCar." + typeValues_);
+        
+        throw new InvalidCarArgumentsException("Invalid number of arguments for create car. Expected: "
+                                               + RuntimeConstants.CREATE_CAR_FORMAT.length + ", Actual: "
+                                               + typeValues_.size());
     }
     
     /**
@@ -68,8 +70,8 @@ public class CarController {
      * @param typeValues_
      *            Expected input values specified under MODIFY_CAR_FORMAT in RuntimeConstants.
      */
-    public AbstractCar modifyCar(ArrayList<String> typeValues_) throws CarNotFoundException,
-                                                                InvalidCarArgumentsException {
+    public AbstractCar modifyCar(ArrayList<String> typeValues_)
+        throws CarNotFoundException, InvalidCarArgumentsException {
         if (typeValues_.size() == RuntimeConstants.MODIFY_CAR_FORMAT.length) {
             try {
                 // Removing the carID from typeValues_ so that it is properly formatted
@@ -111,19 +113,22 @@ public class CarController {
                 // Currently, can only modify color.
                 _modifiedCar.setColor(_newColor);
                 
-                // Replacing the modified car.
+                // Replacing the modified car with it's new values.
                 carDatabase.put(_modifiedCar.getCarID(), _modifiedCar);
                 
                 return _modifiedCar;
             } catch (NullPointerException e_) {
-                throw new CarNotFoundException("Invalid car was not found in the database. CarID Value = " + typeValues_.get(0));
+                throw new CarNotFoundException("Car was not found in the database. CarID Value = "
+                                               + typeValues_.get(0));
             } catch (NumberFormatException e_) {
-                throw new InvalidCarArgumentsException("Invalid cannot get the carID from input. CarID Value = " + typeValues_.get(0));
+                throw new InvalidCarArgumentsException("Cannot get the carID from input. CarID Value = "
+                                                       + typeValues_.get(0));
             }
         }
         
-        // Something went wrong..
-        throw new InvalidCarArgumentsException("Invalid number of arguments passed in to modifyCar.");
+        throw new InvalidCarArgumentsException("Invalid number of arguments for modify car. " + "Expected: "
+                                               + RuntimeConstants.MODIFY_CAR_FORMAT.length + ", Actual: "
+                                               + typeValues_.size());
     }
     
     /**
@@ -133,21 +138,24 @@ public class CarController {
      *            Expected input values specified under DELETE_CAR_FORMAT in RuntimeConstants.
      * @return carDatabase.remove(_carID) The object to be removed
      * @throws CarNotFoundException
-     * @throws InvalidCarArgumentsException 
+     * @throws InvalidCarArgumentsException
      */
-    public AbstractCar deleteCar(ArrayList<String> typeValues_) throws CarNotFoundException, InvalidCarArgumentsException {
+    public AbstractCar deleteCar(ArrayList<String> typeValues_)
+        throws CarNotFoundException, InvalidCarArgumentsException {
         if (typeValues_.size() == RuntimeConstants.DELETE_CAR_FORMAT.length) {
             int _carID = Integer.parseInt(typeValues_.get(0));
             
             if (carDatabase.get(_carID) != null) {
                 return carDatabase.remove(_carID);
             } else {
-                throw new CarNotFoundException("Invalid car was not found in the database. CarID Value = " + typeValues_.get(0));
+                throw new CarNotFoundException("Invalid car was not found in the database. CarID Value = "
+                                               + typeValues_.get(0));
             }
         }
         
-        // Something went wrong..
-        throw new InvalidCarArgumentsException("Invalid number of arguments passed in to deleteCar." + typeValues_.get(0));
+        throw new InvalidCarArgumentsException("Invalid number of arguments for delete car." + "Expected: "
+                                               + RuntimeConstants.DELETE_CAR_FORMAT.length + ", Actual: "
+                                               + typeValues_.size());
     }
     
     /**

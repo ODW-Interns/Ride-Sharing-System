@@ -28,9 +28,8 @@ public class PickupScheduler {
      * @return The pickup with the specified driver scheduled.
      * @throws CannotSchedulePickupException
      */
-    /* @formatter:off */
-    public Pickup schedule(Pickup pickupToSchedule_, Driver driverForPickup_)
-     throws CannotSchedulePickupException {
+    public Pickup schedulePickup(Pickup pickupToSchedule_, Driver driverForPickup_)
+        throws CannotSchedulePickupException {
         // pickupToSchedule_ should always be non-null.
         if (pickupToSchedule_ != null) {
             
@@ -51,16 +50,16 @@ public class PickupScheduler {
         
         throw new CannotSchedulePickupException("No pickup to schedule.");
     }
-    /* @formatter:on */
     
     /**
-     * Called if and only if a driver has been set to available.
+     * Called if and only if a driver has been set to available. Schedules the oldest pickup currently waiting to be
+     * scheduled.
      * 
      * @param driverForPickup_
      *            The the most recent driver that has been made available for pickup.
      * @return An unscheduled pickup scheduled to a driver.
      */
-    public Pickup getUnscheduledPickup(Driver driverForPickup_) {
+    public Pickup scheduleUnscheduledPickup(Driver driverForPickup_) {
         if (!unscheduledPickupQueue.isEmpty()) {
             // Scheduling an unscheduled pickup.
             return performPickup(unscheduledPickupQueue.remove(), driverForPickup_);

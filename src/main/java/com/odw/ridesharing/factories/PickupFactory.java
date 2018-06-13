@@ -6,16 +6,15 @@ import com.odw.ridesharing.model.Location;
 import com.odw.ridesharing.model.Pickup;
 
 /**
- * PickupFactory is called by CommandController to create a Pickup object. PickupFactory is passed in a Customer and
- * Driver along with the latitude and longitude to create a Pickup object. The pickupID is instantiated in this class
- * and is assigned to the Pickup objects as they are created.
+ * PickupFactory is called by PickupController to create a Pickup object. The factory pattern is used for Pickup for
+ * consistency purposes (to mimic the other controllers) and for scalability.
  */
 public class PickupFactory {
     
     private int nextPickupID = 0;
     
     /**
-     * Creates a new pickup.
+     * Creates a new pickup and assigns the created pickup to a unique ID.
      * 
      * @param originLongitude_
      *            The starting position's longitude.
@@ -24,12 +23,17 @@ public class PickupFactory {
      * @param destinationLongitude_
      *            The final position's longitude.
      * @param destinationLatitude_
-     *            The final position's latidude.
+     *            The final position's latitude.
+     * @return Returns the newly created pickup object.
      * @throws InvalidPickupArgumentsException
      */
-    public Pickup buildPickup(double originLatitude_, double originLongitude_, double destinationLatitude_,
+    public Pickup buildPickup(double originLatitude_,
+                              double originLongitude_,
+                              double destinationLatitude_,
                               double destinationLongitude_,
-                              Customer pickupCustomer_) throws InvalidPickupArgumentsException {
+                              Customer pickupCustomer_)
+        throws InvalidPickupArgumentsException {
+        
         if (pickupCustomer_ != null) {
             // Set the origin and destination to be used for Pickup.
             Location _origin = new Location(originLatitude_, originLongitude_);

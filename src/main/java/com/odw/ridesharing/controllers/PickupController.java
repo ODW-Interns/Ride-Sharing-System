@@ -44,8 +44,9 @@ public class PickupController {
      * @return Returns the newly created pickup object.
      * @throws InvalidPickupArgumentsException
      */
-    public Pickup createPickup(ArrayList<String> typeValues_,
-                               Customer pickupCustomer_) throws InvalidPickupArgumentsException {
+    public Pickup createPickup(ArrayList<String> typeValues_, Customer pickupCustomer_)
+        throws InvalidPickupArgumentsException {
+        
         if (typeValues_.size() == RuntimeConstants.CREATE_PICKUP_FORMAT.length) {
             try {
                 double _originLatitude = Double.parseDouble(typeValues_.get(1));
@@ -54,14 +55,19 @@ public class PickupController {
                 double _destinationLongitude = Double.parseDouble(typeValues_.get(4));
                 
                 // Creating the pickup through the factory. No driver is assigned yet.
-                return pickupFactory.buildPickup(_originLatitude, _originLongitude, _destinationLatitude,
-                                                 _destinationLongitude, pickupCustomer_);
+                return pickupFactory.buildPickup(_originLatitude,
+                                                 _originLongitude,
+                                                 _destinationLatitude,
+                                                 _destinationLongitude,
+                                                 pickupCustomer_);
             } catch (Exception e_) {
                 throw new InvalidPickupArgumentsException(e_.getMessage());
             }
         }
         
-        throw new InvalidPickupArgumentsException("Invalid number of arguments for creating a pickup.");
+        throw new InvalidPickupArgumentsException("Invalid number of arguments for create pickup. " + "Expected: "
+                                                  + RuntimeConstants.CREATE_PICKUP_FORMAT.length + ", Actual: "
+                                                  + typeValues_.size());
     }
     
     /**
@@ -73,8 +79,9 @@ public class PickupController {
      * @throws InvalidPickupArgumentsException
      * @throws BadPickupException
      */
-    public Pickup deletePickup(ArrayList<String> typeValues_) throws PickupNotFoundException,
-                                                              InvalidPickupArgumentsException {
+    public Pickup deletePickup(ArrayList<String> typeValues_)
+        throws PickupNotFoundException, InvalidPickupArgumentsException {
+        
         if (typeValues_.size() == RuntimeConstants.DELETE_PICKUP_FORMAT.length) {
             try {
                 // Get the pickup ID from input.
@@ -84,7 +91,7 @@ public class PickupController {
                 
                 if (_deletedPickup == null) {
                     throw new PickupNotFoundException("Cannot delete a pickup that does not exist. PickupID = "
-                            + _pickupID);
+                                                      + _pickupID);
                 }
                 
                 return _deletedPickup;
@@ -94,8 +101,9 @@ public class PickupController {
             }
         }
         
-        // Something went wrong..
-        throw new InvalidPickupArgumentsException("Invalid number of arguments for deleting a pickup.");
+        throw new InvalidPickupArgumentsException("Invalid number of arguments for delete pickup. " + "Expected: "
+                                                  + RuntimeConstants.DELETE_PICKUP_FORMAT.length + ", Actual: "
+                                                  + typeValues_.size());
     }
     
     /**
@@ -132,7 +140,7 @@ public class PickupController {
     }
     
     /**
-     * A function to be called in CommandController to schedule a pickup.
+     * A method to be called to schedule a pickup.
      * 
      * @param pickup_
      *            The pickup that was created.
@@ -142,7 +150,7 @@ public class PickupController {
      * @throws CannotSchedulePickupException
      */
     public Pickup schedulePickup(Pickup pickup_, Driver driver_) throws CannotSchedulePickupException {
-        return pickupScheduler.schedule(pickup_, driver_);
+        return pickupScheduler.schedulePickup(pickup_, driver_);
     }
     
     /**
@@ -153,7 +161,7 @@ public class PickupController {
      * @return A pickup with its driver set to driver_ and fees calculated. Null if there are no unscheduledPickups
      */
     public Pickup scheduleUnscheduledPickup(Driver driver_) {
-        return pickupScheduler.getUnscheduledPickup(driver_);
+        return pickupScheduler.scheduleUnscheduledPickup(driver_);
     }
     
     // DEPRECATED!

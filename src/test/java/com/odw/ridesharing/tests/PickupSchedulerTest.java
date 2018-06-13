@@ -75,7 +75,7 @@ public class PickupSchedulerTest {
 
         // Schedule a good pickup.
         try {
-            _scheduler.schedule(_pickup, _driver);
+            _scheduler.schedulePickup(_pickup, _driver);
         } catch (Exception e_) {
             fail("Error creating a valid pickup.");
         }
@@ -101,7 +101,7 @@ public class PickupSchedulerTest {
         // Schedule a null driver.
         try {
             // Passing null means no available driver to be scheduled.
-            _scheduler.schedule(_pickup, null);
+            _scheduler.schedulePickup(_pickup, null);
 
         } catch (CannotSchedulePickupException e_) {
             // This should cause an exception to be thrown.
@@ -140,7 +140,7 @@ public class PickupSchedulerTest {
         try {
             _driver = (Driver) _userController.createUser(createValidDriverInfo());
             _userController.modifyUser(modifyValidDriverInfo());
-            _scheduler.schedule(null, _driver);
+            _scheduler.schedulePickup(null, _driver);
 
         } catch (Exception e_) {
             // This should cause an exception to be thrown.
@@ -178,12 +178,12 @@ public class PickupSchedulerTest {
         
         // Schedule multiple pickups for queue.
         try {
-            _scheduler.schedule(_pickup, null);
-            _scheduler.schedule(_pickup, null);
-            _scheduler.schedule(_pickup, null);
+            _scheduler.schedulePickup(_pickup, null);
+            _scheduler.schedulePickup(_pickup, null);
+            _scheduler.schedulePickup(_pickup, null);
 
             _driver = (Driver) _userController.createUser(createValidDriverInfo());
-            _scheduler.schedule(_pickup, _driver);
+            _scheduler.schedulePickup(_pickup, _driver);
 
         } catch (Exception e_) {
             // Scheduler should have added 3 pickups to queue with the fourth
@@ -237,7 +237,7 @@ public class PickupSchedulerTest {
 
         // Schedule a good pickup.
         try {
-            _scheduler.schedule(_pickup, _driver);
+            _scheduler.schedulePickup(_pickup, _driver);
         } catch (Exception e_) {
             fail("Error creating a valid pickup.");
         }
@@ -252,7 +252,7 @@ public class PickupSchedulerTest {
         
         // Test getUnscheduledPickup
         try {
-            _scheduler.getUnscheduledPickup(_driver);
+            _scheduler.scheduleUnscheduledPickup(_driver);
         } catch (Exception e_) {
             assert (true);
         }

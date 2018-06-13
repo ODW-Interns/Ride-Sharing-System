@@ -128,7 +128,7 @@ public class CommandController {
                 delete(newEvent_);
                 break;
             default:
-                logger.error("ERROR PROCESSING COMMAND: Invalid command.");
+                logger.error("ERROR PROCESSING COMMAND: \"{}\"", newEvent_.getCommand());
                 break;
         }
     }

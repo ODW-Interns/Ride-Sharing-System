@@ -6,7 +6,6 @@ import org.junit.Test;
 
 import com.odw.ridesharing.factories.PickupFactory;
 import com.odw.ridesharing.model.Customer;
-import com.odw.ridesharing.model.Driver;
 import com.odw.ridesharing.model.Pickup;
 
 /**
@@ -24,8 +23,6 @@ public class PickupFactoryTest {
         // ---------------------------------------------
         // Creating a valid pickup.
         Customer _customer = new Customer(0, "Wesley", "Dong", "Female", 23); // ID: 0
-        Driver _driver = new Driver(1, "Mark", "Constantine", "Male", 21); // ID: 1
-        _driver.setCarID(50); // Driving car with ID 50
         
         double _originLatitude = 36.10583630000001;
         double _originLongitude = -115.13841919999999;
@@ -33,11 +30,15 @@ public class PickupFactoryTest {
         double _destinationLongitude = -115.1412292;
         
         try {
-            Pickup _firstPickup = _pickupFactory.buildPickup(_originLatitude, _originLongitude, _destinationLatitude,
-                                                             _destinationLongitude, _customer);
+            Pickup _firstPickup = _pickupFactory.buildPickup(_originLatitude,
+                                                             _originLongitude,
+                                                             _destinationLatitude,
+                                                             _destinationLongitude,
+                                                             _customer);
             
             assertEquals(0, _firstPickup.getPickupID());
             
+            // No driver is assigned when creating a pickup.
             assertNull(null, _firstPickup.getDriver());
             
             assertEquals(0, _firstPickup.getCustomer().getUserID());
@@ -46,7 +47,7 @@ public class PickupFactoryTest {
             assertEquals("Female", _firstPickup.getCustomer().getSex());
             assertEquals(23, _firstPickup.getCustomer().getAge());
         } catch (Exception e_) {
-            fail("Error creating a valid pickup");
+            fail("Error creating a valid pickup.");
         }
         
     }

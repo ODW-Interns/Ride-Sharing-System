@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import com.odw.ridesharing.exceptions.InvalidUserArgumentsException;
 import com.odw.ridesharing.factories.UserFactory;
+import com.odw.ridesharing.model.CarType;
 import com.odw.ridesharing.model.Customer;
 import com.odw.ridesharing.model.Driver;
 import com.odw.ridesharing.model.UserType;
@@ -22,17 +23,17 @@ public class UserFactoryTest {
      */
     @Test
     public void testBuildCustomer() {
+    	
         UserFactory _userFactory = new UserFactory();
+    	UserType _userType = UserType.valueOf("customer".toUpperCase());
+        String _firstName = "miley";
+        String _lastName = "cyrus";
+        String _sex = "female";
+        int _age = 25;
 
         // ---------------------------------------------
         // Creating a valid customer.
         try {
-        	ArrayList<String> _validCustomerInfo = createValidCustomerInfo();
-        	UserType _userType = UserType.valueOf(_validCustomerInfo.get(0).toUpperCase());
-            String _firstName = _validCustomerInfo.get(1);
-            String _lastName = _validCustomerInfo.get(2);
-            String _sex = _validCustomerInfo.get(3);
-            int _age = Integer.parseInt(_validCustomerInfo.get(4));
             AbstractUser _shouldBeCustomer = _userFactory.buildUser(_userType, _firstName, _lastName, _sex, _age);
             assertTrue(_shouldBeCustomer instanceof Customer);
         } catch (InvalidUserArgumentsException e) {
@@ -46,16 +47,15 @@ public class UserFactoryTest {
     @Test
     public void testBuildDriver() {
         UserFactory _userFactory = new UserFactory();
-        
+    	UserType _userType = UserType.valueOf("driver".toUpperCase());
+        String _firstName = "wesley";
+        String _lastName = "dong";
+        String _sex = "male";
+        int _age = 23;
+
         // ---------------------------------------------
         // Creating a valid driver.
         try {
-        	ArrayList<String> _validDriverInfo = createValidDriverInfo();
-        	UserType _userType = UserType.valueOf(_validDriverInfo.get(0).toUpperCase());
-            String _firstName = _validDriverInfo.get(1);
-            String _lastName = _validDriverInfo.get(2);
-            String _sex = _validDriverInfo.get(3);
-            int _age = Integer.parseInt(_validDriverInfo.get(4));
             AbstractUser _shouldBeDriver = _userFactory.buildUser(_userType, _firstName, _lastName, _sex, _age);
             assertTrue(_shouldBeDriver instanceof Driver);
         } catch (InvalidUserArgumentsException e) {
@@ -73,12 +73,11 @@ public class UserFactoryTest {
         // ---------------------------------------------
         // Creating an invalid user.
         try {
-        	ArrayList<String>  _invalidUserInfo = createInvalidUserInfo();
-        	UserType _userType = UserType.valueOf( _invalidUserInfo.get(0).toUpperCase());
-            String _firstName =  _invalidUserInfo.get(1);
-            String _lastName =  _invalidUserInfo.get(2);
-            String _sex =  _invalidUserInfo.get(3);
-            int _age = Integer.parseInt( _invalidUserInfo.get(4));
+        	UserType _userType = UserType.valueOf("unknown".toUpperCase());
+            String _firstName =  "and";
+            String _lastName =  "super";
+            String _sex =  "bad";
+            int _age = 22;
             @SuppressWarnings("unused") // Suppressed because this variable is not needed.
             AbstractUser _unknownUserType = _userFactory.buildUser(_userType, _firstName, _lastName, _sex, _age);
             fail("Built a user with invalid input without issues.");
@@ -89,51 +88,4 @@ public class UserFactoryTest {
         }
     }
 
-    // ==========================================================================================
-    // Helper Functions
-
-    /**
-     * Helper function to generate valid customer info.
-     * 
-     * @return An ArrayList of Strings containing valid customer info.
-     */
-    private ArrayList<String> createValidCustomerInfo() {
-        ArrayList<String> _validCustomerInfo = new ArrayList<String>();
-        _validCustomerInfo.add("customer");
-        _validCustomerInfo.add("miley");
-        _validCustomerInfo.add("cyrus");
-        _validCustomerInfo.add("female");
-        _validCustomerInfo.add("25");
-        return _validCustomerInfo;
-    }
-
-    /**
-     * Helper function to generate valid driver info.
-     * 
-     * @return An ArrayList of Strings containing valid driver info.
-     */
-    private ArrayList<String> createValidDriverInfo() {
-        ArrayList<String> _validDriverInfo = new ArrayList<String>();
-        _validDriverInfo.add("driver");
-        _validDriverInfo.add("wesley");
-        _validDriverInfo.add("dong");
-        _validDriverInfo.add("male");
-        _validDriverInfo.add("23");
-        return _validDriverInfo;
-    }
-
-    /**
-     * Helper function to generate invalid user info.
-     * 
-     * @return An ArrayList of Strings containing invalid user info.
-     */
-    private ArrayList<String> createInvalidUserInfo() {
-        ArrayList<String> _invalidUserInfo = new ArrayList<String>();
-        _invalidUserInfo.add("unknown");
-        _invalidUserInfo.add("and");
-        _invalidUserInfo.add("bad");
-        _invalidUserInfo.add("length");
-        _invalidUserInfo.add("too");
-        return _invalidUserInfo;
-    }
 }

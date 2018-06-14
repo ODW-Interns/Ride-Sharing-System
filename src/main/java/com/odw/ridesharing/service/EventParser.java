@@ -39,7 +39,7 @@ public class EventParser {
                         _returnedEvent.addTypeValue(_tokenizer.nextToken().toLowerCase());
                     }
                 } catch (Exception e_) {
-                    throw new InvalidEventException();
+                    throw new InvalidEventException("Event: \"" + eventToParse_ + "\" cannot be parsed");
                 }
                 
                 return _returnedEvent;
@@ -47,6 +47,6 @@ public class EventParser {
         }
 
         // Could not parse the given event.
-        throw new InvalidEventException();
+        throw new InvalidEventException("The passed event or delimiter was null.");
     }
 }

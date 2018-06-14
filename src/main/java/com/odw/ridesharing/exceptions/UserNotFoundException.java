@@ -7,47 +7,14 @@ package com.odw.ridesharing.exceptions;
  */
 public class UserNotFoundException extends Exception {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = 5994166669202486744L;
 
     /**
-     *
-     */
-    public UserNotFoundException() {
-    }
-
-    /**
-     *
+     * [TODO]
+     * @param message_
      */
     public UserNotFoundException(String message_) {
         super(message_);
-
-    }
-
-    /**
-     *
-     */
-    public UserNotFoundException(Throwable cause_) {
-        super(cause_);
-
-    }
-
-    /**
-     *
-     */
-    public UserNotFoundException(String message_, Throwable cause_) {
-        super(message_, cause_);
-
-    }
-
-    /**
-     *
-     */
-    public UserNotFoundException(String message_, Throwable cause_, boolean enableSuppression_,
-            boolean writableStackTrace_) {
-        super(message_, cause_, enableSuppression_, writableStackTrace_);
 
     }
 

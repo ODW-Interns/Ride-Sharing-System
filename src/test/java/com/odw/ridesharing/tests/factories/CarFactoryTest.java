@@ -24,14 +24,14 @@ public class CarFactoryTest {
 		CarFactory _carFactory = new CarFactory();
 
 		CarType _carType = CarType.valueOf("coupe".toUpperCase());
-        String _make = "toyota";
-        String _model = "trueno";
-        String _color = "white";
-        int _year = 1986;
-		
+		String _make = "toyota";
+		String _model = "trueno";
+		String _color = "white";
+		int _year = 1986;
+
 		// ---------------------------------------------
 		// Creating a valid coupe.
-		
+
 		try {
 			AbstractCar _coupe = _carFactory.buildCar(_carType, _make, _model, _color, _year);
 			assertTrue(_coupe instanceof Coupe);
@@ -49,11 +49,11 @@ public class CarFactoryTest {
 		CarFactory _carFactory = new CarFactory();
 
 		CarType _carType = CarType.valueOf("sedan".toUpperCase());
-        String _make = "ford";
-        String _model = "focus";
-        String _color = "grey";
-        int _year = 2014;
-		
+		String _make = "ford";
+		String _model = "focus";
+		String _color = "grey";
+		int _year = 2014;
+
 		// ---------------------------------------------
 		// Creating a valid sedan.
 		try {
@@ -73,14 +73,14 @@ public class CarFactoryTest {
 		CarFactory _carFactory = new CarFactory();
 
 		CarType _carType = CarType.valueOf(("suv".toUpperCase()));
-        String _make = "cadillac";
-        String _model = "escalade";
-        String _color = "black";
-        int _year = 2018;
-		
+		String _make = "cadillac";
+		String _model = "escalade";
+		String _color = "black";
+		int _year = 2018;
+
 		// ---------------------------------------------
 		// Creating a valid Suv.
-		try {			
+		try {
 			AbstractCar _suv = _carFactory.buildCar(_carType, _make, _model, _color, _year);
 			assertTrue(_suv instanceof Suv);
 		} catch (Exception e_) {
@@ -90,28 +90,126 @@ public class CarFactoryTest {
 
 	/**
 	 * Tests CarFactory's createCar method. Ensures that the invalid car is not
-	 * being generated.
+	 * being generated when CarType is invalid.
 	 */
 	@Test
-	public void testCreateInvalidCar() {
+	public void testCreateInvalidCarType() {
 		CarFactory _carFactory = new CarFactory();
 
-		//CarType _carType = CarType.valueOf(("unknown_type".toUpperCase()));
-        String _make = "invalid_make";
-        String _model = "invalid_model";
-        String _color = "invalid_color";
-        int _year = -1;
-		
+		String _make = "invalid_make";
+		String _model = "invalid_model";
+		String _color = "invalid_color";
+		int _year = -1;
+
 		// ---------------------------------------------
 		// Creating a invalid car.
 		try {
 			CarType _carType = CarType.valueOf(("unknown_type".toUpperCase()));
 			@SuppressWarnings("unused")
-            AbstractCar _unknown = _carFactory.buildCar(_carType, _make, _model, _color, _year);
-			
+			AbstractCar _unknown = _carFactory.buildCar(_carType, _make, _model, _color, _year);
+
 			fail("Successfully created an invalid car (should not work).");
 		} catch (Exception expected_) {
 		}
 	}
 
+	/**
+	 * Tests CarFactory's createCar method. Ensures that the invalid car is not
+	 * being generated when make is invalid.
+	 */
+	@Test
+	public void testCreateInvalidCarMake() {
+		CarFactory _carFactory = new CarFactory();
+
+		CarType _carType = CarType.valueOf(("coupe".toUpperCase()));
+		String _make = "";
+		String _model = "invalid_model";
+		String _color = "invalid_color";
+		int _year = 1990;
+
+		// ---------------------------------------------
+		// Creating a invalid car.
+		try {
+			@SuppressWarnings("unused")
+			AbstractCar _unknown = _carFactory.buildCar(_carType, _make, _model, _color, _year);
+
+			fail("Successfully created an invalid car (should not work).");
+		} catch (Exception expected_) {
+		}
+	}
+
+	/**
+	 * Tests CarFactory's createCar method. Ensures that the invalid car is not
+	 * being generated when model is invalid.
+	 */
+	@Test
+	public void testCreateInvalidCarModel() {
+		CarFactory _carFactory = new CarFactory();
+
+		CarType _carType = CarType.valueOf(("coupe".toUpperCase()));
+		String _make = "BMW";
+		String _model = "";
+		String _color = "invalid_color";
+		int _year = 1999;
+
+		// ---------------------------------------------
+		// Creating a invalid car.
+		try {
+			@SuppressWarnings("unused")
+			AbstractCar _unknown = _carFactory.buildCar(_carType, _make, _model, _color, _year);
+
+			fail("Successfully created an invalid car (should not work).");
+		} catch (Exception expected_) {
+		}
+	}
+
+	/**
+	 * Tests CarFactory's createCar method. Ensures that the invalid car is not
+	 * being generated when color is invalid.
+	 */
+	@Test
+	public void testCreateInvalidCarColor() {
+		CarFactory _carFactory = new CarFactory();
+
+		CarType _carType = CarType.valueOf(("coupe".toUpperCase()));
+		String _make = "BMW";
+		String _model = "Z4";
+		String _color = "";
+		int _year = 1990;
+
+		// ---------------------------------------------
+		// Creating a invalid car.
+		try {
+			@SuppressWarnings("unused")
+			AbstractCar _unknown = _carFactory.buildCar(_carType, _make, _model, _color, _year);
+
+			fail("Successfully created an invalid car (should not work).");
+		} catch (Exception expected_) {
+		}
+	}
+
+	/**
+	 * Tests CarFactory's createCar method. Ensures that the invalid car is not
+	 * being generated when make is invalid.
+	 */
+	@Test
+	public void testCreateInvalidCarYear() {
+		CarFactory _carFactory = new CarFactory();
+
+		CarType _carType = CarType.valueOf(("coupe".toUpperCase()));
+		String _make = "BMW";
+		String _model = "Z4";
+		String _color = "black";
+		int _year = 19900;
+
+		// ---------------------------------------------
+		// Creating a invalid car.
+		try {
+			@SuppressWarnings("unused")
+			AbstractCar _unknown = _carFactory.buildCar(_carType, _make, _model, _color, _year);
+
+			fail("Successfully created an invalid car (should not work).");
+		} catch (Exception expected_) {
+		}
+	}
 }

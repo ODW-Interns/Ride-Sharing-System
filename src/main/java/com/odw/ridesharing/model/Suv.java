@@ -10,7 +10,7 @@ import com.odw.ridesharing.model.abstractmodel.AbstractCar;
 public class Suv extends AbstractCar {
 
     /**
-     * Creates a default, empty suv.
+     * Creates a default, empty Suv.
      */
     public Suv() {
         this(-1, "", "", "", -1);

@@ -89,6 +89,9 @@ public class UserFactoryTest {
         }
     }
     
+    /**
+     * Test to create an invalid customer with a null first name input.
+     */
     @Test
     public void testCustomerNullFirstNameInput() {
     	UserFactory _userFactory = new UserFactory();
@@ -112,6 +115,9 @@ public class UserFactoryTest {
     	}
     }
     
+    /**
+     * Test to create an invalid customer with a empty first name input.
+     */
     @Test
     public void testCustomerEmptyFirstNameInput() {
     	UserFactory _userFactory = new UserFactory();
@@ -135,6 +141,9 @@ public class UserFactoryTest {
     	}
     }
     
+    /**
+     * Test to create an invalid customer with a null last name input.
+     */
     @Test
     public void testCustomerNullLastNameInput() {
     	UserFactory _userFactory = new UserFactory();
@@ -158,6 +167,9 @@ public class UserFactoryTest {
     	}
     }
     
+    /**
+     * Test to create an invalid customer with a empty last name input.
+     */
     @Test
     public void testCustomerEmptyLastNameInput() {
     	UserFactory _userFactory = new UserFactory();
@@ -181,6 +193,9 @@ public class UserFactoryTest {
     	}
     }
     
+    /**
+     * Test to create an invalid customer with a null sex input.
+     */
     @Test
     public void testCustomerNullSexInput() {
     	UserFactory _userFactory = new UserFactory();
@@ -204,6 +219,9 @@ public class UserFactoryTest {
     	}
     }
     
+    /**
+     * Test to create an invalid customer with a empty sex input.
+     */
     @Test
     public void testCustomerEmptySexInput() {
     	UserFactory _userFactory = new UserFactory();
@@ -227,6 +245,9 @@ public class UserFactoryTest {
     	}
     }
     
+    /**
+     * Test to create an invalid customer with an input age less than 0.
+     */
     @Test
     public void testCustomerInvalidAgeInput() {
     	UserFactory _userFactory = new UserFactory();

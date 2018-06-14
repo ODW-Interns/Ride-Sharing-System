@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import org.junit.Test;
 
 import com.odw.ridesharing.controllers.PickupController;
-import com.odw.ridesharing.controllers.UserController;
+import com.odw.ridesharing.exceptions.InvalidPickupArgumentsException;
 import com.odw.ridesharing.model.Customer;
 import com.odw.ridesharing.model.Driver;
 import com.odw.ridesharing.model.Pickup;
@@ -16,59 +16,80 @@ import com.odw.ridesharing.model.Pickup;
  * Tests all the public methods inside PickupController.
  */
 public class PickupControllerTest {
-
+    
     /**
-     * Tests PickupController's createPickup method. Ensures that a valid pickup can
-     * be created
+     * Tests PickupController's createPickup method. Ensures that a valid pickup can be created.
      */
     @Test
-    public void testCreatePickup() {
-        UserController _userController = new UserController();
+    public void testCreateValidPickup() {
         PickupController _pickupController = new PickupController();
-        Customer _customer = new Customer();
-
-        // Creating a valid customer for the pickup.
+        Customer _customerForPickup = new Customer(0, "Pete", "Tanthmanatham", "Male", 21);
+        
+        // ---------------------------------------------
+        // Creating a valid pickup.
         try {
-            _customer = (Customer) (_userController.createUser(createValidCustomerInfo()));
-            _pickupController.createPickup(createValidPickupInfo(), _customer);
+            _pickupController.createPickup(createValidPickupInfo(), _customerForPickup);
         } catch (Exception e_) {
-            fail("Error creating a valid pickup.");
+            fail("Error creating a valid pickup. " + e_.getMessage());
         }
     }
-
+    
     /**
-     * Tests createPickup with bad information to see if it fails
+     * Tests createPickup with invalid number of arguments to see if it fails.
      */
     @Test
-    public void testCreatePickupFailsIfInvalidPickupInfo() {
-        UserController _userController = new UserController();
+    public void testCreatePickupWithInvalidNumberOfArguments() {
         PickupController _pickupController = new PickupController();
-        Customer _customer = new Customer();
-
+        Customer _customerForPickup = new Customer(0, "Pete", "Tanthmanatham", "Male", 21);
+        
+        ArrayList<String> _invalidNumberOfCreatePickupArguments = new ArrayList<String>();
+        _invalidNumberOfCreatePickupArguments.add("1");
+        _invalidNumberOfCreatePickupArguments.add("2");
+        
+        // ---------------------------------------------
+        // Creating an invalid pickup with an invalid number of arguments.
         try {
-            _customer = (Customer) _userController.createUser(createValidCustomerInfo());
-            _pickupController.createPickup(createInvalidPickupInfo(), _customer);
-
-            fail("Should fail due to incorrect Pickup info.");
-        } catch (Exception e_) {
-            // Execution should catch
+            _pickupController.createPickup(_invalidNumberOfCreatePickupArguments, _customerForPickup);
+            
+            // Should fail due to incorrect Pickup information.
+            fail("Created an invalid pickup without issues.");
+        } catch (InvalidPickupArgumentsException expected_) {
+            // Execution SHOULD reach inside the catch statement.
         }
     }
-
+    
     /**
-     * Tests the deletePickup method
+     * Tests the createPickup method.
      */
     @Test
-    public void testDeletePickup() {
+    public void testCreatePickupWithNullCustomer() {
         PickupController _pickupController = new PickupController();
-        UserController _userController = new UserController();
+        
+        // ---------------------------------------------
+        // Creating an invalid pickup using a null customer.
+        try {
+            _pickupController.createPickup(createValidPickupInfo(), null);
+            
+            // Should fail due to null customer.
+            fail("Created an invalid pickup without issues.");
+        } catch (InvalidPickupArgumentsException expected_) {
+            // Execution SHOULD reach inside the catch statement.
+        }
+    }
+    
+    /**
+     * Tests the deletePickup method.
+     */
+    @Test
+    public void testDeleteValidPickup() {
+        PickupController _pickupController = new PickupController();
+        Customer _customerForPickup = new Customer(0, "Pete", "Tanthmanatham", "Male", 21);
         
         try {
-            Customer _customerForPickup = (Customer) _userController.createUser(createValidCustomerInfo());
             Pickup _createdPickup = _pickupController.createPickup(createValidPickupInfo(), _customerForPickup);
             
             _pickupController.storePickupInDatabase(_createdPickup);
-
+            
             ArrayList<String> _deletePickupInput = new ArrayList<>();
             _deletePickupInput.add("0");
             _pickupController.deletePickup(_deletePickupInput);
@@ -76,97 +97,135 @@ public class PickupControllerTest {
             fail("Error deleting a valid pickup. " + e_.getMessage());
         }
     }
-
+    
     /**
-     * Tests the schedulePickup method
+     * Tests deletePickup with invalid number of arguments to see if it fails.
+     */
+    @Test
+    public void testDeletePickupWithInvalidNumberOfArguments() {
+        PickupController _pickupController = new PickupController();
+        
+        ArrayList<String> _invalidNumberOfDeletePickupArguments = new ArrayList<String>();
+        _invalidNumberOfDeletePickupArguments.add("1");
+        _invalidNumberOfDeletePickupArguments.add("2");
+        
+        try {
+            _pickupController.deletePickup(_invalidNumberOfDeletePickupArguments);
+            
+            // Should fail due to invalid number of arguments.
+            fail("Deleted an invalid pickup without issue.");
+        } catch (Exception expected_) {
+            // Execution SHOULD reach inside the catch statement.
+        }
+    }
+    
+    /**
+     * Tests deleting a pickup that does not exist.
+     */
+    @Test
+    public void testDeletingPickupThatDoesNotExist() {
+        PickupController _pickupController = new PickupController();
+        
+        ArrayList<String> _deletePickupArguments = new ArrayList<String>();
+        _deletePickupArguments.add("100"); // Pickup with ID does not exist.
+        
+        try {
+            _pickupController.deletePickup(_deletePickupArguments);
+            
+            // Should fail due to no pickup exists to delete.
+            fail("Deleted a pickup that does not exist without issue.");
+        } catch (Exception expected_) {
+            // Execution SHOULD reach inside the catch statement.
+        }
+    }
+    
+    /**
+     * Tests deleting a pickup with an ID that is not integer parseable.
+     */
+    @Test
+    public void testDeletePickupWithBadID() {
+        PickupController _pickupController = new PickupController();
+        
+        ArrayList<String> _deletePickupArguments = new ArrayList<String>();
+        _deletePickupArguments.add("ID NOT INTEGER PARSEABLE"); // BAD ID
+        
+        try {
+            _pickupController.deletePickup(_deletePickupArguments);
+            
+            // Should fail due to no pickup exists to delete.
+            fail("Deleted a pickup with a invalid ID without issue.");
+        } catch (Exception expected_) {
+            // Execution SHOULD reach inside the catch statement.
+        }
+    }
+    
+    /**
+     * Tests the schedulePickup method.
      */
     @Test
     public void testSchedulePickup() {
-        UserController _userController = new UserController();
         PickupController _pickupController = new PickupController();
-        Customer _customer = new Customer();
-        Driver _driver = new Driver();
-        Pickup _pickup = new Pickup();
-
+        Customer _customerForPickup = new Customer(0, "Pete", "Tanthmanatham", "Male", 21);
+        Driver _driverToSchedule = new Driver(1, "Mark", "Constantine", "Male", 21);
+        
         try {
-            _customer = (Customer) (_userController.createUser(createValidCustomerInfo()));
-            _driver = (Driver) (_userController.createUser(createValidDriverInfo()));
-            _pickup = _pickupController.createPickup(createValidPickupInfo(), _customer);
-
-            _pickupController.schedulePickup(_pickup, _driver);
+            Pickup _scheduledPickup = _pickupController.createPickup(createValidPickupInfo(), _customerForPickup);
+            _pickupController.schedulePickup(_scheduledPickup, _driverToSchedule);
         } catch (Exception e_) {
-            fail("Error scheduling a pickup. " + e_.getMessage());
+            fail("Error scheduling a valid pickup. " + e_.getMessage());
         }
     }
-
+    
     /**
-     * Tests the scheduleUnscheduledPickup method
+     * Tests the scheduleUnscheduledPickup method.
      */
     @Test
     public void testScheduleUnscheduledPickup() {
-        UserController _userController = new UserController();
         PickupController _pickupController = new PickupController();
-        Customer _customer = new Customer();
-        Driver _driver = new Driver();
-        Pickup _pickup = new Pickup();
-
+        Customer _customerForPickup = new Customer(0, "Pete", "Tanthmanatham", "Male", 21);
+        Driver _driverMadeAvailable = new Driver(1, "Mark", "Constantine", "Male", 21);
+        
         try {
-
-            _customer = (Customer) (_userController.createUser(createValidCustomerInfo()));
-            _pickup = _pickupController.createPickup(createValidPickupInfo(), _customer);
-            // pass null driver so it goes into unscheduled queue
-            _pickupController.schedulePickup(_pickup, null);
-            _driver = (Driver) (_userController.createUser(createValidDriverInfo()));
-            _driver.setIsAvailable(true);
-
-            _pickupController.scheduleUnscheduledPickup(_driver);
+            Pickup _unscheduledPickup = _pickupController.createPickup(createValidPickupInfo(), _customerForPickup);
+            
+            // Null driver means no available drivers to be scheduled. Enter unscheduled queue.
+            _pickupController.schedulePickup(_unscheduledPickup, null);
+            
+            // Driver has been made available. Ready to schedule the unscheduled pickup.
+            _driverMadeAvailable.setIsAvailable(true);
+            
+            _pickupController.scheduleUnscheduledPickup(_driverMadeAvailable);
         } catch (Exception e_) {
             fail("Error scheduling an unscheduled pickup. " + e_.getMessage());
         }
     }
-
+    
     /**
-     * Helper function to generate valid car info.
-     * 
-     * @return An ArrayList of Strings containing valid car info.
-     * 
-     *         private ArrayList<String> createValidCarInfo() { ArrayList<String>
-     *         _validCarInfo = new ArrayList<String>(); _validCarInfo.add("coupe");
-     *         _validCarInfo.add("toyota"); _validCarInfo.add("trueno");
-     *         _validCarInfo.add("white"); _validCarInfo.add("1986"); return
-     *         _validCarInfo; }
+     * Tests to see if getPickupDatabaseAsString returns an empty string for an empty pickup database.
      */
-
-    /**
-     * Helper function to generate valid driver info.
-     * 
-     * @return An ArrayList of Strings containing valid driver info.
-     */
-    private ArrayList<String> createValidDriverInfo() {
-        ArrayList<String> _validDriverInfo = new ArrayList<String>();
-        _validDriverInfo.add("driver");
-        _validDriverInfo.add("Mark");
-        _validDriverInfo.add("Constantine");
-        _validDriverInfo.add("male");
-        _validDriverInfo.add("21");
-        return _validDriverInfo;
+    @Test
+    public void testGetPickupDatabaseAsEmptyString() {
+        PickupController _pickupController = new PickupController();
+        
+        assertEquals("Pickup database string should be empty", "", _pickupController.getPickupDatabaseAsString());
     }
-
+    
     /**
-     * Helper function to generate valid customer info.
-     * 
-     * @return An ArrayList of Strings containing valid customer info.
+     * Tests to see if a null pickup does NOT get stored in the pickup database.
      */
-    private ArrayList<String> createValidCustomerInfo() {
-        ArrayList<String> _validCustomerInfo = new ArrayList<String>();
-        _validCustomerInfo.add("customer");
-        _validCustomerInfo.add("Pete");
-        _validCustomerInfo.add("Tanthmanatham");
-        _validCustomerInfo.add("male");
-        _validCustomerInfo.add("21");
-        return _validCustomerInfo;
+    @Test
+    public void testStoreNullPickupInDatabase() {
+        PickupController _pickupController = new PickupController();
+        
+        // Should not store null into database.
+        _pickupController.storePickupInDatabase(null);
+        
+        assertEquals("Pickup database string should be empty", "", _pickupController.getPickupDatabaseAsString());
     }
-
+    
+    // ==========================================================================================
+    // Helper Functions
+    
     /**
      * Helper function to generate valid pickup info.
      * 
@@ -180,19 +239,5 @@ public class PickupControllerTest {
         _validPickupInfo.add("36.0041386");
         _validPickupInfo.add("-115.1412292");
         return _validPickupInfo;
-    }
-
-    /**
-     * Helper function to generate invalid pickup info.
-     * 
-     * @return An ArrayList of Strings containing invalid pickup info.
-     */
-    private ArrayList<String> createInvalidPickupInfo() {
-        ArrayList<String> _invalidPickupInfo = new ArrayList<String>();
-        _invalidPickupInfo.add("1");
-        _invalidPickupInfo.add("2");
-        _invalidPickupInfo.add("150.11");
-        _invalidPickupInfo.add("180.32");
-        return _invalidPickupInfo;
     }
 }

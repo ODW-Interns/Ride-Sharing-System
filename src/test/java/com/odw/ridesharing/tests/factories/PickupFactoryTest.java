@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import com.odw.ridesharing.exceptions.InvalidPickupArgumentsException;
 import com.odw.ridesharing.factories.PickupFactory;
 import com.odw.ridesharing.model.Customer;
 import com.odw.ridesharing.model.Pickup;
@@ -17,7 +18,7 @@ public class PickupFactoryTest {
      * Tests PickupFactory's createPickup method. Ensures that the proper a valid pickup is being generated.
      */
     @Test
-    public void testBuildPickup() {
+    public void testBuildValidPickup() {
         PickupFactory _pickupFactory = new PickupFactory();
         
         // ---------------------------------------------
@@ -49,7 +50,23 @@ public class PickupFactoryTest {
         } catch (Exception e_) {
             fail("Error creating a valid pickup.");
         }
+    }
+    
+    /**
+     * 
+     */
+    @Test
+    public void testBuildPickupWithNullCustomer() {
+        PickupFactory _pickupFactory = new PickupFactory();
         
+        // ---------------------------------------------
+        // Attempting to create a pickup with a null customer.
+        try {
+            @SuppressWarnings("unused")
+            Pickup _firstPickup = _pickupFactory.buildPickup(0.d, 0.d, 0.d, 0.d, null);
+        } catch (InvalidPickupArgumentsException expected_) {
+            
+        }
     }
     
 }

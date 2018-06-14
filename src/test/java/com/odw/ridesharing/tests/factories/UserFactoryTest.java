@@ -105,7 +105,7 @@ public class UserFactoryTest {
     		
     		@SuppressWarnings("unused")
     		AbstractUser _nullFirstNameCustomer = _userFactory.buildUser(_userType, _firstName, _lastName, _sex, _age);
-    		fail("Built a user with null first name.");
+    		fail("Built a customer user with null first name.");
     	}
     	catch (InvalidUserArgumentsException e_) {
     		// Execution SHOULD reach inside the catch statement.
@@ -131,7 +131,7 @@ public class UserFactoryTest {
     		
     		@SuppressWarnings("unused")
     		AbstractUser _emptyFirstNameCustomer = _userFactory.buildUser(_userType, _firstName, _lastName, _sex, _age);
-    		fail("Built a user with empty first name.");
+    		fail("Built a customer user with empty first name.");
     	}
     	catch (InvalidUserArgumentsException e_) {
     		// Execution SHOULD reach inside the catch statement.
@@ -157,7 +157,7 @@ public class UserFactoryTest {
     		
     		@SuppressWarnings("unused")
     		AbstractUser _nullLastNameCustomer = _userFactory.buildUser(_userType, _firstName, _lastName, _sex, _age);
-    		fail("Built a user with null last name without issue.");
+    		fail("Built a customer user with null last name without issue.");
     	}
     	catch (InvalidUserArgumentsException e_) {
     		// Execution SHOULD reach inside the catch statement.
@@ -183,7 +183,7 @@ public class UserFactoryTest {
     		
     		@SuppressWarnings("unused")
     		AbstractUser _EmptyLastNameCustomer = _userFactory.buildUser(_userType, _firstName, _lastName, _sex, _age);
-    		fail("Built a user with empty first name without issue.");
+    		fail("Built a customer user with empty first name without issue.");
     	}
     	catch (InvalidUserArgumentsException e_) {
     		// Execution SHOULD reach inside the catch statement.
@@ -209,7 +209,7 @@ public class UserFactoryTest {
     		
     		@SuppressWarnings("unused")
     		AbstractUser _nullSexCustomer = _userFactory.buildUser(_userType, _firstName, _lastName, _sex, _age);
-    		fail("Built a user with null sex without issue.");
+    		fail("Built a customer user with null sex without issue.");
     	}
     	catch (InvalidUserArgumentsException e_) {
     		// Execution SHOULD reach inside the catch statement.
@@ -235,7 +235,7 @@ public class UserFactoryTest {
     		
     		@SuppressWarnings("unused")
     		AbstractUser _emptySexCustomer = _userFactory.buildUser(_userType, _firstName, _lastName, _sex, _age);
-    		fail("Built a user with empty sex without issue.");
+    		fail("Built a customer user with empty sex without issue.");
     	}
     	catch (InvalidUserArgumentsException e_) {
     		// Execution SHOULD reach inside the catch statement.
@@ -261,7 +261,189 @@ public class UserFactoryTest {
     		
     		@SuppressWarnings("unused")
     		AbstractUser _invalidAgeCustomer = _userFactory.buildUser(_userType, _firstName, _lastName, _sex, _age);
-    		fail("Built a user with invalid age without issue.");
+    		fail("Built a customer user with invalid age without issue.");
+    	}
+    	catch (InvalidUserArgumentsException e_) {
+    		// Execution SHOULD reach inside the catch statement.
+    	}
+    	catch (IllegalArgumentException e_) {
+    		
+    	}
+    }
+    
+    /**
+     * Test to create an invalid driver with a null first name input.
+     */
+    @Test
+    public void testDriverNullFirstNameInput() {
+    	UserFactory _userFactory = new UserFactory();
+    	
+    	try {
+    		UserType _userType = UserType.valueOf("driver".toUpperCase());
+    		String _firstName = null;
+    		String _lastName = "Empty";
+    		String _sex = "sure";
+    		int _age = 34;
+    		
+    		@SuppressWarnings("unused")
+    		AbstractUser _nullFirstNameDriver = _userFactory.buildUser(_userType, _firstName, _lastName, _sex, _age);
+    		fail("Built a driver user with null first name.");
+    	}
+    	catch (InvalidUserArgumentsException e_) {
+    		// Execution SHOULD reach inside the catch statement.
+    	}
+    	catch (IllegalArgumentException e_) {
+    		
+    	}
+    }
+    
+    /**
+     * Test to create an invalid driver with a empty first name input.
+     */
+    @Test
+    public void testDriverEmptyFirstNameInput() {
+    	UserFactory _userFactory = new UserFactory();
+    	
+    	try {
+    		UserType _userType = UserType.valueOf("driver".toUpperCase());
+    		String _firstName = "";
+    		String _lastName = "Empty";
+    		String _sex = "sure";
+    		int _age = 34;
+    		
+    		@SuppressWarnings("unused")
+    		AbstractUser _emptyFirstNameDriver = _userFactory.buildUser(_userType, _firstName, _lastName, _sex, _age);
+    		fail("Built a driver user with empty first name.");
+    	}
+    	catch (InvalidUserArgumentsException e_) {
+    		// Execution SHOULD reach inside the catch statement.
+    	}
+    	catch (IllegalArgumentException e_) {
+    		
+    	}
+    }
+    
+    /**
+     * Test to create an invalid driver with a null last name input.
+     */
+    @Test
+    public void testDriverNullLastNameInput() {
+    	UserFactory _userFactory = new UserFactory();
+    	
+    	try {
+    		UserType _userType = UserType.valueOf("driver".toUpperCase());
+    		String _firstName = "Nullson";
+    		String _lastName = null;
+    		String _sex = "sure";
+    		int _age = 34;
+    		
+    		@SuppressWarnings("unused")
+    		AbstractUser _nullLastNameDriver = _userFactory.buildUser(_userType, _firstName, _lastName, _sex, _age);
+    		fail("Built a driver user with null last name without issue.");
+    	}
+    	catch (InvalidUserArgumentsException e_) {
+    		// Execution SHOULD reach inside the catch statement.
+    	}
+    	catch (IllegalArgumentException e_) {
+    		
+    	}
+    }
+    
+    /**
+     * Test to create an invalid driver with a empty last name input.
+     */
+    @Test
+    public void testDriverEmptyLastNameInput() {
+    	UserFactory _userFactory = new UserFactory();
+    	
+    	try {
+    		UserType _userType = UserType.valueOf("driver".toUpperCase());
+    		String _firstName = "Nullson";
+    		String _lastName = "";
+    		String _sex = "sure";
+    		int _age = 34;
+    		
+    		@SuppressWarnings("unused")
+    		AbstractUser _EmptyLastNameDriver = _userFactory.buildUser(_userType, _firstName, _lastName, _sex, _age);
+    		fail("Built a driver user with empty first name without issue.");
+    	}
+    	catch (InvalidUserArgumentsException e_) {
+    		// Execution SHOULD reach inside the catch statement.
+    	}
+    	catch (IllegalArgumentException e_) {
+    		
+    	}
+    }
+    
+    /**
+     * Test to create an invalid driver with a null sex input.
+     */
+    @Test
+    public void testDriverNullSexInput() {
+    	UserFactory _userFactory = new UserFactory();
+    	
+    	try {
+    		UserType _userType = UserType.valueOf("driver".toUpperCase());
+    		String _firstName = "Great";
+    		String _lastName = "Name";
+    		String _sex = null;
+    		int _age = 34;
+    		
+    		@SuppressWarnings("unused")
+    		AbstractUser _nullSexDriver = _userFactory.buildUser(_userType, _firstName, _lastName, _sex, _age);
+    		fail("Built a driver user with null sex without issue.");
+    	}
+    	catch (InvalidUserArgumentsException e_) {
+    		// Execution SHOULD reach inside the catch statement.
+    	}
+    	catch (IllegalArgumentException e_) {
+    		
+    	}
+    }
+    
+    /**
+     * Test to create an invalid driver with a empty sex input.
+     */
+    @Test
+    public void testDiverEmptySexInput() {
+    	UserFactory _userFactory = new UserFactory();
+    	
+    	try {
+    		UserType _userType = UserType.valueOf("driver".toUpperCase());
+    		String _firstName = "Cool";
+    		String _lastName = "Name";
+    		String _sex = "";
+    		int _age = 34;
+    		
+    		@SuppressWarnings("unused")
+    		AbstractUser _emptySexDriver = _userFactory.buildUser(_userType, _firstName, _lastName, _sex, _age);
+    		fail("Built a driver user with empty sex without issue.");
+    	}
+    	catch (InvalidUserArgumentsException e_) {
+    		// Execution SHOULD reach inside the catch statement.
+    	}
+    	catch (IllegalArgumentException e_) {
+    		
+    	}
+    }
+    
+    /**
+     * Test to create an invalid driver with an input age less than 0.
+     */
+    @Test
+    public void testDriverInvalidAgeInput() {
+    	UserFactory _userFactory = new UserFactory();
+    	
+    	try {
+    		UserType _userType = UserType.valueOf("driver".toUpperCase());
+    		String _firstName = "Awesome";
+    		String _lastName = "Name";
+    		String _sex = "heyo";
+    		int _age = -1;
+    		
+    		@SuppressWarnings("unused")
+    		AbstractUser _invalidAgeCustomer = _userFactory.buildUser(_userType, _firstName, _lastName, _sex, _age);
+    		fail("Built a driver user with invalid age without issue.");
     	}
     	catch (InvalidUserArgumentsException e_) {
     		// Execution SHOULD reach inside the catch statement.

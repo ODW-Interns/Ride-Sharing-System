@@ -41,7 +41,6 @@ public class CarController {
      */
     public AbstractCar createCar(ArrayList<String> typeValues_) throws InvalidCarArgumentsException {
         if (typeValues_.size() == RuntimeConstants.CREATE_CAR_FORMAT.length) {
-            
             try {
                 CarType _carType = CarType.valueOf((typeValues_.get(0).toUpperCase()));
                 String _make = typeValues_.get(1);

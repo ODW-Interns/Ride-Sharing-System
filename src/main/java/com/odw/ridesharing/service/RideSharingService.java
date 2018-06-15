@@ -2,7 +2,7 @@ package com.odw.ridesharing.service;
 
 import com.odw.ridesharing.controllers.CommandController;
 
-public class App {
+public class RideSharingService {
     private CommandController commandController = new CommandController();
     
     public void run(String inputFile_, String outputDirectory_) {

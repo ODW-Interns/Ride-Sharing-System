@@ -9,8 +9,8 @@ import com.odw.ridesharing.model.abstractmodel.AbstractUser;
  */
 public class Driver extends AbstractUser {
     
-    private int carID;
-    private int rating;
+    private int     carID;
+    private int     rating;
     private boolean isAvailable;
     
     public Driver() {
@@ -18,7 +18,7 @@ public class Driver extends AbstractUser {
     }
     
     /**
-     * Store the information of this driver
+     * Creates a Driver with a specified id, first name, last name, sex, and age.
      *
      * @param userID_
      *            Driver's userID
@@ -30,7 +30,6 @@ public class Driver extends AbstractUser {
      *            Driver's sex
      * @param age_
      *            Driver's age
-     * 
      */
     public Driver(int userID_, String firstName_, String lastName_, String sex_, int age_) {
         super(userID_, firstName_, lastName_, sex_, age_);
@@ -48,10 +47,13 @@ public class Driver extends AbstractUser {
      * @return The user information as a String.
      */
     @Override
+    /* @formatter:off */
     public String toString(String delimiter_) {
-        return super.toString(delimiter_) + " " + "CarID: " + getCarID() + " " + delimiter_ + " " + "isAvailable: "
-               + getIsAvailable() + " " + delimiter_;
+        return super.toString(delimiter_) + " "
+               + "CarID: " + getCarID() + " " + delimiter_ + " "
+               + "isAvailable: " + getIsAvailable() + " " + delimiter_;
     }
+    /* @formatter:on */
     
     /**
      * Returns the user's information in String format using pipes ("|") as the default delimiter.

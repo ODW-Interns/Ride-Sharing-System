@@ -26,10 +26,10 @@ import com.odw.ridesharing.service.EventParser;
  */
 public class CommandController {
     
-    private CarController carController = new CarController();
-    private UserController userController = new UserController();
+    private CarController    carController    = new CarController();
+    private UserController   userController   = new UserController();
     private PickupController pickupController = new PickupController();
-    private Logger logger = LoggerFactory.getLogger(CommandController.class);
+    private Logger           logger           = LoggerFactory.getLogger(CommandController.class);
     
     /**
      * Processes a file line-by-line by parsing each line into an event and performing each event. Information is stored

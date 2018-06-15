@@ -53,16 +53,12 @@ public abstract class AbstractCar {
      *            The delimiter used to separate the values.
      * @return The car information as a String separated by the specified delimiter.
      */
-    /* @formatter:off */
+    
     public String toString(String delimiter_) {
-        return delimiter_ + " " +
-               "CarID: " + getCarID() + " " + delimiter_ + " " + 
-               "Maker: " + getMake() + " " + delimiter_ + " " +
-               "Model: " + getModel() + " " + delimiter_ + " " +
-               "Color: " + getColor() + " " + delimiter_ + " " +
-               "Year: " + getYear() + " " + delimiter_ + " ";
+        return delimiter_ + " " + "CarID: " + getCarID() + " " + delimiter_ + " " + "Maker: " + getMake() + " "
+               + delimiter_ + " " + "Model: " + getModel() + " " + delimiter_ + " " + "Color: " + getColor() + " "
+               + delimiter_ + " " + "Year: " + getYear() + " " + delimiter_ + " ";
     }
-    /* @formatter:on */
     
     /**
      * Returns the car's information in String format using pipes ("|") as the default delimiter.

@@ -13,11 +13,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public abstract class AbstractUser {
     
-    protected int userID;
+    protected int    userID;
     protected String firstName;
     protected String lastName;
     protected String sex;
-    protected int age;
+    protected int    age;
     
     public AbstractUser() {
         this(-1, "", "", "", -1);
@@ -55,12 +55,12 @@ public abstract class AbstractUser {
      */
     /* @formatter:off */
     public String toString(String delimiter_) {
-        return delimiter_ + " " +
-               "UserID: " + getUserID() + " " + delimiter_ + " " +
-               "First Name: " + getFirstName() + " " + delimiter_ + " " + 
-               "Last Name: " + getLastName() + " " + delimiter_ + " " +
-               "Sex: " + getSex() + " " + delimiter_ + " " +
-               "Age: " + getAge() + " " + delimiter_;
+        return delimiter_ + " " 
+               + "UserID: " + getUserID() + " " + delimiter_ + " "
+               + "First Name: " + getFirstName() + " " + delimiter_ + " "
+               + "Last Name: " + getLastName() + " " + delimiter_ + " "
+               + "Sex: " + getSex() + " " + delimiter_ + " "
+               + "Age: " + getAge() + " " + delimiter_;
     }
     /* @formatter:on */
     

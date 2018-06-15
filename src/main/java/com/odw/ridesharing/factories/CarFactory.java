@@ -64,7 +64,8 @@ public class CarFactory {
             throw new InvalidCarArgumentsException("Invalid arguments, bad make. Value passed: "
                                                    + (make_ == null ? "NULL" : make_));
         }
-        
+
+        // Create a concrete implementation of Car based on carType_ input.
         switch (carType_) {
             case COUPE:
                 return new Coupe(nextCarID++, make_, model_, color_, year_);

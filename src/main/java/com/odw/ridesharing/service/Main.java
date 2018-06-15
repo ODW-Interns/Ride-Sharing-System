@@ -11,7 +11,7 @@ public class Main {
      * The application starts here.
      */
     public static void main(String[] args_) {
-        App app = new App();
+        RideSharingService app = new RideSharingService();
         
         if (args_.length == 1) {
             // Unspecified output directory.

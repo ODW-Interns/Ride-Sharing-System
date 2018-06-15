@@ -10,23 +10,23 @@ import com.odw.ridesharing.model.abstractmodel.AbstractCar;
 public class Sedan extends AbstractCar {
 
     /**
-     * Creates a default, empty sedan.
+     * Creates a default, empty Sedan.
      */
     public Sedan() {
         this(-1, "", "", "", -1);
     }
     
     /**
-     * Creates a new sedan based on the given make, model, color, and year.
+     * Creates a new Sedan based on the given make, model, color, and year.
      * 
      * @param make_
-     *            The sedan's current maker.
+     *            The Sedan's current maker.
      * @param model_
-     *            The sedan's current model.
+     *            The Sedan's current model.
      * @param color_
-     *            The sedan's current color.
+     *            The Sedan's current color.
      * @param year_
-     *            The sedan model's year.
+     *            The Sedan model's year.
      */
     public Sedan(int carID_, String make_, String model_, String color_, int year_) {
         super(carID_, make_, model_, color_, year_);

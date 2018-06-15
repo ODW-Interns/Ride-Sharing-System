@@ -51,7 +51,7 @@ public class UserFactory {
             throw new InvalidUserArgumentsException("Bad age. Value passed: " + Integer.toString(age_));
         }
         
-        // Create a concrete implementation of User based on userType input.
+        // Create a concrete implementation of User based on userType_ input.
         switch (userType_) {
             case CUSTOMER:
                 return new Customer(nextUserID++, firstName_, lastName_, sex_, age_);

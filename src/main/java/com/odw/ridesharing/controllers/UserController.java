@@ -151,8 +151,7 @@ public class UserController {
             for (Map.Entry<Integer, AbstractUser> _entry : userDatabase.entrySet()) {
                 AbstractUser _currentUser = _entry.getValue();
                 if (_currentUser instanceof Driver) {
-                    Driver _currentDriver = (Driver) _currentUser;
-                    _result.append(System.lineSeparator() + _currentDriver.toString());
+                    _result.append(System.lineSeparator() + ((Driver) _currentUser).toString());
                 } else {
                     _result.append(System.lineSeparator() + _currentUser.toString());
                 }

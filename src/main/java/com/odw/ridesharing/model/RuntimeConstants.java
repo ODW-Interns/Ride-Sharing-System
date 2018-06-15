@@ -29,6 +29,9 @@ public class RuntimeConstants {
     public static final String USD_CURRENCY_CODE = "USD";
     public static final double CHARGE_RATE_PER_MILE = 1.25d;
     public static final double FLAT_RATE_FEE = 5.d;
+    
+    // Used in Location.java
+    public static final double STATUTE_MILES_PER_NAUTICAL_MILE = 1.15077945d;
 
     // The minimum event instruction length needed to process an event.
     public static final int MINIMUM_EVENT_LENGTH = 3;

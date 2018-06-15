@@ -39,7 +39,6 @@ public class CarController {
      * @return _car To be used for logger
      * @throws InvalidCarArgumentsException
      */
-    
     public AbstractCar createCar(ArrayList<String> typeValues_) throws InvalidCarArgumentsException {
         if (typeValues_.size() == RuntimeConstants.CREATE_CAR_FORMAT.length) {
             

@@ -29,7 +29,7 @@ public class CommandController {
     private CarController    carController    = new CarController();
     private UserController   userController   = new UserController();
     private PickupController pickupController = new PickupController();
-    private Logger           logger           = LoggerFactory.getLogger(CommandController.class);
+    private Logger logger = LoggerFactory.getLogger(CommandController.class);
     
     /**
      * Processes a file line-by-line by parsing each line into an event and performing each event. Information is stored
@@ -199,7 +199,8 @@ public class CommandController {
                 }
                 break;
             default:
-                logger.error("ERROR PROCESSING INPUT_TYPE: \"{}\" is not a valid input type.", event_.getInputType());
+                logger.error("ERROR PROCESSING CREATE INPUT_TYPE: \"{}\" is not a valid input type.",
+                             event_.getInputType());
                 break;
         }
     }
@@ -270,7 +271,8 @@ public class CommandController {
              */
             // -----------------------
             default:
-                logger.error("ERROR PROCESSING INPUT_TYPE: \"{}\" is not a valid input type.", event_.getInputType());
+                logger.error("ERROR PROCESSING MODIFY INPUT_TYPE: \"{}\" is not a valid input type.",
+                             event_.getInputType());
                 break;
         }
     }
@@ -310,7 +312,8 @@ public class CommandController {
                 }
                 break;
             default:
-                logger.error("ERROR PROCESSING INPUT_TYPE: \"{}\" is not a valid input type.", event_.getInputType());
+                logger.error("ERROR PROCESSING DELETE INPUT_TYPE: \"{}\" is not a valid input type .",
+                             event_.getInputType());
                 break;
         }
     }

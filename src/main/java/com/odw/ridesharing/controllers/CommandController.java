@@ -61,8 +61,6 @@ public class CommandController {
             logger.debug("FINAL CAR DATABASE: " + "{}", carController.getCarDatabaseAsString());
             logger.debug("FINAL USER DATABASE: " + "{}", userController.getUserDatabaseAsString());
             logger.debug("FINAL PICKUP HISTORY: " + "{}", pickupController.getPickupDatabaseAsString());
-        } catch (FileNotFoundException e_) {
-            logger.error("ERROR READING FILE: {}", e_.getMessage());
         } catch (IOException e_) {
             logger.error("ERROR READING FILE: {}", e_.getMessage());
         }

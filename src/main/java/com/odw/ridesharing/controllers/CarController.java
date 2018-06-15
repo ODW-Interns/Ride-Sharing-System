@@ -160,7 +160,7 @@ public class CarController {
             }
         }
         
-        throw new InvalidCarArgumentsException("Invalid number of arguments for delete car." + "Expected: "
+        throw new InvalidCarArgumentsException("Invalid number of arguments for delete car. " + "Expected: "
                                                + RuntimeConstants.DELETE_CAR_FORMAT.length + ", Actual: "
                                                + typeValues_.size());
     }

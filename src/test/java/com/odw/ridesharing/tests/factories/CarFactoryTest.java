@@ -115,10 +115,10 @@ public class CarFactoryTest {
 
 	/**
 	 * Tests CarFactory's createCar method. Ensures that the invalid car is not
-	 * being generated when make is invalid.
+	 * being generated when make is empty.
 	 */
 	@Test
-	public void testCreateInvalidCarMake() {
+	public void testCreateEmptyCarMake() {
 		CarFactory _carFactory = new CarFactory();
 
 		CarType _carType = CarType.valueOf(("coupe".toUpperCase()));
@@ -150,10 +150,35 @@ public class CarFactoryTest {
 
 	/**
 	 * Tests CarFactory's createCar method. Ensures that the invalid car is not
-	 * being generated when model is invalid.
+	 * being generated when make is null.
 	 */
 	@Test
-	public void testCreateInvalidCarModel() {
+	public void testCreateNullCarMake() {
+		CarFactory _carFactory = new CarFactory();
+
+		CarType _carType = CarType.valueOf(("coupe".toUpperCase()));
+		String _make = null;
+		String _model = "invalid_model";
+		String _color = "invalid_color";
+		int _year = 1990;
+
+		// ---------------------------------------------
+		// Creating a null make car.
+		try {
+			@SuppressWarnings("unused")
+			AbstractCar _unknown = _carFactory.buildCar(_carType, _make, _model, _color, _year);
+
+			fail("Successfully created an invalid car (should not work).");
+		} catch (Exception expected_) {
+		}
+	}
+
+	/**
+	 * Tests CarFactory's createCar method. Ensures that the invalid car is not
+	 * being generated when model is empty.
+	 */
+	@Test
+	public void testCreateEmptyCarModel() {
 		CarFactory _carFactory = new CarFactory();
 
 		CarType _carType = CarType.valueOf(("coupe".toUpperCase()));
@@ -172,23 +197,40 @@ public class CarFactoryTest {
 		} catch (Exception expected_) {
 		}
 
-		// ---------------------------------------------
-		// Creating an null model car.
-		try {
-			@SuppressWarnings("unused")
-			AbstractCar _unknown = _carFactory.buildCar(_carType, _make, null, _color, _year);
-
-			fail("Successfully created an invalid car (should not work).");
-		} catch (Exception expected_) {
-		}
 	}
 
 	/**
 	 * Tests CarFactory's createCar method. Ensures that the invalid car is not
-	 * being generated when color is invalid.
+	 * being generated when model is null.
 	 */
 	@Test
-	public void testCreateInvalidCarColor() {
+	public void testCreateNullCarModel() {
+		CarFactory _carFactory = new CarFactory();
+
+		CarType _carType = CarType.valueOf(("coupe".toUpperCase()));
+		String _make = "BMW";
+		String _model = null;
+		String _color = "invalid_color";
+		int _year = 1999;
+
+		// ---------------------------------------------
+		// Creating an null model car.
+		try {
+			@SuppressWarnings("unused")
+			AbstractCar _unknown = _carFactory.buildCar(_carType, _make, _model, _color, _year);
+
+			fail("Successfully created an invalid car (should not work).");
+		} catch (Exception expected_) {
+		}
+
+	}
+
+	/**
+	 * Tests CarFactory's createCar method. Ensures that the invalid car is not
+	 * being generated when color is empty.
+	 */
+	@Test
+	public void testCreateEmptyCarColor() {
 		CarFactory _carFactory = new CarFactory();
 
 		CarType _carType = CarType.valueOf(("coupe".toUpperCase()));
@@ -205,24 +247,42 @@ public class CarFactoryTest {
 
 			fail("Successfully created an invalid car (should not work).");
 		} catch (Exception expected_) {
-		}
-		// ---------------------------------------------
-		// Creating an null color car.
-		try {
-			@SuppressWarnings("unused")
-			AbstractCar _unknown = _carFactory.buildCar(_carType, _make, _model, null, _year);
 
-			fail("Successfully created an invalid car (should not work).");
-		} catch (Exception expected_) {
 		}
 	}
 
 	/**
 	 * Tests CarFactory's createCar method. Ensures that the invalid car is not
-	 * being generated when make is invalid.
+	 * being generated when color is null.
 	 */
 	@Test
-	public void testCreateInvalidCarYear() {
+	public void testCreateNullCarColor() {
+		CarFactory _carFactory = new CarFactory();
+
+		CarType _carType = CarType.valueOf(("coupe".toUpperCase()));
+		String _make = "BMW";
+		String _model = "Z4";
+		String _color = null;
+		int _year = 1990;
+
+		// ---------------------------------------------
+		// Creating an empty color car.
+		try {
+			@SuppressWarnings("unused")
+			AbstractCar _unknown = _carFactory.buildCar(_carType, _make, _model, _color, _year);
+
+			fail("Successfully created an invalid car (should not work).");
+		} catch (Exception expected_) {
+
+		}
+	}
+
+	/**
+	 * Tests CarFactory's createCar method. Ensures that the invalid car is not
+	 * being generated when year is in the future.
+	 */
+	@Test
+	public void testCreateFutureCarYear() {
 		CarFactory _carFactory = new CarFactory();
 
 		CarType _carType = CarType.valueOf(("coupe".toUpperCase()));
@@ -236,20 +296,36 @@ public class CarFactoryTest {
 		try {
 			@SuppressWarnings("unused")
 			AbstractCar _unknown = _carFactory.buildCar(_carType, _make, _model, _color, _year);
-
 			fail("Successfully created an invalid car (should not work).");
 		} catch (Exception expected_) {
+
 		}
+
+	}
+
+	/**
+	 * Tests CarFactory's createCar method. Ensures that the invalid car is not
+	 * being generated when year is in the past before car is invented.
+	 */
+	@Test
+	public void testCreatePastCarYear() {
+		CarFactory _carFactory = new CarFactory();
+
+		CarType _carType = CarType.valueOf(("coupe".toUpperCase()));
+		String _make = "BMW";
+		String _model = "Z4";
+		String _color = "black";
+		int _year = 1800;
+
 		// ---------------------------------------------
 		// Creating past year.
-		_year = 1800;
+
 		try {
 			@SuppressWarnings("unused")
-
 			AbstractCar _unknown = _carFactory.buildCar(_carType, _make, _model, _color, _year);
-
 			fail("Successfully created an invalid car (should not work).");
 		} catch (Exception expected_) {
+
 		}
 	}
 }

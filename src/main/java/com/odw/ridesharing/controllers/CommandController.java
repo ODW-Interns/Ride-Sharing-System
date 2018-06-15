@@ -58,9 +58,9 @@ public class CommandController {
             }
             
             // File reading complete. Print out the database.
-            logger.debug("FINAL CAR DATABASE" + "{}", carController.getCarDatabaseAsString());
-            logger.debug("FINAL USER DATABASE" + "{}", userController.getUserDatabaseAsString());
-            logger.debug("FINAL PICKUP HISTORY" + "{}", pickupController.getPickupDatabaseAsString());
+            logger.debug("FINAL CAR DATABASE: " + "{}", carController.getCarDatabaseAsString());
+            logger.debug("FINAL USER DATABASE: " + "{}", userController.getUserDatabaseAsString());
+            logger.debug("FINAL PICKUP HISTORY: " + "{}", pickupController.getPickupDatabaseAsString());
         } catch (FileNotFoundException e_) {
             logger.error("ERROR READING FILE: {}", e_.getMessage());
         } catch (IOException e_) {

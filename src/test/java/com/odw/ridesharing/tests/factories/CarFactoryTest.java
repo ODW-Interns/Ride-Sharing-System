@@ -128,10 +128,20 @@ public class CarFactoryTest {
 		int _year = 1990;
 
 		// ---------------------------------------------
-		// Creating a invalid car.
+		// Creating an empty make car.
 		try {
 			@SuppressWarnings("unused")
 			AbstractCar _unknown = _carFactory.buildCar(_carType, _make, _model, _color, _year);
+
+			fail("Successfully created an invalid car (should not work).");
+		} catch (Exception expected_) {
+		}
+
+		// ---------------------------------------------
+		// Creating a null make car.
+		try {
+			@SuppressWarnings("unused")
+			AbstractCar _unknown = _carFactory.buildCar(_carType, null, _model, _color, _year);
 
 			fail("Successfully created an invalid car (should not work).");
 		} catch (Exception expected_) {
@@ -153,10 +163,20 @@ public class CarFactoryTest {
 		int _year = 1999;
 
 		// ---------------------------------------------
-		// Creating a invalid car.
+		// Creating an empty model car.
 		try {
 			@SuppressWarnings("unused")
 			AbstractCar _unknown = _carFactory.buildCar(_carType, _make, _model, _color, _year);
+
+			fail("Successfully created an invalid car (should not work).");
+		} catch (Exception expected_) {
+		}
+
+		// ---------------------------------------------
+		// Creating an null model car.
+		try {
+			@SuppressWarnings("unused")
+			AbstractCar _unknown = _carFactory.buildCar(_carType, _make, null, _color, _year);
 
 			fail("Successfully created an invalid car (should not work).");
 		} catch (Exception expected_) {
@@ -178,10 +198,19 @@ public class CarFactoryTest {
 		int _year = 1990;
 
 		// ---------------------------------------------
-		// Creating a invalid car.
+		// Creating an empty color car.
 		try {
 			@SuppressWarnings("unused")
 			AbstractCar _unknown = _carFactory.buildCar(_carType, _make, _model, _color, _year);
+
+			fail("Successfully created an invalid car (should not work).");
+		} catch (Exception expected_) {
+		}
+		// ---------------------------------------------
+		// Creating an null color car.
+		try {
+			@SuppressWarnings("unused")
+			AbstractCar _unknown = _carFactory.buildCar(_carType, _make, _model, null, _year);
 
 			fail("Successfully created an invalid car (should not work).");
 		} catch (Exception expected_) {
@@ -203,9 +232,20 @@ public class CarFactoryTest {
 		int _year = 19900;
 
 		// ---------------------------------------------
-		// Creating a invalid car.
+		// Creating a future year.
 		try {
 			@SuppressWarnings("unused")
+			AbstractCar _unknown = _carFactory.buildCar(_carType, _make, _model, _color, _year);
+
+			fail("Successfully created an invalid car (should not work).");
+		} catch (Exception expected_) {
+		}
+		// ---------------------------------------------
+		// Creating past year.
+		_year = 1800;
+		try {
+			@SuppressWarnings("unused")
+
 			AbstractCar _unknown = _carFactory.buildCar(_carType, _make, _model, _color, _year);
 
 			fail("Successfully created an invalid car (should not work).");

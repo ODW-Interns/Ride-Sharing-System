@@ -25,7 +25,7 @@
 					<archive>
 						<manifest>
 							<mainClass>
-								com.odw.ridesharing.service.Main
+								com.odw.ridesharing.service.RideSharingService
 							</mainClass>
 						</manifest>
 					</archive>

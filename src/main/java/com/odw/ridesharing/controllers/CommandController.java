@@ -96,6 +96,7 @@ public class CommandController {
             File userDatabaseOutputFile = new File(outputDirectory_ + "user-database.xml");
             File pickupDatabaseOutputFile = new File(outputDirectory_ + "pickup-database.xml");
             
+            // The controllers contain the databases as ConcurrentHashMaps.
             JAXBContext jaxbContext = JAXBContext.newInstance(CarController.class,
                                                               UserController.class,
                                                               PickupController.class);
@@ -184,6 +185,7 @@ public class CommandController {
                     // Driver available for the pickup. Null if no available drivers.
                     Driver _availableDriver = userController.getNextAvailableDriver();
                     
+                    // CannotSchedulePickupException if a pickup cannot be scheduled.
                     Pickup _scheduledPickup = pickupController.schedulePickup(_createdPickup, _availableDriver);
                     
                     if (_scheduledPickup != null) {

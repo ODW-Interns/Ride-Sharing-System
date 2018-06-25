@@ -55,6 +55,9 @@ public class Pickup {
         setOrigin(origin_);
         setDestination(destination_);
         
+        // Driver should be assigned by the PickupScheduler.
+        setDriver(null);
+        
         pickupCost = Money.of(0.d, RuntimeConstants.USD_CURRENCY_CODE);
     }
     

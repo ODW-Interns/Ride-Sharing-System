@@ -13,9 +13,21 @@ import javax.xml.bind.Marshaller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.odw.ridesharing.exceptions.*;
-import com.odw.ridesharing.model.*;
-import com.odw.ridesharing.model.abstractmodel.*;
+import com.odw.ridesharing.exceptions.CannotSchedulePickupException;
+import com.odw.ridesharing.exceptions.CarNotFoundException;
+import com.odw.ridesharing.exceptions.CustomerNotFoundException;
+import com.odw.ridesharing.exceptions.InvalidCarArgumentsException;
+import com.odw.ridesharing.exceptions.InvalidEventException;
+import com.odw.ridesharing.exceptions.InvalidPickupArgumentsException;
+import com.odw.ridesharing.exceptions.InvalidUserArgumentsException;
+import com.odw.ridesharing.model.Customer;
+import com.odw.ridesharing.model.Driver;
+import com.odw.ridesharing.model.Event;
+import com.odw.ridesharing.model.Pickup;
+import com.odw.ridesharing.model.RuntimeConstants;
+import com.odw.ridesharing.model.UserType;
+import com.odw.ridesharing.model.abstractmodel.AbstractCar;
+import com.odw.ridesharing.model.abstractmodel.AbstractUser;
 import com.odw.ridesharing.service.EventParser;
 
 /**
@@ -28,7 +40,7 @@ public class CommandController {
     private CarController    carController    = new CarController();
     private UserController   userController   = new UserController();
     private PickupController pickupController = new PickupController();
-    private Logger logger = LoggerFactory.getLogger(CommandController.class);
+    private Logger           logger           = LoggerFactory.getLogger(CommandController.class);
     
     /**
      * Processes a file line-by-line by parsing each line into an event and performing each event. Information is stored
@@ -85,11 +97,9 @@ public class CommandController {
             File userDatabaseOutputFile = new File(outputDirectory_ + "user-database.xml");
             File pickupDatabaseOutputFile = new File(outputDirectory_ + "pickup-database.xml");
             
-            /* @formatter:off */
             JAXBContext jaxbContext = JAXBContext.newInstance(CarController.class,
                                                               UserController.class,
                                                               PickupController.class);
-            /* @formatter:on */
             
             Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
             jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);

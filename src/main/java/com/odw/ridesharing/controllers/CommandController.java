@@ -61,10 +61,9 @@ public class CommandController {
             String _nextLine = null;
             while ((_nextLine = _inputReader.readLine()) != null) {
                 try {
-                    Event _nextEvent = _eventParser.parseEvent(_nextLine, delimiter_);
-                    processEvent(_nextEvent);
+                    processEvent(_eventParser.parseEvent(_nextLine, delimiter_));
                 } catch (InvalidEventException e_) {
-                    logger.error("ERROR PARSING EVENT = \"{}\"", _nextLine);
+                    logger.error("ERROR PARSING EVENT: {}", e_.getMessage());
                 }
             }
             

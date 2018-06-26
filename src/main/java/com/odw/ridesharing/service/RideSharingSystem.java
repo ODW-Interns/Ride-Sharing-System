@@ -10,7 +10,7 @@ public class RideSharingSystem {
      * Application's main entry point.
      * 
      * @param args_
-     *            [TODO]
+     *            Command-line arguments.
      */
     public static void main(String[] args_) {
         RideSharingSystem rideSharingSystem = new RideSharingSystem();

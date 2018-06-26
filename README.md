@@ -28,6 +28,9 @@ Proper data-modeling techniques need to be employed. Abstraction b/w people, car
 2. Ensure the model supports both abstract layers, as well as concrete. Ensure the concrete layers ARE NOT IN THE SAME PLACE (PACKAGE) as the abstraction
 3. I should be able (with an event) to add cars,drivers,customers,pickups,etc.
 
+### Architecture
+![alt text](https://github.com/ODW-Interns/Ride-Sharing-System/blob/master/docs/Architecture.png "Architecture")
+
 
 ### Drivers
 The company (the ride-sharing service) will have a staff of employees (drivers) that it needs to maintain. These employees can cycle on and off (quit and be re-hired) as they see fit.

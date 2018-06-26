@@ -3,7 +3,7 @@ package com.odw.ridesharing.service;
 import com.odw.ridesharing.controllers.CommandController;
 import com.odw.ridesharing.model.RuntimeConstants;
 
-public class RideSharingService {
+public class RideSharingSystem {
     private CommandController commandController = new CommandController();
     
     /**
@@ -13,14 +13,14 @@ public class RideSharingService {
      *            [TODO]
      */
     public static void main(String[] args_) {
-        RideSharingService rideSharingService = new RideSharingService();
+        RideSharingSystem rideSharingSystem = new RideSharingSystem();
         
         if (args_.length == 1) {
             // Unspecified output directory.
-            rideSharingService.run(args_[0], RuntimeConstants.DEFAULT_OUTPUT_DIRECTORY);
+            rideSharingSystem.run(args_[0], RuntimeConstants.DEFAULT_OUTPUT_DIRECTORY);
         } else if (args_.length == 2) {
             // Specified output directory
-            rideSharingService.run(args_[0], args_[1]);
+            rideSharingSystem.run(args_[0], args_[1]);
         } else {
             System.out.println("Usage: java -jar ride-sharing-service-1.0.0.jar [FILE_TO_PROCESS] [(optional) OUTPUT_DIRECTORY]");
         }

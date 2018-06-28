@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.2.2" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
   realizations="true" associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
-  <class id="1" language="java" name="com.odw.ridesharing.controllers.CommandController" project="ride-sharing-system" 
-    file="/ride-sharing-system/src/main/java/com/odw/ridesharing/controllers/CommandController.java" binary="false" 
+  <class id="1" language="java" name="com.odw.ridesharing.controllers.CommandController" project="Ride-Sharing-System" 
+    file="/Ride-Sharing-System/src/main/java/com/odw/ridesharing/controllers/CommandController.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="582" y="102"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -11,8 +11,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="2" language="java" name="com.odw.ridesharing.controllers.CarController" project="ride-sharing-system" 
-    file="/ride-sharing-system/src/main/java/com/odw/ridesharing/controllers/CarController.java" binary="false" 
+  <class id="2" language="java" name="com.odw.ridesharing.controllers.CarController" project="Ride-Sharing-System" 
+    file="/Ride-Sharing-System/src/main/java/com/odw/ridesharing/controllers/CarController.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="218" y="308"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -21,8 +21,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="3" language="java" name="com.odw.ridesharing.controllers.PickupController" project="ride-sharing-system" 
-    file="/ride-sharing-system/src/main/java/com/odw/ridesharing/controllers/PickupController.java" binary="false" 
+  <class id="3" language="java" name="com.odw.ridesharing.controllers.PickupController" project="Ride-Sharing-System" 
+    file="/Ride-Sharing-System/src/main/java/com/odw/ridesharing/controllers/PickupController.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="955" y="341"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -31,8 +31,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="4" language="java" name="com.odw.ridesharing.controllers.UserController" project="ride-sharing-system" 
-    file="/ride-sharing-system/src/main/java/com/odw/ridesharing/controllers/UserController.java" binary="false" 
+  <class id="4" language="java" name="com.odw.ridesharing.controllers.UserController" project="Ride-Sharing-System" 
+    file="/Ride-Sharing-System/src/main/java/com/odw/ridesharing/controllers/UserController.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="578" y="386"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -41,8 +41,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="5" language="java" name="com.odw.ridesharing.factories.CarFactory" project="ride-sharing-system" 
-    file="/ride-sharing-system/src/main/java/com/odw/ridesharing/factories/CarFactory.java" binary="false" 
+  <class id="5" language="java" name="com.odw.ridesharing.factories.CarFactory" project="Ride-Sharing-System" 
+    file="/Ride-Sharing-System/src/main/java/com/odw/ridesharing/factories/CarFactory.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="218" y="612"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -51,8 +51,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="6" language="java" name="com.odw.ridesharing.factories.UserFactory" project="ride-sharing-system" 
-    file="/ride-sharing-system/src/main/java/com/odw/ridesharing/factories/UserFactory.java" binary="false" 
+  <class id="6" language="java" name="com.odw.ridesharing.factories.UserFactory" project="Ride-Sharing-System" 
+    file="/Ride-Sharing-System/src/main/java/com/odw/ridesharing/factories/UserFactory.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="573" y="611"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -61,8 +61,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="7" language="java" name="com.odw.ridesharing.factories.PickupFactory" project="ride-sharing-system" 
-    file="/ride-sharing-system/src/main/java/com/odw/ridesharing/factories/PickupFactory.java" binary="false" 
+  <class id="7" language="java" name="com.odw.ridesharing.factories.PickupFactory" project="Ride-Sharing-System" 
+    file="/Ride-Sharing-System/src/main/java/com/odw/ridesharing/factories/PickupFactory.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="953" y="612"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -71,8 +71,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="8" language="java" name="com.odw.ridesharing.service.PickupScheduler" project="ride-sharing-system" 
-    file="/ride-sharing-system/src/main/java/com/odw/ridesharing/service/PickupScheduler.java" binary="false" 
+  <class id="8" language="java" name="com.odw.ridesharing.service.PickupScheduler" project="Ride-Sharing-System" 
+    file="/Ride-Sharing-System/src/main/java/com/odw/ridesharing/service/PickupScheduler.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1271" y="628"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -81,8 +81,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="9" language="java" name="com.odw.ridesharing.service.RideSharingSystem" project="ride-sharing-system" 
-    file="/ride-sharing-system/src/main/java/com/odw/ridesharing/service/RideSharingSystem.java" binary="false" 
+  <class id="9" language="java" name="com.odw.ridesharing.service.RideSharingSystem" project="Ride-Sharing-System" 
+    file="/Ride-Sharing-System/src/main/java/com/odw/ridesharing/service/RideSharingSystem.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="214" y="83"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -92,27 +92,27 @@
     </display>  
   </class>  
   <association id="10">    
-    <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="11" name="userController">        
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="11" name="pickupScheduler">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
       <multiplicity id="12" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="4" navigable="true"/>    
+    <end type="TARGET" refId="8" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="13">    
-    <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="14" name="pickupController">        
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="14" name="userFactory">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
       <multiplicity id="15" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="3" navigable="true"/>    
+    <end type="TARGET" refId="6" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="16">    
@@ -140,51 +140,51 @@
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="22">    
-    <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="23" name="pickupScheduler">        
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="23" name="pickupController">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
       <multiplicity id="24" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="8" navigable="true"/>    
+    <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="25">    
-    <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="26" name="pickupFactory">        
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="26" name="userController">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
       <multiplicity id="27" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="7" navigable="true"/>    
+    <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="28">    
-    <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="29" name="userFactory">        
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="29" name="carController">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
       <multiplicity id="30" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="6" navigable="true"/>    
+    <end type="TARGET" refId="2" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="31">    
-    <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="32" name="carController">        
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="32" name="pickupFactory">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
       <multiplicity id="33" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="2" navigable="true"/>    
+    <end type="TARGET" refId="7" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 

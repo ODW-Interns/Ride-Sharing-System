@@ -40,6 +40,7 @@ public class CommandController {
     private CarController    carController    = new CarController();
     private UserController   userController   = new UserController();
     private PickupController pickupController = new PickupController();
+    private EventParser      eventParser      = new EventParser();
     private Logger           logger           = LoggerFactory.getLogger(CommandController.class);
     
     /**
@@ -52,7 +53,6 @@ public class CommandController {
      *            The delimiter used in the file to separate values.
      */
     public void processFile(String inputFile_, String delimiter_) {
-        EventParser _eventParser = new EventParser();
         
         try (BufferedReader _inputReader = new BufferedReader(new InputStreamReader(new FileInputStream(inputFile_)))) {
             logger.trace("PROCESSING FILE: {}", inputFile_);
@@ -61,7 +61,7 @@ public class CommandController {
             String _nextLine = null;
             while ((_nextLine = _inputReader.readLine()) != null) {
                 try {
-                    processEvent(_eventParser.parseEvent(_nextLine, delimiter_));
+                    processEvent(eventParser.parseEvent(_nextLine, delimiter_));
                 } catch (InvalidEventException e_) {
                     logger.error("ERROR PARSING EVENT: {}", e_.getMessage());
                 }
@@ -114,6 +114,20 @@ public class CommandController {
             logger.info("EXPORTED DATABASE TO FILE: {}", pickupDatabaseOutputFile.getAbsolutePath());
         } catch (JAXBException e_) {
             logger.error("ERROR MARSHALLING DATABASE: {}", e_.getMessage());
+        }
+    }
+    
+    /**
+     * Processes an event that was given as a string.
+     * 
+     * @param newEvent_
+     *            A string of the event to be processed.
+     */
+    public void processEvent(String newEvent_) {
+        try {
+            processEvent(eventParser.parseEvent(newEvent_, "|"));
+        } catch (InvalidEventException e_) {
+            logger.error("ERROR PARSING EVENT: {}", e_.getMessage());
         }
     }
     
